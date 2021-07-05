@@ -15,5 +15,6 @@ if (MSVC)
 endif()
 
 if (SS_TEST)
+    enable_testing()
     add_subdirectory(${SS_DIR}/test)
 endif()
