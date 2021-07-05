@@ -1,9 +1,11 @@
-//
-// Created by cosge on 2021-07-06.
-//
+# /*
+#  * Created by YongGyu Lee on 2021/07/06.
+#  */
+#
+#ifndef SS_FUNCTIONAL_H_
+#define SS_FUNCTIONAL_H_
 
-#ifndef SS_FUNCTIONAL_H
-#define SS_FUNCTIONAL_H
+#include "ss/utility.h"
 
 namespace ss {
 
@@ -14,4 +16,4 @@ constexpr inline decltype(auto) invoke(Func&&, Args&&... args) {
 
 }
 
-#endif //SS_FUNCTIONAL_H
+#endif // SS_FUNCTIONAL_H_
