@@ -2,7 +2,7 @@
 My own C++ STL implementation for deeper understanding of STL
 
 # Requires: C++11 ~ C++20
-* Intend: Implement most ~ C++2X features from nothing using as low C++ version as possible.
+* Intent: Implement most ~ C++2X features from nothing using as low C++ version as possible.
 
 Code Coverage
 
