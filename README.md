@@ -1,7 +1,7 @@
 # SS
 My own C++ STL implementation for deeper understanding of STL
 
-# Requires: C++14 ~ C++20
+# Requires: C++11 ~ C++20
 * Intend: Implement most ~ C++2X features from nothing using as low C++ version as possible.
 
 Code Coverage
@@ -17,7 +17,7 @@ Code Coverage
 | [initializer_list](https://en.cppreference.com/w/cpp/header/initializer_list) | ![](https://img.shields.io/badge/not_possible-grey) |
 | [tuple](https://en.cppreference.com/w/cpp/header/tuple)             | ![](https://img.shields.io/badge/coverage-0%25-red)     |
 | [any](https://en.cppreference.com/w/cpp/header/any)                 | ![](https://img.shields.io/badge/coverage-0%25-red)     |
-| [optional](https://en.cppreference.com/w/cpp/header/optional)       | ![](https://img.shields.io/badge/coverage-0%25-red)     |
+| [optional](https://en.cppreference.com/w/cpp/header/optional)       | ![](https://img.shields.io/badge/C++11-0%25-red) <br/> ![](https://img.shields.io/badge/C++14-80%25-yellowgreen) <br/> ![](https://img.shields.io/badge/C++17-81%25-yellowgreen) |
 | [variant](https://en.cppreference.com/w/cpp/header/variant)         | ![](https://img.shields.io/badge/coverage-0%25-red)     |
 | [compare](https://en.cppreference.com/w/cpp/header/compare)         | ![](https://img.shields.io/badge/unknown-grey)          |
 | [version](https://en.cppreference.com/w/cpp/header/version)         | ![](https://img.shields.io/badge/unknown-grey)          |
