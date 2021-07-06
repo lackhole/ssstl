@@ -1,6 +1,7 @@
 ## Header <type_traits> implementation status
 
-[Reference](https://en.cppreference.com/w/cpp/header/type_traits)
+[Reference](https://en.cppreference.com/w/cpp/header/type_traits)  
+[Implementation](../ss/include/ss/type_traits.h)
 
 * ![](https://img.shields.io/badge/Impossible-N-red): Cannot implement with language itself. Need compiler support. Used C++ N STL
 * ![](https://img.shields.io/badge/C%2B%2B-N-green): Implemented with C++ N. Same version as STL
