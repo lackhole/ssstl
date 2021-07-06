@@ -16,6 +16,11 @@ My own C++ STL implementation for deeper understanding of STL
 
 | Utilities library                                                   | Status                                                  |
 |---------------------------------------------------------------------|---------------------------------------------------------|
+| [cstdlib](https://en.cppreference.com/w/cpp/header/cstdlib)         | ![](https://img.shields.io/badge/not_possible-grey)     |
+| [csignal](https://en.cppreference.com/w/cpp/header/csignal)         | ![](https://img.shields.io/badge/not_possible-grey)     |
+| [csetjmp](https://en.cppreference.com/w/cpp/header/csetjmp)         | ![](https://img.shields.io/badge/not_possible-grey)     |
+| [cstdarg](https://en.cppreference.com/w/cpp/header/cstdarg)         | ![](https://img.shields.io/badge/not_possible-grey)     |
+| [typeinfo](https://en.cppreference.com/w/cpp/header/typeinfo)       | ![](https://img.shields.io/badge/coverage-0%25-red)     |
 | [typeindex](https://en.cppreference.com/w/cpp/header/typeindex)     | ![](https://img.shields.io/badge/coverage-0%25-red)     |
 | [type_traits](https://en.cppreference.com/w/cpp/header/type_traits) | ![](https://img.shields.io/badge/C++11-50%25-orange) <br/> ![](https://img.shields.io/badge/C++14-50%25-orange) <br/> ![](https://img.shields.io/badge/C++17-50%25-orange)  |
 | [bitset](https://en.cppreference.com/w/cpp/header/bitset)           | ![](https://img.shields.io/badge/coverage-0%25-red)     |
