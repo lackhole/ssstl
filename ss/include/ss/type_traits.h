@@ -1529,6 +1529,46 @@ template<typename T> struct decay {
 };
 template<typename T> using decay_t = typename decay<T>::type;
 
+
+
+/**
+ * common_type
+ * @tparam T
+ */
+template<typename ...T> struct common_type {};
+namespace detail {
+struct empty {};
+
+template<typename T1, typename T2>
+using common_type_ternary = decay_t<decltype(false ? std::declval<T1>() : std::declval<T2>())>;
+
+template<typename T1, typename T2, typename = void>
+struct common_type_test_cxx20 {}; // C++20
+
+template<typename T1, typename T2>
+struct common_type_test_cxx20<
+  T1, T2, void_t<common_type_ternary<const remove_reference_t<T1>&, const remove_reference_t<T2>&>>> {
+  using type = common_type_ternary<const remove_reference_t<T1>&, const remove_reference_t<T2>&>;
+};
+
+template<typename T1, typename T2, typename = void>
+struct common_type_test1 : common_type_test_cxx20<T1, T2> {};
+
+template<typename T1, typename T2>
+struct common_type_test1<T1, T2, void_t<common_type_ternary<T1, T2>>> {
+  using type = decay_t<decltype(false ? std::declval<T1>() : std::declval<T2>())>;
+};
+} // namespace detail
+
+template<typename T> struct common_type<T> : common_type<T, T> {};
+template<typename T1, typename T2>
+struct common_type<T1, T2> : detail::common_type_test1<decay_t<T1>, decay_t<T2>> {};
+template<typename T1, typename T2, typename ...Ts>
+struct common_type<T1, T2, Ts...> : common_type<typename common_type<T1, T2>::type, Ts...> {};
+
+template<typename ...T>
+using common_type_t = typename common_type<T...>::type;
+
 namespace detail {
 
 template<typename T, typename U> struct restore_cv                      { using type = U;                 };
