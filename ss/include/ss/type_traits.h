@@ -238,6 +238,28 @@ template<bool b, typename If, typename Then> using conditional_t = typename cond
 
 
 /**
+ * multi_conditional
+ * @tparam B    traits
+ * @tparam If
+ * @tparam ElseIf
+ * @tparam ...
+ */
+template<typename B, typename If, typename ElseIf, typename ...>
+struct multi_conditional;
+template<typename B, typename If, typename Else>
+struct multi_conditional<B, If, Else> : conditional_t<bool(B::value), If, Else> {};
+template<typename B1, typename If, typename B2, typename ElseIf, typename ...Else>
+struct multi_conditional<B1, If, B2, ElseIf, Else...>
+  : conditional_t<!bool(B1::value),
+                  multi_conditional<B2, ElseIf, Else...>,
+                  If> {};
+
+template<typename B, typename If, typename ElseIf, typename ...C>
+using multi_conditional_t = typename multi_conditional<B, If, ElseIf, C...>::type;
+
+
+
+/**
  * is_const
  * @tparam T
  */
@@ -1593,7 +1615,7 @@ struct type_list<T, Args...> {
 
 template<typename List>
 struct is_list_end {
-  static constexpr bool value = std::is_same<unused, typename List::next>::value;
+  static constexpr bool value = is_same<unused, typename List::next>::value;
 };
 
 using signed_list = type_list<signed char, signed short, signed int, signed long, signed long long>;
@@ -1716,6 +1738,33 @@ template<typename ...B> SS_INLINE_VAR constexpr bool disjunction_v = disjunction
 template<typename B> struct negation : bool_constant<!bool(B::value)> {};
 template<typename B> SS_INLINE_VAR constexpr bool negation_v = negation<B>::value;
 
+
+# if SS_CXX_VER >= 20
+template<typename S, typename M>
+inline constepr bool is_pointer_interconvertible_with_class(M S::* ptr) noexcept {
+  return std::is_pointer_interconvertible_with_class(ptr);
+}
+
+template<class S1, class S2, class M1, class M2>
+inline constexpr bool is_corresponding_member(M1 S1::* p1, M2 S2::* p2) noexcept {
+  return std::is_corresponding_member(p1, p2);
+}
+# endif
+
+# if SS_CXX_VER >= 23
+constexpr bool is_constant_evaluated() noexcept {
+    if consteval {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+# elif SS_CXX_VER >= 20
+inline constexpr bool is_constant_evaluated() noexcept {
+  return std::is_constant_evaluated();
+}
+# endif
 
 } // namespace ss
 
