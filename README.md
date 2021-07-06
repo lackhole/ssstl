@@ -22,15 +22,15 @@ My own C++ STL implementation for deeper understanding of STL
 | [cstdarg](https://en.cppreference.com/w/cpp/header/cstdarg)         | ![](https://img.shields.io/badge/not_possible-grey)     |
 | [typeinfo](https://en.cppreference.com/w/cpp/header/typeinfo)       | ![](https://img.shields.io/badge/coverage-0%25-red)     |
 | [typeindex](https://en.cppreference.com/w/cpp/header/typeindex)     | ![](https://img.shields.io/badge/coverage-0%25-red)     |
-| [type_traits](https://en.cppreference.com/w/cpp/header/type_traits) | ![](https://img.shields.io/badge/C++11-50%25-orange) <br/> ![](https://img.shields.io/badge/C++14-50%25-orange) <br/> ![](https://img.shields.io/badge/C++17-50%25-orange)  |
+| [type_traits](https://en.cppreference.com/w/cpp/header/type_traits) | ![](https://img.shields.io/badge/C++11-50%25-orange) ![](https://img.shields.io/badge/C++14-50%25-orange) ![](https://img.shields.io/badge/C++17-50%25-orange)  |
 | [bitset](https://en.cppreference.com/w/cpp/header/bitset)           | ![](https://img.shields.io/badge/coverage-0%25-red)     |
 | [functional](https://en.cppreference.com/w/cpp/header/bitset)       | ![](https://img.shields.io/badge/coverage-0%25-red)     |
-| [utility](https://en.cppreference.com/w/cpp/header/bitset)          | ![](https://img.shields.io/badge/C++11-4%25-red) <br/> ![](https://img.shields.io/badge/C++14-4%25-red)        |
+| [utility](https://en.cppreference.com/w/cpp/header/bitset)          | ![](https://img.shields.io/badge/C++11-4%25-red) ![](https://img.shields.io/badge/C++14-4%25-red)        |
 | [chrono](https://en.cppreference.com/w/cpp/header/chrono)           | ![](https://img.shields.io/badge/coverage-0%25-red)     |
 | [initializer_list](https://en.cppreference.com/w/cpp/header/initializer_list) | ![](https://img.shields.io/badge/not_possible-grey) |
 | [tuple](https://en.cppreference.com/w/cpp/header/tuple)             | ![](https://img.shields.io/badge/coverage-0%25-red)     |
 | [any](https://en.cppreference.com/w/cpp/header/any)                 | ![](https://img.shields.io/badge/coverage-0%25-red)     |
-| [optional](https://en.cppreference.com/w/cpp/header/optional)       | ![](https://img.shields.io/badge/C++11-0%25-red) <br/> ![](https://img.shields.io/badge/C++14-80%25-yellowgreen) <br/> ![](https://img.shields.io/badge/C++17-81%25-yellowgreen) |
+| [optional](https://en.cppreference.com/w/cpp/header/optional)       | ![](https://img.shields.io/badge/C++11-0%25-red) ![](https://img.shields.io/badge/C++14-80%25-yellowgreen) ![](https://img.shields.io/badge/C++17-81%25-yellowgreen) |
 | [variant](https://en.cppreference.com/w/cpp/header/variant)         | ![](https://img.shields.io/badge/coverage-0%25-red)     |
 | [compare](https://en.cppreference.com/w/cpp/header/compare)         | ![](https://img.shields.io/badge/unknown-grey)          |
 | [version](https://en.cppreference.com/w/cpp/header/version)         | ![](https://img.shields.io/badge/unknown-grey)          |
