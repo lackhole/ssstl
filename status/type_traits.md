@@ -2,8 +2,7 @@
 
 [Reference](https://en.cppreference.com/w/cpp/header/type_traits)
 
-* ![](https://img.shields.io/badge/Impossible-N-red): Cannot implement with language itself. Need compiler support
-  Used STL with C++ version of N
+* ![](https://img.shields.io/badge/Impossible-N-red): Cannot implement with language itself. Need compiler support. Used STL with C++ version of N
 * ![](https://img.shields.io/badge/C%2B%2B-N-green): Implemented with C++ N. Same version as STL
 * ![](https://img.shields.io/badge/C%2B%2B-X--%3EY-blue): STL items in C++ X is implemented in C++ Y.
 * ![][notyet]: Not yet implemented
