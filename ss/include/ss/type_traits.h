@@ -1183,10 +1183,10 @@ template<typename T> SS_INLINE_VAR constexpr bool is_standard_layout_v = is_stan
  * is_pod (deprecated in C++20)
  * @tparam T
  */
-SS_AFTER_CXX20([[deprecated]])
+//SS_AFTER_CXX20([[deprecated]])
 template<typename T> struct is_pod : bool_constant<is_trivial<T>::value && is_standard_layout<T>::value> {};
 
-SS_AFTER_CXX20([[deprecated]])
+//SS_AFTER_CXX20([[deprecated]])
 template<typename T> SS_INLINE_VAR constexpr bool is_pod_v = is_pod<T>::value;
 
 
@@ -1480,10 +1480,10 @@ template<typename T, typename U> inline constexpr bool is_layout_compatible_v = 
  * @tparam Base
  * @tparam U
  */
-template<typename Base, typename Derived>
-struct is_pointer_interconvertible_base_of = std::is_pointer_interconvertible_base_of<Base, Derived>;
-template<typename Base, typename Derived>
-inline constexpr bool is_pointer_interconvertible_base_of_v = is_pointer_interconvertible_base_of<Base, Derived>::value;
+//template<typename Base, typename Derived>
+//using is_pointer_interconvertible_base_of = std::is_pointer_interconvertible_base_of<Base, Derived>;
+//template<typename Base, typename Derived>
+//inline constexpr bool is_pointer_interconvertible_base_of_v = is_pointer_interconvertible_base_of<Base, Derived>::value;
 # endif
 
 
@@ -1591,12 +1591,161 @@ struct common_type<T1, T2, Ts...> : common_type<typename common_type<T1, T2>::ty
 template<typename ...T>
 using common_type_t = typename common_type<T...>::type;
 
+
+/**
+ * common_reference
+ * TODO: MSVC defects?
+ * @tparam ...
+ */
+template<typename ...> struct common_reference {};
+template<typename T, typename U, template<typename> class TQual, template<typename> class UQual>
+struct basic_common_reference {};
+
 namespace detail {
 
 template<typename T, typename U> struct restore_cv                      { using type = U;                 };
 template<typename T, typename U> struct restore_cv<const T, U>          { using type = add_const_t<U>;    };
 template<typename T, typename U> struct restore_cv<volatile T, U>       { using type = add_volatile_t<U>; };
 template<typename T, typename U> struct restore_cv<const volatile T, U> { using type = add_cv_t<U>;       };
+template<typename T, typename U> using restore_cv_t = typename restore_cv<T, U>::type;
+
+template<typename T, typename U> struct restore_ref         { using type = U; };
+template<typename T, typename U> struct restore_ref<T&,  U> { using type = add_lvalue_reference_t<U>; };
+template<typename T, typename U> struct restore_ref<T&&, U> { using type = add_rvalue_reference_t<U>; };
+template<typename T, typename U> using restore_ref_t = typename restore_ref<T, U>::type;
+
+template<typename T, typename U> struct restore_cvref {
+  using type = restore_cv_t<T, U>;
+};
+template<typename T, typename U> struct restore_cvref<T&,  U> {
+  using type = add_lvalue_reference_t<restore_cv_t<T, U>>;
+};
+template<typename T, typename U> struct restore_cvref<T&&, U> {
+  using type = add_rvalue_reference_t<restore_cv_t<T, U>>;
+};
+template<typename T, typename U> using restore_cvref_t = typename restore_cvref<T, U>::type;
+
+template<typename T>
+struct make_rvalue { using type = add_rvalue_reference_t<remove_reference_t<T>>; };
+
+//template<typename T1, typename T2>
+//using simple_cr_test_help = decltype(false ? std::declval<union_cv_t<T1, T2, T1>>() : std::declval<union_cv_t<T1, T2, T2>>());
+
+template<typename T1, typename T2>
+using common_reference_simple_test1
+  = decltype(false ? std::declval<restore_cv_t<T2, T1>>() : std::declval<restore_cv_t<T1, T2>>());
+
+template<typename T1, typename T2, typename C,
+  bool v = is_convertible<T1, C>::value && is_convertible<T2, C>::value>
+struct common_reference_simple_test2 { using type = C; };
+
+template<typename T1, typename T2, typename C>
+struct common_reference_simple_test2<T1, T2, C, false> {};
+
+template<typename T1, typename T2, typename = void>
+struct common_reference_simple {};
+
+template<typename T1, typename T2>
+struct common_reference_simple<T1&, T2&,
+  enable_if_t<is_reference<common_reference_simple_test1<T1&, T2&>>::value>
+> { using type = common_reference_simple_test1<T1&, T2&>; };
+
+template<typename T1, typename T2>
+struct common_reference_simple<T1&&, T2&&,
+  void_t<typename common_reference_simple<T1&, T2&>::type>
+> : common_reference_simple_test2<T1&&, T2&&, make_rvalue<typename common_reference_simple<T1&, T2&>::type>> {};
+
+template<typename A, typename B, typename = void>
+struct common_reference_simple_test3 {};
+template<typename A, typename B>
+struct common_reference_simple_test3<A&, B&&,
+  enable_if_t<is_convertible<B&&, typename common_reference_simple<A&, B const &>::type>::value>
+> { using type = typename common_reference_simple<A&, B const &>::type; };
+
+template<typename T1, typename T2>
+struct common_reference_simple<T1&, T2&&> : common_reference_simple_test3<T1&, T2&&> {};
+
+template<typename T1, typename T2>
+struct common_reference_simple<T1&&, T2&> : common_reference_simple_test3<T2&, T1&&> {};
+
+template<typename T> T cr_val();
+template<typename T1, typename T2> using cr_val_test_t = decltype(false ? cr_val<T1>() : cr_val<T2>());
+
+template<typename T1, typename T2, typename = void>
+struct common_reference_test4 {};
+
+template<typename T1, typename T2>
+struct common_reference_test4<T1, T2,
+  void_t<common_type_t<T1, T2>>
+> { using type = common_type_t<T1, T2>; };
+
+template<typename T1, typename T2, typename = void>
+struct common_reference_test3 : common_reference_test4<T1, T2> {};
+
+template<typename T1, typename T2>
+struct common_reference_test3<T1, T2,
+  void_t<cr_val_test_t<T1, T2>>
+> { using type = cr_val_test_t<T1, T2>; };
+
+template<typename T>
+struct common_reference_test2_alias {
+  template<typename Q>
+  using alias = restore_cvref_t<T, Q>;
+};
+
+template<typename T1, typename T2, typename = void>
+struct common_reference_test2 : common_reference_test3<T1, T2> {};
+
+template<typename T1, typename T2>
+struct common_reference_test2<T1, T2,
+  void_t<
+    typename basic_common_reference<
+      remove_cvref_t<T1>, remove_cvref_t<T2>,
+      common_reference_test2_alias<T1>::template alias,
+      common_reference_test2_alias<T2>::template alias>::type
+  >
+> { using type = typename basic_common_reference<
+      remove_cvref_t<T1>, remove_cvref_t<T2>,
+      common_reference_test2_alias<T1>::template alias,
+      common_reference_test2_alias<T2>::template alias>::type; };
+
+template<typename T1, typename T2, typename = void>
+struct common_reference_test1 : common_reference_test2<T1, T2> {};
+
+template<typename T1, typename T2>
+struct common_reference_test1<T1, T2,
+  void_t<typename common_reference_simple<T1, T2>::type>> : common_reference_simple<T1, T2> {};
+
+} // namespace detail
+
+template<> struct common_reference<> {};
+template<typename T> struct common_reference<T> { using type = T; };
+template<typename T1, typename T2> struct common_reference<T1, T2> : detail::common_reference_test1<T1, T2> {};
+template<typename T1, typename T2, typename ...Ts>
+struct common_reference<T1, T2, Ts...> : common_reference<common_reference<T1, T2>, Ts...> {};
+template<typename ...Ts> using common_reference_t = typename common_reference<Ts...>::type;
+
+namespace detail {
+template<typename T, bool v = is_enum<T>::value>
+struct underlying_type_impl : std::underlying_type<T> {
+  static_assert(is_complete<T>::value, "enum must be complete");
+};
+
+static_assert(is_complete<int>::value, " ");
+static_assert(is_complete<empty>::value, " ");
+
+template<typename T>
+struct underlying_type_impl<T, false> {};
+}
+/**
+ * underlying_type
+ * @tparam T
+ */
+template<typename T> struct underlying_type : detail::underlying_type_impl<T> {};
+template<typename T> using underlying_type_t = typename underlying_type<T>::type;
+
+
+namespace detail {
 
 template<typename...>
 struct type_list;
@@ -1741,7 +1890,7 @@ template<typename B> SS_INLINE_VAR constexpr bool negation_v = negation<B>::valu
 
 # if SS_CXX_VER >= 20
 template<typename S, typename M>
-inline constepr bool is_pointer_interconvertible_with_class(M S::* ptr) noexcept {
+inline constexpr bool is_pointer_interconvertible_with_class(M S::* ptr) noexcept {
   return std::is_pointer_interconvertible_with_class(ptr);
 }
 

@@ -139,7 +139,7 @@
 |enable_if                         | ![][cpp11]              |
 |conditional                       | ![][cpp11]              |
 |common_type                       | ![][cpp11]*             |
-|common_reference <br/> basic_common_reference | ![][notyet] |
+|common_reference <br/> basic_common_reference | ![][cpp11] ![][msvc20]*** |
 |underlying_type                   | ![][notyet]             |
 |result_of                         | ![][cpp11]              |
 |invoke_result                     | ![][notyet]             |
@@ -161,9 +161,11 @@
 ---
 \* Used `std::declval<T>`  
 \*\* Used `std::max`
+\*\*\* MSVC defect
 
 [notyet]: https://img.shields.io/badge/Not_yet-orange
 [removed]: https://img.shields.io/badge/Removed-red
+[msvc20]: https://img.shields.io/badge/MSVC_C%2B%2B-20-red
 
 [cppno]: https://img.shields.io/badge/Impossible-red
 [cppno11]: https://img.shields.io/badge/Impossible-11-red
