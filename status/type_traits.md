@@ -139,7 +139,8 @@
 |enable_if                         | ![][cpp11]              |
 |conditional                       | ![][cpp11]              |
 |common_type                       | ![][cpp11]*             |
-|underlying_type                   | ![][cpp11]              |
+|common_reference <br/> basic_common_reference | ![][notyet] |
+|underlying_type                   | ![][notyet]             |
 |result_of                         | ![][cpp11]              |
 |invoke_result                     | ![][notyet]             |
 |void_t                            | ![][cpp11]              |
