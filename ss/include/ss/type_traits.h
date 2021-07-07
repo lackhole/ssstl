@@ -1668,8 +1668,19 @@ struct common_reference_simple<T1&, T2&&> : common_reference_simple_test3<T1&, T
 template<typename T1, typename T2>
 struct common_reference_simple<T1&&, T2&> : common_reference_simple_test3<T2&, T1&&> {};
 
-template<typename T> T cr_val();
-template<typename T1, typename T2> using cr_val_test_t = decltype(false ? cr_val<T1>() : cr_val<T2>());
+template<typename T> T cr_val() noexcept;
+template<typename T1, typename T2>
+struct cr_val_test {
+  using type = decltype(false ? cr_val<T1>() : cr_val<T2>());// N4810 [meta.trans.other]/2.4
+};
+// fix for MSVC defect under C++20
+template<typename T>
+struct cr_val_test<T&&, T&&> {
+  using type = T&&;
+};
+
+template<typename T1, typename T2>
+using cr_val_test_t = typename cr_val_test<T1, T2>::type;
 
 template<typename T1, typename T2, typename = void>
 struct common_reference_test4 {};
