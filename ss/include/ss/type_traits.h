@@ -1205,8 +1205,8 @@ inline constexpr bool has_unique_object_representation_v = has_unique_object_rep
 
 namespace detail {
 template<typename T>
-struct empty_test1 : T { SS_MAYBE_UNUSED int dummy; };
-struct empty_test2     { SS_MAYBE_UNUSED int dummy; };
+struct empty_test1 : T { int dummy; };
+struct empty_test2     { int dummy; };
 
 template<typename T, bool v = is_class<T>::value> struct is_empty_impl : false_type {};
 template<typename T> struct is_empty_impl<T, true> : bool_constant<sizeof(empty_test1<T>) == sizeof(empty_test2)> {};
@@ -1465,13 +1465,14 @@ SS_INLINE_VAR constexpr bool is_nothrow_convertible_v = is_nothrow_convertible<F
 
 
 # if SS_CXX_VER >= 20
-/**
- * is_layout_compatible
- * @tparam T
- * @tparam U
- */
-template<typename T, typename U> using is_layout_compatible = std::is_layout_compatible<T, U>;
-template<typename T, typename U> inline constexpr bool is_layout_compatible_v = is_layout_compatible<T, U>::value;
+// Not implemented by the most compilers yet
+///**
+// * is_layout_compatible
+// * @tparam T
+// * @tparam U
+// */
+//template<typename T, typename U> using is_layout_compatible = std::is_layout_compatible<T, U>;
+//template<typename T, typename U> inline constexpr bool is_layout_compatible_v = is_layout_compatible<T, U>::value;
 
 
 
@@ -1900,15 +1901,15 @@ template<typename B> SS_INLINE_VAR constexpr bool negation_v = negation<B>::valu
 
 
 # if SS_CXX_VER >= 20
-template<typename S, typename M>
-inline constexpr bool is_pointer_interconvertible_with_class(M S::* ptr) noexcept {
-  return std::is_pointer_interconvertible_with_class(ptr);
-}
-
-template<class S1, class S2, class M1, class M2>
-inline constexpr bool is_corresponding_member(M1 S1::* p1, M2 S2::* p2) noexcept {
-  return std::is_corresponding_member(p1, p2);
-}
+//template<typename S, typename M>
+//inline constexpr bool is_pointer_interconvertible_with_class(M S::* ptr) noexcept {
+//  return std::is_pointer_interconvertible_with_class(ptr);
+//}
+//
+//template<class S1, class S2, class M1, class M2>
+//inline constexpr bool is_corresponding_member(M1 S1::* p1, M2 S2::* p2) noexcept {
+//  return std::is_corresponding_member(p1, p2);
+//}
 # endif
 
 # if SS_CXX_VER >= 23
