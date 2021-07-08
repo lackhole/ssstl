@@ -265,8 +265,9 @@ using multi_conditional_t = typename multi_conditional<B, If, ElseIf, C...>::typ
  */
 template<typename T> struct is_const          : false_type {};
 template<typename T> struct is_const<const T> : true_type  {};
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_const_v = is_const<T>::value;
-
+# endif
 
 
 /**
@@ -275,7 +276,9 @@ template<typename T> SS_INLINE_VAR constexpr bool is_const_v = is_const<T>::valu
  */
 template<typename T> struct is_volatile             : false_type {};
 template<typename T> struct is_volatile<volatile T> : true_type  {};
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_volatile_v = is_volatile<T>::value;
+# endif
 
 
 
@@ -286,7 +289,9 @@ template<typename T> SS_INLINE_VAR constexpr bool is_volatile_v = is_volatile<T>
 template<typename T, typename U> struct is_same       : false_type {};
 template<typename T>             struct is_same<T, T> : true_type {};
 template<typename T, typename U> using is_same_t = typename is_same<T, U>::type;
+# if SS_CXX_VER >= 14
 template<typename T, typename U> SS_INLINE_VAR constexpr bool is_same_v = is_same<T, U>::value;
+# endif
 
 
 
@@ -297,7 +302,9 @@ template<typename T, typename U> SS_INLINE_VAR constexpr bool is_same_v = is_sam
 template<typename T, typename U> struct is_not_same       : true_type  {};
 template<typename T>             struct is_not_same<T, T> : false_type {};
 template<typename T, typename U> using is_not_same_t = typename is_not_same<T, U>::type;
+# if SS_CXX_VER >= 14
 template<typename T, typename U> SS_INLINE_VAR constexpr bool is_not_same_v = is_not_same<T, U>::value;
+# endif
 
 
 
@@ -475,7 +482,9 @@ template<typename T> using remove_all_extents_t = typename remove_all_extents<T>
  * @tparam T
  */
 template<typename T> struct is_void : is_same<void, remove_cv_t<T>> {};
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_void_v = is_void<T>::value;
+# endif
 
 
 
@@ -484,7 +493,9 @@ template<typename T> SS_INLINE_VAR constexpr bool is_void_v = is_void<T>::value;
  * @tparam T
  */
 template<typename T> struct is_null_pointer : is_same<nullptr_t, remove_cv_t<T>> {};
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_null_pointer_v = is_null_pointer<T>::value;
+# endif
 
 
 
@@ -493,7 +504,9 @@ template<typename T> SS_INLINE_VAR constexpr bool is_null_pointer_v = is_null_po
  * @tparam T
  */
 template<typename T> using is_integral = std::is_integral<T>;
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_integral_v = is_integral<T>::value;
+# endif
 
 
 
@@ -508,7 +521,9 @@ template<> struct is_floating_point_impl<long double> : true_type {};
  * @tparam T
  */
 template<typename T> struct is_floating_point : detail::is_floating_point_impl<remove_cv_t<T>> {};
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_floating_point_v = is_floating_point<T>::value;
+# endif
 
 
 
@@ -519,7 +534,9 @@ template<typename T> SS_INLINE_VAR constexpr bool is_floating_point_v = is_float
 template<typename T> struct is_array : false_type {};
 template<typename T> struct is_array<T[]> : true_type {};
 template<typename T, size_t N> struct is_array<T[N]> : true_type {};
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_array_v = is_array<T>::value;
+# endif
 
 
 
@@ -528,7 +545,9 @@ template<typename T> SS_INLINE_VAR constexpr bool is_array_v = is_array<T>::valu
  * @tparam T
  */
 template<typename T> using is_enum = std::is_enum<T>;
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_enum_v = is_enum<T>::value;
+# endif
 
 
 
@@ -537,7 +556,9 @@ template<typename T> SS_INLINE_VAR constexpr bool is_enum_v = is_enum<T>::value;
  * @tparam T
  */
 template<typename T> using is_union = std::is_union<T>;
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_union_v = is_union<T>::value;
+# endif
 
 
 
@@ -546,7 +567,9 @@ template<typename T> SS_INLINE_VAR constexpr bool is_union_v = is_union<T>::valu
  * @tparam T
  */
 template<typename T> using is_class = std::is_class<T>;
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_class_v = is_class<T>::value;
+# endif
 
 
 
@@ -559,7 +582,9 @@ template<typename T> struct is_pointer<T*> : true_type {};
  * @tparam T
  */
 template<typename T> struct is_pointer : detail::is_pointer<remove_cv_t<T>> {};
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_pointer_v = is_pointer<T>::value;
+# endif
 
 
 
@@ -569,7 +594,9 @@ template<typename T> SS_INLINE_VAR constexpr bool is_pointer_v = is_pointer<T>::
  */
 template<typename T> struct is_lvalue_reference : false_type {};
 template<typename T> struct is_lvalue_reference<T&> : true_type {};
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_lvalue_reference_v = is_lvalue_reference<T>::value;
+# endif
 
 
 
@@ -579,7 +606,9 @@ template<typename T> SS_INLINE_VAR constexpr bool is_lvalue_reference_v = is_lva
  */
 template<typename T> struct is_rvalue_reference : false_type {};
 template<typename T> struct is_rvalue_reference<T&&> : true_type {};
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_rvalue_reference_v = is_rvalue_reference<T>::value;
+# endif
 
 
 
@@ -590,7 +619,9 @@ template<typename T> SS_INLINE_VAR constexpr bool is_rvalue_reference_v = is_rva
 template<typename T> struct is_reference
   : bool_constant<is_lvalue_reference<T>::value ||
     is_rvalue_reference<T>::value> {};
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_reference_v = is_reference<T>::value;
+# endif
 
 
 
@@ -599,7 +630,9 @@ template<typename T> SS_INLINE_VAR constexpr bool is_reference_v = is_reference<
  * @tparam T
  */
 template<typename T> struct is_function : bool_constant<!is_const<const T>::value && !is_reference<T>::value> {};
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_function_v = is_function<T>::value;
+# endif
 
 
 
@@ -612,7 +645,9 @@ template<typename C, typename T> struct is_member_pointer<T(C::*)> : true_type {
  * @tparam T
  */
 template<typename T> struct is_member_pointer : detail::is_member_pointer<remove_cv_t<T>> {};
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_member_pointer_v = is_member_pointer<T>::value;
+# endif
 
 
 
@@ -625,7 +660,9 @@ template<typename C, typename T> struct is_member_function_pointer_nocv<T(C::*)>
  * @tparam T
  */
 template<typename T> struct is_member_function_pointer : detail::is_member_function_pointer_nocv<remove_cv_t<T>> {};
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_member_function_pointer_v = is_member_function_pointer<T>::value;
+# endif
 
 
 
@@ -636,7 +673,9 @@ template<typename T> SS_INLINE_VAR constexpr bool is_member_function_pointer_v =
 template<typename T> struct is_member_object_pointer
   : bool_constant<is_member_pointer<T>::value &&
     !is_member_function_pointer<T>::value> {};
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_member_object_pointer_v = is_member_object_pointer<T>::value;
+# endif
 
 
 
@@ -647,7 +686,9 @@ template<typename T> SS_INLINE_VAR constexpr bool is_member_object_pointer_v = i
 template<typename T> struct is_arithmetic
   : bool_constant<is_integral<T>::value ||
     is_floating_point<T>::value> {};
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_arithmetic_v = is_arithmetic<T>::value;
+# endif
 
 
 
@@ -659,7 +700,9 @@ template<typename T> struct is_fundamental
   : bool_constant<is_arithmetic<T>::value ||
     is_void<T>::value ||
     is_null_pointer<T>::value> {};
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_fundamental_v = is_fundamental<T>::value;
+# endif
 
 
 
@@ -673,7 +716,9 @@ template<typename T> struct is_scalar
     is_member_pointer<T>::value ||
     is_enum<T>::value ||
     is_null_pointer<T>::value> {};
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_scalar_v = is_scalar<T>::value;
+# endif
 
 
 
@@ -685,7 +730,9 @@ template<typename T> struct is_object
   : bool_constant<!is_function<T>::value &&
     !is_reference<T>::value &&
     !is_void<T>::value> {};
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_object_v = is_object<T>::value;
+# endif
 
 
 
@@ -695,7 +742,9 @@ template<typename T> SS_INLINE_VAR constexpr bool is_object_v = is_object<T>::va
  */
 template<typename T> struct is_compound
   : bool_constant<!is_fundamental<T>::value> {};
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_compound_v = is_compound<T>::value;
+# endif
 
 
 
@@ -753,8 +802,10 @@ SS_INLINE_VAR constexpr bool is_constructible_v = is_constructible<T, Args...>::
  */
 template<typename T, typename ...Args>
 using is_trivially_constructible = std::is_trivially_constructible<T, Args...>;
+# if SS_CXX_VER >= 14
 template<typename T, typename ...Args>
 SS_INLINE_VAR constexpr bool is_trivially_constructible_v = is_trivially_constructible<T, Args...>::value;
+# endif
 
 
 
@@ -774,8 +825,10 @@ struct is_nothrow_constructible_impl<true, T, Args...> : bool_constant<noexcept(
 template<typename T, typename ...Args>
 struct is_nothrow_constructible
   : detail::is_nothrow_constructible_impl<is_constructible<T, Args...>::value, T, Args...> {};
+# if SS_CXX_VER >= 14
 template<typename T, typename ...Args>
 SS_INLINE_VAR constexpr bool is_nothrow_constructible_v = is_nothrow_constructible<T, Args...>::value;
+# endif
 
 
 
@@ -785,8 +838,10 @@ SS_INLINE_VAR constexpr bool is_nothrow_constructible_v = is_nothrow_constructib
  */
 template<typename T>
 struct is_default_constructible : is_constructible<T> {};
+# if SS_CXX_VER >= 14
 template<typename T>
 SS_INLINE_VAR constexpr bool is_default_constructible_v = is_default_constructible<T>::value;
+# endif
 
 
 
@@ -796,8 +851,10 @@ SS_INLINE_VAR constexpr bool is_default_constructible_v = is_default_constructib
  */
 template<typename T>
 struct is_trivially_default_constructible : is_trivially_constructible<T> {};
+# if SS_CXX_VER >= 14
 template<typename T>
 SS_INLINE_VAR constexpr bool is_trivially_default_constructible_v = is_trivially_default_constructible<T>::value;
+# endif
 
 
 
@@ -807,8 +864,10 @@ SS_INLINE_VAR constexpr bool is_trivially_default_constructible_v = is_trivially
  */
 template<typename T>
 struct is_nothrow_default_constructible : is_nothrow_constructible<T> {};
+# if SS_CXX_VER >= 14
 template<typename T>
 SS_INLINE_VAR constexpr bool is_nothrow_default_constructible_v = is_nothrow_default_constructible<T>::value;
+# endif
 
 
 
@@ -824,7 +883,9 @@ struct test_copy_ctor<T, Test, true> : Test<T, const T&> {};
  * @tparam T
  */
 template<typename T> struct is_copy_constructible : detail::test_copy_ctor<T, is_constructible> {};
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_copy_constructible_v = is_copy_constructible<T>::value;
+# endif
 
 
 
@@ -835,7 +896,9 @@ template<typename T> SS_INLINE_VAR constexpr bool is_copy_constructible_v = is_c
 template<typename T>
 struct is_trivially_copy_constructible : detail::test_copy_ctor<T, is_trivially_constructible> {};
 template<typename T>
+# if SS_CXX_VER >= 14
 SS_INLINE_VAR constexpr bool is_trivially_copy_constructible_v = is_trivially_copy_constructible<T>::value;
+# endif
 
 
 
@@ -846,7 +909,9 @@ SS_INLINE_VAR constexpr bool is_trivially_copy_constructible_v = is_trivially_co
 template<typename T>
 struct is_nothrow_copy_constructible : detail::test_copy_ctor<T, is_nothrow_copy_constructible> {};
 template<typename T>
+# if SS_CXX_VER >= 14
 SS_INLINE_VAR constexpr bool is_nothrow_copy_constructible_v = is_nothrow_copy_constructible<T>::value;
+# endif
 
 
 
@@ -863,7 +928,9 @@ struct test_move_ctor<T, Test, true> : Test<T, T&&> {};
  * @tparam T
  */
 template<typename T> struct is_move_constructible : detail::test_move_ctor<T, is_constructible> {};
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_move_constructible_v = is_move_constructible<T>::value;
+# endif
 
 
 
@@ -873,8 +940,10 @@ template<typename T> SS_INLINE_VAR constexpr bool is_move_constructible_v = is_m
  */
 template<typename T>
 struct is_trivially_move_constructible : detail::test_move_ctor<T, is_trivially_constructible> {};
+# if SS_CXX_VER >= 14
 template<typename T>
 SS_INLINE_VAR constexpr bool is_trivially_move_constructible_v = is_trivially_move_constructible<T>::value;
+# endif
 
 
 
@@ -884,8 +953,10 @@ SS_INLINE_VAR constexpr bool is_trivially_move_constructible_v = is_trivially_mo
  */
 template<typename T>
 struct is_nothrow_move_constructible : detail::test_move_ctor<T, is_nothrow_constructible> {};
+# if SS_CXX_VER >= 14
 template<typename T>
 SS_INLINE_VAR constexpr bool is_nothrow_move_constructible_v = is_nothrow_move_constructible<T>::value;
+# endif
 
 
 
@@ -906,8 +977,10 @@ template<typename T, typename U>
 struct is_assignable : is_not_same<detail::unused, decltype(detail::is_assignable_test<T, U>(0))> {
   static_assert(!is_object<T>::value || detail::is_complete<T>::value, "T must be complete type");
 };
+# if SS_CXX_VER >= 14
 template<typename T, typename U>
 SS_INLINE_VAR constexpr bool is_assignable_v = is_assignable<T, U>::value;
+# endif
 
 
 
@@ -918,8 +991,10 @@ SS_INLINE_VAR constexpr bool is_assignable_v = is_assignable<T, U>::value;
  */
 template<typename T, typename U>
 using is_trivially_assignable = std::is_trivially_assignable<T, U>;
+# if SS_CXX_VER >= 14
 template<typename T, typename U>
 SS_INLINE_VAR constexpr bool is_trivially_assignable_v = is_trivially_assignable<T, U>::value;
+# endif
 
 
 
@@ -937,8 +1012,10 @@ struct is_nothrow_assignable_impl<T, U, true> : bool_constant<noexcept(std::decl
  */
 template<typename T, typename U>
 struct is_nothrow_assignable : detail::is_nothrow_assignable_impl<T, U> {};
+# if SS_CXX_VER >= 14
 template<typename T, typename U>
 SS_INLINE_VAR constexpr bool is_nothrow_assignable_v = is_nothrow_assignable<T, U>::value;
+# endif
 
 
 
@@ -955,7 +1032,9 @@ struct test_copy_assign<T, Test, true> : Test<T, const T&> {};
  * @tparam T
  */
 template<typename T> struct is_copy_assignable : detail::test_copy_assign<T, is_assignable> {};
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_copy_assignable_v = is_copy_assignable<T>::value;
+# endif
 
 
 
@@ -965,8 +1044,10 @@ template<typename T> SS_INLINE_VAR constexpr bool is_copy_assignable_v = is_copy
  */
 template<typename T>
 struct is_trivially_copy_assignable : detail::test_copy_assign<T, is_trivially_assignable> {};
+# if SS_CXX_VER >= 14
 template<typename T>
 SS_INLINE_VAR constexpr bool is_trivially_copy_assignable_v = is_trivially_copy_assignable<T>::value;
+# endif
 
 
 
@@ -976,8 +1057,10 @@ SS_INLINE_VAR constexpr bool is_trivially_copy_assignable_v = is_trivially_copy_
  */
 template<typename T>
 struct is_nothrow_copy_assignable : detail::test_copy_assign<T, is_nothrow_assignable> {};
+# if SS_CXX_VER >= 14
 template<typename T>
 SS_INLINE_VAR constexpr bool is_nothrow_copy_assignable_v = is_nothrow_copy_assignable<T>::value;
+# endif
 
 
 
@@ -994,7 +1077,9 @@ struct test_move_assign<T, Test, true> : Test<T, T&&> {};
  * @tparam T
  */
 template<typename T> struct is_move_assignable : detail::test_move_assign<T, is_assignable> {};
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_move_assignable_v = is_move_assignable<T>::value;
+# endif
 
 
 
@@ -1004,8 +1089,10 @@ template<typename T> SS_INLINE_VAR constexpr bool is_move_assignable_v = is_move
  */
 template<typename T>
 struct is_trivially_move_assignable : detail::test_move_assign<T, is_trivially_assignable> {};
+# if SS_CXX_VER >= 14
 template<typename T>
 SS_INLINE_VAR constexpr bool is_trivially_move_assignable_v = is_trivially_move_assignable<T>::value;
+# endif
 
 
 
@@ -1015,7 +1102,9 @@ SS_INLINE_VAR constexpr bool is_trivially_move_assignable_v = is_trivially_move_
  */
 template<typename T>
 struct is_nothrow_move_assignable : detail::test_move_assign<T, is_nothrow_assignable> {};
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_nothrow_move_assignable_v = is_nothrow_move_assignable<T>::value;
+# endif
 
 
 
@@ -1035,8 +1124,10 @@ struct is_destructible
   : bool_constant<is_reference<T>::value ||
                   is_not_same<detail::unused, decltype(detail::destructible_test<T>(0))>::value> {};
 
+# if SS_CXX_VER >= 14
 template<typename T>
 SS_INLINE_VAR constexpr bool is_destructible_v = is_destructible<T>::value;
+# endif
 
 
 
@@ -1045,7 +1136,9 @@ SS_INLINE_VAR constexpr bool is_destructible_v = is_destructible<T>::value;
  * @tparam T
  */
 template<typename T> using is_trivially_destructible = std::is_trivially_destructible<T>;
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_trivially_destructible_v = is_trivially_destructible<T>::value;
+# endif
 
 
 
@@ -1062,7 +1155,9 @@ struct is_nothrow_destructible_impl<T, false> : false_type {};
  * @tparam T
  */
 template<typename T> struct is_nothrow_destructible : detail::is_nothrow_destructible_impl<T> {};
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_nothrow_destructible_v = is_nothrow_destructible<T>::value;
+# endif
 
 
 
@@ -1071,7 +1166,9 @@ template<typename T> SS_INLINE_VAR constexpr bool is_nothrow_destructible_v = is
  * @tparam T
  */
 template<typename T> using has_virtual_destructor = std::has_virtual_destructor<T>;
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool has_virtual_destructor_v = has_virtual_destructor<T>::value;
+# endif
 
 
 
@@ -1107,7 +1204,9 @@ struct is_nothrow_swappable_with_impl<T, U, true>
  * @tparam U
  */
 template<typename T, typename U> struct is_swappable_with : detail::swap::is_swappable_with_impl<T, U> {};
+# if SS_CXX_VER >= 14
 template<typename T, typename U> SS_INLINE_VAR constexpr bool is_swappable_with_v = is_swappable_with<T, U>::value;
+# endif
 
 
 
@@ -1121,7 +1220,9 @@ template<typename T> struct is_swappable_impl<T, true> : is_swappable_with<T&, T
  * @tparam T
  */
 template<typename T> struct is_swappable : detail::is_swappable_impl<T> {};
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_swappable_v = is_swappable<T>::value;
+# endif
 
 
 
@@ -1132,8 +1233,10 @@ template<typename T> SS_INLINE_VAR constexpr bool is_swappable_v = is_swappable<
  */
 template<typename T, typename U>
 struct is_nothrow_swappable_with : detail::swap::is_nothrow_swappable_with_impl<T, U> {};
+# if SS_CXX_VER >= 14
 template<typename T, typename U>
 SS_INLINE_VAR constexpr bool is_nothrow_swappable_with_v = is_nothrow_swappable_with<T, U>::value;
+# endif
 
 
 
@@ -1147,7 +1250,9 @@ template<typename T> struct is_nothrow_swappable_impl<T, true> : is_nothrow_swap
  * @tparam T
  */
 template<typename T> struct is_nothrow_swappable : detail::is_nothrow_swappable_impl<T> {};
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_nothrow_swappable_v = is_nothrow_swappable<T>::value;
+# endif
 
 
 
@@ -1156,7 +1261,9 @@ template<typename T> SS_INLINE_VAR constexpr bool is_nothrow_swappable_v = is_no
  * @tparam T
  */
 template<typename T> using is_trivially_copyable = std::is_trivially_copyable<T>;
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_trivially_copyable_v = is_trivially_copyable<T>::value;
+# endif
 
 
 
@@ -1166,7 +1273,9 @@ template<typename T> SS_INLINE_VAR constexpr bool is_trivially_copyable_v = is_t
  */
 template<typename T>
 struct is_trivial : bool_constant<is_trivially_copyable<T>::value && is_trivially_default_constructible<T>::value> {};
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_trivial_v = is_trivial<T>::value;
+# endif
 
 
 
@@ -1175,7 +1284,9 @@ template<typename T> SS_INLINE_VAR constexpr bool is_trivial_v = is_trivial<T>::
  * @tparam T
  */
 template<typename T> using is_standard_layout = std::is_standard_layout<T>;
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_standard_layout_v = is_standard_layout<T>::value;
+# endif
 
 
 
@@ -1187,7 +1298,9 @@ template<typename T> SS_INLINE_VAR constexpr bool is_standard_layout_v = is_stan
 template<typename T> struct is_pod : bool_constant<is_trivial<T>::value && is_standard_layout<T>::value> {};
 
 //SS_AFTER_CXX20([[deprecated]])
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_pod_v = is_pod<T>::value;
+# endif
 
 
 
@@ -1217,7 +1330,9 @@ template<typename T> struct is_empty_impl<T, true> : bool_constant<sizeof(empty_
  * @tparam T
  */
 template<typename T> struct is_empty : detail::is_empty_impl<T> {};
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_empty_v = is_empty<T>::value;
+# endif
 
 
 
@@ -1238,7 +1353,9 @@ auto test_dynamic_cast(...) -> unused;
  * @tparam T
  */
 template<typename T> struct is_polymorphic : is_not_same<detail::unused, decltype(detail::test_dynamic_cast<T>(0))> {};
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_polymorphic_v = is_polymorphic<T>::value;
+# endif
 
 
 
@@ -1258,17 +1375,20 @@ struct is_abstract_impl<T, false> : false_type {};
  * @tparam T
  */
 template<typename T> struct is_abstract : detail::is_abstract_impl<T> {};
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_abstract_v = is_abstract<T>::value;
+# endif
 
 
 
+# if SS_CXX_VER >= 14
 /**
  * is_final
  * @tparam T
  */
 template<typename T> using is_final = std::is_final<T>;
 template<typename T> SS_INLINE_VAR constexpr bool is_final_v = is_final<T>::value;
-
+# endif
 
 
 # if SS_CXX_VER >= 17
@@ -1295,7 +1415,9 @@ struct is_signed_impl<T, false> : false_type {};
  * @tparam T
  */
 template<typename T> struct is_signed : detail::is_signed_impl<T> {};
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_signed_v = is_signed<T>::value;
+# endif
 
 
 
@@ -1312,7 +1434,9 @@ struct is_unsigned_impl<T, false> : false_type {};
  * @tparam T
  */
 template<typename T> struct is_unsigned : detail::is_unsigned_impl<T> {};
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_unsigned_v = is_unsigned<T>::value;
+# endif
 
 
 
@@ -1322,7 +1446,9 @@ template<typename T> SS_INLINE_VAR constexpr bool is_unsigned_v = is_unsigned<T>
  */
 template<typename T> struct is_bounded_array : false_type {};
 template<typename T, size_t N> struct is_bounded_array<T[N]> : true_type {};
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_bounded_array_v = is_bounded_array<T>::value;
+# endif
 
 
 
@@ -1332,7 +1458,9 @@ template<typename T> SS_INLINE_VAR constexpr bool is_bounded_array_v = is_bounde
  */
 template<typename T> struct is_unbounded_array : false_type {};
 template<typename T> struct is_unbounded_array<T[]> : true_type {};
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_unbounded_array_v = is_unbounded_array<T>::value;
+# endif
 
 
 
@@ -1349,7 +1477,9 @@ struct is_scoped_enum_impl<T, false> : false_type {};
  * @tparam T
  */
 template<typename T> struct is_scoped_enum : detail::is_scoped_enum_impl<T> {};
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_scoped_enum_v = is_scoped_enum<T>::value;
+# endif
 
 
 
@@ -1359,7 +1489,9 @@ template<typename T> SS_INLINE_VAR constexpr bool is_scoped_enum_v = is_scoped_e
  */
 template<typename T>
 struct alignment_of : integral_constant<size_t, alignof(T)> {};
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool alignment_of_v = alignment_of<T>::value;
+# endif
 
 
 
@@ -1370,7 +1502,9 @@ template<typename T> SS_INLINE_VAR constexpr bool alignment_of_v = alignment_of<
 template<typename T> struct rank : integral_constant<size_t, 0> {};
 template<typename T> struct rank<T[]> : integral_constant<size_t, rank<T>::value + 1> {};
 template<typename T, size_t N> struct rank<T[N]> : integral_constant<size_t, rank<T>::value + 1> {};
+# if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool rank_v = rank<T>::value;
+# endif
 
 
 
@@ -1397,7 +1531,9 @@ struct extent_impl<T[K], N> : extent_impl<T, N-1> {};
  * @tparam T
  */
 template<typename T, unsigned N = 0> struct extent : detail::extent_impl<T, N> {};
+# if SS_CXX_VER >= 14
 template<typename T, unsigned N = 0> SS_INLINE_VAR constexpr size_t extent_v = extent<T, N>::value;
+# endif
 
 
 
@@ -1411,8 +1547,10 @@ struct is_base_of :
   bool_constant<is_class<Base>::value &&
     is_class<Derived>::value &&
     is_assignable<Base&, Derived>::value> {};
+# if SS_CXX_VER >= 14
 template<typename Base, typename Derived>
 SS_INLINE_VAR constexpr bool is_base_of_v = is_base_of<Base, Derived>::value;
+# endif
 
 
 
@@ -1432,8 +1570,10 @@ template<typename From, typename To>
 struct is_convertible :
   bool_constant<is_not_same<detail::unused, decltype(detail::convertible_test<From, To>(0))>::value ||
     (is_void<From>::value && is_void<To>::value)> {};
+# if SS_CXX_VER >= 14
 template<typename From, typename To>
 SS_INLINE_VAR constexpr bool is_convertible_v = is_convertible<From, To>::value;
+# endif
 
 
 
@@ -1460,8 +1600,10 @@ struct is_nothrow_convertible_impl<From, To, false> : false_type {};
  */
 template<typename From, typename To>
 struct is_nothrow_convertible : detail::is_nothrow_convertible_impl<From, To> {};
+# if SS_CXX_VER >= 14
 template<typename From, typename To>
 SS_INLINE_VAR constexpr bool is_nothrow_convertible_v = is_nothrow_convertible<From, To>::value;
+# endif
 
 
 # if SS_CXX_VER >= 20
@@ -1499,9 +1641,9 @@ SS_INLINE_VAR constexpr bool is_nothrow_convertible_v = is_nothrow_convertible<F
  * @tparam Len
  * @tparam Align
  */
-template<size_t Len, size_t Align = alignof(std::aligned_storage_t<Len>)>
+template<size_t Len, size_t Align = alignof(typename std::aligned_storage<Len>::type)>
 using aligned_storage = std::aligned_storage<Len, Align>;
-template<size_t Len, size_t Align = alignof(std::aligned_storage_t<Len>)>
+template<size_t Len, size_t Align = alignof(typename std::aligned_storage<Len>::type)>
 using aligned_storage_t = typename aligned_storage<Len, Align>::type;
 
 
@@ -1875,7 +2017,9 @@ template<> struct conjunction<> : true_type {};
 template<typename B1> struct conjunction<B1> : B1 {};
 template<typename B1, typename ...BN> struct conjunction<B1, BN...> :
   conditional_t<bool(B1::value), conjunction<BN...>, B1> {};
+# if SS_CXX_VER >= 14
 template<typename ...B> SS_INLINE_VAR constexpr bool conjunction_v = conjunction<B...>::value;
+# endif
 
 
 
@@ -1888,7 +2032,9 @@ template<> struct disjunction<> : false_type {};
 template<typename B1> struct disjunction<B1> : B1 {};
 template<typename B1, typename ...BN> struct disjunction<B1, BN...> :
   conditional_t<bool(B1::value), B1, disjunction<BN...>> {};
+# if SS_CXX_VER >= 14
 template<typename ...B> SS_INLINE_VAR constexpr bool disjunction_v = disjunction<B...>::value;
+# endif
 
 
 
@@ -1897,7 +2043,9 @@ template<typename ...B> SS_INLINE_VAR constexpr bool disjunction_v = disjunction
  * @tparam B
  */
 template<typename B> struct negation : bool_constant<!bool(B::value)> {};
+# if SS_CXX_VER >= 14
 template<typename B> SS_INLINE_VAR constexpr bool negation_v = negation<B>::value;
+# endif
 
 
 # if SS_CXX_VER >= 20
