@@ -1,4 +1,4 @@
-name: Windows
+name: clang
 
 on:
   push:
@@ -13,16 +13,18 @@ env:
 
 jobs:
   test_cxx:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        cxx: [ 14, 17, 20 ]
+        cxx: [ 11, 14, 17, 20 ]
 
     steps:
       - uses: actions/checkout@v2
 
       - name: Configure CMake
+        env:
+          CXX: clang++
         run: >
           cmake -B ${{github.workspace}}/build-${{matrix.cxx}}
           -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
@@ -31,7 +33,7 @@ jobs:
           -DSS_TEST_MATRIX=ON
 
       - name: Build Test
-        run: cmake --build build-${{matrix.cxx}} --config ${{env.BUILD_TYPE}}
+        run: cmake --build build-${{matrix.cxx}} --target all -- -j 9
 
       - name: Run Test
         working-directory: ${{github.workspace}}/build-${{matrix.cxx}}

@@ -1,0 +1,40 @@
+name: gcc
+
+on:
+  push:
+    branches:
+      - '**'
+  release:
+    types:
+      - created
+
+env:
+  BUILD_TYPE: Release
+
+jobs:
+  test_cxx:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        cxx: [ 11, 14, 17, 20 ]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Configure CMake
+        env:
+          CXX: g++
+        run: >
+          cmake -B ${{github.workspace}}/build-${{matrix.cxx}}
+          -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+          -DCMAKE_CXX_STANDARD=${{matrix.cxx}}
+          -DSS_TEST=ON
+          -DSS_TEST_MATRIX=ON
+
+      - name: Build Test
+        run: cmake --build build-${{matrix.cxx}} --target all -- -j 9
+
+      - name: Run Test
+        working-directory: ${{github.workspace}}/build-${{matrix.cxx}}
+        run: ctest -C ${{env.BUILD_TYPE}} --extra-verbose --output-on-failure
