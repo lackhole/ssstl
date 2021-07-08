@@ -1,8 +1,11 @@
+<div align="center">
+  
 # SS
 My own C++ STL implementation for deeper understanding of STL
 
-# Requires: C++11 ~ C++20
-* Intent: Implement most ~ C++2X features from nothing using as low C++ version as possible.
+# Build Status
+[![Linux](https://github.com/lackhole/lackhole_stl/actions/workflows/Linux.yml/badge.svg)](https://github.com/lackhole/lackhole_stl/actions/workflows/Linux.yml)
+</div>
 
 # Code Coverage
 
