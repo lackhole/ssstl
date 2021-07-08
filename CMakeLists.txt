@@ -8,10 +8,10 @@ set(SS_INCLUDE_DIR ${SS_DIR}/include)
 target_include_directories(ss INTERFACE
         ${SS_INCLUDE_DIR})
 
-option(SS_TEST "Run test" ON)
+option(SS_TEST "Run test" OFF)
 
 if (MSVC)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Zc:__cplusplus")
+    target_compile_options(ss INTERFACE "/Zc:__cplusplus")
 endif()
 
 if (SS_TEST)
