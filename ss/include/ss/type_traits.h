@@ -790,8 +790,10 @@ struct is_constructible_impl : is_constructible_check<is_object<T>::value, T, Ar
  */
 template<typename T, typename ...Args>
 struct is_constructible : detail::is_constructible_impl<T, Args...> {};
+# if SS_CXX_VER >= 14
 template<typename T, typename ...Args>
 SS_INLINE_VAR constexpr bool is_constructible_v = is_constructible<T, Args...>::value;
+# endif
 
 
 
@@ -895,8 +897,8 @@ template<typename T> SS_INLINE_VAR constexpr bool is_copy_constructible_v = is_c
  */
 template<typename T>
 struct is_trivially_copy_constructible : detail::test_copy_ctor<T, is_trivially_constructible> {};
-template<typename T>
 # if SS_CXX_VER >= 14
+template<typename T>
 SS_INLINE_VAR constexpr bool is_trivially_copy_constructible_v = is_trivially_copy_constructible<T>::value;
 # endif
 
@@ -908,8 +910,8 @@ SS_INLINE_VAR constexpr bool is_trivially_copy_constructible_v = is_trivially_co
  */
 template<typename T>
 struct is_nothrow_copy_constructible : detail::test_copy_ctor<T, is_nothrow_copy_constructible> {};
-template<typename T>
 # if SS_CXX_VER >= 14
+template<typename T>
 SS_INLINE_VAR constexpr bool is_nothrow_copy_constructible_v = is_nothrow_copy_constructible<T>::value;
 # endif
 
