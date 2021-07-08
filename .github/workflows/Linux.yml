@@ -9,22 +9,29 @@ on:
       - created
 
 env:
-  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
 
 jobs:
-  checkout:
+  test_cxx:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        cxx: [ 11, 14, 17, 20 ]
 
     steps:
       - uses: actions/checkout@v2
 
       - name: Configure CMake
-        run: cmake -B ${{github.workspace}}/build-linux -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+        run: >
+          cmake -B ${{github.workspace}}/build-${{matrix.cxx}}
+          -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+          -DCMAKE_CXX_STANDARD=${{matrix.cxx}}
+          -DSS_TEST=ON
 
       - name: Build Test
-        run: cmake --build build-linux --target all -- -j 9
+        run: cmake --build build-${{matrix.cxx}} --target all -- -j 9
 
       - name: Run Test
-        working-directory: ${{github.workspace}}/build-linux
+        working-directory: ${{github.workspace}}/build-${{matrix.cxx}}
         run: ctest -C ${{env.BUILD_TYPE}} --extra-verbose --output-on-failure
