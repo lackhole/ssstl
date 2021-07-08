@@ -31,7 +31,7 @@ jobs:
           -DSS_TEST_MATRIX=ON
 
       - name: Build Test
-        run: cmake --build build-${{matrix.cxx}} --config ${{env.BUILD_TYPE}} -m
+        run: cmake --build build-${{matrix.cxx}} --config ${{env.BUILD_TYPE}}
 
       - name: Run Test
         working-directory: ${{github.workspace}}/build-${{matrix.cxx}}
