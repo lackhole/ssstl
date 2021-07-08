@@ -86,10 +86,10 @@
 |is_trivially_destructible         | ![][cppno11]            |
 |is_nothrow_destructible           | ![][cpp11]*             |
 |has_virtual_destructor            | ![][cppno11]            |
-|is_swappable_with                 | ![][cpp11]*             |
-|is_swappable                      | ![][cpp11]              |
-|is_nothrow_swappable_with         | ![][cpp11]*             |
-|is_nothrow_swappable              | ![][cpp11]              |
+|is_swappable_with                 | ![][cpp1711]*           |
+|is_swappable                      | ![][cpp1711]            |
+|is_nothrow_swappable_with         | ![][cpp1711]*           |
+|is_nothrow_swappable              | ![][cpp1711]            |
 |                                  |                         |
 | **Property queries**             |                         |
 |alignment_of                      | ![][cpp11]              |
@@ -98,7 +98,7 @@
 |is_same                           | ![][cpp11]              |
 |is_base_of                        | ![][cpp11]              |
 |is_convertible                    | ![][cpp11]*             |
-|is_nothrow_convertible            | ![][cpp11]*             |
+|is_nothrow_convertible            | ![][cpp2011]*           |
 |is_layout_compatible              | ![][cppno20]            |
 |is_pointer_interconvertible_base_of| ![][cppno20]           |
 |is_invocable                      | ![][notyet]             |
@@ -135,28 +135,28 @@
 |aligned_storage                   | ![][cppno11]            |
 |aligned_union                     | ![][cpp11]**            |
 |decay                             | ![][cpp11]              |
-|remove_cvref                      | ![][cpp11]              |
+|remove_cvref                      | ![][cpp2011]            |
 |enable_if                         | ![][cpp11]              |
 |conditional                       | ![][cpp11]              |
 |common_type                       | ![][cpp11]*             |
-|common_reference <br/> basic_common_reference | ![][cpp11]  |
-|underlying_type                   | ![][notyet]             |
+|common_reference <br/> basic_common_reference | ![][cpp2011] |
+|underlying_type                   | ![][cpp11]              |
 |result_of                         | ![][cpp11]              |
 |invoke_result                     | ![][notyet]             |
-|void_t                            | ![][cpp11]              |
-|type_identity                     | ![][cpp11]              |
+|void_t                            | ![][cpp1711]            |
+|type_identity                     | ![][cpp2011]            |
 |                                  |                         |
 | **Operations on traits**         |                         |
-|conjunction                       | ![][cpp11]              |
-|disjunction                       | ![][cpp11]              |
-|negation                          | ![][cpp11]              |
+|conjunction                       | ![][cpp1711]            |
+|disjunction                       | ![][cpp1711]            |
+|negation                          | ![][cpp1711]            |
 |                                  |                         |
 | **Member relationships**         |                         |
 |is_pointer_interconvertible_with_class | ![][cppno20]       |
 |is_corresponding_member           | ![][cppno20]            |
 |                                  |                         |
 | **Constant evaluation context**  |                         |
-|is_constant_evaluated             | ![][cppno20] ![][cpp23] |
+|is_constant_evaluated             | ![][cppno20] ![][cpp2023] |
 
 ---
 \* Used `std::declval<T>`  
@@ -190,5 +190,7 @@
 
 [cpp20]: https://img.shields.io/badge/C%2B%2B-20-green
 [cpp2320]: https://img.shields.io/badge/C%2B%2B-23--%3E20-blue
+
+[cpp2023]: https://img.shields.io/badge/C%2B%2B-20--%3E23-red
 
 [cpp23]: https://img.shields.io/badge/C%2B%2B-23-green
