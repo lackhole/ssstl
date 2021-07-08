@@ -8,6 +8,7 @@
 # include <cstddef>
 #
 # include "ss/detail/macro.h"
+# include "ss/detail/nullptr_t.h"
 
 /*
 integral_constant                 (C++11)
