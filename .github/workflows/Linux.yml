@@ -28,6 +28,7 @@ jobs:
           -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
           -DCMAKE_CXX_STANDARD=${{matrix.cxx}}
           -DSS_TEST=ON
+          -DSS_TEST_MATRIX=ON
 
       - name: Build Test
         run: cmake --build build-${{matrix.cxx}} --target all -- -j 9

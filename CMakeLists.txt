@@ -9,6 +9,7 @@ target_include_directories(ss INTERFACE
         ${SS_INCLUDE_DIR})
 
 option(SS_TEST "Run test" OFF)
+option(SS_TEST_MATRIX "If running in github workflow with matrix" OFF)
 
 if (MSVC)
     target_compile_options(ss INTERFACE "/Zc:__cplusplus")
