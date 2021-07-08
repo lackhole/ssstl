@@ -1,7 +1,7 @@
 <div align="center">
   
 # SS
-My own C++ STL implementation for deeper understanding of STL
+My own C++ STL implementation
 
 # Build Status
 [![g++](https://github.com/lackhole/lackhole_stl/actions/workflows/gcc.yml/badge.svg)](https://github.com/lackhole/lackhole_stl/actions/workflows/gcc.yml)
