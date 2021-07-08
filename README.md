@@ -4,7 +4,7 @@
 My own C++ STL implementation for deeper understanding of STL
 
 # Build Status
-[![Linux](https://github.com/lackhole/lackhole_stl/actions/workflows/Linux.yml/badge.svg)](https://github.com/lackhole/lackhole_stl/actions/workflows/Linux.yml)
+[![Ubuntu](https://github.com/lackhole/lackhole_stl/actions/workflows/Ubuntu.yml/badge.svg)](https://github.com/lackhole/lackhole_stl/actions/workflows/Ubuntu.yml)
 [![Windows](https://github.com/lackhole/lackhole_stl/actions/workflows/Windows.yml/badge.svg)](https://github.com/lackhole/lackhole_stl/actions/workflows/Windows.yml)
 </div>
 
