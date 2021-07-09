@@ -52,9 +52,9 @@
 |is_unsigned                       | ![][cpp11]              |
 |                                  |                         |
 | **Supported operations**         |                         |
-|is_constructible                  | ![][cpp11]*             |
+|is_constructible                  | ![][cpp11]              |
 |is_trivially_constructible        | ![][cppno11]            |
-|is_nothrow_constructible          | ![][cpp11]*             |
+|is_nothrow_constructible          | ![][cpp11]              |
 |is_default_constructible          | ![][cpp11]              |
 |is_trivially_default_constructible| ![][cpp11]              |
 |is_nothrow_default_constructible  | ![][cpp11]              |
@@ -64,18 +64,18 @@
 |is_move_constructible             | ![][cpp11]              |
 |is_trivially_move_constructible   | ![][cpp11]              |
 |is_nothrow_move_constructible     | ![][cpp11]              |
-|is_assignable                     | ![][cpp11]*             |
+|is_assignable                     | ![][cpp11]              |
 |is_trivially_assignable           | ![][cppno11]            |
-|is_nothrow_assignable             | ![][cpp11]*             |
+|is_nothrow_assignable             | ![][cpp11]              |
 |is_copy_assignable                | ![][cpp11]              |
 |is_trivially_copy_assignable      | ![][cpp11]              |
 |is_nothrow_copy_assignable        | ![][cpp11]              |
 |is_move_assignable                | ![][cpp11]              |
 |is_trivially_move_assignable      | ![][cpp11]              |
 |is_nothrow_move_assignable        | ![][cpp11]              |
-|is_destructible                   | ![][cpp11]*             |
+|is_destructible                   | ![][cpp11]              |
 |is_trivially_destructible         | ![][cppno11]            |
-|is_nothrow_destructible           | ![][cpp11]*             |
+|is_nothrow_destructible           | ![][cpp11]              |
 |has_virtual_destructor            | ![][cppno11]            |
 |                                  |                         |
 | **Property queries**             |                         |
@@ -84,7 +84,7 @@
 |extent                            | ![][cpp11]              |
 |is_same                           | ![][cpp11]              |
 |is_base_of                        | ![][cpp11]              |
-|is_convertible                    | ![][cpp11]*             |
+|is_convertible                    | ![][cpp11]              |
 |                                  |                         |
 | **Const-volatility specifiers**  |                         |
 |remove_cv                         | ![][cpp11]              |
@@ -113,11 +113,11 @@
 |                                  |                         |
 | **Miscellaneous transformations**|                         |
 |aligned_storage                   | ![][cppno11]            |
-|aligned_union                     | ![][cpp11]**            |
+|aligned_union                     | ![][cpp11]*             |
 |decay                             | ![][cpp11]              |
 |enable_if                         | ![][cpp11]              |
 |conditional                       | ![][cpp11]              |
-|common_type                       | ![][cpp11]*             |
+|common_type                       | ![][cpp11]              |
 |underlying_type                   | ![][cpp11]              |
 |~~result_of~~                     | ![][removed]            |
 
@@ -139,9 +139,9 @@
 |is_aggregate                      | ![][cppno17]            |
 |                                  |                         |
 | **Supported operations**         |                         |
-|is_swappable_with                 | ![][cpp11]*             |
+|is_swappable_with                 | ![][cpp11]              |
 |is_swappable                      | ![][cpp11]              |
-|is_nothrow_swappable_with         | ![][cpp11]*             |
+|is_nothrow_swappable_with         | ![][cpp11]              |
 |is_nothrow_swappable              | ![][cpp11]              |
 |                                  |                         |
 | **Property queries**             |                         |
@@ -166,7 +166,7 @@
 |is_unbounded_array                | ![][cpp11]              |
 |                                  |                         |
 | **Property queries**             |                         |
-|is_nothrow_convertible            | ![][cpp11]*             |
+|is_nothrow_convertible            | ![][cpp11]              |
 |is_layout_compatible              | ![][notyet]             |
 |is_pointer_interconvertible_base_of| ![][notyet]            |
 |                                  |                         |
@@ -183,8 +183,7 @@
 |is_constant_evaluated             | ![][cppno20] ![][cpp23] |
 
 ---
-\* Used `std::declval<T>`  
-\*\* Used `std::max`
+\* Used `std::max`
 
 [notyet]: https://img.shields.io/badge/Not_yet-orange
 [removed]: https://img.shields.io/badge/Removed-red
