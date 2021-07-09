@@ -25,6 +25,18 @@ constexpr inline remove_reference_t<T>&& move(T&& t) noexcept {
   return static_cast<remove_reference_t<T>&&>(t);
 }
 
+struct in_place_t {
+  constexpr explicit in_place_t() = default;
+};
+
+struct nullopt_t {
+  constexpr explicit nullopt_t(int) {}
+};
+
+constexpr nullopt_t nullopt{0};
+
+constexpr in_place_t in_place{};
+
 } // namespace ss
 
 #endif // SS_UTILITY_H_
