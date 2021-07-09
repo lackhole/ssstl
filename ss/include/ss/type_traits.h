@@ -1182,10 +1182,19 @@ template<typename T> SS_INLINE_VAR constexpr bool has_virtual_destructor_v = has
 # endif
 
 
+template<typename T> struct is_swappable;
+template<typename T> struct is_nothrow_swappable;
+
+template<typename T>
+constexpr inline enable_if_t<is_move_constructible<T>::value && is_move_assignable<T>::value> swap(T& a, T& b)
+  noexcept(is_nothrow_move_constructible<T>::value && is_nothrow_move_assignable<T>::value);
+
+template<typename T, size_t N>
+constexpr inline enable_if_t<is_swappable<T>::value> swap(T(&a)[N], T(&b)[N]) noexcept(is_nothrow_swappable<T>::value);
 
 namespace detail {
 namespace swap {
-using std::swap;
+using ss::swap;
 
 template<typename T, typename U>
 auto swappable_test(int) -> type_identity<decltype(swap(declval<T>(), declval<U>()))>;
