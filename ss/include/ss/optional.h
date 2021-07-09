@@ -11,8 +11,10 @@
 # include <exception>
 # include <functional>
 # include <new>
-# include <type_traits>
 # include <utility>
+#
+# include "ss/type_traits.h"
+# include "ss/functional.h"
 
 namespace ss {
 
@@ -42,84 +44,44 @@ class bad_optional_access : public std::exception {
   }
 };
 
-namespace internal {
-namespace optional {
-
-template<typename T>
-using void_t = void;
-
 namespace detail {
-using std::swap;
-
-template<typename T, typename U, typename = void>
-struct is_swappable_with_impl : std::false_type {};
-
-template<typename T, typename U>
-struct is_swappable_with_impl<T, U, void_t<
-  decltype((swap(std::declval<T>(), std::declval<U>()),
-    swap(std::declval<U>(), std::declval<T>())))
->> : std::true_type {};
-} // namespace detail
-
-template<typename T, typename = void>
-struct is_referencable : std::false_type {};
-
-template<typename T>
-struct is_referencable<T, void_t<T&>> : std::true_type {};
-
-template<typename T, typename U>
-using is_swappable_with = detail::is_swappable_with_impl<T, U>;
-
-template<typename T>
-struct is_swappable :
-  std::conditional_t<
-    !is_referencable<T>::value,
-    std::false_type,
-    is_swappable_with<
-      std::add_lvalue_reference_t<T>,
-      std::add_lvalue_reference_t<T>>
-  >{};
-
-struct not_constructible {
-  not_constructible() = delete;
-};
+struct not_constructible { not_constructible() = delete; };
 
 struct constructible {};
 
 template<typename T>
 using hash_constructible =
-std::conditional_t<
-  std::is_default_constructible<std::hash<T>>::value,
+conditional_t<
+  is_default_constructible<std::hash<T>>::value,
   constructible,
   not_constructible>;
 
-} // namespace optional
-} // namespace internal
+} // namespace detail
 
 // declare swap first
 template<typename T,
-  ::std::enable_if_t<
-    ::std::is_move_constructible<T>::value && ::ss::internal::optional::is_swappable<T>::value,
-    int> = 0>
-void swap(::ss::optional<T>& lhs, ::ss::optional<T>& rhs) noexcept(noexcept(lhs.swap(rhs))) {
+  enable_if_t<
+    is_move_constructible<T>::value && is_swappable<T>::value,
+  int> = 0>
+void swap(optional<T>& lhs, optional<T>& rhs) noexcept(noexcept(lhs.swap(rhs))) {
   lhs.swap(rhs);
 }
 
-//template<typename T>
-//struct hash<::ss::optional<T>> : ::ss::internal::optional::hash_constructible<std::remove_const_t<T>> {
-//  using argument_type = ::ss::optional<T>;
-//  using result_type = ::std::size_t;
-//
-//  result_type operator()(const argument_type& key) const {
-//    return key.has_value() ? ::std::hash<::std::remove_const_t<T>>()(*key) : 0;
-//  }
-//};
+template<typename T>
+struct hash<optional<T>> : detail::hash_constructible<remove_const_t<T>> {
+  using argument_type = optional<T>;
+  using result_type = size_t;
+
+  result_type operator()(const argument_type& key) const {
+    return key.has_value() ? std::hash<remove_const_t<T>>()(*key) : 0;
+  }
+};
 
 namespace internal {
 namespace optional {
 
 template<bool v>
-struct conditional_tf : std::conditional_t<v, std::true_type, std::false_type> {};
+struct conditional_tf : conditional_t<v, true_type, false_type> {};
 
 template<bool v>
 using conditional_tf_t = typename conditional_tf<v>::type;
@@ -127,20 +89,20 @@ using conditional_tf_t = typename conditional_tf<v>::type;
 template<typename Original, typename Other>
 struct check_constructible :
   conditional_tf_t<
-    !std::is_constructible<Original, Other & >::value && !std::is_constructible<Original, Other const& >::value &&
-    !std::is_constructible<Original, Other &&>::value && !std::is_constructible<Original, Other const&&>::value> {};
+    !is_constructible<Original, Other & >::value && !is_constructible<Original, Other const& >::value &&
+    !is_constructible<Original, Other &&>::value && !is_constructible<Original, Other const&&>::value> {};
 
 template<typename Original, typename Other>
 struct check_convertible :
   conditional_tf_t<
-    !std::is_convertible<Other & , Original>::value && !std::is_convertible<Other const& , Original>::value &&
-    !std::is_convertible<Other &&, Original>::value && !std::is_convertible<Other const&&, Original>::value> {};
+    !is_convertible<Other & , Original>::value && !is_convertible<Other const& , Original>::value &&
+    !is_convertible<Other &&, Original>::value && !is_convertible<Other const&&, Original>::value> {};
 
 template<typename Original, typename Other>
 struct check_assignable :
   conditional_tf_t<
-    !std::is_assignable<Original&, Other & >::value && !std::is_assignable<Original&, Other const& >::value &&
-    !std::is_assignable<Original&, Other &&>::value && !std::is_assignable<Original&, Other const&&>::value> {};
+    !is_assignable<Original&, Other & >::value && !is_assignable<Original&, Other const& >::value &&
+    !is_assignable<Original&, Other &&>::value && !is_assignable<Original&, Other const&&>::value> {};
 
 template<typename T>
 struct strip {
@@ -154,7 +116,7 @@ struct strip {
 template<typename T>
 using strip_t = typename strip<T>::type;
 
-template<typename T, bool v = std::is_copy_constructible<T>::value>
+template<typename T, bool v = is_copy_constructible<T>::value>
 struct check_copy_constructible {};
 template<typename T>
 struct check_copy_constructible<T, false> {
@@ -165,7 +127,7 @@ struct check_copy_constructible<T, false> {
   check_copy_constructible& operator=(check_copy_constructible &&) = default;
 };
 
-template<typename T, bool v = std::is_move_constructible<T>::value>
+template<typename T, bool v = is_move_constructible<T>::value>
 struct check_move_constructible {};
 template<typename T>
 struct check_move_constructible<T, false> {
@@ -176,7 +138,7 @@ struct check_move_constructible<T, false> {
   check_move_constructible& operator=(check_move_constructible &&) = default;
 };
 
-template<typename T, bool v = std::is_copy_assignable<T>::value>
+template<typename T, bool v = is_copy_assignable<T>::value>
 struct check_copy_assignable {};
 template<typename T>
 struct check_copy_assignable<T, false> {
@@ -187,7 +149,7 @@ struct check_copy_assignable<T, false> {
   check_copy_assignable& operator=(check_copy_assignable &&) = default;
 };
 
-template<typename T, bool v = std::is_move_assignable<T>::value>
+template<typename T, bool v = is_move_assignable<T>::value>
 struct check_move_assignable {};
 template<typename T>
 struct check_move_assignable<T, false> {
@@ -198,7 +160,7 @@ struct check_move_assignable<T, false> {
   check_move_assignable& operator=(check_move_assignable &&) = default;
 };
 
-template<typename T, bool v = std::is_trivially_destructible<T>::value>
+template<typename T, bool v = is_trivially_destructible<T>::value>
 struct dtor {
   using value_type = T;
 
