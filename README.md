@@ -11,15 +11,15 @@ My own C++ STL implementation
 
 # Code Coverage
 
-| Concepts library                              | Status                                                  |
+| Concepts library                              | Feature status                                          |
 |-----------------------------------------------|---------------------------------------------------------|
 | concepts                                      | ![](https://img.shields.io/badge/C++20-0%25-red)        |
 
-| Coroutines library                            | Status                                                  |
+| Coroutines library                            | Feature status                                          |
 |-----------------------------------------------|---------------------------------------------------------|
 | coroutine                                     | ![](https://img.shields.io/badge/C++20-0%25-red)        |
 
-| Utilities library                             | Status                                                  |
+| Utilities library                             | Feature status                                          |
 |-----------------------------------------------|---------------------------------------------------------|
 | cstdlib                                       | ![](https://img.shields.io/badge/not_possible-grey)     |
 | csignal                                       | ![](https://img.shields.io/badge/not_possible-grey)     |
@@ -27,7 +27,7 @@ My own C++ STL implementation
 | cstdarg                                       | ![](https://img.shields.io/badge/not_possible-grey)     |
 | typeinfo                                      | ![](https://img.shields.io/badge/coverage-0%25-red)     |
 | typeindex                                     | ![](https://img.shields.io/badge/coverage-0%25-red)     |
-| [type_traits](status/type_traits.md)          | ![](https://img.shields.io/badge/C++11-78%25-green) ![](https://img.shields.io/badge/C++14-78%25-green) ![](https://img.shields.io/badge/C++17-78%25-green) ![](https://img.shields.io/badge/C++20-78%25-green) ![](https://img.shields.io/badge/C++23-79%25-green) |
+| [type_traits](status/type_traits.md)          | ![](https://img.shields.io/badge/C++11-100%25-brightgreen) ![](https://img.shields.io/badge/C++14-100%25-brightgreen) ![](https://img.shields.io/badge/C++17-69%25-yellowgreen) ![](https://img.shields.io/badge/C++20-64%25-yellowgreen) |
 | bitset                                        | ![](https://img.shields.io/badge/coverage-0%25-red)     |
 | functional                                    | ![](https://img.shields.io/badge/coverage-0%25-red)     |
 | utility                                       | ![](https://img.shields.io/badge/C++11-4%25-red) ![](https://img.shields.io/badge/C++14-4%25-red)        |
@@ -44,7 +44,7 @@ My own C++ STL implementation
 | stacktrace                                    | ![](https://img.shields.io/badge/not_possible-grey)     |
 
 
-| Dynamic memory management                     | Status                                                  |
+| Dynamic memory management                     | Feature status                                          |
 |-----------------------------------------------|---------------------------------------------------------|
 | new                                           | ![](https://img.shields.io/badge/unknown-grey)          |
 | memory                                        | ![](https://img.shields.io/badge/coverage-0%25-red)     |
@@ -52,7 +52,7 @@ My own C++ STL implementation
 | memory_resource                               | ![](https://img.shields.io/badge/unknown-grey)          |
 
 
-| Numeric limits                                | Status                                                  |
+| Numeric limits                                | Feature status                                          |
 |-----------------------------------------------|---------------------------------------------------------|
 | climits                                       | ![](https://img.shields.io/badge/unknown-grey)          |
 | cfloat                                        | ![](https://img.shields.io/badge/unknown-grey)          |
@@ -60,7 +60,7 @@ My own C++ STL implementation
 | cinttypes                                     | ![](https://img.shields.io/badge/unknown-grey)          |
 | limits                                        | ![](https://img.shields.io/badge/unknown-grey)          |
 
-| Error handling                                | Status                                                  |
+| Error handling                                | Feature status                                          |
 |-----------------------------------------------|---------------------------------------------------------|
 | exception                                     | ![](https://img.shields.io/badge/unknown-grey)          |
 | stdexcept                                     | ![](https://img.shields.io/badge/unknown-grey)          |
@@ -68,7 +68,7 @@ My own C++ STL implementation
 | system_error                                  | ![](https://img.shields.io/badge/unknown-grey)          |
 | cerrno                                        | ![](https://img.shields.io/badge/unknown-grey)          |
 
-| Strings library                               | Status                                                  |
+| Strings library                               | Feature status                                          |
 |-----------------------------------------------|---------------------------------------------------------|
 | cctype                                        | ![](https://img.shields.io/badge/unknown-grey)          |
 | cwctype                                       | ![](https://img.shields.io/badge/unknown-grey)          |
@@ -80,7 +80,7 @@ My own C++ STL implementation
 | charconv                                      | ![](https://img.shields.io/badge/coverage-0%25-red)     |
 | format                                        | ![](https://img.shields.io/badge/coverage-0%25-red)     |
 
-| Containers library                            | Status                                                  |
+| Containers library                            | Feature status                                          |
 |-----------------------------------------------|---------------------------------------------------------|
 | array                                         | ![](https://img.shields.io/badge/coverage-0%25-red)     |
 | vector                                        | ![](https://img.shields.io/badge/coverage-0%25-red)     |
@@ -95,20 +95,20 @@ My own C++ STL implementation
 | queue                                         | ![](https://img.shields.io/badge/coverage-0%25-red)     |
 | span                                          | ![](https://img.shields.io/badge/coverage-0%25-red)     |
 
-| Iterators library                             | Status                                                  |
+| Iterators library                             | Feature status                                          |
 |-----------------------------------------------|---------------------------------------------------------|
 | iterator                                      | ![](https://img.shields.io/badge/coverage-0%25-red)     |
 
-| Ranges library                                | Status                                                  |
+| Ranges library                                | Feature status                                          |
 |-----------------------------------------------|---------------------------------------------------------|
 | ranges                                        | ![](https://img.shields.io/badge/coverage-0%25-red)     |
 
-| Algorithms library                            | Status                                                  |
+| Algorithms library                            | Feature status                                          |
 |-----------------------------------------------|---------------------------------------------------------|
 | algorithm                                     | ![](https://img.shields.io/badge/coverage-0%25-red)     |
 | execution                                     | ![](https://img.shields.io/badge/unknown-grey)          |
 
-| Numerics library                              | Status                                                  |
+| Numerics library                              | Feature status                                          |
 |-----------------------------------------------|---------------------------------------------------------|
 | cmath                                         | ![](https://img.shields.io/badge/unknown-grey)          |
 | complex                                       | ![](https://img.shields.io/badge/coverage-0%25-red)     |
@@ -120,13 +120,13 @@ My own C++ STL implementation
 | bit                                           | ![](https://img.shields.io/badge/unknown-grey)          |
 | numbers                                       | ![](https://img.shields.io/badge/coverage-0%25-red)     |
 
-| Localization library                          | Status                                                  |
+| Localization library                          | Feature status                                          |
 |-----------------------------------------------|---------------------------------------------------------|
 | locale                                        | ![](https://img.shields.io/badge/unknown-grey)          |
 | clocale                                       | ![](https://img.shields.io/badge/unknown-grey)          |
 | codecvt                                       | ![](https://img.shields.io/badge/deprecated-grey)       |
 
-| Input/Output library                          | Status                                                  |
+| Input/Output library                          | Feature status                                          |
 |-----------------------------------------------|---------------------------------------------------------|
 | iosfwd                                        | ![](https://img.shields.io/badge/unknown-grey)          |
 | ios                                           | ![](https://img.shields.io/badge/unknown-grey)          |
@@ -142,19 +142,19 @@ My own C++ STL implementation
 | streambuf                                     | ![](https://img.shields.io/badge/unknown-grey)          |
 | cstdio                                        | ![](https://img.shields.io/badge/not_possible-grey)     |
 
-| Filesystem library                            | Status                                                  |
+| Filesystem library                            | Feature status                                          |
 |-----------------------------------------------|---------------------------------------------------------|
 | filesystem                                    | ![](https://img.shields.io/badge/not_possible-grey)     |
 
-| Regular Expression library                    | Status                                                  |
+| Regular Expression library                    | Feature status                                          |
 |-----------------------------------------------|---------------------------------------------------------|
 | filesystem                                    | ![](https://img.shields.io/badge/coverage-0%25-red)     |
 
-| Atomic Operations library                     | Status                                                  |
+| Atomic Operations library                     | Feature status                                          |
 |-----------------------------------------------|---------------------------------------------------------|
 | atomic                                        |  ![](https://img.shields.io/badge/unknown-grey)         |
 
-| Thread support library                        | Status                                                  |
+| Thread support library                        | Feature status                                          |
 |-----------------------------------------------|---------------------------------------------------------|
 | thread                                        |  ![](https://img.shields.io/badge/unknown-grey)         |
 | stop_token                                    |  ![](https://img.shields.io/badge/unknown-grey)         |
