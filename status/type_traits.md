@@ -1,23 +1,20 @@
-## Header <type_traits> implementation status
+## Header `<type_traits>` implementation status
 
 [Reference](https://en.cppreference.com/w/cpp/header/type_traits)  
 [Implementation](../ss/include/ss/type_traits.h)
 
-* ![](https://img.shields.io/badge/Impossible-N-red): Cannot implement with language itself. Need compiler support. Used C++ N STL
-* ![](https://img.shields.io/badge/C%2B%2B-N-green): Implemented with C++ N. Same version as STL
-* ![](https://img.shields.io/badge/C%2B%2B-X--%3EY-blue): STL items in C++ X is implemented in C++ Y.
+* ![](https://img.shields.io/badge/C%2B%2B-N-red): Cannot implement with language itself. Need compiler support. Used C++ N STL
+* ![](https://img.shields.io/badge/C%2B%2B-N-green): Implemented with C++ N
 * ![][notyet]: Not yet implemented
 
 
-| Name                             | Version (STL &#8594; Mine) |
+| C++11 Features                   | Implemented in          |
 |----------------------------------|:-----------------------:|
 | **Helper Classes**               |                         |
 |integral_constant                 | ![][cpp11]              |
-|bool_constant                     | ![][cpp1711]            |
 |                                  |                         |
 | **Primary type categories**      |                         |
 |is_void                           | ![][cpp11]              |
-|is_null_pointer                   | ![][cpp1411]            |
 |is_integral                       | ![][cppno11]            |
 |is_floating_point                 | ![][cpp11]              |
 |is_array                          | ![][cpp11]              |
@@ -48,17 +45,11 @@
 |is_standard_layout                | ![][cppno11]            |
 |is_pod                            | ![][cpp11]              |
 |~~is_literal_type~~               | ![][removed]            |
-|has_unique_object_representations | ![][cppno17]            |
 |is_empty                          | ![][cpp11]              |
 |is_polymorphic                    | ![][cpp11]              |
 |is_abstract                       | ![][cpp11]              |
-|is_final                          | ![][cppno14]            |
-|is_aggregate                      | ![][cppno17]            |
 |is_signed                         | ![][cpp11]              |
 |is_unsigned                       | ![][cpp11]              |
-|is_bounded_array                  | ![][cpp2011]            |
-|is_unbounded_array                | ![][cpp2011]            |
-|is_scoped_enum                    | ![][cppno23]            |
 |                                  |                         |
 | **Supported operations**         |                         |
 |is_constructible                  | ![][cpp11]*             |
@@ -86,10 +77,6 @@
 |is_trivially_destructible         | ![][cppno11]            |
 |is_nothrow_destructible           | ![][cpp11]*             |
 |has_virtual_destructor            | ![][cppno11]            |
-|is_swappable_with                 | ![][cpp1711]*           |
-|is_swappable                      | ![][cpp1711]            |
-|is_nothrow_swappable_with         | ![][cpp1711]*           |
-|is_nothrow_swappable              | ![][cpp1711]            |
 |                                  |                         |
 | **Property queries**             |                         |
 |alignment_of                      | ![][cpp11]              |
@@ -98,13 +85,6 @@
 |is_same                           | ![][cpp11]              |
 |is_base_of                        | ![][cpp11]              |
 |is_convertible                    | ![][cpp11]*             |
-|is_nothrow_convertible            | ![][cpp2011]*           |
-|is_layout_compatible              | ![][cppno20]            |
-|is_pointer_interconvertible_base_of| ![][cppno20]           |
-|is_invocable                      | ![][notyet]             |
-|is_invocable_r                    | ![][notyet]             |
-|is_nothrow_invocable              | ![][notyet]             |
-|is_nothrow_invocable_r            | ![][notyet]             |
 |                                  |                         |
 | **Const-volatility specifiers**  |                         |
 |remove_cv                         | ![][cpp11]              |
@@ -135,62 +115,93 @@
 |aligned_storage                   | ![][cppno11]            |
 |aligned_union                     | ![][cpp11]**            |
 |decay                             | ![][cpp11]              |
-|remove_cvref                      | ![][cpp2011]            |
 |enable_if                         | ![][cpp11]              |
 |conditional                       | ![][cpp11]              |
 |common_type                       | ![][cpp11]*             |
-|common_reference <br/> basic_common_reference | ![][cpp2011] |
 |underlying_type                   | ![][cpp11]              |
-|result_of                         | ![][cpp11]              |
+|~~result_of~~                     | ![][removed]            |
 |invoke_result                     | ![][notyet]             |
-|void_t                            | ![][cpp1711]            |
-|type_identity                     | ![][cpp2011]            |
+
+| C++14 Features                   | Implemented in          |
+|----------------------------------|:-----------------------:|
+| **Primary type categories**      |                         |
+|is_null_pointer                   | ![][cpp11]              |
+|                                  |                         |
+| **Type properties**              |                         |
+|is_final                          | ![][cppno14]            |
+
+| C++17 Features                   | Implemented in          |
+|----------------------------------|:-----------------------:|
+| **Helper Classes**               |                         |
+|bool_constant                     | ![][cpp11]              |
+|                                  |                         |
+| **Type properties**              |                         |
+|has_unique_object_representations | ![][cppno17]            |
+|is_aggregate                      | ![][cppno17]            |
+|                                  |                         |
+| **Supported operations**         |                         |
+|is_swappable_with                 | ![][cpp11]*             |
+|is_swappable                      | ![][cpp11]              |
+|is_nothrow_swappable_with         | ![][cpp11]*             |
+|is_nothrow_swappable              | ![][cpp11]              |
+|                                  |                         |
+| **Property queries**             |                         |
+|is_invocable                      | ![][notyet]             |
+|is_invocable_r                    | ![][notyet]             |
+|is_nothrow_invocable              | ![][notyet]             |
+|is_nothrow_invocable_r            | ![][notyet]             |
+|                                  |                         |
+| **Miscellaneous transformations**|                         |
+|invoke_result                     | ![][notyet]             |
+|void_t                            | ![][cpp11]              |
 |                                  |                         |
 | **Operations on traits**         |                         |
-|conjunction                       | ![][cpp1711]            |
-|disjunction                       | ![][cpp1711]            |
-|negation                          | ![][cpp1711]            |
+|conjunction                       | ![][cpp11]              |
+|disjunction                       | ![][cpp11]              |
+|negation                          | ![][cpp11]              |
+
+| C++20 Features                   | Implemented in          |
+|----------------------------------|:-----------------------:|
+| **Type properties**              |                         |
+|is_bounded_array                  | ![][cpp11]              |
+|is_unbounded_array                | ![][cpp11]              |
+|                                  |                         |
+| **Property queries**             |                         |
+|is_nothrow_convertible            | ![][cpp11]*             |
+|is_layout_compatible              | ![][cppno20]            |
+|is_pointer_interconvertible_base_of| ![][cppno20]           |
+|                                  |                         |
+| **Miscellaneous transformations**|                         |
+|remove_cvref                      | ![][cpp11]              |
+|common_reference <br/> basic_common_reference | ![][cpp11]  |
+|type_identity                     | ![][cpp11]              |
 |                                  |                         |
 | **Member relationships**         |                         |
 |is_pointer_interconvertible_with_class | ![][cppno20]       |
 |is_corresponding_member           | ![][cppno20]            |
 |                                  |                         |
 | **Constant evaluation context**  |                         |
-|is_constant_evaluated             | ![][cppno20] ![][cpp2023] |
+|is_constant_evaluated             | ![][cppno20] ![][cpp23] |
 
 ---
 \* Used `std::declval<T>`  
 \*\* Used `std::max`
-\*\*\* MSVC defect
 
 [notyet]: https://img.shields.io/badge/Not_yet-orange
 [removed]: https://img.shields.io/badge/Removed-red
 
-[cppno]: https://img.shields.io/badge/Impossible-red
-[cppno11]: https://img.shields.io/badge/Impossible-11-red
-[cppno14]: https://img.shields.io/badge/Impossible-14-red
-[cppno17]: https://img.shields.io/badge/Impossible-17-red
-[cppno20]: https://img.shields.io/badge/Impossible-20-red
-[cppno23]: https://img.shields.io/badge/Impossible-23-red
+[cppno11]: https://img.shields.io/badge/C%2B%2B-11-red
+[cppno14]: https://img.shields.io/badge/C%2B%2B-14-red
+[cppno17]: https://img.shields.io/badge/C%2B%2B-17-red
+[cppno20]: https://img.shields.io/badge/C%2B%2B-20-red
+[cppno23]: https://img.shields.io/badge/C%2B%2B-23-red
 
 [cpp11]: https://img.shields.io/badge/C%2B%2B-11-green
-[cpp1411]: https://img.shields.io/badge/C%2B%2B-14--%3E11-blue
-[cpp1711]: https://img.shields.io/badge/C%2B%2B-17--%3E11-blue
-[cpp2011]: https://img.shields.io/badge/C%2B%2B-20--%3E11-blue
-[cpp2311]: https://img.shields.io/badge/C%2B%2B-23--%3E11-blue
 
 [cpp14]: https://img.shields.io/badge/C%2B%2B-14-green
-[cpp1714]: https://img.shields.io/badge/C%2B%2B-17--%3E14-blue
-[cpp1714]: https://img.shields.io/badge/C%2B%2B-20--%3E14-blue
-[cpp1714]: https://img.shields.io/badge/C%2B%2B-23--%3E14-blue
 
 [cpp17]: https://img.shields.io/badge/C%2B%2B-17-green
-[cpp2017]: https://img.shields.io/badge/C%2B%2B-20--%3E17-blue
-[cpp2317]: https://img.shields.io/badge/C%2B%2B-23--%3E17-blue
 
 [cpp20]: https://img.shields.io/badge/C%2B%2B-20-green
-[cpp2320]: https://img.shields.io/badge/C%2B%2B-23--%3E20-blue
-
-[cpp2023]: https://img.shields.io/badge/C%2B%2B-20--%3E23-red
 
 [cpp23]: https://img.shields.io/badge/C%2B%2B-23-green
