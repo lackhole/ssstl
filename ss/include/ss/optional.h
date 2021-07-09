@@ -12,6 +12,7 @@
 # include "ss/type_traits.h"
 # include "ss/functional.h"
 # include "ss/utility.h"
+# include "ss/memory.h"
 
 namespace ss {
 
@@ -158,17 +159,17 @@ struct dtor {
     }
   }
 
-  constexpr inline const value_type* pointer() const { return &val; }
-  constexpr inline       value_type* pointer()       { return &val; }
+  constexpr const        value_type* pointer() const { return addressof(val); }
+  SS_CONSTEXPR_AFTER_14  value_type* pointer()       { return addressof(val); }
 
-  constexpr inline const value_type& ref() const&  { return val;       }
-  constexpr inline       value_type& ref()      &  { return val;       }
-  constexpr inline const value_type& ref() const&& { return move(val); }
-  constexpr inline       value_type& ref()      && { return move(val); }
+  constexpr const        value_type& ref() const&  { return val;       }
+  SS_CONSTEXPR_AFTER_14  value_type& ref()      &  { return val;       }
+  constexpr const        value_type& ref() const&& { return move(val); }
+  SS_CONSTEXPR_AFTER_14  value_type& ref()      && { return move(val); }
 
   template<typename ...U>
   void construct(U&&... args) {
-    ::new((void*)&val) value_type(forward<U>(args)...);
+    ::new((void*)addressof(val)) value_type(forward<U>(args)...);
     valid = true;
   }
 
@@ -206,17 +207,17 @@ struct dtor<T, false> {
     }
   }
 
-  constexpr inline const value_type* pointer() const { return &val; }
-  constexpr inline       value_type* pointer()       { return &val; }
+  constexpr             const value_type* pointer() const { return addressof(val); }
+  SS_CONSTEXPR_AFTER_14       value_type* pointer()       { return addressof(val); }
 
-  constexpr inline const value_type& ref() const&  { return val;        }
-  constexpr inline       value_type& ref()      &  { return val;        }
-  constexpr inline const value_type& ref() const&& { return move(val);  }
-  constexpr inline       value_type& ref()      && { return move(val);  }
+  constexpr             const value_type& ref() const&  { return val;        }
+  SS_CONSTEXPR_AFTER_14       value_type& ref()      &  { return val;        }
+  constexpr             const value_type& ref() const&& { return move(val);  }
+  SS_CONSTEXPR_AFTER_14       value_type& ref()      && { return move(val);  }
 
   template<typename U>
   void construct(U&& arg) {
-    ::new((void*)&val) value_type(forward<U>(arg));
+    ::new((void*)addressof(val)) value_type(forward<U>(arg));
     valid = true;
   }
 
@@ -380,7 +381,7 @@ class optional :
       internal::optional::check_constructible<value_type, optional<U>>::value &&
       internal::optional::check_convertible  <value_type, optional<U>>::value,
     int> = 0>
-  constexpr optional(const optional<U>& other) {
+  SS_CONSTEXPR_AFTER_14 optional(const optional<U>& other) {
     this->construct_if(*other);
   }
 
@@ -391,7 +392,7 @@ class optional :
       internal::optional::check_convertible  <value_type, optional<U>>::value &&
       !is_convertible<const U&, value_type>::value,
     int> = 0>
-  explicit constexpr optional(const optional<U>& other) {
+  SS_CONSTEXPR_AFTER_14 explicit optional(const optional<U>& other) {
     this->construct_if(*other);
   }
 
@@ -401,7 +402,7 @@ class optional :
       internal::optional::check_constructible<value_type, optional<U>>::value &&
       internal::optional::check_convertible  <value_type, optional<U>>::value,
     int> = 0>
-  constexpr optional(optional<U>&& other) {
+  SS_CONSTEXPR_AFTER_14 optional(optional<U>&& other) {
     this->construct_if(move(*other));
   }
 
@@ -412,7 +413,7 @@ class optional :
       internal::optional::check_convertible  <value_type, optional<U>>::value &&
       !is_convertible<U&&, value_type>::value,
     int> = 0>
-  explicit constexpr optional(optional<U>&& other) {
+  SS_CONSTEXPR_AFTER_14 explicit optional(optional<U>&& other) {
     this->construct_if(move(*other));
   }
 
@@ -422,7 +423,7 @@ class optional :
       is_same<InPlaceT, in_place_t>::value &&
       is_constructible<value_type>::value,
     int> = 0>
-  constexpr explicit optional(InPlaceT) : base(in_place) {}
+  SS_CONSTEXPR_AFTER_14 explicit optional(InPlaceT) : base(in_place) {}
 
   template<typename Arg, typename ...Args,
     enable_if_t<
@@ -517,13 +518,13 @@ class optional :
   }
 
 
-  constexpr inline const value_type*  operator->() const { return this->pointer();    }
-  constexpr inline       value_type*  operator->()       { return this->pointer();    }
+  constexpr             const value_type*  operator->() const { return this->pointer();    }
+  SS_CONSTEXPR_AFTER_14       value_type*  operator->()       { return this->pointer();    }
 
-  constexpr inline const value_type&  operator*() const&  { return this->ref();       }
-  constexpr inline       value_type&  operator*()      &  { return this->ref();       }
-  constexpr inline const value_type&& operator*() const&& { return move(this->ref()); }
-  constexpr inline       value_type&& operator*()      && { return move(this->ref()); }
+  constexpr             const value_type&  operator*() const&  { return this->ref();       }
+  SS_CONSTEXPR_AFTER_14       value_type&  operator*()      &  { return this->ref();       }
+  constexpr             const value_type&& operator*() const&& { return move(this->ref()); }
+  SS_CONSTEXPR_AFTER_14       value_type&& operator*()      && { return move(this->ref()); }
 
   constexpr inline explicit operator bool() const noexcept {
     return this->valid;
@@ -532,7 +533,7 @@ class optional :
     return this->valid;
   }
 
-  constexpr inline value_type& value() & {
+  SS_CONSTEXPR_AFTER_14 inline value_type& value() & {
     if (!this->has_value())
       throw bad_optional_access{};
     return this->ref();
@@ -542,7 +543,7 @@ class optional :
       throw bad_optional_access{};
     return this->ref();
   }
-  constexpr inline value_type&& value() && {
+  SS_CONSTEXPR_AFTER_14 inline value_type&& value() && {
     if (!this->has_value())
       throw bad_optional_access{};
     return move(this->ref());
