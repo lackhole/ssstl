@@ -1,6 +1,6 @@
 <div align="center">
   
-# SS
+# SSSTL
 SS Standard Template Library  
 Focusing on implementing high C++ features for low C++(i.e. You can use `ss::optional<T>` in C++11)
   
