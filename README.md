@@ -20,6 +20,16 @@ My own C++ STL implementation
 0%        : red
 --->
 
+* ![](https://img.shields.io/badge/not_possible-grey): Impossible to implement with language itself.
+* ![](https://img.shields.io/badge/C++N-100%25-brightgreen): Implemented features that are stated in the `C++ standard` == `N`.
+* ![](https://img.shields.io/badge/C++N-100%25-blue): Implemented features that are stated in the `C++ standard` > `N` in C++ N.
+* ![](https://img.shields.io/badge/C++N-X%25-green)
+  ![](https://img.shields.io/badge/C++N-X%25-yellowgreen)
+  ![](https://img.shields.io/badge/C++N-X%25-yellow)
+  ![](https://img.shields.io/badge/C++N-X%25-orange)
+  ![](https://img.shields.io/badge/C++N-X%25-red): 
+  Implementation in progress.
+
 | Concepts library                              | Feature status                                          |
 |-----------------------------------------------|---------------------------------------------------------|
 | concepts                                      | ![](https://img.shields.io/badge/C++20-0%25-red)        |
