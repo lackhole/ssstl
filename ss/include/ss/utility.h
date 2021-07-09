@@ -20,6 +20,11 @@ constexpr inline T&& forward(remove_reference_t<T>&& t) noexcept {
   return static_cast<T&&>(t);
 }
 
+template<typename T>
+constexpr inline remove_reference_t<T>&& move(T&& t) noexcept {
+  return static_cast<remove_reference_t<T>&&>(t);
+}
+
 }
 
 #endif // SS_UTILITY_H_
