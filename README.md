@@ -55,7 +55,7 @@ Focusing on implementing high C++ features for low C++(i.e. You can use `ss::opt
 | initializer_list                              | ![](https://img.shields.io/badge/not_possible-grey)     |
 | tuple                                         | ![](https://img.shields.io/badge/coverage-0%25-red)     |
 | any                                           | ![](https://img.shields.io/badge/coverage-0%25-red)     |
-| [optional](status/optional.md)                | ![](https://img.shields.io/badge/C++11-100%25-blue)        ![](https://img.shields.io/badge/C++14-100%25-blue)        ![](https://img.shields.io/badge/C++17-88%25-green)       ![](https://img.shields.io/badge/C++20-0%25-red)          |
+| [optional](status/optional.md)                | ![](https://img.shields.io/badge/C++11-100%25-blue)        ![](https://img.shields.io/badge/C++14-100%25-blue)        ![](https://img.shields.io/badge/C++17-100%25-green)      ![](https://img.shields.io/badge/C++20-0%25-red)          |
 | variant                                       | ![](https://img.shields.io/badge/coverage-0%25-red)     |
 | compare                                       | ![](https://img.shields.io/badge/unknown-grey)          |
 | version                                       | ![](https://img.shields.io/badge/unknown-grey)          |

@@ -24,7 +24,7 @@
 | Comparison                       |                         |
 |operator== <br/> operator!= <br/> operator< <br/> operator<= <br/> operator> <br/> operator>= | ![][cpp11] |
 | Specialized algorithms           |                         |
-|ss::swap(ss::optional)            | ![][notyet]             |
+|ss::swap(ss::optional)            | ![][cpp11]              |
 |make_optional                     | ![][cpp11]              |
 
 | C++20  Features                  | Implemented in          |
