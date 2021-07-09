@@ -423,7 +423,7 @@ class optional :
       is_same<InPlaceT, in_place_t>::value &&
       is_constructible<value_type>::value,
     int> = 0>
-  SS_CONSTEXPR_AFTER_14 explicit optional(InPlaceT) : base(in_place) {}
+  constexpr explicit optional(InPlaceT) : base(in_place) {}
 
   template<typename Arg, typename ...Args,
     enable_if_t<
