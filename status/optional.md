@@ -4,7 +4,7 @@
 [Implementation](../ss/include/ss/optional.h)
 
 * ![](https://img.shields.io/badge/C%2B%2B-N-red): Cannot implement with language itself. Need compiler support. Used C++ N STL
-    * ![](https://img.shields.io/badge/C%2B%2B-N-blue): Partially implemented with C++ N
+* ![](https://img.shields.io/badge/C%2B%2B-N-blue): Partially implemented with C++ N
 * ![](https://img.shields.io/badge/C%2B%2B-N-green): Implemented with C++ N
 * ![][notyet]: Not yet implemented
 
