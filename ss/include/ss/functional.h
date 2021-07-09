@@ -9,6 +9,9 @@
 
 namespace ss {
 
+template<typename Key>
+struct hash;
+
 template<typename Func, typename ...Args>
 constexpr inline decltype(auto) invoke(Func&&, Args&&... args) {
   return 0;
