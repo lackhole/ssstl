@@ -120,7 +120,6 @@
 |common_type                       | ![][cpp11]*             |
 |underlying_type                   | ![][cpp11]              |
 |~~result_of~~                     | ![][removed]            |
-|invoke_result                     | ![][notyet]             |
 
 | C++14 Features                   | Implemented in          |
 |----------------------------------|:-----------------------:|
@@ -168,8 +167,8 @@
 |                                  |                         |
 | **Property queries**             |                         |
 |is_nothrow_convertible            | ![][cpp11]*             |
-|is_layout_compatible              | ![][cppno20]            |
-|is_pointer_interconvertible_base_of| ![][cppno20]           |
+|is_layout_compatible              | ![][notyet]             |
+|is_pointer_interconvertible_base_of| ![][notyet]            |
 |                                  |                         |
 | **Miscellaneous transformations**|                         |
 |remove_cvref                      | ![][cpp11]              |
@@ -177,8 +176,8 @@
 |type_identity                     | ![][cpp11]              |
 |                                  |                         |
 | **Member relationships**         |                         |
-|is_pointer_interconvertible_with_class | ![][cppno20]       |
-|is_corresponding_member           | ![][cppno20]            |
+|is_pointer_interconvertible_with_class | ![][notyet]        |
+|is_corresponding_member           | ![][notyet]             |
 |                                  |                         |
 | **Constant evaluation context**  |                         |
 |is_constant_evaluated             | ![][cppno20] ![][cpp23] |
