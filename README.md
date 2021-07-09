@@ -4,9 +4,9 @@
 My own C++ STL implementation
 
 # Build Status
-[![g++](https://github.com/lackhole/lackhole_stl/actions/workflows/gcc.yml/badge.svg)](https://github.com/lackhole/lackhole_stl/actions/workflows/gcc.yml)
-[![clang++](https://github.com/lackhole/lackhole_stl/actions/workflows/clang.yml/badge.svg)](https://github.com/lackhole/lackhole_stl/actions/workflows/clang.yml)
-[![MSVC](https://github.com/lackhole/lackhole_stl/actions/workflows/msvc.yml/badge.svg)](https://github.com/lackhole/lackhole_stl/actions/workflows/msvc.yml)
+[![g++](https://github.com/lackhole/ssstl/actions/workflows/gcc.yml/badge.svg)](https://github.com/lackhole/ssstl/actions/workflows/gcc.yml)
+[![clang++](https://github.com/lackhole/ssstl/actions/workflows/clang.yml/badge.svg)](https://github.com/lackhole/ssstl/actions/workflows/clang.yml)
+[![MSVC](https://github.com/lackhole/ssstl/actions/workflows/msvc.yml/badge.svg)](https://github.com/lackhole/ssstl/actions/workflows/msvc.yml)
 </div>
 
 # Code Coverage
