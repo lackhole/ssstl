@@ -427,6 +427,14 @@ template<typename T> using add_rvalue_reference_t = typename add_rvalue_referenc
 
 
 /**
+ * declval
+ * It have to be declared here to avoid mutal header inclusion error
+ * @tparam T
+ */
+template<typename T>
+inline add_rvalue_reference_t<T> declval() noexcept;
+
+/**
  * remove_pointer
  * @tparam T
  */
@@ -763,7 +771,7 @@ struct is_complete<T,
               (sizeof(T) > 0)>> : true_type {};
 
 template<typename T, typename ...Args>
-auto is_constructible_test(int) -> type_identity<decltype(T(std::declval<Args>()...))>;
+auto is_constructible_test(int) -> type_identity<decltype(T(declval<Args>()...))>;
 
 template<typename T, typename ...Args>
 auto is_constructible_test(...) -> unused;
@@ -817,7 +825,7 @@ template<bool v, typename T, typename ...Args>
 struct is_nothrow_constructible_impl : false_type {};
 
 template<typename T, typename ...Args>
-struct is_nothrow_constructible_impl<true, T, Args...> : bool_constant<noexcept(T(std::declval<Args>()...))> {};
+struct is_nothrow_constructible_impl<true, T, Args...> : bool_constant<noexcept(T(declval<Args>()...))> {};
 }
 
 /**
@@ -965,7 +973,7 @@ SS_INLINE_VAR constexpr bool is_nothrow_move_constructible_v = is_nothrow_move_c
 
 namespace detail {
 template<typename T, typename U>
-auto is_assignable_test(int) -> type_identity<decltype(std::declval<T>() = std::declval<U>())>;
+auto is_assignable_test(int) -> type_identity<decltype(declval<T>() = declval<U>())>;
 
 template<typename T, typename U>
 auto is_assignable_test(...) -> unused;
@@ -1006,7 +1014,7 @@ template<typename T, typename U, bool v = is_assignable<T, U>::value>
 struct is_nothrow_assignable_impl : false_type {};
 
 template<typename T, typename U>
-struct is_nothrow_assignable_impl<T, U, true> : bool_constant<noexcept(std::declval<T>() = std::declval<U>())> {};
+struct is_nothrow_assignable_impl<T, U, true> : bool_constant<noexcept(declval<T>() = declval<U>())> {};
 }
 /**
  * is_nothrow_assignable
@@ -1113,7 +1121,7 @@ template<typename T> SS_INLINE_VAR constexpr bool is_nothrow_move_assignable_v =
 
 namespace detail {
 template<typename T, typename U = remove_all_extents_t<T>>
-auto destructible_test(int) -> type_identity<decltype(std::declval<U&>().~U())>;
+auto destructible_test(int) -> type_identity<decltype(declval<U&>().~U())>;
 
 template<typename T>
 auto destructible_test(...) -> unused;
@@ -1147,7 +1155,7 @@ template<typename T> SS_INLINE_VAR constexpr bool is_trivially_destructible_v = 
 
 namespace detail {
 template<typename T, bool v = is_destructible<T>::value, typename U = remove_all_extents_t<T>>
-struct is_nothrow_destructible_impl : bool_constant<noexcept(std::declval<U&>().~U())> {};
+struct is_nothrow_destructible_impl : bool_constant<noexcept(declval<U&>().~U())> {};
 
 template<typename T>
 struct is_nothrow_destructible_impl<T, false> : false_type {};
@@ -1180,7 +1188,7 @@ namespace swap {
 using std::swap;
 
 template<typename T, typename U>
-auto swappable_test(int) -> type_identity<decltype(swap(std::declval<T>(), std::declval<U>()))>;
+auto swappable_test(int) -> type_identity<decltype(swap(declval<T>(), declval<U>()))>;
 
 template<typename T, typename U>
 auto swappable_test(...) -> unused;
@@ -1195,8 +1203,8 @@ struct is_nothrow_swappable_with_impl : false_type {};
 
 template<typename T, typename U>
 struct is_nothrow_swappable_with_impl<T, U, true>
-  : bool_constant<noexcept(swap(std::declval<T>(), std::declval<U>())) &&
-                  noexcept(swap(std::declval<U>(), std::declval<T>()))> {};
+  : bool_constant<noexcept(swap(declval<T>(), declval<U>())) &&
+                  noexcept(swap(declval<U>(), declval<T>()))> {};
 
 } // namespace swap
 } // namespace detail
@@ -1559,7 +1567,7 @@ SS_INLINE_VAR constexpr bool is_base_of_v = is_base_of<Base, Derived>::value;
 
 namespace detail {
 template<typename From, typename To>
-auto convertible_test(int) -> type_identity<decltype(std::declval<void(&)(To)>()(std::declval<From>()))>;
+auto convertible_test(int) -> type_identity<decltype(declval<void(&)(To)>()(declval<From>()))>;
 
 template<typename From, typename To>
 auto convertible_test(...) -> unused;
@@ -1582,7 +1590,7 @@ SS_INLINE_VAR constexpr bool is_convertible_v = is_convertible<From, To>::value;
 
 namespace detail {
 template<typename From, typename To>
-auto nothrow_convertible_test(int) -> type_identity<decltype(std::declval<void(&)(To)noexcept>()(std::declval<From>()))>;
+auto nothrow_convertible_test(int) -> type_identity<decltype(declval<void(&)(To)noexcept>()(declval<From>()))>;
 
 template<typename From, typename To>
 auto nothrow_convertible_test(...) -> unused;
@@ -1590,7 +1598,7 @@ auto nothrow_convertible_test(...) -> unused;
 template<typename From, typename To,
   bool v = is_not_same<unused, decltype(nothrow_convertible_test<From, To>(0))>::value>
 struct is_nothrow_convertible_impl :
-  bool_constant<noexcept(std::declval<void(&)(To)noexcept>()(std::declval<From>())) ||
+  bool_constant<noexcept(declval<void(&)(To)noexcept>()(declval<From>())) ||
     (is_void<From>::value && is_void<To>::value)> {};
 
 template<typename From, typename To>
@@ -1708,7 +1716,7 @@ namespace detail {
 struct empty {};
 
 template<typename T1, typename T2>
-using common_type_ternary = decay_t<decltype(false ? std::declval<T1>() : std::declval<T2>())>;
+using common_type_ternary = decay_t<decltype(false ? declval<T1>() : declval<T2>())>;
 
 template<typename T1, typename T2, typename = void>
 struct common_type_test_cxx20 {}; // C++20
@@ -1724,7 +1732,7 @@ struct common_type_test1 : common_type_test_cxx20<T1, T2> {};
 
 template<typename T1, typename T2>
 struct common_type_test1<T1, T2, void_t<common_type_ternary<T1, T2>>> {
-  using type = decay_t<decltype(false ? std::declval<T1>() : std::declval<T2>())>;
+  using type = decay_t<decltype(false ? declval<T1>() : declval<T2>())>;
 };
 } // namespace detail
 
@@ -1775,11 +1783,11 @@ template<typename T>
 struct make_rvalue { using type = add_rvalue_reference_t<remove_reference_t<T>>; };
 
 //template<typename T1, typename T2>
-//using simple_cr_test_help = decltype(false ? std::declval<union_cv_t<T1, T2, T1>>() : std::declval<union_cv_t<T1, T2, T2>>());
+//using simple_cr_test_help = decltype(false ? declval<union_cv_t<T1, T2, T1>>() : declval<union_cv_t<T1, T2, T2>>());
 
 template<typename T1, typename T2>
 using common_reference_simple_test1
-  = decltype(false ? std::declval<restore_cv_t<T2, T1>>() : std::declval<restore_cv_t<T1, T2>>());
+  = decltype(false ? declval<restore_cv_t<T2, T1>>() : declval<restore_cv_t<T1, T2>>());
 
 template<typename T1, typename T2, typename C,
   bool v = is_convertible<T1, C>::value && is_convertible<T2, C>::value>
