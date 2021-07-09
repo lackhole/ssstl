@@ -43,6 +43,12 @@
 #   define SS_MAYBE_UNUSED
 # endif
 
+# if SS_CXX_VER >= 14
+#   define SS_CONSTEXPR_AFTER_14 constexpr
+# else
+#   define SS_CONSTEXPR_AFTER_14
+# endif
+
 # if SS_CXX_VER >= 23
 #   define SS_AFTER_CXX23(...) __VA_ARGS__
 # else
