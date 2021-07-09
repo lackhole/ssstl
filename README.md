@@ -11,6 +11,15 @@ My own C++ STL implementation
 
 # Code Coverage
 
+<!--- 
+100%      : brightgreen
+75% ~ 100%: green
+50% ~ 75% : yellowgreen
+25% ~ 50% : yellow
+0% ~ 25%  : orange
+0%        : red
+--->
+
 | Concepts library                              | Feature status                                          |
 |-----------------------------------------------|---------------------------------------------------------|
 | concepts                                      | ![](https://img.shields.io/badge/C++20-0%25-red)        |
@@ -30,7 +39,7 @@ My own C++ STL implementation
 | [type_traits](status/type_traits.md)          | ![](https://img.shields.io/badge/C++11-100%25-brightgreen) ![](https://img.shields.io/badge/C++14-100%25-brightgreen) ![](https://img.shields.io/badge/C++17-69%25-yellowgreen) ![](https://img.shields.io/badge/C++20-64%25-yellowgreen) |
 | bitset                                        | ![](https://img.shields.io/badge/coverage-0%25-red)     |
 | functional                                    | ![](https://img.shields.io/badge/coverage-0%25-red)     |
-| utility                                       | ![](https://img.shields.io/badge/C++11-4%25-red) ![](https://img.shields.io/badge/C++14-4%25-red)        |
+| [utility](status/utility.md)                  | ![](https://img.shields.io/badge/C++11-18%25-orange)       ![](https://img.shields.io/badge/C++14-0%25-red)           ![](https://img.shields.io/badge/C++17-0%25-red)          ![](https://img.shields.io/badge/C++20-0%25-red)          |
 | chrono                                        | ![](https://img.shields.io/badge/coverage-0%25-red)     |
 | initializer_list                              | ![](https://img.shields.io/badge/not_possible-grey)     |
 | tuple                                         | ![](https://img.shields.io/badge/coverage-0%25-red)     |
