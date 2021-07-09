@@ -1,8 +1,9 @@
 <div align="center">
   
 # SS
-My own C++ STL implementation
-
+SS Standard Template Library  
+Focusing on implementing high C++ features for low C++(i.e. You can use `ss::optional<T>` in C++11)
+  
 # Build Status
 [![g++](https://github.com/lackhole/ssstl/actions/workflows/gcc.yml/badge.svg)](https://github.com/lackhole/ssstl/actions/workflows/gcc.yml)
 [![clang++](https://github.com/lackhole/ssstl/actions/workflows/clang.yml/badge.svg)](https://github.com/lackhole/ssstl/actions/workflows/clang.yml)
