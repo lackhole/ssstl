@@ -25,6 +25,9 @@ constexpr inline remove_reference_t<T>&& move(T&& t) noexcept {
   return static_cast<remove_reference_t<T>&&>(t);
 }
 
-}
+template<typename T>
+inline add_rvalue_reference_t<T> declval() noexcept;
+
+} // namespace ss
 
 #endif // SS_UTILITY_H_
