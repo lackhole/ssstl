@@ -18,6 +18,12 @@ namespace ss {
 template<typename T>
 class optional;
 
+struct nullopt_t {
+  constexpr explicit nullopt_t(int) {}
+};
+
+constexpr nullopt_t nullopt{0};
+
 class bad_optional_access : public std::exception {
  public:
   bad_optional_access() noexcept = default;

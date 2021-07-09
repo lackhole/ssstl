@@ -25,17 +25,25 @@ constexpr inline remove_reference_t<T>&& move(T&& t) noexcept {
   return static_cast<remove_reference_t<T>&&>(t);
 }
 
-struct in_place_t {
-  constexpr explicit in_place_t() = default;
-};
+/**
+ * in_place_t
+ */
+struct in_place_t { constexpr explicit in_place_t() = default; };
+SS_INLINE_VAR constexpr in_place_t in_place{};
 
-struct nullopt_t {
-  constexpr explicit nullopt_t(int) {}
-};
+template<typename T> struct in_place_type_t { constexpr explicit in_place_type_t() = default; };
+# if SS_CXX_VER >= 14
+template<typename T> SS_INLINE_VAR constexpr in_place_type_t<T> in_place_type{};
+# endif
 
-constexpr nullopt_t nullopt{0};
-
-constexpr in_place_t in_place{};
+/**
+ * is_place_index_t
+ * @tparam I
+ */
+template<size_t I> struct in_place_index_t { explicit in_place_index_t() = default; };
+# if SS_CXX_VER >= 14
+template<size_t I> SS_INLINE_VAR constexpr in_place_index_t<I> in_place_index{};
+# endif
 
 } // namespace ss
 
