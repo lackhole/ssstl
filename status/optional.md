@@ -1,19 +1,20 @@
-## Header `<utility>` implementation status
+## Header `<optional>` implementation status
 
-[Reference](https://en.cppreference.com/w/cpp/header/utility)  
-[Implementation](../ss/include/ss/utility.h)
+[Reference](https://en.cppreference.com/w/cpp/header/optional)  
+[Implementation](../ss/include/ss/optional.h)
 
 * ![](https://img.shields.io/badge/C%2B%2B-N-red): Cannot implement with language itself. Need compiler support. Used C++ N STL
-* ![](https://img.shields.io/badge/C%2B%2B-N-blue): Partially implemented with C++ N
-* ![](https://img.shields.io/badge/C%2B%2B-N-green): Fully implemented with C++ N
+* ![](https://img.shields.io/badge/C%2B%2B-N-green): Implemented with C++ N
 * ![][notyet]: Not yet implemented
 
 
-| C++ ≤ 11 Features                | Implemented in          |
+| C++17  Features                  | Implemented in          |
 |----------------------------------|:-----------------------:|
-| **Namespaces**                   |                         |
-|rel_ops                           |                         |
-|operator!= <br/> operator> <br/> operator<= <br/> operator>= | ![][notyet] |
+| **Classes**                      |                         |
+|optional                          |                         |
+|bad_optional_access                          |                         |
+|ss::hash\<ss::optional>                          |                         |
+|nullopt_t                          |                         |
 |                                  |                         |
 | **Functions**                    |                         |
 |swap                              | ![][notyet]             |
@@ -53,9 +54,7 @@
 |as_const                          | ![][notyet]             |
 |                                  |                         |
 | **Helpers**                      |                         |
-|in_place_t <br/> in_place         | ![][cpp11]              |
-|in_place_type_t <br/> in_place_index_t <br/> | ![][cpp11]   |
-|in_place_type <br/> in_place_index | ![][cpppt14] ![][cpp17] |
+|in_place <br/> in_place_type <br/> in_place_index <br/> in_place_t <br/> in_place_type_t <br/> in_place_index_t <br/> | ![][notyet] |
 
 | C++20 Features                   | Implemented in          |
 |----------------------------------|:-----------------------:|
@@ -71,12 +70,6 @@
 [cppno17]: https://img.shields.io/badge/C%2B%2B-17-red
 [cppno20]: https://img.shields.io/badge/C%2B%2B-20-red
 [cppno23]: https://img.shields.io/badge/C%2B%2B-23-red
-
-[cpppt11]: https://img.shields.io/badge/C%2B%2B-11-blue
-[cpppt14]: https://img.shields.io/badge/C%2B%2B-14-blue
-[cpppt17]: https://img.shields.io/badge/C%2B%2B-17-blue
-[cpppt20]: https://img.shields.io/badge/C%2B%2B-20-blue
-[cpppt23]: https://img.shields.io/badge/C%2B%2B-23-blue
 
 [cpp11]: https://img.shields.io/badge/C%2B%2B-11-green
 
