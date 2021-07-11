@@ -1,12 +1,6 @@
 name: gcc
 
-on:
-  push:
-    branches:
-      - '**'
-  release:
-    types:
-      - created
+on: pull_request
 
 env:
   BUILD_TYPE: Release
