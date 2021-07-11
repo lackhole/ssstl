@@ -1194,7 +1194,7 @@ constexpr inline enable_if_t<is_swappable<T>::value> swap(T(&a)[N], T(&b)[N]) no
 
 namespace detail {
 namespace swap {
-using std::swap;
+using ss::swap;
 
 template<typename T, typename U>
 auto swappable_test(int) -> type_identity<decltype(swap(declval<T>(), declval<U>()))>;
