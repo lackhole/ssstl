@@ -538,7 +538,7 @@ class optional :
       throw bad_optional_access{};
     return this->ref();
   }
-  constexpr inline const value_type& value() const& {
+  SS_CONSTEXPR_AFTER_14 inline const value_type& value() const& {
     if (!this->has_value())
       throw bad_optional_access{};
     return this->ref();
@@ -548,7 +548,7 @@ class optional :
       throw bad_optional_access{};
     return move(this->ref());
   }
-  constexpr inline const value_type&& value() const && {
+  SS_CONSTEXPR_AFTER_14 inline const value_type&& value() const && {
     if (!this->has_value())
       throw bad_optional_access{};
     return move(this->ref());
@@ -653,56 +653,50 @@ constexpr inline optional<T> make_optional(std::initializer_list<U> ilist, Args&
 
 template<typename T, typename U >
 constexpr bool operator==(const optional<T>& lhs, const optional<U>& rhs) {
-  if (bool(lhs) != bool(rhs))
-    return false;
-  if (!lhs)
-    return true;
-  return *lhs == *rhs;
+  return
+    bool(lhs) != bool(rhs) ? false :
+    !lhs ? true :
+    *lhs == *rhs;
 }
 
 template<typename T, typename U >
 constexpr bool operator!=(const optional<T>& lhs, const optional<U>& rhs) {
-  if (bool(lhs) != bool(rhs))
-    return true;
-  if (!lhs)
-    return false;
-  return lhs != rhs;
+  return
+    bool(lhs) != bool(rhs) ? true :
+    !lhs ? false :
+    lhs != rhs;
 }
 
 template<typename T, typename U >
 constexpr bool operator<(const optional<T>& lhs, const optional<U>& rhs) {
-  if (!rhs.has_value())
-    return false;
-  if (!lhs.has_value())
-    return true;
-  return *lhs < *rhs;
+  return
+    !rhs.has_value() ? false :
+    !lhs.has_value() ? true :
+    *lhs < *rhs;
 }
 
 template<typename T, typename U >
 constexpr bool operator<=(const optional<T>& lhs, const optional<U>& rhs) {
-  if (!lhs.has_value())
-    return true;
-  if (!rhs.has_value())
-    return false;
-  return *lhs <= *rhs;
+  return
+    !lhs.has_value() ? true :
+    !rhs.has_value() ? false :
+    *lhs <= *rhs;
 }
 
 template<typename T, typename U >
 constexpr bool operator>(const optional<T>& lhs, const optional<U>& rhs) {
-  if (!lhs.has_value())
-    return false;
-  if (!rhs.has_value())
-    return true;
-  return *lhs > *rhs;
+  return
+    !lhs.has_value() ? false :
+    !rhs.has_value() ? true :
+    *lhs > *rhs;
 }
 
 template<typename T, typename U >
 constexpr bool operator>=(const optional<T>& lhs, const optional<U>& rhs) {
-  if (!rhs.has_value())
-    return true;
-  if (!lhs.has_value())
-    return false;
-  return *lhs >= *rhs;
+  return
+    !rhs.has_value() ? true :
+    !lhs.has_value() ? false :
+    *lhs >= *rhs;
 }
 
 
