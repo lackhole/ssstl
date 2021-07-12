@@ -33,155 +33,188 @@ Focusing on implementing high C++ features for low C++(i.e. You can use `ss::opt
 
 | Concepts library                              | Feature status                                          |
 |-----------------------------------------------|---------------------------------------------------------|
-| concepts                                      | ![](https://img.shields.io/badge/C++20-0%25-red)        |
+| concepts                                      | ![][cpp20000]                                           |
 
 | Coroutines library                            | Feature status                                          |
 |-----------------------------------------------|---------------------------------------------------------|
-| coroutine                                     | ![](https://img.shields.io/badge/C++20-0%25-red)        |
+| coroutine                                     | ![][cpp20000]                                           |
 
 | Utilities library                             | Feature status                                          |
 |-----------------------------------------------|---------------------------------------------------------|
-| cstdlib                                       | ![](https://img.shields.io/badge/not_possible-grey)     |
-| csignal                                       | ![](https://img.shields.io/badge/not_possible-grey)     |
-| csetjmp                                       | ![](https://img.shields.io/badge/not_possible-grey)     |
-| cstdarg                                       | ![](https://img.shields.io/badge/not_possible-grey)     |
-| typeinfo                                      | ![](https://img.shields.io/badge/coverage-0%25-red)     |
-| typeindex                                     | ![](https://img.shields.io/badge/coverage-0%25-red)     |
-| [type_traits](status/type_traits.md)          | ![](https://img.shields.io/badge/C++11-100%25-brightgreen) ![](https://img.shields.io/badge/C++14-100%25-brightgreen) ![](https://img.shields.io/badge/C++17-69%25-yellowgreen) ![](https://img.shields.io/badge/C++20-64%25-yellowgreen) |
-| bitset                                        | ![](https://img.shields.io/badge/coverage-0%25-red)     |
-| functional                                    | ![](https://img.shields.io/badge/coverage-0%25-red)     |
-| [utility](status/utility.md)                  | ![](https://img.shields.io/badge/C++11-18%25-orange)       ![](https://img.shields.io/badge/C++14-0%25-red)           ![](https://img.shields.io/badge/C++17-75%25-green)       ![](https://img.shields.io/badge/C++20-0%25-red)          |
-| chrono                                        | ![](https://img.shields.io/badge/coverage-0%25-red)     |
-| initializer_list                              | ![](https://img.shields.io/badge/not_possible-grey)     |
-| tuple                                         | ![](https://img.shields.io/badge/coverage-0%25-red)     |
-| any                                           | ![](https://img.shields.io/badge/coverage-0%25-red)     |
-| [optional](status/optional.md)                | ![](https://img.shields.io/badge/C++11-100%25-blue)        ![](https://img.shields.io/badge/C++14-100%25-blue)        ![](https://img.shields.io/badge/C++17-100%25-green)      ![](https://img.shields.io/badge/C++20-0%25-red)          |
-| variant                                       | ![](https://img.shields.io/badge/coverage-0%25-red)     |
-| compare                                       | ![](https://img.shields.io/badge/unknown-grey)          |
-| version                                       | ![](https://img.shields.io/badge/unknown-grey)          |
-| source_location                               | ![](https://img.shields.io/badge/not_possible-grey)     |
-| stacktrace                                    | ![](https://img.shields.io/badge/not_possible-grey)     |
-| stacktrace                                    | ![](https://img.shields.io/badge/not_possible-grey)     |
+| cstdlib                                       | ![][impossib]                                           |
+| csignal                                       | ![][impossib]                                           |
+| csetjmp                                       | ![][impossib]                                           |
+| cstdarg                                       | ![][impossib]                                           |
+| typeinfo                                      | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
+| typeindex                                     | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
+| [type_traits](status/type_traits.md)          | ![][cpp11100] ![][cpp14100] ![][cpp17069] ![][cpp20064] |
+| bitset                                        | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
+| functional                                    | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
+| [utility](status/utility.md)                  | ![][cpp11018] ![][cpp14000] ![][cpp17075] ![][cpp20000] |
+| chrono                                        | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
+| initializer_list                              | ![][impossib]                                           |
+| tuple                                         | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
+| any                                           | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
+| [optional](status/optional.md)                | ![][cpp11300] ![][cpp14200] ![][cpp17100] ![][cpp20000] |
+| variant                                       | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
+| compare                                       | ![][unknown_]                                           |
+| version                                       | ![][unknown_]                                           |
+| source_location                               | ![][impossib]                                           |
+| stacktrace                                    | ![][impossib]                                           |
+| stacktrace                                    | ![][impossib]                                           |
 
 
 | Dynamic memory management                     | Feature status                                          |
 |-----------------------------------------------|---------------------------------------------------------|
-| new                                           | ![](https://img.shields.io/badge/unknown-grey)          |
-| memory                                        | ![](https://img.shields.io/badge/coverage-0%25-red)     |
-| scoped_allocator                              | ![](https://img.shields.io/badge/unknown-grey)          |
-| memory_resource                               | ![](https://img.shields.io/badge/unknown-grey)          |
+| new                                           | ![][unknown_]                                           |
+| memory                                        | ![][cpp11003] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
+| scoped_allocator                              | ![][unknown_]                                           |
+| memory_resource                               | ![][unknown_]                                           |
 
 
 | Numeric limits                                | Feature status                                          |
 |-----------------------------------------------|---------------------------------------------------------|
-| climits                                       | ![](https://img.shields.io/badge/unknown-grey)          |
-| cfloat                                        | ![](https://img.shields.io/badge/unknown-grey)          |
-| cstdint                                       | ![](https://img.shields.io/badge/unknown-grey)          |
-| cinttypes                                     | ![](https://img.shields.io/badge/unknown-grey)          |
-| limits                                        | ![](https://img.shields.io/badge/unknown-grey)          |
+| climits                                       | ![][unknown_]                                           |
+| cfloat                                        | ![][unknown_]                                           |
+| cstdint                                       | ![][unknown_]                                           |
+| cinttypes                                     | ![][unknown_]                                           |
+| limits                                        | ![][unknown_]                                           |
 
 | Error handling                                | Feature status                                          |
 |-----------------------------------------------|---------------------------------------------------------|
-| exception                                     | ![](https://img.shields.io/badge/unknown-grey)          |
-| stdexcept                                     | ![](https://img.shields.io/badge/unknown-grey)          |
-| cassert                                       | ![](https://img.shields.io/badge/unknown-grey)          |
-| system_error                                  | ![](https://img.shields.io/badge/unknown-grey)          |
-| cerrno                                        | ![](https://img.shields.io/badge/unknown-grey)          |
+| exception                                     | ![][unknown_]                                           |
+| stdexcept                                     | ![][unknown_]                                           |
+| cassert                                       | ![][unknown_]                                           |
+| system_error                                  | ![][unknown_]                                           |
+| cerrno                                        | ![][unknown_]                                           |
 
 | Strings library                               | Feature status                                          |
 |-----------------------------------------------|---------------------------------------------------------|
-| cctype                                        | ![](https://img.shields.io/badge/unknown-grey)          |
-| cwctype                                       | ![](https://img.shields.io/badge/unknown-grey)          |
-| cstring                                       | ![](https://img.shields.io/badge/unknown-grey)          |
-| cwchar                                        | ![](https://img.shields.io/badge/unknown-grey)          |
-| cuchar                                        | ![](https://img.shields.io/badge/unknown-grey)          |
-| string                                        | ![](https://img.shields.io/badge/coverage-0%25-red)     |
-| string_view                                   | ![](https://img.shields.io/badge/coverage-0%25-red)     |
-| charconv                                      | ![](https://img.shields.io/badge/coverage-0%25-red)     |
-| format                                        | ![](https://img.shields.io/badge/coverage-0%25-red)     |
+| cctype                                        | ![][unknown_]                                           |
+| cwctype                                       | ![][unknown_]                                           |
+| cstring                                       | ![][unknown_]                                           |
+| cwchar                                        | ![][unknown_]                                           |
+| cuchar                                        | ![][unknown_]                                           |
+| string                                        | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
+| string_view                                   | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
+| charconv                                      | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
+| format                                        | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
 
 | Containers library                            | Feature status                                          |
 |-----------------------------------------------|---------------------------------------------------------|
-| array                                         | ![](https://img.shields.io/badge/coverage-0%25-red)     |
-| vector                                        | ![](https://img.shields.io/badge/coverage-0%25-red)     |
-| deque                                         | ![](https://img.shields.io/badge/coverage-0%25-red)     |
-| list                                          | ![](https://img.shields.io/badge/coverage-0%25-red)     |
-| forward_list                                  | ![](https://img.shields.io/badge/coverage-0%25-red)     |
-| set                                           | ![](https://img.shields.io/badge/coverage-0%25-red)     |
-| map                                           | ![](https://img.shields.io/badge/coverage-0%25-red)     |
-| unordered_set                                 | ![](https://img.shields.io/badge/coverage-0%25-red)     |
-| unordered_map                                 | ![](https://img.shields.io/badge/coverage-0%25-red)     |
-| stack                                         | ![](https://img.shields.io/badge/coverage-0%25-red)     |
-| queue                                         | ![](https://img.shields.io/badge/coverage-0%25-red)     |
-| span                                          | ![](https://img.shields.io/badge/coverage-0%25-red)     |
+| array                                         | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
+| vector                                        | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
+| deque                                         | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
+| list                                          | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
+| forward_list                                  | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
+| set                                           | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
+| map                                           | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
+| unordered_set                                 | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
+| unordered_map                                 | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
+| stack                                         | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
+| queue                                         | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
+| span                                          | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
 
 | Iterators library                             | Feature status                                          |
 |-----------------------------------------------|---------------------------------------------------------|
-| [iterator](status/iterator.md)                | ![](https://img.shields.io/badge/C++11-7%25-orange)        ![](https://img.shields.io/badge/C++14-0%25-red)           ![](https://img.shields.io/badge/C++17-0%25-red)             ![](https://img.shields.io/badge/C++20-2%25-orange)    |
+| [iterator](status/iterator.md)                | ![][cpp11007] ![][cpp14000] ![][cpp17000] ![][cpp20002] |
 
 | Ranges library                                | Feature status                                          |
 |-----------------------------------------------|---------------------------------------------------------|
-| ranges                                        | ![](https://img.shields.io/badge/coverage-0%25-red)     |
+| ranges                                        | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
 
 | Algorithms library                            | Feature status                                          |
 |-----------------------------------------------|---------------------------------------------------------|
-| [algorithm](status/algorithm.md)              | ![](https://img.shields.io/badge/C++11-1%25-orange)        ![](https://img.shields.io/badge/C++14-0%25-red)           ![](https://img.shields.io/badge/C++17-0%25-red)             ![](https://img.shields.io/badge/C++20-0%25-red)       |
-| execution                                     | ![](https://img.shields.io/badge/unknown-grey)          |
+| [algorithm](status/algorithm.md)              | ![][cpp11001] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
+| execution                                     | ![][unknown_]                                           |
 
 | Numerics library                              | Feature status                                          |
 |-----------------------------------------------|---------------------------------------------------------|
-| cmath                                         | ![](https://img.shields.io/badge/unknown-grey)          |
-| complex                                       | ![](https://img.shields.io/badge/coverage-0%25-red)     |
-| valarray                                      | ![](https://img.shields.io/badge/coverage-0%25-red)     |
-| random                                        | ![](https://img.shields.io/badge/coverage-0%25-red)     |
-| numeric                                       | ![](https://img.shields.io/badge/coverage-0%25-red)     |
-| ratio                                         | ![](https://img.shields.io/badge/coverage-0%25-red)     |
-| cfenv                                         | ![](https://img.shields.io/badge/unknown-grey)          |
-| bit                                           | ![](https://img.shields.io/badge/unknown-grey)          |
-| numbers                                       | ![](https://img.shields.io/badge/coverage-0%25-red)     |
+| cmath                                         | ![][unknown_]                                           |
+| complex                                       | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
+| valarray                                      | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
+| random                                        | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
+| numeric                                       | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
+| ratio                                         | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
+| cfenv                                         | ![][unknown_]                                           |
+| bit                                           | ![][unknown_]                                           |
+| numbers                                       | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
 
 | Localization library                          | Feature status                                          |
 |-----------------------------------------------|---------------------------------------------------------|
-| locale                                        | ![](https://img.shields.io/badge/unknown-grey)          |
-| clocale                                       | ![](https://img.shields.io/badge/unknown-grey)          |
-| codecvt                                       | ![](https://img.shields.io/badge/deprecated-grey)       |
+| locale                                        | ![][unknown_]                                           |
+| clocale                                       | ![][unknown_]                                           |
+| codecvt                                       | ![][deprecat]                                           |
 
 | Input/Output library                          | Feature status                                          |
 |-----------------------------------------------|---------------------------------------------------------|
-| iosfwd                                        | ![](https://img.shields.io/badge/unknown-grey)          |
-| ios                                           | ![](https://img.shields.io/badge/unknown-grey)          |
-| istream                                       | ![](https://img.shields.io/badge/unknown-grey)          |
-| ostream                                       | ![](https://img.shields.io/badge/unknown-grey)          |
-| iostream                                      | ![](https://img.shields.io/badge/unknown-grey)          |
-| fstream                                       | ![](https://img.shields.io/badge/unknown-grey)          |
-| sstream                                       | ![](https://img.shields.io/badge/unknown-grey)          |
-| syncstream                                    | ![](https://img.shields.io/badge/unknown-grey)          |
-| spanstream                                    | ![](https://img.shields.io/badge/unknown-grey)          |
-| strstream                                     | ![](https://img.shields.io/badge/deprecated-grey)       |
-| iomanip                                       | ![](https://img.shields.io/badge/unknown-grey)          |
-| streambuf                                     | ![](https://img.shields.io/badge/unknown-grey)          |
-| cstdio                                        | ![](https://img.shields.io/badge/not_possible-grey)     |
+| iosfwd                                        | ![][unknown_]                                           |
+| ios                                           | ![][unknown_]                                           |
+| istream                                       | ![][unknown_]                                           |
+| ostream                                       | ![][unknown_]                                           |
+| iostream                                      | ![][unknown_]                                           |
+| fstream                                       | ![][unknown_]                                           |
+| sstream                                       | ![][unknown_]                                           |
+| syncstream                                    | ![][unknown_]                                           |
+| spanstream                                    | ![][unknown_]                                           |
+| strstream                                     | ![][deprecat]                                           |
+| iomanip                                       | ![][unknown_]                                           |
+| streambuf                                     | ![][unknown_]                                           |
+| cstdio                                        | ![][impossib]                                           |
 
 | Filesystem library                            | Feature status                                          |
 |-----------------------------------------------|---------------------------------------------------------|
-| filesystem                                    | ![](https://img.shields.io/badge/not_possible-grey)     |
+| filesystem                                    | ![][impossib]                                           |
 
 | Regular Expression library                    | Feature status                                          |
 |-----------------------------------------------|---------------------------------------------------------|
-| filesystem                                    | ![](https://img.shields.io/badge/coverage-0%25-red)     |
+| filesystem                                    | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
 
 | Atomic Operations library                     | Feature status                                          |
 |-----------------------------------------------|---------------------------------------------------------|
-| atomic                                        |  ![](https://img.shields.io/badge/unknown-grey)         |
+| atomic                                        |  ![][unknown_]                                          |
 
 | Thread support library                        | Feature status                                          |
 |-----------------------------------------------|---------------------------------------------------------|
-| thread                                        |  ![](https://img.shields.io/badge/unknown-grey)         |
-| stop_token                                    |  ![](https://img.shields.io/badge/unknown-grey)         |
-| mutex                                         |  ![](https://img.shields.io/badge/unknown-grey)         |
-| shared_mutex                                  |  ![](https://img.shields.io/badge/unknown-grey)         |
-| future                                        |  ![](https://img.shields.io/badge/unknown-grey)         |
-| condition_variable                            |  ![](https://img.shields.io/badge/unknown-grey)         |
-| semaphore                                     |  ![](https://img.shields.io/badge/unknown-grey)         |
-| latch                                         |  ![](https://img.shields.io/badge/unknown-grey)         |
-| barrier                                       |  ![](https://img.shields.io/badge/unknown-grey)         |
+| thread                                        |  ![][unknown_]                                          |
+| stop_token                                    |  ![][unknown_]                                          |
+| mutex                                         |  ![][unknown_]                                          |
+| shared_mutex                                  |  ![][unknown_]                                          |
+| future                                        |  ![][unknown_]                                          |
+| condition_variable                            |  ![][unknown_]                                          |
+| semaphore                                     |  ![][unknown_]                                          |
+| latch                                         |  ![][unknown_]                                          |
+| barrier                                       |  ![][unknown_]                                          |
+
+
+[impossib]: https://img.shields.io/badge/not_possible-grey
+[unknown_]: https://img.shields.io/badge/unknown-grey
+[deprecat]: https://img.shields.io/badge/deprecated-grey
+
+[cpp11000]: https://img.shields.io/badge/C++11-0%25-red
+[cpp11001]: https://img.shields.io/badge/C++11-1%25-orange
+[cpp11003]: https://img.shields.io/badge/C++11-3%25-orange
+[cpp11007]: https://img.shields.io/badge/C++11-7%25-orange
+[cpp11018]: https://img.shields.io/badge/C++11-18%25-orange
+[cpp11100]: https://img.shields.io/badge/C++11-100%25-brightgreen
+[cpp11200]: https://img.shields.io/badge/C++11-100%25-blue
+[cpp11300]: https://img.shields.io/badge/C++11-100%25-blue
+
+[cpp14000]: https://img.shields.io/badge/C++14-0%25-red
+[cpp14100]: https://img.shields.io/badge/C++14-100%25-brightgreen
+[cpp14200]: https://img.shields.io/badge/C++14-100%25-blue
+
+[cpp17000]: https://img.shields.io/badge/C++17-0%25-red
+[cpp17069]: https://img.shields.io/badge/C++17-69%25-yellowgreen
+[cpp17075]: https://img.shields.io/badge/C++17-75%25-green
+[cpp17100]: https://img.shields.io/badge/C++17-100%25-brightgreen
+[cpp17200]: https://img.shields.io/badge/C++17-100%25-blue
+
+[cpp20000]: https://img.shields.io/badge/C++20-0%25-red
+[cpp20002]: https://img.shields.io/badge/C++20-2%25-orange
+[cpp20064]: https://img.shields.io/badge/C++20-64%25-yellowgreen
+[cpp20100]: https://img.shields.io/badge/C++20-100%25-brightgreen
+[cpp20200]: https://img.shields.io/badge/C++20-100%25-blue
+
+[cpp23000]: https://img.shields.io/badge/C++23-0%25-red
+[cpp23100]: https://img.shields.io/badge/C++23-100%25-brightgreen
