@@ -734,7 +734,6 @@ int main() {
     SS_TESTC(ss::is_move_assignable<int>::value)
     SS_TESTC(ss::is_swappable_with<int&, int&>::value)
     SS_TESTC(ss::is_swappable<int>::value)
-    SS_TESTC(!std::is_swappable<e>::value)
     SS_TESTC(!ss::is_swappable<e>::value)
     SS_TESTC(!ss::is_swappable<void() &&>::value)
 
