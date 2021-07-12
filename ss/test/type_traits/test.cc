@@ -1,4 +1,8 @@
 #include <iostream>
+#include <array>
+#include <functional>
+#include <type_traits>
+#include <memory>
 
 #include "ss/type_traits.h"
 #include "ss_test.h"
