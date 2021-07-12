@@ -1080,7 +1080,7 @@ template<typename T, template<typename, typename...> class Test, bool v = is_rva
 struct test_move_assign : false_type {};
 
 template<typename T, template<typename, typename...> class Test>
-struct test_move_assign<T, Test, true> : Test<T, T&&> {};
+struct test_move_assign<T, Test, true> : Test<T&, T&&> {};
 }
 
 /**
