@@ -23,6 +23,8 @@ message("CMAKE_CXX_COMPILER         : ${CMAKE_CXX_COMPILER}"            )
 message("CMAKE_CXX_FLAGS            : ${CMAKE_CXX_FLAGS}"               )
 message("============================================================\n")
 
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+
 add_subdirectory(optional)
 add_subdirectory(type_traits)
 add_subdirectory(utility)
