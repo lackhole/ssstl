@@ -10,7 +10,30 @@
 #endif
 
 // helpers for testing
+namespace Details
+{
 
+template <class T>
+struct IsComplete
+{
+  typedef char no;
+  struct yes { char dummy[2]; };
+
+  template <class U, class = decltype(sizeof(std::declval< U >())) >
+  static yes check(U*);
+
+  template <class U>
+  static no check(...);
+
+  static const bool value = sizeof(check< T >(nullptr)) == sizeof(yes);
+};
+
+} // namespace Details
+
+
+template <class T>
+struct IsComplete : std::integral_constant< bool, Details::IsComplete< T >::value >
+{};
 
 template<typename T, ss::enable_if_t<std::is_integral<T>::value, int> = 0>
 int test_enable_if();
@@ -183,6 +206,10 @@ int main() {
   SS_TESTC(ss::is_same<void()const, ss::add_rvalue_reference_t<void()const>>::value)
   SS_TESTC(ss::is_same<void, ss::add_rvalue_reference_t<void>>::value)
 
+  { // declval
+
+  }
+
   // remove_pointer
   SS_TESTC(ss::is_same<int, ss::remove_pointer_t<int>>::value)
   SS_TESTC(ss::is_same<int, ss::remove_pointer_t<int*>>::value)
@@ -263,6 +290,30 @@ int main() {
   SS_TESTC(ss::is_array<int[][3][4][5][6]>::value)
   SS_TESTC(!ss::is_array<int*>::value)
   SS_TESTC(!ss::is_array<std::array<int, 3>>::value)
+
+  { // is_bounded_array
+    SS_TESTC(!ss::is_bounded_array<int>::value)
+    SS_TESTC(!ss::is_bounded_array<void()>::value)
+    SS_TESTC(!ss::is_bounded_array<void()&&>::value)
+    SS_TESTC(!ss::is_bounded_array<int[]>::value)
+    SS_TESTC(!ss::is_bounded_array<int*>::value)
+    SS_TESTC(!ss::is_bounded_array<int(&)[3]>::value)
+    SS_TESTC(ss::is_bounded_array<int[3]>::value)
+    SS_TESTC(!ss::is_bounded_array<int[][3]>::value)
+    SS_TESTC(ss::is_bounded_array<int[2][3]>::value)
+  }
+
+  { // is_unbounded_array
+    SS_TESTC(!ss::is_unbounded_array<int>::value)
+    SS_TESTC(!ss::is_unbounded_array<void()>::value)
+    SS_TESTC(!ss::is_unbounded_array<void()&&>::value)
+    SS_TESTC(!ss::is_unbounded_array<int*>::value)
+    SS_TESTC(!ss::is_unbounded_array<int(&)[]>::value)
+    SS_TESTC(ss::is_unbounded_array<int[]>::value)
+    SS_TESTC(!ss::is_unbounded_array<int[3]>::value)
+    SS_TESTC(ss::is_unbounded_array<int[][3]>::value)
+    SS_TESTC(!ss::is_unbounded_array<int[2][3]>::value)
+  }
 
   { // is_enum
     enum e{};
@@ -357,6 +408,10 @@ int main() {
     // is_function
     auto lambda = [](){};
     SS_TESTC(ss::is_function<decltype(normal_function)>::value)
+    SS_TESTC(ss::is_function<decltype(template_function<void>)>::value)
+    SS_TESTC(ss::is_function<decltype(variadic_function)>::value)
+    SS_TESTC(ss::is_function<decltype(variadic_template_function<>)>::value)
+    SS_TESTC(ss::is_function<decltype(variadic_template_variadic_function<>)>::value)
     SS_TESTC(ss::is_function<void()>::value)
     SS_TESTC(!ss::is_function<void(&)()>::value)
     SS_TESTC(!ss::is_function<void(*)()>::value)
@@ -364,27 +419,501 @@ int main() {
     SS_TESTC(!ss::is_function<decltype(lambda)>::value)
   }
 
+  { // is_member_pointer
+    struct s {
+      int x;
+      void mf() {}
+      void cmf() const {}
+      void rmf() && {}
+    };
+
+    SS_TESTC(ss::is_member_pointer<decltype(&s::x)>::value)
+    SS_TESTC(ss::is_member_pointer<decltype(&s::mf)>::value)
+    SS_TESTC(ss::is_member_pointer<decltype(&s::cmf)>::value)
+    SS_TESTC(ss::is_member_pointer<decltype(&s::rmf)>::value)
+    SS_TESTC(ss::is_member_pointer<decltype(&s::rmf)>::value)
+    SS_TESTC(ss::is_member_pointer<int s::*>::value)
+    SS_TESTC(!ss::is_member_pointer<int s::**>::value)
+    SS_TESTC(ss::is_member_pointer<int(s::*)(void)>::value)
+    SS_TESTC(!ss::is_member_pointer<int(s::**)(void)>::value)
+    SS_TESTC(ss::is_member_pointer<int(s::*)(void)&>::value)
+    SS_TESTC(ss::is_member_pointer<void(s::*)(void)volatile const&>::value)
+    SS_TESTC(!ss::is_member_pointer<void*>::value)
+    SS_TESTC(!ss::is_member_pointer<void(*)(int)>::value)
+    SS_TESTC(!ss::is_member_pointer<void(&)(int)>::value)
+    SS_TESTC(!ss::is_member_pointer<void(int)&&>::value)
+
+    SS_TESTC(ss::is_member_function_pointer<int(s::*)(int)>::value)
+    SS_TESTC(!ss::is_member_function_pointer<int(s::**)(int)>::value)
+    SS_TESTC(!ss::is_member_function_pointer<int(s::*)>::value)
+
+    SS_TESTC(!ss::is_member_object_pointer<int(s::*)(int)>::value)
+    SS_TESTC(!ss::is_member_object_pointer<int(s::**)(int)>::value)
+    SS_TESTC(ss::is_member_object_pointer<int(s::*)>::value)
+  }
+
+  { // is_arithmetic
+    enum e {};
+    SS_TESTC(ss::is_arithmetic<int>::value)
+    SS_TESTC(ss::is_arithmetic<signed char>::value)
+    SS_TESTC(ss::is_arithmetic<long double>::value)
+    SS_TESTC(ss::is_arithmetic<const volatile int>::value)
+    SS_TESTC(ss::is_arithmetic<std::size_t>::value)
+    SS_TESTC(ss::is_arithmetic<std::ptrdiff_t>::value)
+    SS_TESTC(!ss::is_arithmetic<void>::value)
+    SS_TESTC(!ss::is_arithmetic<ss::nullptr_t>::value)
+    SS_TESTC(!ss::is_arithmetic<std::nullptr_t>::value)
+    SS_TESTC(!ss::is_arithmetic<decltype(nullptr)>::value)
+    SS_TESTC(!ss::is_arithmetic<void*>::value)
+    SS_TESTC(!ss::is_arithmetic<e>::value)
+    SS_TESTC(!ss::is_arithmetic<std::vector<int>>::value)
+  }
+
+  { // is_fundamental
+    enum e {};
+    struct s {};
+    SS_TESTC(ss::is_fundamental<int>::value)
+    SS_TESTC(ss::is_fundamental<signed char>::value)
+    SS_TESTC(ss::is_fundamental<long double>::value)
+    SS_TESTC(ss::is_fundamental<const volatile int>::value)
+    SS_TESTC(ss::is_fundamental<std::size_t>::value)
+    SS_TESTC(ss::is_fundamental<std::ptrdiff_t>::value)
+    SS_TESTC(ss::is_fundamental<void>::value)
+    SS_TESTC(!ss::is_fundamental<int&>::value)
+    SS_TESTC(ss::is_fundamental<ss::nullptr_t>::value)
+    SS_TESTC(ss::is_fundamental<std::nullptr_t>::value)
+    SS_TESTC(ss::is_fundamental<decltype(nullptr)>::value)
+    SS_TESTC(!ss::is_fundamental<void*>::value)
+    SS_TESTC(!ss::is_fundamental<e>::value)
+    SS_TESTC(!ss::is_fundamental<s>::value)
+    SS_TESTC(!ss::is_fundamental<std::vector<int>>::value)
+  }
+
+  { // is_scalar
+    enum e {};
+    struct s {};
+    SS_TESTC(ss::is_scalar<int>::value)
+    SS_TESTC(ss::is_scalar<signed char>::value)
+    SS_TESTC(ss::is_scalar<long double>::value)
+    SS_TESTC(ss::is_scalar<const volatile int>::value)
+    SS_TESTC(ss::is_scalar<std::size_t>::value)
+    SS_TESTC(ss::is_scalar<std::ptrdiff_t>::value)
+    SS_TESTC(!ss::is_scalar<void>::value)
+    SS_TESTC(!ss::is_scalar<void()>::value)
+    SS_TESTC(!ss::is_scalar<void()&&>::value)
+    SS_TESTC(!ss::is_scalar<int&>::value)
+    SS_TESTC(ss::is_scalar<ss::nullptr_t>::value)
+    SS_TESTC(ss::is_scalar<std::nullptr_t>::value)
+    SS_TESTC(ss::is_scalar<decltype(nullptr)>::value)
+    SS_TESTC(ss::is_scalar<void*>::value)
+    SS_TESTC(ss::is_scalar<void*****>::value)
+    SS_TESTC(ss::is_scalar<int s::*>::value)
+    SS_TESTC(ss::is_scalar<void* s::*>::value)
+    SS_TESTC(ss::is_scalar<void* (s::*)()>::value)
+    SS_TESTC(ss::is_scalar<e>::value)
+    SS_TESTC(!ss::is_scalar<s>::value)
+    SS_TESTC(!ss::is_scalar<std::vector<int>>::value)
+  }
+
+  { // is_object
+    enum e {};
+    struct s {};
+    SS_TESTC(ss::is_object<int>::value)
+    SS_TESTC(ss::is_object<signed char>::value)
+    SS_TESTC(ss::is_object<long double>::value)
+    SS_TESTC(ss::is_object<const volatile int>::value)
+    SS_TESTC(ss::is_object<std::size_t>::value)
+    SS_TESTC(ss::is_object<std::ptrdiff_t>::value)
+    SS_TESTC(!ss::is_object<void>::value)
+    SS_TESTC(!ss::is_object<int&>::value)
+    SS_TESTC(!ss::is_object<void()>::value)
+    SS_TESTC(!ss::is_object<void()&&>::value)
+    SS_TESTC(ss::is_object<ss::nullptr_t>::value)
+    SS_TESTC(ss::is_object<std::nullptr_t>::value)
+    SS_TESTC(ss::is_object<decltype(nullptr)>::value)
+    SS_TESTC(ss::is_object<void*>::value)
+    SS_TESTC(ss::is_object<void*****>::value)
+    SS_TESTC(ss::is_object<int s::*>::value)
+    SS_TESTC(ss::is_object<void* s::*>::value)
+    SS_TESTC(ss::is_object<void* (s::*)()>::value)
+    SS_TESTC(ss::is_object<e>::value)
+    SS_TESTC(ss::is_object<s>::value)
+    SS_TESTC(ss::is_object<std::vector<int>>::value)
+  }
+
+  { // is_compound
+    enum e {};
+    struct s {};
+    SS_TESTC(!ss::is_compound<int>::value)
+    SS_TESTC(!ss::is_compound<signed char>::value)
+    SS_TESTC(!ss::is_compound<long double>::value)
+    SS_TESTC(!ss::is_compound<const volatile int>::value)
+    SS_TESTC(!ss::is_compound<std::size_t>::value)
+    SS_TESTC(!ss::is_compound<std::ptrdiff_t>::value)
+    SS_TESTC(!ss::is_compound<void>::value)
+    SS_TESTC(ss::is_compound<int&>::value)
+    SS_TESTC(ss::is_compound<void()>::value)
+    SS_TESTC(ss::is_compound<void()&&>::value)
+    SS_TESTC(!ss::is_compound<ss::nullptr_t>::value)
+    SS_TESTC(!ss::is_compound<std::nullptr_t>::value)
+    SS_TESTC(!ss::is_compound<decltype(nullptr)>::value)
+    SS_TESTC(ss::is_compound<void*>::value)
+    SS_TESTC(ss::is_compound<void*****>::value)
+    SS_TESTC(ss::is_compound<int s::*>::value)
+    SS_TESTC(ss::is_compound<void* s::*>::value)
+    SS_TESTC(ss::is_compound<void* (s::*)()>::value)
+    SS_TESTC(ss::is_compound<e>::value)
+    SS_TESTC(ss::is_compound<s>::value)
+    SS_TESTC(ss::is_compound<std::vector<int>>::value)
+  }
+
+  { // is_constructible
+    struct a {};
+    struct b { b(int){}};
+    struct c { c(a) {}; c() noexcept(false) {}};
+
+    // non user-defined types
+    // default
+    SS_TESTC(std::is_constructible<int>::value)
+    SS_TESTC(!ss::is_constructible<int&>::value)
+    SS_TESTC(!ss::is_constructible<int&&>::value)
+    SS_TESTC(ss::is_constructible<int[3]>::value)
+    SS_TESTC(!ss::is_constructible<int[]>::value)
+    SS_TESTC(!ss::is_constructible<void>::value)
+    SS_TESTC(ss::is_constructible<void*>::value)
+    SS_TESTC(!ss::is_constructible<void()>::value)
+    SS_TESTC(ss::is_constructible<void(*)()>::value)
+    SS_TESTC(!ss::is_constructible<void(&)()>::value)
+    SS_TESTC(!ss::is_constructible<void()&&>::value)
+    SS_TESTC(ss::is_constructible<std::nullptr_t>::value)
+
+    // unary
+    SS_TESTC(!ss::is_constructible<int&, int>::value)
+    SS_TESTC(ss::is_constructible<int&, int&>::value)
+    SS_TESTC(ss::is_constructible<const int&, int>::value)
+    SS_TESTC(ss::is_constructible<const int&, int&>::value)
+    SS_TESTC(ss::is_constructible<const int&, int&&>::value)
+    SS_TESTC(ss::is_constructible<int, double>::value)
+    SS_TESTC(ss::is_constructible<const int&, double>::value)
+    SS_TESTC(ss::is_constructible<int&&, double>::value)
+    SS_TESTC(!ss::is_constructible<int[3], int[3]>::value)
+    SS_TESTC(!ss::is_constructible<int[3], int[]>::value)
+    SS_TESTC(!ss::is_constructible<int[], int[3]>::value)
+    SS_TESTC(ss::is_constructible<void(&)(), void(&)()>::value)
+    SS_TESTC(ss::is_constructible<void(*)(), void(*)()>::value)
+    SS_TESTC(ss::is_constructible<void(&)(), void()>::value)
+    SS_TESTC(ss::is_constructible<void(*)(), void()>::value)
+    SS_TESTC(!ss::is_constructible<void(*)(), void()&>::value)
+    SS_TESTC(!ss::is_constructible<void(*)(), void()const>::value)
+    SS_TESTC(!ss::is_constructible<void(), void()>::value)
+    SS_TESTC(!ss::is_constructible<void(), void()&>::value)
+    SS_TESTC(!ss::is_constructible<void()&, void()>::value)
+
+
+    // user-defined types
+    SS_TESTC(ss::is_constructible<a>::value)
+    SS_TESTC(!ss::is_constructible<b>::value)
+    SS_TESTC(ss::is_constructible<b, int>::value)
+    SS_TESTC(ss::is_constructible<b, int&&>::value)
+    SS_TESTC(ss::is_constructible<b, float>::value)
+    SS_TESTC(ss::is_constructible<b, size_t>::value)
+    SS_TESTC(ss::is_constructible<b, b>::value)
+    SS_TESTC(ss::is_constructible<b, b&>::value)
+    SS_TESTC(ss::is_constructible<c, a>::value)
+
+
+    // is_trivially_constructible
+    SS_TESTC(ss::is_trivially_constructible<int>::value)
+    SS_TESTC(ss::is_trivially_constructible<a>::value)
+    SS_TESTC(ss::is_trivially_constructible<int*>::value)
+    SS_TESTC(ss::is_trivially_constructible<std::nullptr_t>::value)
+    SS_TESTC(ss::is_trivially_constructible<int[3]>::value)
+    SS_TESTC(!ss::is_trivially_constructible<int[]>::value)
+    SS_TESTC(!ss::is_trivially_constructible<b>::value)
+    SS_TESTC(!ss::is_trivially_constructible<int&>::value)
+    SS_TESTC(!ss::is_trivially_constructible<void>::value)
+    SS_TESTC(!ss::is_trivially_constructible<void()&&>::value)
+
+    // is_nothrow_constructible
+    // default
+    SS_TESTC(std::is_nothrow_constructible<int>::value)
+    SS_TESTC(!ss::is_nothrow_constructible<int&>::value)
+    SS_TESTC(!ss::is_nothrow_constructible<int&&>::value)
+    SS_TESTC(ss::is_nothrow_constructible<int[3]>::value)
+    SS_TESTC(!ss::is_nothrow_constructible<int[]>::value)
+    SS_TESTC(!ss::is_nothrow_constructible<void>::value)
+    SS_TESTC(ss::is_nothrow_constructible<void*>::value)
+    SS_TESTC(!ss::is_nothrow_constructible<void()>::value)
+    SS_TESTC(ss::is_nothrow_constructible<void(*)()>::value)
+    SS_TESTC(!ss::is_nothrow_constructible<void(&)()>::value)
+    SS_TESTC(!ss::is_nothrow_constructible<void()&&>::value)
+    SS_TESTC(ss::is_nothrow_constructible<std::nullptr_t>::value)
+
+    // unary
+    SS_TESTC(!ss::is_nothrow_constructible<int&, int>::value)
+    SS_TESTC(ss::is_nothrow_constructible<int&, int&>::value)
+    SS_TESTC(ss::is_nothrow_constructible<const int&, int>::value)
+    SS_TESTC(ss::is_nothrow_constructible<const int&, int&>::value)
+    SS_TESTC(ss::is_nothrow_constructible<const int&, int&&>::value)
+    SS_TESTC(ss::is_nothrow_constructible<int, double>::value)
+    SS_TESTC(ss::is_nothrow_constructible<const int&, double>::value)
+    SS_TESTC(ss::is_nothrow_constructible<int&&, double>::value)
+    SS_TESTC(!ss::is_nothrow_constructible<int[3], int[3]>::value)
+    SS_TESTC(!ss::is_nothrow_constructible<int[3], int[]>::value)
+    SS_TESTC(!ss::is_nothrow_constructible<int[], int[3]>::value)
+    SS_TESTC(ss::is_nothrow_constructible<void(&)(), void(&)()>::value)
+    SS_TESTC(ss::is_nothrow_constructible<void(*)(), void(*)()>::value)
+    SS_TESTC(ss::is_nothrow_constructible<void(&)(), void()>::value)
+    SS_TESTC(ss::is_nothrow_constructible<void(*)(), void()>::value)
+    SS_TESTC(!ss::is_nothrow_constructible<void(*)(), void()&>::value)
+    SS_TESTC(!ss::is_nothrow_constructible<void(*)(), void()const>::value)
+    SS_TESTC(!ss::is_nothrow_constructible<void(), void()>::value)
+    SS_TESTC(!ss::is_nothrow_constructible<void(), void()&>::value)
+    SS_TESTC(!ss::is_nothrow_constructible<void()&, void()>::value)
+
+    // user-defined types
+    SS_TESTC(ss::is_nothrow_constructible<a>::value)
+    SS_TESTC(!ss::is_nothrow_constructible<b>::value)
+    SS_TESTC(!ss::is_nothrow_constructible<b, float>::value)
+  }
+
+  { // default_constructible
+
+  }
+
+  { // copy_constructible
+
+  }
+
+  { // move_constructible
+
+  }
+
+  { // assignable
+
+  }
+
+  { // copy_assignable
+
+  }
+
+  { // move_assignable
+
+  }
+
+  { // destructible
+
+  }
+
+  { // has_virtual_destructor
+    struct a {};
+    struct b {virtual void foo() {}};
+    struct c {virtual ~c() = default; };
+
+    SS_TESTC(!ss::has_virtual_destructor<void>::value)
+    SS_TESTC(!ss::has_virtual_destructor<void()>::value)
+    SS_TESTC(!ss::has_virtual_destructor<void()const &>::value)
+    SS_TESTC(!ss::has_virtual_destructor<void(&)()>::value)
+    SS_TESTC(ss::has_virtual_destructor<std::iostream>::value)
+    SS_TESTC(!ss::has_virtual_destructor<a>::value)
+    SS_TESTC(!ss::has_virtual_destructor<b>::value)
+    SS_TESTC(ss::has_virtual_destructor<c>::value)
+  }
+
   { // is_swappable
     struct e { e(const e &) = delete; };
     struct e2 { e2(const e2 &) noexcept(false); };
 
-//    SS_TESTC(std::is_swappable<std::unique_ptr<int>>::value)
     SS_TESTC(ss::is_swappable<std::unique_ptr<int>>::value)
-//    SS_TESTC(std::is_swappable<int>::value)
     SS_TESTC(ss::is_move_constructible<int>::value)
     SS_TESTC(ss::is_assignable<int&, int&&>::value)
     SS_TESTC(ss::is_move_assignable<int>::value)
     SS_TESTC(ss::is_swappable_with<int&, int&>::value)
     SS_TESTC(ss::is_swappable<int>::value)
-//    SS_TESTC(!std::is_swappable<e>::value)
+    SS_TESTC(!std::is_swappable<e>::value)
     SS_TESTC(!ss::is_swappable<e>::value)
-//    SS_TESTC(!std::is_swappable<void() &&>::value)
     SS_TESTC(!ss::is_swappable<void() &&>::value)
 
-//    SS_TESTC(std::is_nothrow_swappable_v<int>)
     SS_TESTC(ss::is_nothrow_swappable<int>::value)
-//    SS_TESTC(!std::is_nothrow_swappable_v<e2>)
     SS_TESTC(!ss::is_nothrow_swappable<e2>::value)
+  }
+
+  { // is_trivially_copyable
+
+  }
+
+  { // is_trivial
+
+  }
+
+  { // is_standard_layout
+
+  }
+
+  { // is_pod
+
+  }
+
+  { // has_unique_object_representation
+# if SS_CXX_VER >= 17
+
+# endif
+  }
+
+  { // is_empty
+
+  }
+
+  { // is_polymorphic
+
+  }
+
+  { // is_abstract
+
+  }
+
+  { // is_final (std)
+
+  }
+
+  { // is_aggregate (std)
+# if SS_CXX_VER >= 17
+
+# endif
+  }
+
+  { // is_signed
+
+  }
+
+  { // is_unsigned
+
+  }
+
+  { // is_scoped_enum
+
+  }
+
+  { // alignment_of
+
+  }
+
+  { // rank
+
+  }
+
+  { // extent
+
+  }
+
+  { // is_base_of
+
+  }
+
+  { // convertible
+
+  }
+
+  { // aligned_storage (std)
+
+  }
+
+  { // aligned_union
+
+  }
+
+  { // remove_cvref
+
+  }
+
+  { // decay
+
+  }
+
+  { // common_type
+
+  }
+
+  { // common_reference
+
+  }
+
+  { // underlying_type (std)
+
+  }
+
+  { // make_signed
+
+  }
+
+  { // make_unsigned
+
+  }
+
+  { // conjunction
+
+  }
+
+  { // disjunction
+
+  }
+
+  { // negation
+
+  }
+
+  { // is_constant_evaluated (std)
+# if SS_CXX_VER >= 20
+
+# endif
+  }
+
+  { //
+
+  }
+
+  { //
+
+  }
+
+  { //
+
+  }
+
+  { //
+
+  }
+
+  { //
+
+  }
+
+  { //
+
+  }
+
+  { //
+
+  }
+
+  { //
+
+  }
+
+  { //
+
+  }
+
+  { //
+
+  }
+
+  { //
+
+  }
+
+  { //
+
   }
 
   {
