@@ -21,15 +21,18 @@ class Tester {
     print_result();
   }
 
-  void do_test(bool result, std::string source, int line) {
-    test_data_.emplace_back(std::move(source), line, result ? test_result::success : test_result::fail);
+  void do_test(bool result, const char* source, int line) {
+    if (result)
+      test_data_.emplace_back("", line, result);
+    else
+      test_data_.emplace_back(source, line, result);
   }
 
   void print_result() const {
     std::vector<decltype(test_data_)::const_iterator> fails;
 
     for (auto it = test_data_.cbegin(); it != test_data_.cend(); ++it) {
-      if (it->result == test_result::fail)
+      if (!it->success)
         fails.emplace_back(it);
     }
     print_result_impl(fails.begin(), fails.end());
@@ -37,10 +40,10 @@ class Tester {
 
   int test_succeed() const {
     for (const auto& elem : test_data_) {
-      if (elem.result == test_result::fail)
-        return 1;
+      if (!elem.success)
+        return EXIT_FAILURE;
     }
-    return 0;
+    return EXIT_SUCCESS;
   }
 
  private:
@@ -68,10 +71,10 @@ class Tester {
 
   enum class test_result { success, fail };
   struct tests {
-    tests(std::string s, int line, test_result r) : source(std::move(s)), line(line), result(r) {}
-    std::string source;
+    tests(const char* s, int line, bool r) : source(s), line(line), success(r) {}
+    const char* source;
     int line;
-    test_result result;
+    bool success;
   };
   std::string test_name_;
   std::vector<tests> test_data_;
