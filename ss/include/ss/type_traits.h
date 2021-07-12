@@ -550,6 +550,29 @@ template<typename T> SS_INLINE_VAR constexpr bool is_array_v = is_array<T>::valu
 
 
 /**
+ * is_bounded_array
+ * @tparam T
+ */
+template<typename T> struct is_bounded_array : false_type {};
+template<typename T, size_t N> struct is_bounded_array<T[N]> : true_type {};
+# if SS_CXX_VER >= 14
+template<typename T> SS_INLINE_VAR constexpr bool is_bounded_array_v = is_bounded_array<T>::value;
+# endif
+
+
+
+/**
+ * is_unbounded_array
+ * @tparam T
+ */
+template<typename T> struct is_unbounded_array : false_type {};
+template<typename T> struct is_unbounded_array<T[]> : true_type {};
+# if SS_CXX_VER >= 14
+template<typename T> SS_INLINE_VAR constexpr bool is_unbounded_array_v = is_unbounded_array<T>::value;
+# endif
+
+
+/**
  * is_enum
  * @tparam T
  */
@@ -762,32 +785,80 @@ namespace detail {
 struct unused {};
 
 template<typename T, typename = void>
-struct is_complete : false_type {};
+struct is_complete_object : false_type {};
+
+template<typename T>
+struct is_complete_object<T, enable_if_t<(sizeof(T) > 0)>> : true_type {};
+
+template<typename T, bool v = is_object<T>::value /* true */>
+struct is_complete_impl : is_complete_object<T> {};
+
+template<typename T>
+struct is_complete_impl<T, false> : bool_constant<!is_void<T>::value> {};
 
 template <typename T>
-struct is_complete<T,
-  enable_if_t<(sizeof(T) > 0)>> : true_type {};
+struct is_complete : is_complete_impl<T> {};
+
+template<typename T>
+struct is_complete<T[]> : false_type {};
+
+template<typename T, size_t N>
+struct is_complete<T[N]> : is_complete<T> {};
 
 template<typename T, typename ...Args>
-auto is_constructible_test(int) -> type_identity<decltype(T(declval<Args>()...))>;
+auto is_constructible_test(int) -> always_true<decltype(T(declval<Args>()...))>;
 
 template<typename T, typename ...Args>
-auto is_constructible_test(...) -> unused;
+auto is_constructible_test(...) -> false_type;
 
-template<bool v /* false */, typename T, typename ...Args>
-struct is_constructible_check :
-  bool_constant<is_reference<T>::value &&
-                is_not_same<unused, decltype(is_constructible_test<T, Args...>(0))>::value> {};
+template<typename T>
+true_type is_constructible_helper(T);
+
+template<typename T, typename Arg>
+auto is_unary_constructible_test(int) -> always_true<decltype(::new T(declval<Arg>()))>;
+
+template<typename T, typename Arg>
+auto is_unary_constructible_test(...) -> false_type;
+
+template<typename T, typename Arg>
+auto is_ref_unary_constructible_test(int) -> always_true<decltype(is_constructible_helper<T>(declval<Arg>()))>;
+
+template<typename T, typename Arg>
+auto is_ref_unary_constructible_test(...) -> false_type;
+
+template<typename T>
+auto is_default_constructible_test(int) -> always_true<decltype(T())>;
+
+template<typename T>
+auto is_default_constructible_test(...) -> false_type;
 
 template<typename T, typename ...Args>
-struct is_constructible_check<true, T, Args...> :
-  bool_constant<is_not_same<unused, decltype(is_constructible_test<T, Args...>(0))>::value>
-{
-  static_assert(is_complete<T>::value, "T must be complete type");
+struct is_constructible_impl2 : decltype(is_constructible_test<T, Args...>(0)) {};
+
+template<typename T, typename Arg>
+struct is_constructible_impl2<T, Arg> : decltype(is_unary_constructible_test<T, Arg>(0)) {};
+
+template<typename T, typename Arg>
+struct is_constructible_impl2<T&, Arg> : decltype(is_ref_unary_constructible_test<T&, Arg>(0)) {};
+
+template<typename T, typename Arg>
+struct is_constructible_impl2<T&&, Arg> : decltype(is_ref_unary_constructible_test<T&&, Arg>(0)) {};
+
+template<typename T>
+struct is_constructible_impl2<T[]> : false_type {};
+
+template<typename T, size_t N>
+struct is_constructible_impl2<T[N]> : is_constructible_impl2<T> {};
+
+
+template<bool v, /* false */ typename T, typename ...Args>
+struct is_constructible_impl : false_type {};
+
+template<typename T, typename ...Args>
+struct is_constructible_impl<true, T, Args...> : is_constructible_impl2<T, Args...> {
+  static_assert(is_complete<T>::value || is_void<T>::value || is_unbounded_array<T>::value,
+                "T must be complete type, (cv) void, or unbounded array");
 };
-
-template<typename T, typename ...Args>
-struct is_constructible_impl : is_constructible_check<is_object<T>::value, T, Args...> {};
 
 }
 /**
@@ -796,7 +867,8 @@ struct is_constructible_impl : is_constructible_check<is_object<T>::value, T, Ar
  * @tparam Args
  */
 template<typename T, typename ...Args>
-struct is_constructible : detail::is_constructible_impl<T, Args...> {};
+struct is_constructible
+  : detail::is_constructible_impl<is_object<T>::value || is_reference<T>::value, T, Args...> {};
 # if SS_CXX_VER >= 14
 template<typename T, typename ...Args>
 SS_INLINE_VAR constexpr bool is_constructible_v = is_constructible<T, Args...>::value;
@@ -834,6 +906,9 @@ struct is_nothrow_constructible_impl<true, T, Args...> : bool_constant<noexcept(
 template<typename T, typename ...Args>
 struct is_nothrow_constructible
   : detail::is_nothrow_constructible_impl<is_constructible<T, Args...>::value, T, Args...> {};
+
+template<typename T, size_t N>
+struct is_nothrow_constructible<T[N]> : is_nothrow_constructible<T> {};
 # if SS_CXX_VER >= 14
 template<typename T, typename ...Args>
 SS_INLINE_VAR constexpr bool is_nothrow_constructible_v = is_nothrow_constructible<T, Args...>::value;
@@ -1458,30 +1533,6 @@ template<typename T> SS_INLINE_VAR constexpr bool is_unsigned_v = is_unsigned<T>
 
 
 
-/**
- * is_bounded_array
- * @tparam T
- */
-template<typename T> struct is_bounded_array : false_type {};
-template<typename T, size_t N> struct is_bounded_array<T[N]> : true_type {};
-# if SS_CXX_VER >= 14
-template<typename T> SS_INLINE_VAR constexpr bool is_bounded_array_v = is_bounded_array<T>::value;
-# endif
-
-
-
-/**
- * is_unbounded_array
- * @tparam T
- */
-template<typename T> struct is_unbounded_array : false_type {};
-template<typename T> struct is_unbounded_array<T[]> : true_type {};
-# if SS_CXX_VER >= 14
-template<typename T> SS_INLINE_VAR constexpr bool is_unbounded_array_v = is_unbounded_array<T>::value;
-# endif
-
-
-
 namespace detail {
 template<typename T, bool v = is_enum<T>::value>
 struct is_scoped_enum_impl : is_constructible<int, T> {};
@@ -1902,9 +1953,6 @@ template<typename T, bool v = is_enum<T>::value>
 struct underlying_type_impl : std::underlying_type<T> {
   static_assert(is_complete<T>::value, "enum must be complete");
 };
-
-static_assert(is_complete<int>::value, " ");
-static_assert(is_complete<empty>::value, " ");
 
 template<typename T>
 struct underlying_type_impl<T, false> {};
