@@ -766,9 +766,7 @@ struct is_complete : false_type {};
 
 template <typename T>
 struct is_complete<T,
-  enable_if_t<is_object<T>::value &&
-              !is_pointer<T>::value &&
-              (sizeof(T) > 0)>> : true_type {};
+  enable_if_t<(sizeof(T) > 0)>> : true_type {};
 
 template<typename T, typename ...Args>
 auto is_constructible_test(int) -> type_identity<decltype(T(declval<Args>()...))>;
