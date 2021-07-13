@@ -403,6 +403,19 @@ struct is_rvalue_referencable : is_not_same<unused, decltype(try_add_rvalue_refe
 
 template<typename T>
 struct is_referencable : bool_constant<is_rvalue_referencable<T>::value && is_lvalue_referencable<T>::value> {};
+
+template<typename T, bool v = is_lvalue_referencable<T>::value>
+struct add_lvalue_reference_impl { using type = T&; };
+
+template<typename T>
+struct add_lvalue_reference_impl<T, false> { using type = T; };
+
+template<typename T, bool v = is_rvalue_referencable<T>::value>
+struct add_rvalue_reference_impl { using type = T&&; };
+
+template<typename T>
+struct add_rvalue_reference_impl<T, false> { using type = T; };
+
 }
 
 /**
@@ -410,9 +423,7 @@ struct is_referencable : bool_constant<is_rvalue_referencable<T>::value && is_lv
  * @tparam T
  */
 template<typename T>
-struct add_lvalue_reference {
-  using type = typename decltype(detail::try_add_lvalue_reference<T>(0))::type;
-};
+struct add_lvalue_reference : detail::add_lvalue_reference_impl<T> {};
 template<typename T> using add_lvalue_reference_t = typename add_lvalue_reference<T>::type;
 
 
@@ -422,9 +433,7 @@ template<typename T> using add_lvalue_reference_t = typename add_lvalue_referenc
  * @tparam T
  */
 template<typename T>
-struct add_rvalue_reference {
-  using type = typename decltype(detail::try_add_rvalue_reference<T>(0))::type;
-};
+struct add_rvalue_reference : detail::add_rvalue_reference_impl<T> {};
 template<typename T> using add_rvalue_reference_t = typename add_rvalue_reference<T>::type;
 
 
