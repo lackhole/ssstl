@@ -1118,7 +1118,7 @@ template<typename T, template<typename, typename...> class Test, bool v = is_lva
 struct test_copy_assign : false_type {};
 
 template<typename T, template<typename, typename...> class Test>
-struct test_copy_assign<T, Test, true> : Test<T, const T&> {};
+struct test_copy_assign<T, Test, true> : Test<T&, const T&> {};
 }
 
 /**
