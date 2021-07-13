@@ -1069,7 +1069,8 @@ auto is_assignable_test(...) -> unused;
  */
 template<typename T, typename U>
 struct is_assignable : is_not_same<detail::unused, decltype(detail::is_assignable_test<T, U>(0))> {
-  static_assert(!is_object<T>::value || detail::is_complete<T>::value, "T must be complete type");
+  static_assert(detail::is_complete<T>::value || is_void<T>::value || is_unbounded_array<T>::value, "T must be complete type");
+  static_assert(detail::is_complete<U>::value || is_void<U>::value || is_unbounded_array<U>::value, "T must be complete type");
 };
 # if SS_CXX_VER >= 14
 template<typename T, typename U>
@@ -1269,11 +1270,11 @@ template<typename T> struct is_swappable;
 template<typename T> struct is_nothrow_swappable;
 
 template<typename T>
-constexpr inline enable_if_t<is_move_constructible<T>::value && is_move_assignable<T>::value> swap(T& a, T& b)
+SS_CONSTEXPR_AFTER_14 inline enable_if_t<is_move_constructible<T>::value && is_move_assignable<T>::value> swap(T& a, T& b)
   noexcept(is_nothrow_move_constructible<T>::value && is_nothrow_move_assignable<T>::value);
 
 template<typename T, size_t N>
-constexpr inline enable_if_t<is_swappable<T>::value> swap(T(&a)[N], T(&b)[N]) noexcept(is_nothrow_swappable<T>::value);
+SS_CONSTEXPR_AFTER_14 inline enable_if_t<is_swappable<T>::value> swap(T(&a)[N], T(&b)[N]) noexcept(is_nothrow_swappable<T>::value);
 
 namespace detail {
 namespace swap {
@@ -1463,11 +1464,15 @@ template<typename T> SS_INLINE_VAR constexpr bool is_polymorphic_v = is_polymorp
 
 
 namespace detail {
-template<typename T> auto test_abstract(int) -> T;
-template<typename T> auto test_abstract(...) -> unused;
+// https://en.cppreference.com/w/cpp/language/abstract_class
+// Abstract types cannot be used as parameter types, as function return types,
+// or as the type of an explicit conversion (note this is checked at the point of definition and function call,
+// since at the point of function declaration parameter and return type may be incomplete)
+template<typename T> auto test_abstract(T(*)[1]) -> false_type;
+template<typename T> auto test_abstract(...) -> true_type;
 
 template<typename T, bool v = is_class<T>::value>
-struct is_abstract_impl : is_not_same<unused, decltype(test_abstract<T>(0))> {};
+struct is_abstract_impl : decltype(test_abstract<T>(0)) {};
 
 template<typename T>
 struct is_abstract_impl<T, false> : false_type {};
@@ -1539,25 +1544,6 @@ struct is_unsigned_impl<T, false> : false_type {};
 template<typename T> struct is_unsigned : detail::is_unsigned_impl<T> {};
 # if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_unsigned_v = is_unsigned<T>::value;
-# endif
-
-
-
-namespace detail {
-template<typename T, bool v = is_enum<T>::value>
-struct is_scoped_enum_impl : is_constructible<int, T> {};
-
-template<typename T>
-struct is_scoped_enum_impl<T, false> : false_type {};
-}
-
-/**
- * is_scoped_enum
- * @tparam T
- */
-template<typename T> struct is_scoped_enum : detail::is_scoped_enum_impl<T> {};
-# if SS_CXX_VER >= 14
-template<typename T> SS_INLINE_VAR constexpr bool is_scoped_enum_v = is_scoped_enum<T>::value;
 # endif
 
 
@@ -1973,6 +1959,26 @@ struct underlying_type_impl<T, false> {};
  */
 template<typename T> struct underlying_type : detail::underlying_type_impl<T> {};
 template<typename T> using underlying_type_t = typename underlying_type<T>::type;
+
+
+
+namespace detail {
+template<typename T, bool v = is_enum<T>::value>
+struct is_scoped_enum_impl : bool_constant<!is_convertible<T, int>::value> {};
+
+template<typename T>
+struct is_scoped_enum_impl<T, false> : false_type {};
+}
+
+/**
+ * is_scoped_enum
+ * @tparam T
+ */
+template<typename T> struct is_scoped_enum : detail::is_scoped_enum_impl<T> {};
+# if SS_CXX_VER >= 14
+template<typename T> SS_INLINE_VAR constexpr bool is_scoped_enum_v = is_scoped_enum<T>::value;
+# endif
+
 
 
 namespace detail {
