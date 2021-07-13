@@ -1001,7 +1001,7 @@ SS_INLINE_VAR constexpr bool is_trivially_copy_constructible_v = is_trivially_co
  * @tparam T
  */
 template<typename T>
-struct is_nothrow_copy_constructible : detail::test_copy_ctor<T, is_nothrow_copy_constructible> {};
+struct is_nothrow_copy_constructible : detail::test_copy_ctor<T, is_nothrow_constructible> {};
 # if SS_CXX_VER >= 14
 template<typename T>
 SS_INLINE_VAR constexpr bool is_nothrow_copy_constructible_v = is_nothrow_copy_constructible<T>::value;
