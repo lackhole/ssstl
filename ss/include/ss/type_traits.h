@@ -380,23 +380,26 @@ template<typename T> using remove_reference_t = typename remove_reference<T>::ty
 
 
 namespace detail {
+
+struct unused {};
+
 template<typename T>
 auto try_add_lvalue_reference(int) -> type_identity<T&>;
 
 template<typename T>
-auto try_add_lvalue_reference(...) -> type_identity<T>;
+auto try_add_lvalue_reference(...) -> unused;
 
 template<typename T>
-struct is_lvalue_referencable : is_not_same<type_identity<T>, decltype(try_add_lvalue_reference<T>(0))> {};
+struct is_lvalue_referencable : is_not_same<unused, decltype(try_add_lvalue_reference<T>(0))> {};
 
 template<typename T>
 auto try_add_rvalue_reference(int) -> type_identity<T&&>;
 
 template<typename T>
-auto try_add_rvalue_reference(...) -> type_identity<T>;
+auto try_add_rvalue_reference(...) -> unused;
 
 template<typename T>
-struct is_rvalue_referencable : is_not_same<type_identity<T>, decltype(try_add_rvalue_reference<T>(0))> {};
+struct is_rvalue_referencable : is_not_same<unused, decltype(try_add_rvalue_reference<T>(0))> {};
 
 template<typename T>
 struct is_referencable : bool_constant<is_rvalue_referencable<T>::value && is_lvalue_referencable<T>::value> {};
@@ -781,8 +784,6 @@ template<typename T> SS_INLINE_VAR constexpr bool is_compound_v = is_compound<T>
 
 
 namespace detail {
-
-struct unused {};
 
 template<typename T, typename = void>
 struct is_complete_object : false_type {};
