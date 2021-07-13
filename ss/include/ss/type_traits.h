@@ -380,26 +380,42 @@ template<typename T> using remove_reference_t = typename remove_reference<T>::ty
 
 
 namespace detail {
+
+struct unused {};
+
 template<typename T>
 auto try_add_lvalue_reference(int) -> type_identity<T&>;
 
 template<typename T>
-auto try_add_lvalue_reference(...) -> type_identity<T>;
+auto try_add_lvalue_reference(...) -> unused;
 
 template<typename T>
-struct is_lvalue_referencable : is_not_same<type_identity<T>, decltype(try_add_lvalue_reference<T>(0))> {};
+struct is_lvalue_referencable : is_not_same<unused, decltype(try_add_lvalue_reference<T>(0))> {};
 
 template<typename T>
 auto try_add_rvalue_reference(int) -> type_identity<T&&>;
 
 template<typename T>
-auto try_add_rvalue_reference(...) -> type_identity<T>;
+auto try_add_rvalue_reference(...) -> unused;
 
 template<typename T>
-struct is_rvalue_referencable : is_not_same<type_identity<T>, decltype(try_add_rvalue_reference<T>(0))> {};
+struct is_rvalue_referencable : is_not_same<unused, decltype(try_add_rvalue_reference<T>(0))> {};
 
 template<typename T>
 struct is_referencable : bool_constant<is_rvalue_referencable<T>::value && is_lvalue_referencable<T>::value> {};
+
+template<typename T, bool v = is_lvalue_referencable<T>::value>
+struct add_lvalue_reference_impl { using type = T&; };
+
+template<typename T>
+struct add_lvalue_reference_impl<T, false> { using type = T; };
+
+template<typename T, bool v = is_rvalue_referencable<T>::value>
+struct add_rvalue_reference_impl { using type = T&&; };
+
+template<typename T>
+struct add_rvalue_reference_impl<T, false> { using type = T; };
+
 }
 
 /**
@@ -407,9 +423,7 @@ struct is_referencable : bool_constant<is_rvalue_referencable<T>::value && is_lv
  * @tparam T
  */
 template<typename T>
-struct add_lvalue_reference {
-  using type = typename decltype(detail::try_add_lvalue_reference<T>(0))::type;
-};
+struct add_lvalue_reference : detail::add_lvalue_reference_impl<T> {};
 template<typename T> using add_lvalue_reference_t = typename add_lvalue_reference<T>::type;
 
 
@@ -419,9 +433,7 @@ template<typename T> using add_lvalue_reference_t = typename add_lvalue_referenc
  * @tparam T
  */
 template<typename T>
-struct add_rvalue_reference {
-  using type = typename decltype(detail::try_add_rvalue_reference<T>(0))::type;
-};
+struct add_rvalue_reference : detail::add_rvalue_reference_impl<T> {};
 template<typename T> using add_rvalue_reference_t = typename add_rvalue_reference<T>::type;
 
 
@@ -782,8 +794,6 @@ template<typename T> SS_INLINE_VAR constexpr bool is_compound_v = is_compound<T>
 
 namespace detail {
 
-struct unused {};
-
 template<typename T, typename = void>
 struct is_complete_object : false_type {};
 
@@ -991,7 +1001,7 @@ SS_INLINE_VAR constexpr bool is_trivially_copy_constructible_v = is_trivially_co
  * @tparam T
  */
 template<typename T>
-struct is_nothrow_copy_constructible : detail::test_copy_ctor<T, is_nothrow_copy_constructible> {};
+struct is_nothrow_copy_constructible : detail::test_copy_ctor<T, is_nothrow_constructible> {};
 # if SS_CXX_VER >= 14
 template<typename T>
 SS_INLINE_VAR constexpr bool is_nothrow_copy_constructible_v = is_nothrow_copy_constructible<T>::value;

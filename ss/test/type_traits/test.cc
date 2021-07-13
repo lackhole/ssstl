@@ -682,19 +682,332 @@ int main() {
   }
 
   { // default_constructible
+    struct a { a(int){}};
+    struct b {};
+    auto lambda = [](){};
+    auto lambda_capture = [&lambda](){};
+    auto lambda_capture_default = [&](){};
 
+    SS_TESTC(ss::is_default_constructible<int>::value)
+    SS_TESTC(ss::is_default_constructible<const int>::value)
+    SS_TESTC(!ss::is_default_constructible<int&>::value)
+    SS_TESTC(!ss::is_default_constructible<int&&>::value)
+    SS_TESTC(ss::is_default_constructible<std::nullptr_t>::value)
+    SS_TESTC(ss::is_default_constructible<int[3]>::value)
+    SS_TESTC(ss::is_default_constructible<const int[3]>::value)
+    SS_TESTC(!ss::is_default_constructible<int[]>::value)
+    SS_TESTC(!ss::is_default_constructible<void>::value)
+    SS_TESTC(!ss::is_default_constructible<void()>::value)
+    SS_TESTC(!ss::is_default_constructible<void()&&>::value)
+# if SS_CXX_VER < 20
+    SS_TESTC(!ss::is_default_constructible<decltype(lambda)>::value)
+# else
+    SS_TESTC(ss::is_default_constructible<decltype(lambda)>::value)
+# endif
+    SS_TESTC(!ss::is_default_constructible<decltype(lambda_capture)>::value)
+    // MSVC Bug: https://stackoverflow.com/questions/68363717/msvc-behaves-different-about-default-constructor-of-closure-type-in-c20
+//    SS_TESTC(!ss::is_default_constructible<decltype(lambda_capture_default)>::value)
+
+    SS_TESTC(!ss::is_default_constructible<a>::value)
+    SS_TESTC(ss::is_default_constructible<b>::value)
   }
 
   { // copy_constructible
+    struct a { a(const a&) = delete; };
+    struct b {};
+    struct c : a {};
+    struct d { d(const d&) noexcept(false) {}};
+    auto lambda = []{};
+    auto lambda_capture = [&lambda](){};
+    auto lambda_capture_default = [&](){};
 
+    SS_TESTC(ss::is_copy_constructible<int>::value)
+    SS_TESTC(ss::is_copy_constructible<const int>::value)
+    SS_TESTC(ss::is_copy_constructible<int&>::value)
+    SS_TESTC(ss::is_copy_constructible<const int&>::value)
+    SS_TESTC(!ss::is_copy_constructible<int&&>::value)
+    SS_TESTC(!ss::is_copy_constructible<const int&&>::value)
+    SS_TESTC(!ss::is_copy_constructible<void>::value)
+    SS_TESTC(!ss::is_copy_constructible<void()>::value)
+    SS_TESTC(!ss::is_copy_constructible<void()&>::value)
+    SS_TESTC(!ss::is_copy_constructible<void()const>::value)
+    SS_TESTC(ss::is_copy_constructible<ss::nullptr_t>::value)
+    SS_TESTC(ss::is_copy_constructible<decltype(lambda)>::value)
+    SS_TESTC(ss::is_copy_constructible<decltype(lambda_capture)>::value)
+    SS_TESTC(ss::is_copy_constructible<decltype(lambda_capture_default)>::value)
+    SS_TESTC(ss::is_copy_constructible<void(*)()>::value)
+    SS_TESTC(ss::is_copy_constructible<void(&)()>::value)
+
+    SS_TESTC(!ss::is_copy_constructible<a>::value)
+    SS_TESTC(!ss::is_copy_constructible<a>::value)
+    SS_TESTC(!ss::is_copy_constructible<a>::value)
+
+    SS_TESTC(ss::is_copy_constructible<b>::value)
+    SS_TESTC(ss::is_copy_constructible<b>::value)
+    SS_TESTC(ss::is_copy_constructible<b>::value)
+
+    SS_TESTC(!ss::is_copy_constructible<c>::value)
+    SS_TESTC(!ss::is_copy_constructible<c>::value)
+    SS_TESTC(!ss::is_copy_constructible<c>::value)
+
+    SS_TESTC(ss::is_copy_constructible<d>::value)
+    SS_TESTC(!ss::is_trivially_copy_constructible<d>::value)
+    SS_TESTC(!ss::is_nothrow_copy_constructible<d>::value)
   }
 
   { // move_constructible
+    struct a { a(a&&) = delete; };
+    struct b {};
+    struct c : a {};
+    struct d { d(const d&) {}};
+    struct e { e(e&&) noexcept(false) {}};
 
+    auto lambda = []{};
+    auto lambda_capture = [&lambda](){};
+    auto lambda_capture_default = [&](){};
+
+    SS_TESTC(ss::is_move_constructible<int>::value)
+    SS_TESTC(ss::is_trivially_move_constructible<int>::value)
+    SS_TESTC(ss::is_nothrow_move_constructible<int>::value)
+
+    SS_TESTC(ss::is_move_constructible<const int>::value)
+    SS_TESTC(ss::is_trivially_move_constructible<const int>::value)
+    SS_TESTC(ss::is_nothrow_move_constructible<const int>::value)
+
+    SS_TESTC(ss::is_move_constructible<int&>::value)
+    SS_TESTC(ss::is_trivially_move_constructible<int&>::value)
+    SS_TESTC(ss::is_nothrow_move_constructible<int&>::value)
+
+    SS_TESTC(ss::is_move_constructible<const int&>::value)
+    SS_TESTC(ss::is_trivially_move_constructible<const int&>::value)
+    SS_TESTC(ss::is_nothrow_move_constructible<const int&>::value)
+
+    SS_TESTC(ss::is_move_constructible<int&&>::value)
+    SS_TESTC(ss::is_trivially_move_constructible<int&&>::value)
+    SS_TESTC(ss::is_nothrow_move_constructible<int&&>::value)
+
+    SS_TESTC(ss::is_move_constructible<const int&&>::value)
+    SS_TESTC(ss::is_trivially_move_constructible<const int&&>::value)
+    SS_TESTC(ss::is_nothrow_move_constructible<const int&&>::value)
+
+    SS_TESTC(!ss::is_move_constructible<void>::value)
+    SS_TESTC(!ss::is_trivially_move_constructible<void>::value)
+    SS_TESTC(!ss::is_nothrow_move_constructible<void>::value)
+
+    SS_TESTC(!ss::is_move_constructible<void()>::value)
+    SS_TESTC(!ss::is_trivially_move_constructible<void()>::value)
+    SS_TESTC(!ss::is_nothrow_move_constructible<void()>::value)
+
+    SS_TESTC(!ss::is_move_constructible<void()&>::value)
+    SS_TESTC(!ss::is_trivially_move_constructible<void()&>::value)
+    SS_TESTC(!ss::is_nothrow_move_constructible<void()&>::value)
+
+    SS_TESTC(!ss::is_move_constructible<void()const>::value)
+    SS_TESTC(!ss::is_trivially_move_constructible<void()const>::value)
+    SS_TESTC(!ss::is_nothrow_move_constructible<void()const>::value)
+
+    SS_TESTC(ss::is_move_constructible<ss::nullptr_t>::value)
+    SS_TESTC(ss::is_trivially_move_constructible<ss::nullptr_t>::value)
+    SS_TESTC(ss::is_nothrow_move_constructible<ss::nullptr_t>::value)
+
+    SS_TESTC(ss::is_move_constructible<decltype(lambda)>::value)
+    SS_TESTC(ss::is_trivially_move_constructible<decltype(lambda)>::value)
+    SS_TESTC(ss::is_nothrow_move_constructible<decltype(lambda)>::value)
+
+    SS_TESTC(ss::is_move_constructible<decltype(lambda_capture)>::value)
+    SS_TESTC(ss::is_trivially_move_constructible<decltype(lambda_capture)>::value)
+    SS_TESTC(ss::is_nothrow_move_constructible<decltype(lambda_capture)>::value)
+
+    SS_TESTC(ss::is_move_constructible<decltype(lambda_capture_default)>::value)
+    SS_TESTC(ss::is_trivially_move_constructible<decltype(lambda_capture_default)>::value)
+    SS_TESTC(ss::is_nothrow_move_constructible<decltype(lambda_capture_default)>::value)
+
+    SS_TESTC(ss::is_move_constructible<void(*)()>::value)
+    SS_TESTC(ss::is_trivially_move_constructible<void(*)()>::value)
+    SS_TESTC(ss::is_nothrow_move_constructible<void(*)()>::value)
+
+    SS_TESTC(ss::is_move_constructible<void(&)()>::value)
+    SS_TESTC(ss::is_trivially_move_constructible<void(&)()>::value)
+    SS_TESTC(ss::is_nothrow_move_constructible<void(&)()>::value)
+
+    SS_TESTC(!ss::is_move_constructible<a>::value)
+    SS_TESTC(!ss::is_trivially_move_constructible<a>::value)
+    SS_TESTC(!ss::is_nothrow_move_constructible<a>::value)
+
+    SS_TESTC(ss::is_move_constructible<b>::value)
+    SS_TESTC(ss::is_trivially_move_constructible<b>::value)
+    SS_TESTC(ss::is_nothrow_move_constructible<b>::value)
+
+    SS_TESTC(!ss::is_move_constructible<c>::value)
+
+    SS_TESTC(ss::is_move_constructible<d>::value)
+    SS_TESTC(!ss::is_trivially_move_constructible<d>::value)
+    SS_TESTC(!ss::is_nothrow_move_constructible<d>::value)
+
+    SS_TESTC(ss::is_move_constructible<e>::value)
+    SS_TESTC(!ss::is_trivially_move_constructible<e>::value)
+    SS_TESTC(!ss::is_nothrow_move_constructible<e>::value)
   }
 
   { // assignable
+    SS_TESTC(!ss::is_assignable<int, int>::value)
+    SS_TESTC(!ss::is_trivially_assignable<int, int>::value)
+    SS_TESTC(!ss::is_nothrow_assignable<int, int>::value)
 
+    SS_TESTC(!ss::is_assignable<const int, int>::value)
+    SS_TESTC(!ss::is_trivially_assignable<const int, int>::value)
+    SS_TESTC(!ss::is_nothrow_assignable<const int, int>::value)
+
+    SS_TESTC(!ss::is_assignable<int, int&>::value)
+    SS_TESTC(!ss::is_trivially_assignable<int, int&>::value)
+    SS_TESTC(!ss::is_nothrow_assignable<int, int&>::value)
+
+    SS_TESTC(ss::is_assignable<int&, int>::value)
+    SS_TESTC(ss::is_trivially_assignable<int&, int>::value)
+    SS_TESTC(ss::is_nothrow_assignable<int&, int>::value)
+
+    SS_TESTC(ss::is_assignable<int&, double>::value)
+    SS_TESTC(ss::is_trivially_assignable<int&, double>::value)
+    SS_TESTC(ss::is_nothrow_assignable<int&, double>::value)
+
+    SS_TESTC(ss::is_assignable<int&, char>::value)
+    SS_TESTC(ss::is_trivially_assignable<int&, char>::value)
+    SS_TESTC(ss::is_nothrow_assignable<int&, char>::value)
+
+    SS_TESTC(ss::is_assignable<int&, int&>::value)
+    SS_TESTC(ss::is_trivially_assignable<int&, int&>::value)
+    SS_TESTC(ss::is_nothrow_assignable<int&, int&>::value)
+
+    SS_TESTC(!ss::is_assignable<const int&, int>::value)
+    SS_TESTC(!ss::is_trivially_assignable<const int&, int>::value)
+    SS_TESTC(!ss::is_nothrow_assignable<const int&, int>::value)
+
+    SS_TESTC(!std::is_assignable<const int&, int&&>::value)
+    SS_TESTC(!std::is_trivially_assignable<const int&, int&&>::value)
+    SS_TESTC(!std::is_nothrow_assignable<const int&, int&&>::value)
+
+    SS_TESTC(!ss::is_assignable<int&&, int>::value)
+    SS_TESTC(!ss::is_trivially_assignable<int&&, int>::value)
+    SS_TESTC(!ss::is_nothrow_assignable<int&&, int>::value)
+
+    SS_TESTC(!ss::is_assignable<int&&, int&>::value)
+    SS_TESTC(!ss::is_trivially_assignable<int&&, int&>::value)
+    SS_TESTC(!ss::is_nothrow_assignable<int&&, int&>::value)
+
+    SS_TESTC(!ss::is_assignable<int&&, int&&>::value)
+    SS_TESTC(!ss::is_trivially_assignable<int&&, int&&>::value)
+    SS_TESTC(!ss::is_nothrow_assignable<int&&, int&&>::value)
+
+
+    SS_TESTC(!ss::is_assignable<void, void>::value)
+    SS_TESTC(!ss::is_trivially_assignable<void, void>::value)
+    SS_TESTC(!ss::is_nothrow_assignable<void, void>::value)
+
+    SS_TESTC(!ss::is_assignable<void, int>::value)
+    SS_TESTC(!ss::is_trivially_assignable<void, int>::value)
+    SS_TESTC(!ss::is_nothrow_assignable<void, int>::value)
+
+    SS_TESTC(!ss::is_assignable<void*(&), int>::value)
+    SS_TESTC(!ss::is_trivially_assignable<void*(&), int>::value)
+    SS_TESTC(!ss::is_nothrow_assignable<void*(&), int>::value)
+
+    SS_TESTC(!ss::is_assignable<void*, std::nullptr_t>::value)
+    SS_TESTC(!ss::is_trivially_assignable<void*, std::nullptr_t>::value)
+    SS_TESTC(!ss::is_nothrow_assignable<void*, std::nullptr_t>::value)
+
+    SS_TESTC(!ss::is_assignable<void*(&&), std::nullptr_t>::value)
+    SS_TESTC(!ss::is_trivially_assignable<void*(&&), std::nullptr_t>::value)
+    SS_TESTC(!ss::is_nothrow_assignable<void*(&&), std::nullptr_t>::value)
+
+    SS_TESTC(!ss::is_assignable<std::nullptr_t, std::nullptr_t>::value)
+    SS_TESTC(!ss::is_trivially_assignable<std::nullptr_t, std::nullptr_t>::value)
+    SS_TESTC(!ss::is_nothrow_assignable<std::nullptr_t, std::nullptr_t>::value)
+
+    SS_TESTC(ss::is_assignable<std::nullptr_t&, std::nullptr_t>::value)
+    SS_TESTC(ss::is_trivially_assignable<std::nullptr_t&, std::nullptr_t>::value)
+    SS_TESTC(ss::is_nothrow_assignable<std::nullptr_t&, std::nullptr_t>::value)
+
+
+    SS_TESTC(!ss::is_assignable<void(), void()>::value)
+    SS_TESTC(!ss::is_trivially_assignable<void(), void()>::value)
+    SS_TESTC(!ss::is_nothrow_assignable<void(), void()>::value)
+
+    SS_TESTC(!ss::is_assignable<void()&&, void()>::value)
+    SS_TESTC(!ss::is_trivially_assignable<void()&&, void()>::value)
+    SS_TESTC(!ss::is_nothrow_assignable<void()&&, void()>::value)
+
+    SS_TESTC(!ss::is_assignable<void()&&, void()volatile>::value)
+    SS_TESTC(!ss::is_trivially_assignable<void()&&, void()volatile>::value)
+    SS_TESTC(!ss::is_nothrow_assignable<void()&&, void()volatile>::value)
+
+    SS_TESTC(!ss::is_assignable<void(&)(), void()>::value)
+    SS_TESTC(!ss::is_trivially_assignable<void(&)(), void()>::value)
+    SS_TESTC(!ss::is_nothrow_assignable<void(&)(), void()>::value)
+
+    SS_TESTC(!ss::is_assignable<void(&&)(), void()>::value)
+    SS_TESTC(!ss::is_trivially_assignable<void(&&)(), void()>::value)
+    SS_TESTC(!ss::is_nothrow_assignable<void(&&)(), void()>::value)
+
+    SS_TESTC(!ss::is_assignable<void(*)(), void()>::value)
+    SS_TESTC(!ss::is_trivially_assignable<void(*)(), void()>::value)
+    SS_TESTC(!ss::is_nothrow_assignable<void(*)(), void()>::value)
+
+    SS_TESTC(ss::is_assignable<void(*&)(), void()>::value)
+    SS_TESTC(ss::is_trivially_assignable<void(*&)(), void()>::value)
+    SS_TESTC(ss::is_nothrow_assignable<void(*&)(), void()>::value)
+
+    SS_TESTC(ss::is_assignable<void(*&)(), void(*)()>::value)
+    SS_TESTC(ss::is_trivially_assignable<void(*&)(), void(*)()>::value)
+    SS_TESTC(ss::is_nothrow_assignable<void(*&)(), void(*)()>::value)
+
+    auto lambda = []{};
+    auto lambda_capture = [&lambda](){};
+    auto lambda_capture_default = [&](){};
+
+# if SS_CXX_VER < 20
+    SS_TESTC(!ss::is_assignable<decltype(lambda), decltype(lambda)>::value)
+    SS_TESTC(!ss::is_trivially_assignable<decltype(lambda), decltype(lambda)>::value)
+    SS_TESTC(!ss::is_nothrow_assignable<decltype(lambda), decltype(lambda)>::value)
+# else
+    SS_TESTC(ss::is_assignable<decltype(lambda), decltype(lambda)>::value)
+    SS_TESTC(ss::is_trivially_assignable<decltype(lambda), decltype(lambda)>::value)
+    SS_TESTC(ss::is_nothrow_assignable<decltype(lambda), decltype(lambda)>::value)
+# endif
+
+    SS_TESTC(!ss::is_assignable<decltype(lambda_capture), decltype(lambda_capture)>::value)
+    SS_TESTC(!ss::is_trivially_assignable<decltype(lambda_capture), decltype(lambda_capture)>::value)
+    SS_TESTC(!ss::is_nothrow_assignable<decltype(lambda_capture), decltype(lambda_capture)>::value)
+
+    // MSVC bug
+//    SS_TESTC(!ss::is_assignable<decltype(lambda_capture_default), decltype(lambda_capture_default)>::value)
+//    SS_TESTC(!ss::is_trivially_assignable<decltype(lambda_capture_default), decltype(lambda_capture_default)>::value)
+//    SS_TESTC(!ss::is_nothrow_assignable<decltype(lambda_capture_default), decltype(lambda_capture_default)>::value)
+
+    struct a { a& operator=(const a&) = delete; };
+    struct b {};
+    struct c : a {};
+    struct d { d& operator=(const d&) noexcept(true) {return *this;}};
+    struct e { e& operator=(const e&) noexcept(false) {return *this;}};
+
+    SS_TESTC(!ss::is_assignable<a, a>::value)
+    SS_TESTC(!ss::is_trivially_assignable<a, a>::value)
+    SS_TESTC(!ss::is_nothrow_assignable<a, a>::value)
+
+    SS_TESTC(ss::is_assignable<b, b>::value)
+    SS_TESTC(ss::is_trivially_assignable<b, b>::value)
+    SS_TESTC(ss::is_nothrow_assignable<b, b>::value)
+
+    SS_TESTC(!ss::is_assignable<c, c>::value)
+    SS_TESTC(!ss::is_trivially_assignable<c, c>::value)
+    SS_TESTC(!ss::is_nothrow_assignable<c,c >::value)
+
+    SS_TESTC(std::is_assignable<d, d>::value)
+    SS_TESTC(!std::is_trivially_assignable<d, d>::value)
+    SS_TESTC(std::is_nothrow_assignable<d, d>::value)
+
+    SS_TESTC(std::is_assignable<e, e>::value)
+    SS_TESTC(!std::is_trivially_assignable<e, e>::value)
+    SS_TESTC(!std::is_nothrow_assignable<e, e>::value)
   }
 
   { // copy_assignable
@@ -763,12 +1076,28 @@ int main() {
 # endif
   }
 
-  { // is_empty
 
-  }
+  {
+    struct s1 {};
+    struct s2 : s1 {};
+    struct s3 { virtual ~s3() {} };
+    struct s4 { virtual void foo() {}};
+    struct s5 { int x : 3; };
+    struct s6 { s1 s1_;};
 
-  { // is_polymorphic
+    SS_TESTC(ss::is_empty<s1>::value)
+    SS_TESTC(ss::is_empty<s2>::value)
+    SS_TESTC(!ss::is_empty<s3>::value)
+    SS_TESTC(!ss::is_empty<s4>::value)
+    SS_TESTC(!ss::is_empty<s5>::value)
+    SS_TESTC(!ss::is_empty<s6>::value)
 
+    SS_TESTC(!ss::is_polymorphic<s1>::value)
+    SS_TESTC(!ss::is_polymorphic<s2>::value)
+    SS_TESTC(ss::is_polymorphic<s3>::value)
+    SS_TESTC(ss::is_polymorphic<s4>::value)
+    SS_TESTC(!ss::is_polymorphic<s5>::value)
+    SS_TESTC(!ss::is_polymorphic<s6>::value)
   }
 
   { // is_abstract
@@ -776,7 +1105,9 @@ int main() {
   }
 
   { // is_final (std)
+# if SS_CXX_VER >= 14
 
+# endif
   }
 
   { // is_aggregate (std)
@@ -846,110 +1177,6 @@ int main() {
   }
 
   { // make_signed
-
-  }
-
-  { // make_unsigned
-
-  }
-
-  { // conjunction
-
-  }
-
-  { // disjunction
-
-  }
-
-  { // negation
-
-  }
-
-  { // is_constant_evaluated (std)
-# if SS_CXX_VER >= 20
-
-# endif
-  }
-
-  { //
-
-  }
-
-  { //
-
-  }
-
-  { //
-
-  }
-
-  { //
-
-  }
-
-  { //
-
-  }
-
-  { //
-
-  }
-
-  { //
-
-  }
-
-  { //
-
-  }
-
-  { //
-
-  }
-
-  { //
-
-  }
-
-  { //
-
-  }
-
-  { //
-
-  }
-
-  {
-    struct s1 {};
-    struct s2 : s1 {};
-    struct s3 { virtual ~s3() {} };
-    struct s4 { virtual void foo() {}};
-    struct s5 { int x : 3; };
-
-    SS_TESTC(std::is_empty<s1>::value)
-    SS_TESTC(std::is_empty<s2>::value)
-    SS_TESTC(!std::is_empty<s3>::value)
-    SS_TESTC(!std::is_empty<s4>::value)
-
-    SS_TESTC(ss::is_empty<s1>::value)
-    SS_TESTC(ss::is_empty<s2>::value)
-    SS_TESTC(!ss::is_empty<s3>::value)
-    SS_TESTC(!ss::is_empty<s4>::value)
-
-    SS_TESTC(!std::is_polymorphic<s1>::value)
-    SS_TESTC(!std::is_polymorphic<s2>::value)
-    SS_TESTC(!std::is_polymorphic<s5>::value)
-    SS_TESTC(std::is_polymorphic<s3>::value)
-    SS_TESTC(std::is_polymorphic<s4>::value)
-
-    SS_TESTC(!ss::is_polymorphic<s1>::value)
-    SS_TESTC(!ss::is_polymorphic<s2>::value)
-    SS_TESTC(!ss::is_polymorphic<s5>::value)
-    SS_TESTC(ss::is_polymorphic<s3>::value)
-    SS_TESTC(ss::is_polymorphic<s4>::value)
-  }
-
-  { // make_signed
     enum e1 : char {};
     enum e2 : int {};
     enum e3 : long long {};
@@ -958,11 +1185,55 @@ int main() {
     SS_TESTC(ss::is_same<int, ss::make_signed_t<unsigned int>>::value)
     SS_TESTC(ss::is_same<signed char, ss::make_signed_t<e1>>::value)
     SS_TESTC(sizeof(ss::make_signed_t<wchar_t>) == sizeof(wchar_t) &&
-      ss::is_not_same<ss::make_signed_t<wchar_t>, wchar_t>::value)
+             ss::is_not_same<ss::make_signed_t<wchar_t>, wchar_t>::value)
     SS_TESTC(sizeof(ss::make_signed_t<unsigned long long>) == sizeof(unsigned long long) &&
-      ss::is_not_same<ss::make_signed_t<unsigned long long>, unsigned long long>::value)
+             ss::is_not_same<ss::make_signed_t<unsigned long long>, unsigned long long>::value)
   }
 
+  { // make_unsigned
+
+  }
+
+  { // conjunction
+    SS_TESTC(ss::conjunction<>::value == true)
+    SS_TESTC(is_true_t<typename ss::conjunction<>::type>::value == true)
+    SS_TESTC(ss::conjunction<true_t, true_t, true_t>::value == true)
+    SS_TESTC(ss::conjunction<false_t, false_t, false_t>::value == false)
+    SS_TESTC(ss::conjunction<false_t, false_t, false_t, true_t>::value == false)
+    SS_TESTC(ss::conjunction<false_t, void, void()&&>::value == false)
+  }
+
+  { // disjunction
+    SS_TESTC(ss::disjunction<>::value == false)
+    SS_TESTC(is_false_t<typename ss::disjunction<>::type>::value == true)
+    SS_TESTC(ss::disjunction<false_t>::value == false)
+    SS_TESTC(ss::disjunction<false_t, false_t>::value == false)
+    SS_TESTC(ss::disjunction<false_t, false_t, false_t, true_t>::value == true)
+    SS_TESTC(ss::disjunction<true_t>::value == true)
+    SS_TESTC(ss::disjunction<i0, i0, i1, i2>::value == 1)
+# if SS_CXX_VER >= 14
+    SS_TESTC(ss::disjunction_v<> == false)
+    SS_TESTC(ss::disjunction_v<false_t> == false)
+    SS_TESTC(ss::disjunction_v<false_t, false_t> == false)
+    SS_TESTC(ss::disjunction_v<false_t, false_t, true_t> == true)
+    SS_TESTC(ss::disjunction_v<i0, i0, i1, i2> == 1)
+# endif
+  }
+
+  { // negation
+    SS_TESTC(ss::negation<false_t>::value == true)
+    SS_TESTC(ss::negation<true_t>::value == false)
+# if SS_CXX_VER >= 14
+    SS_TESTC(ss::negation<false_t>::value == ss::negation_v<false_t>)
+    SS_TESTC(ss::negation<true_t>::value == ss::negation_v<true_t>)
+# endif
+  }
+
+  { // is_constant_evaluated (std)
+# if SS_CXX_VER >= 20
+
+# endif
+  }
 
   { // test 'test helpers'
     struct foo { using type = void; };
@@ -975,40 +1246,6 @@ int main() {
     SS_TESTC(is_false_t<ss::true_type>::value == false)
     SS_TESTC(is_false_t<ss::false_type>::value == true)
   }
-
-
-  // conjunction
-  SS_TESTC(ss::conjunction<>::value == true)
-  SS_TESTC(is_true_t<typename ss::conjunction<>::type>::value == true)
-  SS_TESTC(ss::conjunction<true_t, true_t, true_t>::value == true)
-  SS_TESTC(ss::conjunction<false_t, false_t, false_t>::value == false)
-  SS_TESTC(ss::conjunction<false_t, false_t, false_t, true_t>::value == false)
-  SS_TESTC(ss::conjunction<false_t, void, void()&&>::value == false)
-
-  // disjunction
-  SS_TESTC(ss::disjunction<>::value == false)
-  SS_TESTC(is_false_t<typename ss::disjunction<>::type>::value == true)
-  SS_TESTC(ss::disjunction<false_t>::value == false)
-  SS_TESTC(ss::disjunction<false_t, false_t>::value == false)
-  SS_TESTC(ss::disjunction<false_t, false_t, false_t, true_t>::value == true)
-  SS_TESTC(ss::disjunction<true_t>::value == true)
-  SS_TESTC(ss::disjunction<i0, i0, i1, i2>::value == 1)
-
-# if SS_CXX_VER >= 14
-  SS_TESTC(ss::disjunction_v<> == false)
-  SS_TESTC(ss::disjunction_v<false_t> == false)
-  SS_TESTC(ss::disjunction_v<false_t, false_t> == false)
-  SS_TESTC(ss::disjunction_v<false_t, false_t, true_t> == true)
-  SS_TESTC(ss::disjunction_v<i0, i0, i1, i2> == 1)
-# endif
-
-  // negation
-  SS_TESTC(ss::negation<false_t>::value == true)
-  SS_TESTC(ss::negation<true_t>::value == false)
-# if SS_CXX_VER >= 14
-  SS_TESTC(ss::negation<false_t>::value == ss::negation_v<false_t>)
-  SS_TESTC(ss::negation<true_t>::value == ss::negation_v<true_t>)
-# endif
 
   SS_TEST_RETURN
 }
