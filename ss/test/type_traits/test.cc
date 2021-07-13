@@ -730,7 +730,7 @@ int main() {
     SS_TESTC(!ss::is_copy_constructible<void()>::value)
     SS_TESTC(!ss::is_copy_constructible<void()&>::value)
     SS_TESTC(!ss::is_copy_constructible<void()const>::value)
-    SS_TESTC(ss::is_copy_constructible<nullptr_t>::value)
+    SS_TESTC(ss::is_copy_constructible<ss::nullptr_t>::value)
     SS_TESTC(ss::is_copy_constructible<decltype(lambda)>::value)
     SS_TESTC(ss::is_copy_constructible<decltype(lambda_capture)>::value)
     SS_TESTC(ss::is_copy_constructible<decltype(lambda_capture_default)>::value)
@@ -805,9 +805,9 @@ int main() {
     SS_TESTC(!ss::is_trivially_move_constructible<void()const>::value)
     SS_TESTC(!ss::is_nothrow_move_constructible<void()const>::value)
 
-    SS_TESTC(ss::is_move_constructible<nullptr_t>::value)
-    SS_TESTC(ss::is_trivially_move_constructible<nullptr_t>::value)
-    SS_TESTC(ss::is_nothrow_move_constructible<nullptr_t>::value)
+    SS_TESTC(ss::is_move_constructible<ss::nullptr_t>::value)
+    SS_TESTC(ss::is_trivially_move_constructible<ss::nullptr_t>::value)
+    SS_TESTC(ss::is_nothrow_move_constructible<ss::nullptr_t>::value)
 
     SS_TESTC(ss::is_move_constructible<decltype(lambda)>::value)
     SS_TESTC(ss::is_trivially_move_constructible<decltype(lambda)>::value)
