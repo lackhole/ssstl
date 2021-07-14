@@ -5,7 +5,7 @@
 # ifndef SS_ALGORITHM_H_
 # define SS_ALGORITHM_H_
 #
-# include "ss/detail/swap.h"
+//# include "ss/detail/swap.h"
 
 namespace ss {
 

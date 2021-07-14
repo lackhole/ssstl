@@ -1759,6 +1759,87 @@ template<typename T> struct decay {
 };
 template<typename T> using decay_t = typename decay<T>::type;
 
+namespace detail {
+
+//template<bool b, typename F, typename ...Args> struct INVOKE;
+//
+//template<typename F, typename ...Args>
+//struct INVOKE<true, F, Args...> {};
+//
+//template<typename T, typename C, typename Arg, bool v = is_base_of<C, remove_reference_t<Arg>>::value>
+//struct INVOKE2 {
+//  static auto call(T(C::*f), Arg arg) -> decltype(arg.*f);
+//};
+//
+////template
+//
+//template<typename T, typename C, typename Arg>
+//struct INVOKE2<T, C, Arg, false> {
+//  template<typename U>
+//  static auto call_impl(std::reference_wrapper<U> arg, T(C::*f)) -> decltype(arg.get().*f);
+//
+//  template<typename U>
+//  static auto call_impl(Arg)
+//
+//  static auto call(T(C::*f), Arg arg) -> decltype(call_impl<remove_cvref_t<Arg>>(arg, f));
+//};
+//
+//template<typename T, typename C, typename Arg>
+//struct INVOKE<false, T(C::*), Arg> {};
+//
+//template<typename F, typename ...Args>
+//struct INVOKE<false, F, Args...> {
+//  static auto call(F&& f, Args&&... args) -> decltype(std::forward<F>(f)(std::forward<Args>(args)...));
+//};
+
+
+template<typename T> struct is_rwrap_spc : false_type {};
+template<typename T> struct is_rwrap_spc<std::reference_wrapper<T>> : true_type {};
+
+template<typename F, bool v = is_member_function_pointer<F>::value>
+struct INVOKE {
+
+
+};
+
+//template<typename T, typename C>
+//struct INVOKE<T(C::*), false> {
+//  template<typename Args>
+//  static auto call_impl(Args) -> void;
+//
+//  template<typename ...Args>
+//  static auto call(Args&&... args) -> decltype(call_impl<Args...>(forward<Args>(args)...))
+//};
+
+template<typename F>
+struct INVOKE<F, false> {
+
+
+
+  template<typename R, typename T, typename Arg, enable_if_t<is_base_of<T, remove_reference_t<Arg>>::value, int> = 0>
+  static auto call(R(T::*f), Arg&& t1) -> decltype(forward<Arg>(t1).*f);
+
+  template<typename R, typename T, typename Arg, enable_if_t<is_rwrap_spc<remove_cvref_t<Arg>>::value, int> = 0>
+  static auto call(R(T::*f), Arg&& t1) -> decltype(forward<Arg>(t1).get().*f);
+
+  template<typename R, typename T, typename Arg>
+  static auto call(R(T::*f), Arg&& t1) -> decltype((*forward<Arg>(t1)).*f);
+
+  template<typename ...Args>
+  static auto call(F f, Args&&... args) -> decltype(f(forward<Args>(args)...));
+};
+
+using fp = void(*)();
+using x = decltype(INVOKE<void()>::call(declval<fp>()));
+
+template<typename F, typename ...Args>
+struct invoke_impl {};
+
+}
+
+template<typename F, typename ...Args>
+struct invoke_result : detail::invoke_impl<F, Args...> {};
+
 
 
 /**
