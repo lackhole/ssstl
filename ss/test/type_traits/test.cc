@@ -449,12 +449,31 @@ int main() {
     SS_TESTC(!ss::is_member_pointer<void(int)&&>::value)
 
     SS_TESTC(ss::is_member_function_pointer<int(s::*)(int)>::value)
+    SS_TESTC(ss::is_member_function_pointer<int(s::*)(int) &>::value)
+    SS_TESTC(ss::is_member_function_pointer<int(s::*)(int) &&>::value)
+    SS_TESTC(ss::is_member_function_pointer<int(s::*)(int) const>::value)
+    SS_TESTC(ss::is_member_function_pointer<int(s::*)(int) const &>::value)
+    SS_TESTC(ss::is_member_function_pointer<int(s::*)(int) const &&>::value)
+    SS_TESTC(ss::is_member_function_pointer<int(s::*)(int) volatile>::value)
+    SS_TESTC(ss::is_member_function_pointer<int(s::*)(int) volatile &>::value)
+    SS_TESTC(ss::is_member_function_pointer<int(s::*)(int) volatile &&>::value)
+    SS_TESTC(ss::is_member_function_pointer<int(s::*)(int) const volatile>::value)
+    SS_TESTC(ss::is_member_function_pointer<int(s::*)(int) const volatile &>::value)
+    SS_TESTC(ss::is_member_function_pointer<int(s::*)(int) const volatile &&>::value)
+    SS_TESTC(ss::is_member_function_pointer<decltype(&s::mf)>::value)
+    SS_TESTC(ss::is_member_function_pointer<decltype(&s::cmf)>::value)
+    SS_TESTC(ss::is_member_function_pointer<decltype(&s::rmf)>::value)
+    SS_TESTC(!ss::is_member_function_pointer<decltype(&s::x)>::value)
     SS_TESTC(!ss::is_member_function_pointer<int(s::**)(int)>::value)
     SS_TESTC(!ss::is_member_function_pointer<int(s::*)>::value)
 
     SS_TESTC(!ss::is_member_object_pointer<int(s::*)(int)>::value)
     SS_TESTC(!ss::is_member_object_pointer<int(s::**)(int)>::value)
+    SS_TESTC(!ss::is_member_object_pointer<decltype(&s::mf)>::value)
+    SS_TESTC(!ss::is_member_object_pointer<decltype(&s::cmf)>::value)
+    SS_TESTC(!ss::is_member_object_pointer<decltype(&s::rmf)>::value)
     SS_TESTC(ss::is_member_object_pointer<int(s::*)>::value)
+    SS_TESTC(ss::is_member_object_pointer<decltype(&s::x)>::value)
   }
 
   { // is_arithmetic
@@ -1468,6 +1487,131 @@ int main() {
   }
 
   { // decay
+
+  }
+
+  { // is_invocable
+    SS_TESTC(!ss::is_invocable<int>::value)
+    SS_TESTC(!ss::is_invocable<void>::value)
+    SS_TESTC(!ss::is_invocable<ss::nullptr_t>::value)
+    SS_TESTC(!ss::is_invocable<int*>::value)
+    SS_TESTC(!ss::is_invocable<void*>::value)
+
+    SS_TESTC(!ss::is_invocable_r<void, int>::value)
+    SS_TESTC(!ss::is_invocable_r<void(), void>::value)
+    SS_TESTC(!ss::is_invocable_r<void()&&, void>::value)
+    SS_TESTC(!ss::is_invocable_r<int, ss::nullptr_t>::value)
+    SS_TESTC(!ss::is_invocable_r<int*, int*>::value)
+    SS_TESTC(!ss::is_invocable_r<ss::nullptr_t, void*>::value)
+
+    SS_TESTC(ss::is_invocable<void()>::value)
+    SS_TESTC(!ss::is_invocable<void(), void>::value)
+    SS_TESTC(!ss::is_invocable<void(), int>::value)
+    SS_TESTC(ss::is_invocable<void(*)()>::value)
+    SS_TESTC(ss::is_invocable<void(&)()>::value)
+    SS_TESTC(!ss::is_invocable<void()&&>::value)
+    SS_TESTC(!ss::is_invocable<void(**)()>::value)
+
+    SS_TESTC(ss::is_invocable<int()>::value)
+    SS_TESTC(ss::is_invocable<int(int), int>::value)
+    SS_TESTC(ss::is_invocable<int(int), int&>::value)
+    SS_TESTC(ss::is_invocable<int(int), int&&>::value)
+    SS_TESTC(ss::is_invocable<int(int), float>::value)
+    SS_TESTC(ss::is_invocable<int(int), double>::value)
+    SS_TESTC(ss::is_invocable<int(int), char>::value)
+    SS_TESTC(ss::is_invocable<int(int, float), int, int>::value)
+    SS_TESTC(!ss::is_invocable<int(int)>::value)
+
+    SS_TESTC(ss::is_invocable_r<void, void()>::value)
+    SS_TESTC(ss::is_invocable_r<void, void(int), int>::value)
+    SS_TESTC(ss::is_invocable_r<void, void(int, float), bool, double>::value)
+    SS_TESTC(ss::is_invocable_r<int, int()>::value)
+    SS_TESTC(ss::is_invocable_r<int, char()>::value)
+    SS_TESTC(ss::is_invocable_r<int, long long()>::value)
+    SS_TESTC(ss::is_invocable_r<int, float()>::value)
+    SS_TESTC(ss::is_invocable_r<bool, ss::bool_constant<true>()>::value) // implicit conversion operator
+    SS_TESTC(!ss::is_invocable_r<bool, std::unique_ptr<int>()>::value) // explicit conversion operator
+
+    int x;
+    auto lambda = [](){};
+    auto lambda_capture = [&x](){(void)x;};
+    auto lambda_default_capture = [&](){};
+    auto lambda2 = [](decltype(lambda)) {};
+
+    SS_TESTC(ss::is_invocable<decltype(lambda)>::value)
+    SS_TESTC(ss::is_invocable<decltype(lambda_capture)>::value)
+    SS_TESTC(ss::is_invocable<decltype(lambda_default_capture)>::value)
+    SS_TESTC(!ss::is_invocable<decltype(lambda2)>::value)
+
+    SS_TESTC(ss::is_invocable_r<void, decltype(lambda2), decltype(lambda)>::value)
+    SS_TESTC(ss::is_invocable_r<void, decltype(lambda)>::value)
+    SS_TESTC(ss::is_invocable_r<void, decltype(lambda_capture)>::value)
+    SS_TESTC(ss::is_invocable_r<void, decltype(lambda_default_capture)>::value)
+    SS_TESTC(ss::is_invocable_r<void, decltype(lambda2), decltype(lambda)>::value)
+
+    struct a {
+      void mf1();
+      void mf2(int, float);
+      int mv1;
+      void(*mv2)();
+      std::function<void()> mv3;
+      std::function<void(int)> mv4;
+    };
+    struct b {
+      int operator()() const {}
+    };
+
+    SS_TESTC(!ss::is_invocable<a>::value)
+    SS_TESTC(ss::is_invocable<b>::value)
+    SS_TESTC(!ss::is_invocable<decltype(&a::mf1)>::value)
+    SS_TESTC(ss::is_invocable<decltype(&a::mf1), a>::value)
+    SS_TESTC(ss::is_invocable<decltype(&a::mf1), a&>::value)
+    SS_TESTC(!ss::is_invocable<decltype(&a::mf1), const a>::value)
+    SS_TESTC(!ss::is_invocable<decltype(&a::mf1), const a&>::value)
+    SS_TESTC(ss::is_invocable<decltype(&a::mf1), a&&>::value)
+    SS_TESTC(ss::is_invocable<decltype(&a::mf1), a*>::value)
+    SS_TESTC(!ss::is_invocable<decltype(&a::mf2), a*>::value)
+    SS_TESTC(ss::is_invocable<decltype(&a::mf2), a*, int, int>::value)
+    SS_TESTC(ss::is_invocable<decltype(&a::mf2), a&, double, double>::value)
+    SS_TESTC(ss::is_invocable<decltype(&a::mv1), a&>::value)
+    SS_TESTC(!ss::is_invocable<decltype(&a::mv1), a&, void>::value)
+    SS_TESTC(!ss::is_invocable<decltype(&a::mv1), a&, int>::value)
+    SS_TESTC(ss::is_invocable<decltype(&a::mv2), a&>::value)
+    SS_TESTC(!ss::is_invocable<decltype(&a::mv2), a&, void>::value)
+    SS_TESTC(!ss::is_invocable<decltype(&a::mv2), a&, int>::value)
+    SS_TESTC(ss::is_invocable<decltype(&a::mv3), a&>::value)
+    SS_TESTC(std::is_invocable<decltype(&a::mv3), a&>::value)
+    SS_TESTC(!ss::is_invocable<decltype(&a::mv3), a&, void>::value)
+
+    SS_TESTC(ss::is_invocable<void(a::*)() const, a>::value)
+    SS_TESTC(!ss::is_invocable<void(a::*)() &, a>::value)
+    SS_TESTC(ss::is_invocable<void(a::*)() &, a&>::value)
+    SS_TESTC(ss::is_invocable<void(a::*)() &, a*>::value)
+    SS_TESTC(!ss::is_invocable<void(a::*)() &, a&&>::value)
+    SS_TESTC(!std::is_invocable<void(a::*)() &, a&&>::value)
+    SS_TESTC(ss::is_invocable<void(a::*)() &&, a>::value)
+# if SS_CXX_VER >= 17
+    SS_TESTC(ss::is_invocable<void(a::*)() &&, a>::value == std::is_invocable<void(a::*)() &&, a>::value)
+# endif
+    SS_TESTC(!ss::is_invocable<void(a::*)() &&, a&>::value)
+    SS_TESTC(ss::is_invocable<void(a::*)() &&, a&&>::value)
+
+    SS_TESTC(ss::is_invocable<std::function<void()>>::value)
+    SS_TESTC(ss::is_invocable<std::function<void(int)>, int>::value)
+
+    SS_TESTC(ss::is_invocable_r<int, b>::value)
+    SS_TESTC(ss::is_invocable_r<void, decltype(&a::mf1), a>::value)
+    SS_TESTC(ss::is_invocable_r<void, decltype(&a::mf1), a&>::value)
+    SS_TESTC(ss::is_invocable_r<void, decltype(&a::mf1), a&&>::value)
+    SS_TESTC(ss::is_invocable_r<void, decltype(&a::mf1), a*>::value)
+    SS_TESTC(ss::is_invocable_r<void, void(a::*)() const, a>::value)
+    SS_TESTC(ss::is_invocable_r<void, void(a::*)() &, a&>::value)
+    SS_TESTC(ss::is_invocable_r<void, void(a::*)() &, a*>::value)
+    SS_TESTC(ss::is_invocable_r<void, void(a::*)() &&, a>::value)
+    SS_TESTC(ss::is_invocable_r<void, void(a::*)() &&, a&&>::value)
+  }
+
+  { // is_nothrow_invocable
 
   }
 

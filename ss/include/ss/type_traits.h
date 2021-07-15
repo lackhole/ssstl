@@ -7,6 +7,8 @@
 #
 # include <cstddef>
 #
+# include <functional>
+#
 # include "ss/detail/macro.h"
 # include "ss/detail/nullptr_t.h"
 
@@ -1759,86 +1761,182 @@ template<typename T> struct decay {
 };
 template<typename T> using decay_t = typename decay<T>::type;
 
+
+
+/**
+ * forward
+ * @tparam T
+ * @param t
+ * @return
+ */
+template<typename T> // T = U (rvalue) T = U&(lvalue) where U is no-ref
+constexpr inline T&& forward(remove_reference_t<T>& t) noexcept {
+  return static_cast<T&&>(t);
+}
+
+template<typename T>
+constexpr inline T&& forward(remove_reference_t<T>&& t) noexcept {
+  static_assert(!is_lvalue_reference<T>::value, "Forwarding rvalue to lvalue is prohibited");
+  return static_cast<T&&>(t);
+}
+
 namespace detail {
 
-//template<bool b, typename F, typename ...Args> struct INVOKE;
-//
-//template<typename F, typename ...Args>
-//struct INVOKE<true, F, Args...> {};
-//
-//template<typename T, typename C, typename Arg, bool v = is_base_of<C, remove_reference_t<Arg>>::value>
-//struct INVOKE2 {
-//  static auto call(T(C::*f), Arg arg) -> decltype(arg.*f);
-//};
-//
-////template
-//
-//template<typename T, typename C, typename Arg>
-//struct INVOKE2<T, C, Arg, false> {
-//  template<typename U>
-//  static auto call_impl(std::reference_wrapper<U> arg, T(C::*f)) -> decltype(arg.get().*f);
-//
-//  template<typename U>
-//  static auto call_impl(Arg)
-//
-//  static auto call(T(C::*f), Arg arg) -> decltype(call_impl<remove_cvref_t<Arg>>(arg, f));
-//};
-//
-//template<typename T, typename C, typename Arg>
-//struct INVOKE<false, T(C::*), Arg> {};
-//
-//template<typename F, typename ...Args>
-//struct INVOKE<false, F, Args...> {
-//  static auto call(F&& f, Args&&... args) -> decltype(std::forward<F>(f)(std::forward<Args>(args)...));
-//};
+template<typename T, template<typename...> class C>
+struct is_specialization_of_impl : false_type {};
 
+template<template<typename...> class C, typename ...Args>
+struct is_specialization_of_impl<C<Args...>, C> : true_type {};
 
-template<typename T> struct is_rwrap_spc : false_type {};
-template<typename T> struct is_rwrap_spc<std::reference_wrapper<T>> : true_type {};
+template<typename Specialized, template<typename...> class Original>
+struct is_specialization_of : is_specialization_of_impl<remove_cv_t<Specialized>, Original> {};
 
-template<typename F, bool v = is_member_function_pointer<F>::value>
-struct INVOKE {
+template<typename MemberPtr> struct ptr_class_type;
+template<typename T, typename C> struct ptr_class_type<T(C::*)> { using type = C; };
+template<typename MemberPtr> using ptr_class_type_t = typename ptr_class_type<MemberPtr>::type;
 
+template<bool b1 /* (true) is_base_of<T, remove_reference_t<Arg>>::value */,
+         bool b2 /* (any ) is_specialization_of<reference_wrapper, remove_cvref_t<Arg>>::value */>
+struct INVOKE3 {
+  template<typename F, typename T1>
+  static auto test(F f, T1&& t1)
+    -> decltype(std::forward<T1>(t1).*f);
 
+  template<typename F, typename T1, typename ...TN, enable_if_t<is_member_function_pointer<F>::value, int> = 0>
+  static auto test(F f, T1&& t1, TN&&... tn)
+    -> decltype((std::forward<T1>(t1).*f)(forward<TN>(tn)...));
 };
 
-//template<typename T, typename C>
-//struct INVOKE<T(C::*), false> {
-//  template<typename Args>
-//  static auto call_impl(Args) -> void;
-//
-//  template<typename ...Args>
-//  static auto call(Args&&... args) -> decltype(call_impl<Args...>(forward<Args>(args)...))
-//};
+template<>
+struct INVOKE3<false, true> {
+  template<typename F, typename T1>
+  static auto test(F f, T1&& t1)
+    -> decltype(std::forward<T1>(t1).get().*f);
 
-template<typename F>
-struct INVOKE<F, false> {
-
-
-
-  template<typename R, typename T, typename Arg, enable_if_t<is_base_of<T, remove_reference_t<Arg>>::value, int> = 0>
-  static auto call(R(T::*f), Arg&& t1) -> decltype(forward<Arg>(t1).*f);
-
-  template<typename R, typename T, typename Arg, enable_if_t<is_rwrap_spc<remove_cvref_t<Arg>>::value, int> = 0>
-  static auto call(R(T::*f), Arg&& t1) -> decltype(forward<Arg>(t1).get().*f);
-
-  template<typename R, typename T, typename Arg>
-  static auto call(R(T::*f), Arg&& t1) -> decltype((*forward<Arg>(t1)).*f);
-
-  template<typename ...Args>
-  static auto call(F f, Args&&... args) -> decltype(f(forward<Args>(args)...));
+  template<typename F, typename T1, typename ...TN, enable_if_t<is_member_function_pointer<F>::value, int> = 0>
+  static auto test(F f, T1&& t1, TN&&... tn)
+    -> decltype((std::forward<T1>(t1).get().*f)(forward<TN>(tn)...));
 };
 
-using fp = void(*)();
-using x = decltype(INVOKE<void()>::call(declval<fp>()));
+template<>
+struct INVOKE3<false, false> {
+  template<typename F, typename T1>
+  static auto test(F f, T1&& t1)
+    -> decltype((*std::forward<T1>(t1)).*f);
 
-template<typename F, typename ...Args>
-struct invoke_impl {};
+  template<typename F, typename T1, typename ...TN, enable_if_t<is_member_function_pointer<F>::value, int> = 0>
+  static auto test(F f, T1&& t1, TN&&... tn)
+    -> decltype(((*std::forward<T1>(t1)).*f)(forward<TN>(tn)...));
+};
+
+template<typename F, typename ...TN>
+auto test_function_obj(F&& f, TN&&... tn) -> decltype(forward<F>(f)(forward<TN>(tn)...));
+
+template<typename Func, bool v = is_member_pointer<Func>::value>
+struct INVOKE2 {
+  using T = ptr_class_type_t<Func>;
+  template<typename F, typename T1, typename ...TN>
+  static auto test(F f, T1&& t1, TN&&... tn)
+    -> decltype(INVOKE3<is_base_of<T, remove_reference_t<decltype(t1)>>::value,
+                        is_specialization_of<remove_cvref_t<decltype(t1)>, std::reference_wrapper>::value
+                >::test(f, forward<T1>(t1), forward<TN>(tn)...));
+};
+
+template<typename Func>
+struct INVOKE2<Func, false> {
+  template<typename F, typename ...TN>
+  static auto test(F&& f, TN&&... tn) -> decltype(forward<F>(f)(forward<TN>(tn)...));
+};
+
+template<typename T>
+auto pass_through(T) -> T;
+
+template<typename R, bool v = is_void<R>::value /* false */>
+struct INVOKE_R {
+  template<typename F, typename ...TN>
+  static auto call(F f, TN&&... tn)
+    -> decltype(pass_through<R>(INVOKE2<F>::test(f, forward<TN>(tn)...)));
+};
+
+template<typename R>
+struct INVOKE_R<R, true> {
+  template<typename F, typename ...TN>
+  static auto call(F f, TN&&... tn)
+    -> decltype(static_cast<void>(INVOKE2<F>::test(f, forward<TN>(tn)...)));
+};
+
+template<typename R = void, typename F, typename ...Args>
+auto INVOKE(F f, Args&&... args)
+  -> decltype(INVOKE_R<R>::call(f, forward<Args>(args)...));
+//  -> decltype(INVOKE2<remove_reference_t<F>>::test(forward<F>(f), forward<Args>(args)...));
+
+template<typename Fn, typename ...ArgTypes>
+auto is_invocable_test(int) -> type_identity<decltype(INVOKE(declval<Fn>(), declval<ArgTypes>()...))>;
+
+template<typename Fn, typename ...ArgTypes>
+auto is_invocable_test(...) -> unused;
+
+template<typename R, typename Fn, typename ...ArgTypes>
+auto is_invocable_r_test(int) -> type_identity<decltype(INVOKE<R>(declval<Fn>(), declval<ArgTypes>()...))>;
+
+template<typename R, typename Fn, typename ...ArgTypes>
+auto is_invocable_r_test(...) -> unused;
 
 }
 
-template<typename F, typename ...Args>
-struct invoke_result : detail::invoke_impl<F, Args...> {};
+
+/**
+ * is_invocable
+ * @tparam Fn
+ * @tparam ArgTypes
+ */
+template<typename Fn, typename ...ArgTypes>
+struct is_invocable : is_not_same<detail::unused, decltype(detail::is_invocable_test<Fn, ArgTypes...>(0))> {};
+# if SS_CXX_VER >= 14
+template<typename Fn, typename ...ArgTypes>
+SS_INLINE_VAR constexpr bool is_invocable_v = is_invocable<Fn, ArgTypes...>::value;
+# endif
+
+struct s {
+  std::function<void()> v;
+};
+using t1 = decltype(detail::INVOKE(declval<decltype(&s::v)>(), declval<s>()));
+using t2 = decltype(detail::INVOKE_R<void>::call(declval<decltype(&s::v)>(), declval<s>()));
+using t3 = decltype(detail::INVOKE2<remove_reference_t<decltype(declval<decltype(&s::v)>())>>::test(declval<decltype(&s::v)>(), declval<s>()));
+
+/**
+ * is_invocable_r
+ * @tparam R
+ * @tparam Fn
+ * @tparam ArgTypes
+ */
+template<typename R, typename Fn, typename ...ArgTypes>
+struct is_invocable_r : is_not_same<detail::unused, decltype(detail::is_invocable_r_test<R, Fn, ArgTypes...>(0))> {};
+# if SS_CXX_VER >= 14
+template<typename R, typename Fn, typename ...ArgTypes>
+SS_INLINE_VAR constexpr bool is_invocable_r_v = is_invocable_r<R, Fn, ArgTypes...>::value;
+# endif
+
+
+namespace detail {
+
+//template<typename F, ty
+
+template<bool v, typename Fn, typename ...ArgTypes>
+struct is_nothrow_invocable_impl : false_type {};
+
+template<typename Fn, typename ...ArgTypes>
+struct is_nothrow_invocable_impl<true, Fn, ArgTypes...> : false_type {};
+}
+
+/**
+ * is_nothrow_invocable
+ * @tparam Fn
+ * @tparam ArgTypes
+ */
+//template<typename Fn, typename ...ArgTypes>
+//struct is_nothrow_invocable
+//  : detail::is_nothrow_invocable_impl<is_invocable<Fn, ArgTypes...>::value, Fn, ArgTypes...> {};
 
 
 
@@ -1922,7 +2020,7 @@ struct make_rvalue { using type = add_rvalue_reference_t<remove_reference_t<T>>;
 
 template<typename T1, typename T2>
 using common_reference_simple_test1
-  = decltype(false ? declval<restore_cv_t<T2, T1>>() : declval<restore_cv_t<T1, T2>>());
+= decltype(false ? declval<restore_cv_t<T2, T1>>() : declval<restore_cv_t<T1, T2>>());
 
 template<typename T1, typename T2, typename C,
   bool v = is_convertible<T1, C>::value && is_convertible<T2, C>::value>
@@ -2005,9 +2103,9 @@ struct common_reference_test2<T1, T2,
       common_reference_test2_alias<T2>::template alias>::type
   >
 > { using type = typename basic_common_reference<
-      remove_cvref_t<T1>, remove_cvref_t<T2>,
-      common_reference_test2_alias<T1>::template alias,
-      common_reference_test2_alias<T2>::template alias>::type; };
+    remove_cvref_t<T1>, remove_cvref_t<T2>,
+    common_reference_test2_alias<T1>::template alias,
+    common_reference_test2_alias<T2>::template alias>::type; };
 
 template<typename T1, typename T2, typename = void>
 struct common_reference_test1 : common_reference_test2<T1, T2> {};

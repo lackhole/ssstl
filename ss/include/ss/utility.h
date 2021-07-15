@@ -50,17 +50,6 @@ SS_CONSTEXPR_AFTER_14 inline enable_if_t<is_swappable<T>::value> swap(T(&a)[N], 
   swap_ranges(a, a+N, b);
 }
 
-template<typename T> // T = U (rvalue) T = U&(lvalue) where U is no-ref
-constexpr inline T&& forward(remove_reference_t<T>& t) noexcept {
-  return static_cast<T&&>(t);
-}
-
-template<typename T>
-constexpr inline T&& forward(remove_reference_t<T>&& t) noexcept {
-  static_assert(!is_lvalue_reference<T>::value, "Forwarding rvalue to lvalue is prohibited");
-  return static_cast<T&&>(t);
-}
-
 template<typename T>
 constexpr inline remove_reference_t<T>&& move(T&& t) noexcept {
   return static_cast<remove_reference_t<T>&&>(t);
