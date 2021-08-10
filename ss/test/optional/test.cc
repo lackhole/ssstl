@@ -31,8 +31,10 @@ int main() {
     ss::optional<foo> o;
     o.emplace();
 
+# if SS_CXX_VER >= 17
     std::optional<foo> op;
     op.emplace();
+# endif
   }
 
   {

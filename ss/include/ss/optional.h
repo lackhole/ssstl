@@ -461,8 +461,8 @@ class optional :
     return *this;
   }
 
-  constexpr optional& operator=(optional const&) = default;
-  constexpr optional& operator=(optional &&) = default;
+  SS_CONSTEXPR_AFTER_14 optional& operator=(optional const&) = default;
+  SS_CONSTEXPR_AFTER_14 optional& operator=(optional &&) = default;
 
   template<typename U,
     enable_if_t<
@@ -571,7 +571,7 @@ class optional :
   }
 
   template<typename U>
-  constexpr value_type value_or(U&& default_value) && {
+  SS_CONSTEXPR_AFTER_14 value_type value_or(U&& default_value) && {
     static_assert(is_move_constructible<value_type>::value,
                   "ss::optional<T>::value_or : T must be move constructible");
     static_assert(is_convertible<U&&, value_type>::value,
