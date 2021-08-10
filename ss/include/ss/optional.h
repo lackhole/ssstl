@@ -159,24 +159,24 @@ struct dtor {
     }
   }
 
-  constexpr const        value_type* pointer() const { return addressof(val); }
-  SS_CONSTEXPR_AFTER_14  value_type* pointer()       { return addressof(val); }
+  constexpr const        value_type* pointer() const noexcept { return addressof(val); }
+  SS_CONSTEXPR_AFTER_14  value_type* pointer()       noexcept { return addressof(val); }
 
-  constexpr const        value_type& ref() const&  { return val;       }
-  SS_CONSTEXPR_AFTER_14  value_type& ref()      &  { return val;       }
-  constexpr const        value_type& ref() const&& { return move(val); }
-  SS_CONSTEXPR_AFTER_14  value_type& ref()      && { return move(val); }
+  constexpr const        value_type& ref() const&  noexcept { return val;       }
+  SS_CONSTEXPR_AFTER_14  value_type& ref()      &  noexcept { return val;       }
+  constexpr const        value_type& ref() const&& noexcept { return move(val); }
+  SS_CONSTEXPR_AFTER_14  value_type& ref()      && noexcept { return move(val); }
 
-  template<typename ...U>
-  void construct(U&&... args) {
-    ::new((void*)addressof(val)) value_type(forward<U>(args)...);
+  template<typename ...Args>
+  void construct(Args&&... args) {
+    ::new((void*)addressof(val)) value_type(forward<Args>(args)...);
     valid = true;
   }
 
-  template<typename U>
-  void construct_if(U&& arg) {
-    if (valid)
-      construct(forward<U>(arg));
+  template<typename Other>
+  void construct_if(Other&& other) {
+    if (other)
+      construct(*forward<Other>(other));
   }
 
   ~dtor() = default;
@@ -200,7 +200,7 @@ struct dtor<T, false> {
     : val(forward<Args>(args)...),
       valid(true) {}
 
-  inline void reset() {
+  void reset() {
     if (valid) {
       val.T::~T();
       valid = false;
@@ -215,10 +215,16 @@ struct dtor<T, false> {
   constexpr             const value_type& ref() const&& { return move(val);  }
   SS_CONSTEXPR_AFTER_14       value_type& ref()      && { return move(val);  }
 
-  template<typename U>
-  void construct(U&& arg) {
-    ::new((void*)addressof(val)) value_type(forward<U>(arg));
+  template<typename ...Args>
+  void construct(Args&&... args) {
+    ::new((void*)addressof(val)) value_type(forward<Args>(args)...);
     valid = true;
+  }
+
+  template<typename Other>
+  void construct_if(Other&& other) {
+    if (other)
+      construct(*forward<Other>(other));
   }
 
   ~dtor() {
@@ -333,9 +339,9 @@ struct move_assign<T, false> : copy_assign<T> {
       this->reset();
     } else {
       if (this->valid)
-        this->val = other.val;
+        this->val = std::move(other.val);
       else
-        this->construct(other.val);
+        this->construct(std::move(other.val));
     }
     return *this;
   }
@@ -382,7 +388,7 @@ class optional :
       internal::optional::check_convertible  <value_type, optional<U>>::value,
     int> = 0>
   SS_CONSTEXPR_AFTER_14 optional(const optional<U>& other) {
-    this->construct_if(*other);
+    this->construct_if(other);
   }
 
   template<typename U,
@@ -393,7 +399,7 @@ class optional :
       !is_convertible<const U&, value_type>::value,
     int> = 0>
   SS_CONSTEXPR_AFTER_14 explicit optional(const optional<U>& other) {
-    this->construct_if(*other);
+    this->construct_if(other);
   }
 
   template<typename U,
@@ -403,7 +409,7 @@ class optional :
       internal::optional::check_convertible  <value_type, optional<U>>::value,
     int> = 0>
   SS_CONSTEXPR_AFTER_14 optional(optional<U>&& other) {
-    this->construct_if(move(*other));
+    this->construct_if(move(other));
   }
 
   template<typename U,
@@ -414,7 +420,7 @@ class optional :
       !is_convertible<U&&, value_type>::value,
     int> = 0>
   SS_CONSTEXPR_AFTER_14 explicit optional(optional<U>&& other) {
-    this->construct_if(move(*other));
+    this->construct_if(move(other));
   }
 
   // Separated into 2 overloads to prevent MSVC from making an ambiguous call in C++14
@@ -455,8 +461,8 @@ class optional :
     return *this;
   }
 
-  constexpr optional& operator=(optional const&) = default;
-  constexpr optional& operator=(optional &&) = default;
+  SS_CONSTEXPR_AFTER_14 optional& operator=(optional const&) = default;
+  SS_CONSTEXPR_AFTER_14 optional& operator=(optional &&) = default;
 
   template<typename U,
     enable_if_t<
@@ -565,7 +571,7 @@ class optional :
   }
 
   template<typename U>
-  constexpr value_type value_or(U&& default_value) && {
+  SS_CONSTEXPR_AFTER_14 value_type value_or(U&& default_value) && {
     static_assert(is_move_constructible<value_type>::value,
                   "ss::optional<T>::value_or : T must be move constructible");
     static_assert(is_convertible<U&&, value_type>::value,
@@ -621,7 +627,7 @@ class optional :
   template<typename U, typename ...Args,
     enable_if_t<
       is_constructible<value_type, std::initializer_list<U>&, Args&&...>::value,
-      int> = 0>
+    int> = 0>
   value_type& emplace(std::initializer_list<U> ilist, Args&&... args) {
     this->reset();
     this->construct(ilist, forward<Args>(args)...);
@@ -630,7 +636,7 @@ class optional :
 
 };
 
-# if __cplusplus >= 201703
+# if SS_CXX_VER >= 17
 template<class T> optional(T) -> optional<T>;
 # endif
 
