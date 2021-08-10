@@ -7,20 +7,20 @@
 #
 # if __cplusplus > 202300L
 #   define SS_CXX_VER 23
-# elif __cplusplus >= 202002L
+# elif __cplusplus > 201703L
 #   define SS_CXX_VER 20
-# elif __cplusplus >= 201703L
+# elif __cplusplus > 201402L
 #   define SS_CXX_VER 17
-# elif __cplusplus >= 201402L
+# elif __cplusplus > 201103L
 #   define SS_CXX_VER 14
-# elif __cplusplus >= 201103L
+# elif __cplusplus == 201103L
 #   define SS_CXX_VER 11
 # else
 #   error "C++11 is required at least"
 # endif
 
 # /** likely */
-# /* Apple clang doens't support [[likely]] and [[unlikely]]. Work needed later */
+# /* Apple clang doens't supports [[likely]] and [[unlikely]]. Work needed later */
 
 # /** nodiscard */
 # if SS_CXX_VER >= 17
