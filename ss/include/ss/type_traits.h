@@ -10,6 +10,11 @@
 # include "ss/detail/macro.h"
 # include "ss/detail/nullptr_t.h"
 
+# ifdef _MSC_VER
+#   pragma warning(push)
+#   pragma warning(disable : 4180)
+# endif
+
 /*
 integral_constant                 (C++11)
 bool_constant                     (C++17)
@@ -2158,5 +2163,10 @@ inline constexpr bool is_constant_evaluated() noexcept {
 # endif
 
 } // namespace ss
+
+
+# ifdef _MSC_VER
+#   pragma warning(pop)
+# endif
 
 # endif // SS_TYPE_TRAITS_H_
