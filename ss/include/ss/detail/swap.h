@@ -6,11 +6,10 @@
 # define SS_DETAIL_SWAP_H_
 #
 # include "ss/type_traits.h"
-# include "ss/utility.h"
 
 namespace ss {
 
-template<typename ForwardIt1, typename forwardIt2>
+template<typename ForwardIt1, typename ForwardIt2>
 constexpr inline void iter_swap(ForwardIt1 a, ForwardIt2 b) {
   using ss::swap;
   swap(*a, *b);
