@@ -447,11 +447,22 @@ class optional :
 
   template<typename U = value_type,
     enable_if_t<
-      is_constructible<value_type,U&&>::value &&
+      is_constructible<value_type, U&&>::value &&
+      is_convertible<U&&, value_type>::value &&
       !is_same<remove_cvref_t<U>, in_place_t>::value &&
       !is_same<remove_cvref_t<U>, optional<value_type>>::value,
     int> = 0>
   constexpr optional(U&& value)
+    : base(in_place, forward<U>(value)) {}
+
+  template<typename U = value_type,
+    enable_if_t<
+      is_constructible<value_type, U&&>::value &&
+      !is_convertible<U&&, value_type>::value &&
+      !is_same<remove_cvref_t<U>, in_place_t>::value &&
+      !is_same<remove_cvref_t<U>, optional<value_type>>::value,
+    int> = 0>
+  constexpr explicit optional(U&& value)
     : base(in_place, forward<U>(value)) {}
 
   // assignment operators
