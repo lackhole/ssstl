@@ -54,13 +54,13 @@
 |                                  |                         |
 | **Helpers**                      |                         |
 |in_place_t <br/> in_place         | ![][cpp11]              |
-|in_place_type_t <br/> in_place_type <br/> | ![][cpp11]   |
-|in_place_index_t <br/> in_place_index | ![][cpppt14] ![][cpp17] |
+|in_place_type_t <br/> in_place_type <br/> | ![][cpp11]      |
+|in_place_index_t <br/> in_place_index | ![][cpppt11] ![][cpp14] |
 
 | C++20 Features                   | Implemented in          |
 |----------------------------------|:-----------------------:|
 | **Functions**                    |                         |
-|cmp_equal <br/> cmp_not_equal <br/> cmp_less <br/> cmp_greater <br/> cmp_less_equal <br/> cmp_greater_equal | ![][notyet] |
+|cmp_equal <br/> cmp_not_equal <br/> cmp_less <br/> cmp_greater <br/> cmp_less_equal <br/> cmp_greater_equal | ![][cpp11] |
 |in_range                          | ![][notyet]             |
 
 [notyet]: https://img.shields.io/badge/Not_yet-orange

@@ -75,8 +75,75 @@ constexpr inline add_const_t<T>& as_const(T& t) noexcept { return t; }
 template<typename T> void as_const(T&& t) = delete;
 
 
+/**
+ * cmp_xxx
+ */
+namespace detail {
+template<bool v1, bool v2>
+struct cmp_impl {
+  template<typename T, typename U> static constexpr bool equal(T t, U u) noexcept { return t == u; }
+  template<typename T, typename U> static constexpr bool less(T t, U u)  noexcept { return t < u;  }
+};
+
+template<>
+struct cmp_impl<true, false> {
+  template<typename T, typename U>
+  static constexpr bool equal(T t, U u) noexcept { return t < 0 ? false : make_unsigned_t<T>(t) == u; }
+  template<typename T, typename U>
+  static constexpr bool less(T t, U u)  noexcept { return t < 0 ? true  : make_unsigned_t<T>(t) < u;  }
+};
+
+template<>
+struct cmp_impl<false, true> {
+  template<typename T, typename U>
+  static constexpr bool equal(T t, U u) noexcept { return u < 0 ? false : t == make_unsigned_t<U>(u); }
+  template<typename T, typename U>
+  static constexpr bool less(T t, U u)  noexcept { return u < 0 ? false : t < make_unsigned_t<U>(u);  }
+};
+
+template<typename T, typename U>
+struct cmp : cmp_impl<is_signed<T>::value, is_signed<U>::value> {
+  static_assert(is_integral<T>::value && is_integral<T>::value,
+                "ss::cmp_equal : only integral types can be compared");
+};
+} // namespace detail
+
+template<typename T, typename U>
+constexpr inline bool cmp_equal(T t, U u) noexcept {
+  return detail::cmp<T, U>::equal(t, u);
+}
+
+template<typename T, typename U>
+constexpr inline bool cmp_not_equal(T t, U u) noexcept {
+  return !detail::cmp<T, U>::equal(t, u);
+}
+
+template<typename T, typename U>
+constexpr inline bool cmp_less(T t, U u) noexcept {
+  return detail::cmp<T, U>::less(t, u);
+}
+
+template<typename T, typename U>
+constexpr inline bool cmp_greater(T t, U u) noexcept {
+  return detail::cmp<U, T>::less(u, t);
+}
+
+template<typename T, typename U>
+constexpr inline bool cmp_less_equal(T t, U u) noexcept {
+  return !detail::cmp<U, T>::less(u, t);
+}
+
+template<typename T, typename U>
+constexpr inline bool cmp_greater_equal(T t, U u) noexcept {
+  return !detail::cmp<T, U>::less(t, u);
+}
+
+/**
+ * piecewise_construct_t
+ */
 struct piecewise_construct_t { explicit piecewise_construct_t() = default; };
 SS_INLINE_VAR constexpr piecewise_construct_t piecewise_construct{};
+
 
 /**
  * tuple forward-declare
@@ -84,10 +151,10 @@ SS_INLINE_VAR constexpr piecewise_construct_t piecewise_construct{};
 template<typename ...Ts>
 struct tuple;
 
+
 /**
  * pair
  */
-
 template<typename T1, typename T2>
 struct pair {
   using first_type = T1;
