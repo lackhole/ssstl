@@ -21,23 +21,23 @@
 |move                              | ![][cpp11]              |
 |move_if_noexcept                  | ![][cpp11]              |
 |declval                           | ![][cpp11]              |
-|make_pair                         | ![][notyet]             |
-|operator== <br/> operator!= <br/> operator< <br/> operator<= <br/> operator> <br/> ~~operator<=>~~| ![][notyet] |
-|ss::swap(ss::pair)                | ![][notyet]             |
-|ss:get(ss::pair)                  | ![][notyet]             |
+|make_pair                         | ![][cpp11]             |
+|operator== <br/> operator!= <br/> operator< <br/> operator<= <br/> operator> <br/> ~~operator<=>~~| ![][cpp11] |
+|ss::swap(ss::pair)                | ![][cpp11]             |
+|ss:get(ss::pair)                  | ![][cpp11]             |
 |                                  |                         |
 | **Classes**                      |                         |
-|pair                              | ![][notyet]             |
-|tuple_size                        | ![][notyet]             |
-|tuple_element                     | ![][notyet]             |
-|ss::tuple_size\<ss::pair>         | ![][notyet]             |
-|ss::tuple_element\<ss::pair>      | ![][notyet]             |
+|pair                              | ![][cpp11]             |
+|tuple_size                        | ![][cpp11]             |
+|tuple_element                     | ![][cpp11]             |
+|ss::tuple_size\<ss::pair>         | ![][cpp11]             |
+|ss::tuple_element\<ss::pair>      | ![][cpp11]             |
 | **Forward declarations**         |                         |
-|tuple                             | ![][notyet]             |
+|tuple                             | ![][cpp11]             |
 |                                  |                         |
 | **Helpers**                      |                         |
-|piecewise_construct_t             | ![][notyet]             |
-|piecewise_construct               | ![][notyet]             |
+|piecewise_construct_t             | ![][cpp11]             |
+|piecewise_construct               | ![][cpp11]             |
 
 | C++14 Features                   | Implemented in          |
 |----------------------------------|:-----------------------:|
@@ -54,8 +54,8 @@
 |                                  |                         |
 | **Helpers**                      |                         |
 |in_place_t <br/> in_place         | ![][cpp11]              |
-|in_place_type_t <br/> in_place_index_t <br/> | ![][cpp11]   |
-|in_place_type <br/> in_place_index | ![][cpppt14] ![][cpp17] |
+|in_place_type_t <br/> in_place_type <br/> | ![][cpp11]   |
+|in_place_index_t <br/> in_place_index | ![][cpppt14] ![][cpp17] |
 
 | C++20 Features                   | Implemented in          |
 |----------------------------------|:-----------------------:|
