@@ -943,6 +943,39 @@ SS_INLINE_VAR constexpr bool is_default_constructible_v = is_default_constructib
 # endif
 
 
+namespace detail {
+/**
+ * is_implicitly_default_constructible
+ */
+
+template<typename T> void test_implicit_default_constructible(T);
+
+template<typename T, typename = void>
+  struct is_implicitly_default_constructible_impl2 : false_type {};
+
+template<typename T>
+struct is_implicitly_default_constructible_impl2<
+    T, void_t<decltype(test_implicit_default_constructible<const T&>({}))>> : true_type {};
+
+template<typename T, bool v = is_default_constructible<T>::value>
+  struct is_implicitly_default_constructible_impl1 : false_type {};
+
+template<typename T>
+  struct is_implicitly_default_constructible_impl1<T, true> : is_implicitly_default_constructible_impl2<T> {};
+
+
+template<typename T>
+  struct is_implicitly_default_constructible : is_implicitly_default_constructible_impl1<T> {};
+
+template<typename T>
+  using is_implicitly_default_constructible_t = typename is_implicitly_default_constructible<T>::type;
+
+# if SS_CXX_VER >= 14
+template<typename T>
+SS_INLINE_VAR constexpr bool is_implicitly_default_constructible_v = is_implicitly_default_constructible<T>::value;
+# endif
+
+} // namespace detail
 
 /**
  * is_trivially_default_constructible
