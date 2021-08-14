@@ -5,9 +5,15 @@
 # ifndef SS_UTILITY_H_
 # define SS_UTILITY_H_
 #
+# include <initializer_list>
+#
 # include "ss/type_traits.h"
 # include "ss/detail/swap.h"
 # include "ss/detail/tuple_helper.h"
+#
+# if SS_CXX_VER >= 20
+#   include "ss/compare.h"
+# endif
 
 namespace ss {
 
@@ -31,11 +37,6 @@ constexpr inline T&& forward(remove_reference_t<T>&& t) noexcept {
   return static_cast<T&&>(t);
 }
 
-template<typename T>
-constexpr inline remove_reference_t<T>&& move(T&& t) noexcept {
-  return static_cast<remove_reference_t<T>&&>(t);
-}
-
 /**
  * enchange
  */
@@ -44,10 +45,10 @@ SS_CONSTEXPR_AFTER_14
 T exchange(T& obj, U&& new_obj)
 {
   static_assert(is_move_constructible<T>::value, "ss::exchange : T must be move constructible");
-  static_assert(is_assignable<T, U&&>::value,    "ss::exchange : U must be possible to move assigned to T");
+  static_assert(is_assignable<T&, U&&>::value,    "ss::exchange : U must be possible to move assigned to T");
 
-  T temp = move(obj);
-  obj = forward<U>(new_obj);
+  T temp = ss::move(obj);
+  obj = ss::forward<U>(new_obj);
   return temp;
 }
 
@@ -62,7 +63,7 @@ conditional_t<
   T&&,
   const T&>
 move_if_noexcept(T& x) noexcept {
-  return move(x);
+  return ss::move(x);
 }
 
 
@@ -159,7 +160,7 @@ struct pair {
       check_constructible<U1&&, first_type, U2&&, second_type>::implicit_,
     int> = 0>
   constexpr pair(U1&& x, U2&& y) noexcept(both_nothrow_constructible<U1&&, U2&&>::value)
-    : first(forward<U1>(x)), second(forward<U2>(y)) {}
+    : first(ss::forward<U1>(x)), second(ss::forward<U2>(y)) {}
 
   template<typename U1 = T1, typename U2 = T2,
     enable_if_t<
@@ -167,7 +168,7 @@ struct pair {
       check_constructible<U1&&, first_type, U2&&, second_type>::explicit_,
     int> = 0>
   constexpr explicit pair(U1&& x, U2&& y) noexcept(both_nothrow_constructible<U1&&, U2&&>::value)
-    : first(forward<U1>(x)), second(forward<U2>(y)) {}
+    : first(ss::forward<U1>(x)), second(ss::forward<U2>(y)) {}
 
   template<typename U1, typename U2,
     enable_if_t<
@@ -191,7 +192,7 @@ struct pair {
       check_constructible<U1&&, first_type, U2&&, second_type>::implicit_,
     int> = 0>
   constexpr pair(pair<U1, U2>&& p) noexcept(both_nothrow_constructible<U1&&, U2&&>::value)
-    : first(forward<U1>(p.first)), second(forward<U2>(p.second)) {}
+    : first(ss::forward<U1>(p.first)), second(ss::forward<U2>(p.second)) {}
 
   template<typename U1, typename U2,
     enable_if_t<
@@ -199,7 +200,7 @@ struct pair {
       check_constructible<U1&&, first_type, U2&&, second_type>::explicit_,
     int> = 0>
   constexpr explicit pair(pair<U1, U2>&& p)  noexcept(both_nothrow_constructible<U1&&, U2&&>::value)
-    : first(forward<U1>(p.first)), second(forward<U2>(p.second)) {}
+    : first(ss::forward<U1>(p.first)), second(ss::forward<U2>(p.second)) {}
 
     // TODO
 //  template<typename ...Args1, typename ...Args2>
@@ -237,8 +238,8 @@ struct pair {
       both<is_move_assignable>::value,
     int> = 0>
   SS_CONSTEXPR_AFTER_14 pair& operator=(pair&& other) {
-    first = move(other.first);
-    second = move(other.second);
+    first = ss::move(other.first);
+    second = ss::move(other.second);
     return *this;
   }
 
@@ -250,8 +251,8 @@ struct pair {
   SS_CONSTEXPR_AFTER_14 pair& operator=(pair<U1, U2>&& other)
     noexcept(is_nothrow_move_assignable<first_type>::value && is_nothrow_move_assignable<second_type>::value)
   {
-    first = forward<U1>(other.first);
-    second = forward<U2>(other.second);
+    first = ss::forward<U1>(other.first);
+    second = ss::forward<U2>(other.second);
     return *this;
   }
 
@@ -292,7 +293,7 @@ using make_pair_type = typename make_pair_type_impl<decay_t<T>>::type;
 template<typename T1, typename T2>
 constexpr inline pair<detail::make_pair_type<T1>, detail::make_pair_type<T2>>
 make_pair(T1&& t1, T2&& t2) {
-  return pair<detail::make_pair_type<T1>, detail::make_pair_type<T2>>(std::forward<T1>(t1), std::forward<T2>(t2));
+  return pair<detail::make_pair_type<T1>, detail::make_pair_type<T2>>(ss::forward<T1>(t1), ss::forward<T2>(t2));
 }
 
 /**
@@ -357,14 +358,14 @@ template<>
 struct tuple_get<0> {
   template<typename T> static constexpr tuple_element_t<0, T> get(const T& p) noexcept { return p.first; }
   template<typename T> static constexpr tuple_element_t<0, T> get(T& p) noexcept  { return p.first; };
-  template<typename T> static constexpr tuple_element_t<0, T> get(T&& p) noexcept { return move(p.first); };
+  template<typename T> static constexpr tuple_element_t<0, T> get(T&& p) noexcept { return ss::move(p.first); };
 };
 
 template<>
 struct tuple_get<1> {
   template<typename T> static constexpr tuple_element_t<1, T> get(const T& p) noexcept { return p.second; }
   template<typename T> static constexpr tuple_element_t<1, T> get(T& p) noexcept  { return p.second; };
-  template<typename T> static constexpr tuple_element_t<1, T> get(T&& p) noexcept { return move(p.second); };
+  template<typename T> static constexpr tuple_element_t<1, T> get(T&& p) noexcept { return ss::move(p.second); };
 };
 }
 
@@ -396,11 +397,11 @@ get(const pair<T, U>& p) noexcept { return p.first; }
 
 template<typename T, typename U>
 constexpr inline T&&
-get(pair<T, U>&& p) noexcept { return move(p.first); }
+get(pair<T, U>&& p) noexcept { return ss::move(p.first); }
 
 template<typename T, typename U>
 constexpr inline const T&&
-get(const pair<T, U>&& p) noexcept { return move(p.first); }
+get(const pair<T, U>&& p) noexcept { return ss::move(p.first); }
 
 template<typename T, typename U>
 constexpr inline T&
@@ -412,11 +413,11 @@ get(const pair<U, T>& p) noexcept { return p.second; }
 
 template<typename T, typename U>
 constexpr inline T&&
-get(pair<U, T>&& p) noexcept { return move(p.second); }
+get(pair<U, T>&& p) noexcept { return ss::move(p.second); }
 
 template<typename T, typename U>
 constexpr inline const T&&
-get(const pair<U, T>&& p) noexcept { return move(p.second); }
+get(const pair<U, T>&& p) noexcept { return ss::move(p.second); }
 
 template<typename T> T& get(pair<T, T>& p) = delete;
 template<typename T> const T& get(const pair<T, T>& p) = delete;
