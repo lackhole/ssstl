@@ -118,7 +118,7 @@ struct check_move_constructible<T, false> {
   check_move_constructible& operator=(check_move_constructible &&) = default;
 };
 
-template<typename T, bool v = is_copy_assignable<T>::value>
+template<typename T, bool v = is_copy_constructible<T>::value && is_copy_assignable<T>::value>
 struct check_copy_assignable {};
 template<typename T>
 struct check_copy_assignable<T, false> {
@@ -129,15 +129,15 @@ struct check_copy_assignable<T, false> {
   check_copy_assignable& operator=(check_copy_assignable &&) = default;
 };
 
-template<typename T, bool v = is_move_assignable<T>::value>
+template<typename T, bool v = is_move_constructible<T>::value && is_move_assignable<T>::value>
 struct check_move_assignable {};
 template<typename T>
 struct check_move_assignable<T, false> {
   check_move_assignable() = default;
   check_move_assignable(check_move_assignable const&) = default;
   check_move_assignable(check_move_assignable &&) = default;
-  check_move_assignable& operator=(check_move_assignable const&) = delete;
-  check_move_assignable& operator=(check_move_assignable &&) = default;
+  check_move_assignable& operator=(check_move_assignable const&) = default;
+  check_move_assignable& operator=(check_move_assignable &&) = delete;
 };
 
 template<typename T, bool v = is_trivially_destructible<T>::value>
