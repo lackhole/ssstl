@@ -5,7 +5,6 @@
 //#include "ss/concepts.h"
 
 #include "ss_test.h"
-#include "test_utils.h"
 
 #ifdef NDEBUG
 #define NDEBUG_DEFINED 1
