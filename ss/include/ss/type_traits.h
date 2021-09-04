@@ -1638,6 +1638,19 @@ template<typename T, unsigned N = 0> struct extent : detail::extent_impl<T, N> {
 template<typename T, unsigned N = 0> SS_INLINE_VAR constexpr size_t extent_v = extent<T, N>::value;
 # endif
 
+namespace detail {
+template<typename>
+std::false_type test_base_of_2(const volatile void*); // other goes here
+
+template<typename T>
+std::true_type test_base_of_2(const volatile T*); // public, self goes here
+
+template<typename, typename>
+auto test_base_of_1(...) -> std::true_type; // protected, private goes here
+
+template<typename Base, typename Derived>
+auto test_base_of_1(int) -> decltype(test_base_of_2<Base>(static_cast<Derived *>(nullptr)));
+}
 
 
 /**
@@ -1647,9 +1660,10 @@ template<typename T, unsigned N = 0> SS_INLINE_VAR constexpr size_t extent_v = e
  */
 template<typename Base, typename Derived>
 struct is_base_of :
-  bool_constant<is_class<Base>::value &&
-    is_class<Derived>::value &&
-    is_assignable<Base&, Derived>::value> {};
+    bool_constant<
+      is_class<Base>::value && is_class<Derived>::value &&
+      decltype(detail::test_base_of_1<Base, Derived>(0))::value
+    > {};
 # if SS_CXX_VER >= 14
 template<typename Base, typename Derived>
 SS_INLINE_VAR constexpr bool is_base_of_v = is_base_of<Base, Derived>::value;

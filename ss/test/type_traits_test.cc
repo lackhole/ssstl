@@ -1448,7 +1448,22 @@ int main() {
   }
 
   { // is_base_of
+    struct A {};
+    struct B1 : public A {};
+    struct B2 : protected A {};
+    struct B3 : private A {};
+    struct C {};
 
+    SS_TESTC(ss::is_base_of<A, B1>::value)
+    SS_TESTC(ss::is_base_of<A, B2>::value)
+    SS_TESTC(ss::is_base_of<A, B3>::value)
+    SS_TESTC(!ss::is_base_of<A, C>::value)
+
+    SS_TESTC(!ss::is_base_of<A, void>::value)
+    SS_TESTC(!ss::is_base_of<void, void>::value)
+    SS_TESTC(!ss::is_base_of<void, void*>::value)
+    SS_TESTC(!ss::is_base_of<void*, void*>::value)
+    SS_TESTC(!ss::is_base_of<void()&&, int*>::value)
   }
 
   { // convertible
