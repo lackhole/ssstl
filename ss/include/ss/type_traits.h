@@ -244,6 +244,47 @@ template<bool b, typename If, typename Then> using conditional_t = typename cond
 
 
 /**
+* conjunction
+* @tparam ...B
+*/
+template<typename ...B> struct conjunction;
+template<> struct conjunction<> : true_type {};
+template<typename B1> struct conjunction<B1> : B1 {};
+template<typename B1, typename ...BN> struct conjunction<B1, BN...> :
+conditional_t<bool(B1::value), conjunction<BN...>, B1> {};
+# if SS_CXX_VER >= 14
+template<typename ...B> SS_INLINE_VAR constexpr bool conjunction_v = conjunction<B...>::value;
+# endif
+
+
+
+/**
+ * disjunction
+ * @tparam ...B
+ */
+template<typename ...B> struct disjunction;
+template<> struct disjunction<> : false_type {};
+template<typename B1> struct disjunction<B1> : B1 {};
+template<typename B1, typename ...BN> struct disjunction<B1, BN...> :
+  conditional_t<bool(B1::value), B1, disjunction<BN...>> {};
+# if SS_CXX_VER >= 14
+template<typename ...B> SS_INLINE_VAR constexpr bool disjunction_v = disjunction<B...>::value;
+# endif
+
+
+
+/**
+ * negation
+ * @tparam B
+ */
+template<typename B> struct negation : bool_constant<!bool(B::value)> {};
+# if SS_CXX_VER >= 14
+template<typename B> SS_INLINE_VAR constexpr bool negation_v = negation<B>::value;
+# endif
+
+
+
+/**
  * multi_conditional
  * @tparam B    traits
  * @tparam If
@@ -391,7 +432,7 @@ struct unused {};
 template<typename T>
 auto try_add_lvalue_reference(int) -> type_identity<T&>;
 
-template<typename T>
+template<typename>
 auto try_add_lvalue_reference(...) -> unused;
 
 template<typename T>
@@ -400,7 +441,7 @@ struct is_lvalue_referencable : is_not_same<unused, decltype(try_add_lvalue_refe
 template<typename T>
 auto try_add_rvalue_reference(int) -> type_identity<T&&>;
 
-template<typename T>
+template<typename>
 auto try_add_rvalue_reference(...) -> unused;
 
 template<typename T>
@@ -823,7 +864,7 @@ struct is_complete<T[N]> : is_complete<T> {};
 template<typename T, typename ...Args>
 auto is_constructible_test(int) -> always_true<decltype(T(declval<Args>()...))>;
 
-template<typename T, typename ...Args>
+template<typename, typename...>
 auto is_constructible_test(...) -> false_type;
 
 template<typename T>
@@ -832,19 +873,19 @@ true_type is_constructible_helper(T);
 template<typename T, typename Arg>
 auto is_unary_constructible_test(int) -> always_true<decltype(::new T(declval<Arg>()))>;
 
-template<typename T, typename Arg>
+template<typename, typename>
 auto is_unary_constructible_test(...) -> false_type;
 
 template<typename T, typename Arg>
 auto is_ref_unary_constructible_test(int) -> always_true<decltype(is_constructible_helper<T>(declval<Arg>()))>;
 
-template<typename T, typename Arg>
+template<typename, typename>
 auto is_ref_unary_constructible_test(...) -> false_type;
 
 template<typename T>
 auto is_default_constructible_test(int) -> always_true<decltype(T())>;
 
-template<typename T>
+template<typename>
 auto is_default_constructible_test(...) -> false_type;
 
 template<typename T, typename ...Args>
@@ -1096,7 +1137,7 @@ namespace detail {
 template<typename T, typename U>
 auto is_assignable_test(int) -> type_identity<decltype(declval<T>() = declval<U>())>;
 
-template<typename T, typename U>
+template<typename, typename>
 auto is_assignable_test(...) -> unused;
 }
 
@@ -1284,7 +1325,7 @@ struct is_nothrow_destructible_impl<T, false> : false_type {};
 }
 
 /**
- * is_nothrow_desetructible
+ * is_nothrow_destructible
  * @tparam T
  */
 template<typename T> struct is_nothrow_destructible : detail::is_nothrow_destructible_impl<T> {};
@@ -1486,7 +1527,7 @@ namespace detail {
 template<typename T>
 auto test_dynamic_cast(int) -> type_identity<decltype(dynamic_cast<const volatile void*>(static_cast<T*>(nullptr)))>;
 
-template<typename T>
+template<typename>
 auto test_dynamic_cast(...) -> unused;
 }
 
@@ -1507,7 +1548,7 @@ namespace detail {
 // or as the type of an explicit conversion (note this is checked at the point of definition and function call,
 // since at the point of function declaration parameter and return type may be incomplete)
 template<typename T> auto test_abstract(T(*)[1]) -> false_type;
-template<typename T> auto test_abstract(...) -> true_type;
+template<typename> auto test_abstract(...) -> true_type;
 
 template<typename T, bool v = is_class<T>::value>
 struct is_abstract_impl : decltype(test_abstract<T>(0)) {};
@@ -1640,28 +1681,11 @@ template<typename T, unsigned N = 0> SS_INLINE_VAR constexpr size_t extent_v = e
 
 
 
-/**
- * is_base_of
- * @tparam Base
- * @tparam Derived
- */
-template<typename Base, typename Derived>
-struct is_base_of :
-  bool_constant<is_class<Base>::value &&
-    is_class<Derived>::value &&
-    is_assignable<Base&, Derived>::value> {};
-# if SS_CXX_VER >= 14
-template<typename Base, typename Derived>
-SS_INLINE_VAR constexpr bool is_base_of_v = is_base_of<Base, Derived>::value;
-# endif
-
-
-
 namespace detail {
 template<typename From, typename To>
 auto convertible_test(int) -> type_identity<decltype(declval<void(&)(To)>()(declval<From>()))>;
 
-template<typename From, typename To>
+template<typename, typename>
 auto convertible_test(...) -> unused;
 }
 /**
@@ -1684,7 +1708,7 @@ namespace detail {
 template<typename From, typename To>
 auto nothrow_convertible_test(int) -> type_identity<decltype(declval<void(&)(To)noexcept>()(declval<From>()))>;
 
-template<typename From, typename To>
+template<typename, typename>
 auto nothrow_convertible_test(...) -> unused;
 
 template<typename From, typename To,
@@ -1709,6 +1733,63 @@ SS_INLINE_VAR constexpr bool is_nothrow_convertible_v = is_nothrow_convertible<F
 # endif
 
 
+
+namespace detail {
+template<typename>
+std::false_type test_base_of_2(const volatile void*); // other goes here
+
+template<typename T>
+std::true_type test_base_of_2(const volatile T*); // public, self goes here
+
+template<typename, typename>
+auto test_base_of_1(...) -> std::true_type; // protected, private goes here
+
+template<typename Base, typename Derived>
+auto test_base_of_1(int) -> decltype(test_base_of_2<Base>(static_cast<Derived *>(nullptr)));
+
+template<typename, typename>
+auto test_public_base_of(...) -> false_type;
+
+template<typename Base, typename Derived>
+auto test_public_base_of(int) -> is_convertible<const volatile Derived*, const volatile Base*>;
+}
+
+
+/**
+ * is_base_of
+ * @tparam Base
+ * @tparam Derived
+ */
+template<typename Base, typename Derived>
+struct is_base_of :
+  bool_constant<
+    is_class<Base>::value && is_class<Derived>::value &&
+    decltype(detail::test_base_of_1<Base, Derived>(0))::value
+  > {};
+# if SS_CXX_VER >= 14
+template<typename Base, typename Derived>
+SS_INLINE_VAR constexpr bool is_base_of_v = is_base_of<Base, Derived>::value;
+# endif
+
+
+
+/**
+ * is_public_base_of
+ * @tparam Base
+ * @tparam Derived
+ */
+template<typename Base, typename Derived>
+struct is_public_base_of :
+  conjunction<is_class<Base>, is_class<Derived>,
+              decltype(detail::test_public_base_of<Base, Derived>(0))
+              > {};
+# if SS_CXX_VER >= 14
+template<typename Base, typename Derived>
+SS_INLINE_VAR constexpr bool is_public_base_of_v = is_public_base_of<Base, Derived>::value;
+# endif
+
+
+  
 # if SS_CXX_VER >= 20
 // Not implemented by the most compilers yet
 ///**
@@ -1805,8 +1886,6 @@ template<typename T> using decay_t = typename decay<T>::type;
  */
 template<typename ...T> struct common_type {};
 namespace detail {
-struct empty {};
-
 template<typename T1, typename T2>
 using common_type_ternary = decay_t<decltype(false ? declval<T1>() : declval<T2>())>;
 
@@ -2125,47 +2204,6 @@ struct make_unsigned {
   using type = typename detail::restore_cv<T, typename detail::make_unsigned_impl<remove_cv_t<T>>::type>::type;
 };
 template<typename T> using make_unsigned_t = typename make_unsigned<T>::type;
-
-
-
-/**
- * conjunction
- * @tparam ...B
- */
-template<typename ...B> struct conjunction;
-template<> struct conjunction<> : true_type {};
-template<typename B1> struct conjunction<B1> : B1 {};
-template<typename B1, typename ...BN> struct conjunction<B1, BN...> :
-  conditional_t<bool(B1::value), conjunction<BN...>, B1> {};
-# if SS_CXX_VER >= 14
-template<typename ...B> SS_INLINE_VAR constexpr bool conjunction_v = conjunction<B...>::value;
-# endif
-
-
-
-/**
- * disjunction
- * @tparam ...B
- */
-template<typename ...B> struct disjunction;
-template<> struct disjunction<> : false_type {};
-template<typename B1> struct disjunction<B1> : B1 {};
-template<typename B1, typename ...BN> struct disjunction<B1, BN...> :
-  conditional_t<bool(B1::value), B1, disjunction<BN...>> {};
-# if SS_CXX_VER >= 14
-template<typename ...B> SS_INLINE_VAR constexpr bool disjunction_v = disjunction<B...>::value;
-# endif
-
-
-
-/**
- * negation
- * @tparam B
- */
-template<typename B> struct negation : bool_constant<!bool(B::value)> {};
-# if SS_CXX_VER >= 14
-template<typename B> SS_INLINE_VAR constexpr bool negation_v = negation<B>::value;
-# endif
 
 
 # if SS_CXX_VER >= 20
