@@ -33,7 +33,7 @@ Focusing on implementing high C++ features for low C++(i.e. You can use `ss::opt
 
 | Concepts library                              | Feature status                                          |
 |-----------------------------------------------|---------------------------------------------------------|
-| concepts                                      | ![][cpp20000]                                           |
+| [concepts](status/concepts.md)                | ![][cpp20007]                                           |
 
 | Coroutines library                            | Feature status                                          |
 |-----------------------------------------------|---------------------------------------------------------|
@@ -211,6 +211,7 @@ Focusing on implementing high C++ features for low C++(i.e. You can use `ss::opt
 
 [cpp20000]: https://img.shields.io/badge/C++20-0%25-red
 [cpp20002]: https://img.shields.io/badge/C++20-2%25-orange
+[cpp20007]: https://img.shields.io/badge/C++20-7%25-orange
 [cpp20064]: https://img.shields.io/badge/C++20-64%25-yellowgreen
 [cpp20096]: https://img.shields.io/badge/C++20-96%25-green
 [cpp20100]: https://img.shields.io/badge/C++20-100%25-brightgreen
