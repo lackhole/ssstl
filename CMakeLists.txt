@@ -5,15 +5,16 @@ add_library(ss INTERFACE)
 set(SS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/ss)
 set(SS_INCLUDE_DIR ${SS_DIR}/include)
 
-target_include_directories(ss INTERFACE
-        ${SS_INCLUDE_DIR})
+target_include_directories(ss INTERFACE ${SS_INCLUDE_DIR})
+
+if (CMAKE_CXX_COMPILER_ID EQUAL "GNU")
+    target_compile_options(ss INTERFACE "-fconcepts")
+elseif (MSVC)
+    target_compile_options(ss INTERFACE "/Zc:__cplusplus /permissive-")
+endif ()
 
 option(SS_TEST "Run test" OFF)
 option(SS_TEST_MATRIX "If running in github workflow with matrix" OFF)
-
-if (MSVC)
-    target_compile_options(ss INTERFACE "/Zc:__cplusplus")
-endif()
 
 if (SS_TEST)
     enable_testing()
