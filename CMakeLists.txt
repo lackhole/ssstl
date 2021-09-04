@@ -8,7 +8,7 @@ set(SS_INCLUDE_DIR ${SS_DIR}/include)
 target_include_directories(ss INTERFACE ${SS_INCLUDE_DIR})
 
 if (CMAKE_CXX_COMPILER_ID EQUAL "GNU")
-    target_compile_options(ss INTERFACE "-fconcepts")
+    set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-fconcepts")
 elseif (MSVC)
     target_compile_options(ss INTERFACE "/Zc:__cplusplus /permissive-")
 endif ()
