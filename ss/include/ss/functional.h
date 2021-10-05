@@ -41,7 +41,7 @@ class reference_wrapper {
 
   template<typename U,
     enable_if_t<
-      !is_same<ss::decay_t<U>, reference_wrapper>::value &&
+      !is_same<ss::remove_cvref_t<U>, reference_wrapper>::value &&
       test_fun<U>::value,
     int> = 0>
   constexpr reference_wrapper(U&& x) noexcept(noexcept(FUN(declval<U>())))
