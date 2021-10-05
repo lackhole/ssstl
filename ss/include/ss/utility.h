@@ -491,6 +491,86 @@ template<typename T> const T& get(const pair<T, T>& p) = delete;
 template<typename T> T&& get(pair<T, T>&& p) = delete;
 template<typename T> const T&& get(const pair<T, T>&& p) = delete;
 
+
+/**
+ * compressed_pair
+ */
+
+namespace detail {
+
+template<typename T, bool v = is_class<T>::value>
+struct compressed_pair_base : public T {
+  using type = T;
+};
+
+template<typename T>
+struct compressed_pair_base<T, false> {
+  using type = T;
+  type value;
+};
+
+}
+
+template<typename T, bool v = is_class<T>::value>
+struct A1 : public T {
+//  using compressed_
+};
+
+
+template<typename T1, typename T2>
+class compressed_pair :
+  public detail::compressed_pair_base<T1>,
+  public detail::compressed_pair_base<T2>
+{
+ public:
+  static_assert(is_empty<T1>::value + is_empty<T2>::value == 1,
+    "ss::compressed_pair : One type must be empty");
+
+  using first_type = T1;
+  using second_type = T2;
+
+ private:
+  using compressed_base = ss::conditional_t<is_empty<first_type>::value,
+                                             detail::compressed_pair_base<first_type>,
+                                             detail::compressed_pair_base<second_type>>;
+
+  using uncompressed_base = ss::conditional_t<is_empty<first_type>::value,
+                                               detail::compressed_pair_base<second_type>,
+                                               detail::compressed_pair_base<first_type>>;
+  using uncompressed_base::uncompressed_base;
+
+ public:
+  using compressed_type = typename compressed_base::type;
+  using uncompressed_type = typename uncompressed_base::type;
+  using value_type = uncompressed_type;
+
+  template<typename Dummy = void,
+    enable_if_t<
+      is_same<Dummy, void>::value &&
+      detail::is_implicitly_default_constructible<value_type>::value,
+    int> = 0>
+  constexpr compressed_pair() noexcept(is_nothrow_default_constructible<value_type>::value)
+  : uncompressed_base::value() {}
+
+  template<typename Dummy = void,
+    enable_if_t<
+      is_same<Dummy, void>::value &&
+      !detail::is_implicitly_default_constructible<value_type>::value,
+    int> = 0>
+  constexpr explicit compressed_pair() noexcept(is_nothrow_default_constructible<value_type>::value)
+    : uncompressed_base::value() {}
+
+  template<typename Dummy = void,
+    enable_if_t<
+      is_same<Dummy, void>::value &&
+      is_copy_constructible<value_type>::value &&
+      is_convertible<const value_type&, value_type>::value,
+    int> = 0>
+  constexpr compressed_pair(const value_type& x) noexcept(is_nothrow_copy_constructible<value_type>::value)
+    : uncompressed_base::value(x) {}
+
+};
+
 /**
  * integer_sequence
  */
