@@ -6,6 +6,7 @@
 # define SS_FUNCTIONAL_H_
 
 # include "ss/memory.h"
+# include "ss/type_traits.h"
 # include "ss/utility.h"
 
 namespace ss {
