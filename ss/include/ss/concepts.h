@@ -24,8 +24,20 @@ template<typename T, typename U>
 concept same_as = detail::same_as_impl<T, U> && detail::same_as_impl<U, T>;
 
 
-//template<typename T, typename U>
-//concept derived_from =
+
+/**
+ * derived_from
+ * @tparam Derived
+ * @tparam Base
+ */
+template<typename Derived, typename Base>
+concept derived_from = is_public_base_of_v<Base, Derived>;
+
+
+
+//template<typename From, typename To>
+//concept convertible_to = is_convertible_v<From, To>;
+
 
 }
 
