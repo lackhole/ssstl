@@ -45,12 +45,12 @@ int main() {
     SS_TEST(b == 20)
 
     a = b;
-    SS_TEST(a == 10)
+    SS_TEST(a == 20)
 
     a = move(b);
 
 
   }
 
-  return 0;
+  SS_TEST_RETURN
 }
