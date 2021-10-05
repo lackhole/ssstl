@@ -46,6 +46,21 @@ int main() {
 //    o2.emplace();
   }
 
+  {
+    struct NoMove {
+      NoMove() = default;
+      NoMove(const NoMove&) {
+        std::cout << "COPY SELECTED\n";
+      }
+      NoMove(NoMove&&) = delete;
+      NoMove& operator=(const NoMove&) = default;
+    };
+
+    ss::optional<NoMove> op1{ss::in_place};
+    ss::optional<NoMove> op2;
+    std::swap(op1, op2); // copy is selected for non-movable object
+  }
+
 
   std::cout << __cplusplus << std::endl;
 
