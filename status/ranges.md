@@ -1,7 +1,7 @@
-## Header `<type_traits>` implementation status
+## Header `<ranges>` implementation status
 
-[Reference](https://en.cppreference.com/w/cpp/header/type_traits)  
-[Implementation](../ss/include/ss/type_traits.h)
+[Reference](https://en.cppreference.com/w/cpp/header/ranges)  
+[Implementation](../ss/include/ss/ranges.h)
 
 * ![](https://img.shields.io/badge/C%2B%2B-N-red): Cannot implement with language itself. Need compiler support. Used C++ N STL
 * ![](https://img.shields.io/badge/C%2B%2B-N-green): Implemented with C++ N
