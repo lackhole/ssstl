@@ -1,4 +1,4 @@
-## Header `<algorithm>` implementation status
+## Header `<functional>` implementation status
 
 [Reference](https://en.cppreference.com/w/cpp/header/functional)  
 [Implementation](../ss/include/ss/functional.h)

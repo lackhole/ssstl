@@ -49,7 +49,7 @@ Focusing on implementing high C++ features for low C++(i.e. You can use `ss::opt
 | typeindex                                     | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
 | [type_traits](status/type_traits.md)          | ![][cpp11100] ![][cpp14100] ![][cpp17069] ![][cpp20064] |
 | bitset                                        | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
-| functional                                    | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
+| [functional](status/functional.md)            | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
 | [utility](status/utility.md)                  | ![][cpp11100] ![][cpp14100] ![][cpp17100] ![][cpp20096] |
 | chrono                                        | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
 | initializer_list                              | ![][impossib]                                           |
@@ -121,7 +121,7 @@ Focusing on implementing high C++ features for low C++(i.e. You can use `ss::opt
 
 | Ranges library                                | Feature status                                          |
 |-----------------------------------------------|---------------------------------------------------------|
-| ranges                                        | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
+| [ranges](status/ranges.md)                    | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
 
 | Algorithms library                            | Feature status                                          |
 |-----------------------------------------------|---------------------------------------------------------|
