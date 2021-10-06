@@ -1454,16 +1454,37 @@ int main() {
     struct B3 : private A {};
     struct C {};
 
+    SS_TESTC(ss::is_base_of<A, A>::value)
     SS_TESTC(ss::is_base_of<A, B1>::value)
     SS_TESTC(ss::is_base_of<A, B2>::value)
     SS_TESTC(ss::is_base_of<A, B3>::value)
     SS_TESTC(!ss::is_base_of<A, C>::value)
+
+    SS_TESTC(!ss::is_base_of<B1, A>::value)
+    SS_TESTC(!ss::is_base_of<B2, A>::value)
+    SS_TESTC(!ss::is_base_of<B3, A>::value)
 
     SS_TESTC(!ss::is_base_of<A, void>::value)
     SS_TESTC(!ss::is_base_of<void, void>::value)
     SS_TESTC(!ss::is_base_of<void, void*>::value)
     SS_TESTC(!ss::is_base_of<void*, void*>::value)
     SS_TESTC(!ss::is_base_of<void()&&, int*>::value)
+
+    SS_TESTC(ss::is_public_base_of<A, A>::value)
+    SS_TESTC(ss::is_public_base_of<A, B1>::value)
+    SS_TESTC(!ss::is_public_base_of<A, B2>::value)
+    SS_TESTC(!ss::is_public_base_of<A, B3>::value)
+    SS_TESTC(!ss::is_public_base_of<A, C>::value)
+
+    SS_TESTC(!ss::is_public_base_of<B1, A>::value)
+    SS_TESTC(!ss::is_public_base_of<B2, A>::value)
+    SS_TESTC(!ss::is_public_base_of<B3, A>::value)
+
+    SS_TESTC(!ss::is_public_base_of<A, void>::value)
+    SS_TESTC(!ss::is_public_base_of<void, void>::value)
+    SS_TESTC(!ss::is_public_base_of<void, void*>::value)
+    SS_TESTC(!ss::is_public_base_of<void*, void*>::value)
+    SS_TESTC(!ss::is_public_base_of<void()&&, int*>::value)
   }
 
   { // convertible
