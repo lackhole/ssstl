@@ -39,10 +39,9 @@ class reference_wrapper {
   // https://cplusplus.github.io/LWG/issue2993
   // Not declare reference_wrapper(T&&) = delete
 
-  template<typename U,
+  template<typename U, typename Dummy = decltype(FUN(std::declval<U>())),
     enable_if_t<
-      !is_same<ss::remove_cvref_t<U>, reference_wrapper>::value &&
-      test_fun<U>::value,
+      !is_same<ss::remove_cvref_t<U>, reference_wrapper>::value,
     int> = 0>
   constexpr reference_wrapper(U&& x) noexcept(noexcept(FUN(declval<U>())))
     : val(ss::addressof(ss::forward<U>(x))) {}
