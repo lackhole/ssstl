@@ -7,6 +7,7 @@
 #
 # include <cstddef>
 #
+# include "ss/detail/addressof.h"
 # include "ss/detail/macro.h"
 # include "ss/detail/nullptr_t.h"
 
@@ -1736,13 +1737,13 @@ SS_INLINE_VAR constexpr bool is_nothrow_convertible_v = is_nothrow_convertible<F
 
 namespace detail {
 template<typename>
-std::false_type test_base_of_2(const volatile void*); // other goes here
+false_type test_base_of_2(const volatile void*); // other goes here
 
 template<typename T>
-std::true_type test_base_of_2(const volatile T*); // public, self goes here
+true_type test_base_of_2(const volatile T*); // public, self goes here
 
 template<typename, typename>
-auto test_base_of_1(...) -> std::true_type; // protected, private goes here
+auto test_base_of_1(...) -> true_type; // protected, private goes here
 
 template<typename Base, typename Derived>
 auto test_base_of_1(int) -> decltype(test_base_of_2<Base>(static_cast<Derived *>(nullptr)));
@@ -1814,9 +1815,90 @@ SS_INLINE_VAR constexpr bool is_public_base_of_v = is_public_base_of<Base, Deriv
 # endif
 
 
+template<typename T> // T = U (rvalue) T = U&(lvalue) where U is no-ref
+constexpr inline T&& forward(remove_reference_t<T>& t) noexcept {
+  return static_cast<T&&>(t);
+}
+
+template<typename T>
+constexpr inline T&& forward(remove_reference_t<T>&& t) noexcept {
+  static_assert(!is_lvalue_reference<T>::value, "Forwarding rvalue to lvalue is prohibited");
+  return static_cast<T&&>(t);
+}
+
+
+
+/**
+ * remove_cvref
+ * @tparam T
+ */
+template<typename T> struct remove_cvref { using type = remove_cv_t<remove_reference_t<T>>; };
+template<typename T> using remove_cvref_t = typename remove_cvref<T>::type;
+
+/**
+ * reference_wrapper
+ * @tparam T
+ */
+template<typename T>
+class reference_wrapper {
+ private:
+  T* val;
+
+  static void FUN(T&) noexcept;
+  static void FUN(T&&) = delete;
+
+  template<typename U, typename = void>
+  struct test_fun : false_type {};
+
+  template<typename U>
+  struct test_fun<U, void_t<decltype(FUN(declval<U>()))>> : true_type {};
+
+ public:
+  using type = T;
+
+  // https://cplusplus.github.io/LWG/issue2993
+  // Not declare reference_wrapper(T&&) = delete
+
+  template<typename U, typename Dummy = decltype(FUN(ss::declval<U>())),
+    enable_if_t<
+      !is_same<remove_cvref_t<U>, reference_wrapper>::value,
+      int> = 0>
+  constexpr reference_wrapper(U&& x) noexcept(noexcept(FUN(declval<U>())))
+    : val(ss::addressof(ss::forward<U>(x))) {}
+
+  constexpr reference_wrapper(const reference_wrapper&) = default;
+  SS_CONSTEXPR_AFTER_14 reference_wrapper& operator=(const reference_wrapper& other) noexcept = default;
+
+  constexpr operator T&() const noexcept {
+    return static_cast<T&>(*val);
+  }
+
+  constexpr T& get() const noexcept {
+    return static_cast<T&>(*val);
+  }
+
+  // TODO
+//  template<typename ...Args>
+//  operator()(Args&&... args))
+
+};
+
+
 // TODO
-//template<typename Fn, typename ...ArgTypes>
-//struct is_invocable {};
+template<typename Fn, typename ...ArgTypes>
+struct is_invocable {};
+
+template<typename R, typename Fn, typename ...ArgTypes>
+struct is_invocable_r {};
+
+template<typename Fn, typename ...ArgTypes>
+struct is_nothrow_invocable {};
+
+template<typename R, typename Fn, typename ...ArgTypes>
+struct is_nothrow_invocable_r {};
+
+template<typename F, typename ...ArgTypes>
+class invoke_result {};
 
 
 
@@ -1846,15 +1928,6 @@ struct aligned_union {
 };
 template<size_t Len, typename ...Types>
 using aligned_union_t = typename aligned_union<Len, Types...>::type;
-
-
-
-/**
- * remove_cvref
- * @tparam T
- */
-template<typename T> struct remove_cvref { using type = remove_cv_t<remove_reference_t<T>>; };
-template<typename T> using remove_cvref_t = typename remove_cvref<T>::type;
 
 
 
