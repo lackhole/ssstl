@@ -47,9 +47,9 @@ Focusing on implementing high C++ features for low C++(i.e. You can use `ss::opt
 | cstdarg                                       | ![][impossib]                                           |
 | typeinfo                                      | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
 | typeindex                                     | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
-| [type_traits](status/type_traits.md)          | ![][cpp11100] ![][cpp14100] ![][cpp17069] ![][cpp20064] |
+| [type_traits](status/type_traits.md)          | ![][cpp11100] ![][cpp14100] ![][cpp17100] ![][cpp20064] |
 | bitset                                        | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
-| [functional](status/functional.md)            | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
+| [functional](status/functional.md)            | ![][cpp11003] ![][cpp14000] ![][cpp17020] ![][cpp20000] ![][cpp23100] |
 | [utility](status/utility.md)                  | ![][cpp11100] ![][cpp14100] ![][cpp17100] ![][cpp20096] |
 | chrono                                        | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
 | initializer_list                              | ![][impossib]                                           |
@@ -125,7 +125,7 @@ Focusing on implementing high C++ features for low C++(i.e. You can use `ss::opt
 
 | Algorithms library                            | Feature status                                          |
 |-----------------------------------------------|---------------------------------------------------------|
-| [algorithm](status/algorithm.md)              | ![][cpp11001] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
+| [algorithm](status/algorithm.md)              | ![][cpp11003] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
 | execution                                     | ![][unknown_]                                           |
 
 | Numerics library                              | Feature status                                          |
@@ -204,7 +204,7 @@ Focusing on implementing high C++ features for low C++(i.e. You can use `ss::opt
 [cpp14200]: https://img.shields.io/badge/C++14-100%25-blue
 
 [cpp17000]: https://img.shields.io/badge/C++17-0%25-red
-[cpp17069]: https://img.shields.io/badge/C++17-69%25-yellowgreen
+[cpp17020]: https://img.shields.io/badge/C++17-20%25-orange
 [cpp17075]: https://img.shields.io/badge/C++17-75%25-green
 [cpp17100]: https://img.shields.io/badge/C++17-100%25-brightgreen
 [cpp17200]: https://img.shields.io/badge/C++17-100%25-blue

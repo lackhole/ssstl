@@ -113,7 +113,7 @@
 |                                  |                         |
 | **Miscellaneous transformations**|                         |
 |aligned_storage                   | ![][cppno11]            |
-|aligned_union                     | ![][cpp11]*             |
+|aligned_union                     | ![][cpp11]              |
 |decay                             | ![][cpp11]              |
 |enable_if                         | ![][cpp11]              |
 |conditional                       | ![][cpp11]              |
@@ -145,13 +145,13 @@
 |is_nothrow_swappable              | ![][cpp11]              |
 |                                  |                         |
 | **Property queries**             |                         |
-|is_invocable                      | ![][notyet]             |
-|is_invocable_r                    | ![][notyet]             |
-|is_nothrow_invocable              | ![][notyet]             |
-|is_nothrow_invocable_r            | ![][notyet]             |
+|is_invocable                      | ![][cpp11]              |
+|is_invocable_r                    | ![][cpp11]              |
+|is_nothrow_invocable              | ![][cpp11]              |
+|is_nothrow_invocable_r            | ![][cpp11]              |
 |                                  |                         |
 | **Miscellaneous transformations**|                         |
-|invoke_result                     | ![][notyet]             |
+|invoke_result                     | ![][cpp11]              |
 |void_t                            | ![][cpp11]              |
 |                                  |                         |
 | **Operations on traits**         |                         |
@@ -183,7 +183,6 @@
 |is_constant_evaluated             | ![][cppno20] ![][cpp23] |
 
 ---
-\* Used `std::max`
 
 [notyet]: https://img.shields.io/badge/Not_yet-orange
 [removed]: https://img.shields.io/badge/Removed-red

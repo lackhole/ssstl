@@ -18,7 +18,7 @@
 | **Wrappers**                     |                         |
 |function                          | ![][notyet]             |
 |mem_fn                            | ![][notyet]             |
-|reference_wrapper                 | ![][notyet]             |
+|reference_wrapper                 | ![][cpp11]              |
 | **Helper Classes**               |                         |
 |bad_function_call                 | ![][notyet]             |
 |is_bind_expression                | ![][notyet]             |
@@ -50,11 +50,11 @@
 |ss::hash<*Arithmetic*> <br/> ss::hash< ss::nullptr_t> </br> ss::hash<T*> | ![][notyet] |
 |                                  |                         |
 | **Constants**                    | defined in namespace ss::placeholders |
-|_1, _2, _3, _4, ...               |                         |
+|_1, _2, _3, _4, ...               | ![][notyet]             |
 |                                  |                         |
 | **Functions**                    |                         |
-|bind                              |                         |
-|ref <br/> cref                    |                         |
+|bind                              | ![][notyet]             |
+|ref <br/> cref                    | ![][notyet]             |
 
 
 
@@ -76,7 +76,7 @@
 |boyer_moore_horspool_searcher     | ![][notyet]             |
 |                                  |                         |
 | **Functions**                    |                         |
-|invoke                            |                         |
+|invoke                            | ![][cpp11]              |
 
 
 | C++ 20 Features                  | Implemented in          |
@@ -94,14 +94,14 @@
 |identity                          | ![][notyet]             |
 |                                  |                         |
 | **Functions**                    |                         |
-|bind_front                        |                         |
+|bind_front                        | ![][notyet]             |
 
 
 
 | C++ 23 Features                  | Implemented in          |
 |----------------------------------|:-----------------------:|
 | **Functions**                    |                         |
-|invoke_r                          |                         |
+|invoke_r                          | ![][cpp11]              |
 
 [notyet]: https://img.shields.io/badge/Not_yet-orange
 [removed]: https://img.shields.io/badge/Removed-red

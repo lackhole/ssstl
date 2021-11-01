@@ -6,25 +6,9 @@
 # define SS_MEMORY_H_
 #
 # include "ss/detail/macro.h"
+# include "ss/detail/addressof.h"
 
 namespace ss {
-
-/**
- * addressof
- * @tparam T
- * @param arg
- * @return address of arg
- */
-template<typename T>
-inline constexpr T* addressof(T& arg) noexcept {
-  return reinterpret_cast<T*>(&const_cast<char&>(reinterpret_cast<const volatile char&>(arg)));
-}
-
-template<typename T>
-inline constexpr T* addressof(const T&&) = delete;
-
-template<typename T>
-const T* addressof(T&& arg) = delete;
 
 } // namespace ss
 
