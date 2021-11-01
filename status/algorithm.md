@@ -88,7 +88,7 @@
 |pop_heap                          | ![][notyet]             |
 |sort_heap                         | ![][notyet]             |
 | **Minimum/maximun operations**   |                         |
-|max                               | ![][notyet]             |
+|max                               | ![][cpp11]              |
 |max_element                       | ![][notyet]             |
 |min                               | ![][notyet]             |
 |min_element                       | ![][notyet]             |
