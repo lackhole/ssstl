@@ -2,8 +2,9 @@
   
 # SSSTL
 SS Standard Template Library  
-Focusing on implementing high C++ features for low C++(i.e. You can use `ss::optional<T>` in C++11)
-  
+Focusing on implementing high C++ features for low C++(i.e. You can use `ss::optional<T>` in C++11)  
+*Note: This is personal project*
+
 # Build Status
 [![g++](https://github.com/lackhole/ssstl/actions/workflows/gcc.yml/badge.svg)](https://github.com/lackhole/ssstl/actions/workflows/gcc.yml)
 [![clang++](https://github.com/lackhole/ssstl/actions/workflows/clang.yml/badge.svg)](https://github.com/lackhole/ssstl/actions/workflows/clang.yml)
@@ -22,8 +23,7 @@ Focusing on implementing high C++ features for low C++(i.e. You can use `ss::opt
 --->
 
 * ![](https://img.shields.io/badge/not_possible-grey): Impossible to implement with language itself.
-* ![](https://img.shields.io/badge/C++N-100%25-brightgreen): Implemented `C++ standard` == `N` features in C++ N.
-* ![](https://img.shields.io/badge/C++N-100%25-blue): Implemented `C++ standard` > `N` features in C++ N.
+* ![](https://img.shields.io/badge/C++X-100%25-brightgreen): Implemented features of `C++ X` using `C++ Y`(`Y <= X`).
 * ![](https://img.shields.io/badge/C++N-X%25-green)
   ![](https://img.shields.io/badge/C++N-X%25-yellowgreen)
   ![](https://img.shields.io/badge/C++N-X%25-yellow)
