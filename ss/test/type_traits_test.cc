@@ -1503,6 +1503,31 @@ int main() {
 
   }
 
+  { // invoke_result
+    using x = ss::invoke_result<int>;
+    using y = ss::invoke_result<void()&&, ss::nullptr_t, void()>;
+
+    struct foo {};
+    struct incomplete;
+
+    SS_TESTC(ss::is_void<ss::invoke_result_t<void()>>::value)
+    SS_TESTC(ss::is_void<ss::invoke_result_t<void(*)()>>::value)
+    SS_TESTC(ss::is_void<ss::invoke_result_t<void(foo::*)(), foo&>>::value)
+    SS_TESTC(ss::is_void<ss::invoke_result_t<void(foo::*)(), foo*>>::value)
+# if SS_CXX_VER >= 17
+    SS_TESTC(ss::is_same<ss::invoke_result_t<void(foo::*)(), foo>, std::invoke_result_t<void(foo::*)(), foo>>::value)
+# endif
+
+
+    SS_TESTC(ss::is_same<ss::invoke_result_t<int()>, int>::value)
+    SS_TESTC(ss::is_same<ss::invoke_result_t<foo()>, foo>::value)
+    SS_TESTC(ss::is_same<ss::invoke_result_t<void(incomplete[]), incomplete[3]>, void>::value)
+  }
+
+  { // invocable
+
+  }
+
   { // decay
 
   }

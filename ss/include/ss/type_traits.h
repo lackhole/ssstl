@@ -11,6 +11,7 @@
 # include "ss/detail/macro.h"
 # include "ss/detail/nullptr_t.h"
 
+// TODO: add GCC, Clang pragma
 # ifdef _MSC_VER
 #   pragma warning(push)
 #   pragma warning(disable : 4180)
@@ -168,6 +169,11 @@ is_constant_evaluated                   (C++20)
 
 namespace ss {
 
+/**
+ * integral_constant
+ * @tparam T
+ * @tparam v
+ */
 template<typename T, T v>
 struct integral_constant {
   using value_type = T;
@@ -185,9 +191,22 @@ using bool_constant = integral_constant<bool, B>;
 using true_type  = integral_constant<bool, true >;
 using false_type = integral_constant<bool, false>;
 
+
+
+namespace detail {
+
+template<typename T, template<typename...> class Compare>
+struct is_specialization : false_type {};
+
+template<template<typename...> class Class, typename ...TParams>
+struct is_specialization<Class<TParams...>, Class> : true_type {};
+
 template<typename ...> struct always_false : false_type {};
 template<typename ...> struct always_true : true_type {};
 
+struct unused {};
+
+} // namespace detail
 
 
 /**
@@ -196,20 +215,6 @@ template<typename ...> struct always_true : true_type {};
  */
 template<typename T> struct type_identity { using type = T; };
 template<typename T> using type_identity_t = typename type_identity<T>::type;
-
-
-
-namespace detail {
-template<typename T> auto type_t_test(int) -> type_identity<typename T::type>;
-template<typename T> auto type_t_test(...) -> type_identity<T>;
-}
-
-/**
- * type_t
- * @tparam T
- */
-template<typename T>
-using type_t = typename decltype(detail::type_t_test<T>(0))::type;
 
 
 
@@ -427,8 +432,6 @@ template<typename T> using remove_reference_t = typename remove_reference<T>::ty
 
 
 namespace detail {
-
-struct unused {};
 
 template<typename T>
 auto try_add_lvalue_reference(int) -> type_identity<T&>;
@@ -1835,6 +1838,264 @@ constexpr inline T&& forward(remove_reference_t<T>&& t) noexcept {
 template<typename T> struct remove_cvref { using type = remove_cv_t<remove_reference_t<T>>; };
 template<typename T> using remove_cvref_t = typename remove_cvref<T>::type;
 
+template<typename T>
+class reference_wrapper;
+
+
+namespace detail {
+
+enum class invoke_tag_1 {
+  pointer_to_function,
+  pointer_to_data_member,
+  function_object,
+};
+
+enum class invoke_tag_2 {
+  object,
+  reference_wrapper,
+  ptr_or_else,
+};
+
+template<invoke_tag_1, invoke_tag_2>
+struct invoke_impl;
+
+template<>
+struct invoke_impl<invoke_tag_1::pointer_to_function, invoke_tag_2::object> {
+  template<typename F, typename T1, typename ...Ts>
+  static constexpr auto INVOKE(F f, T1&& t1, Ts&&... ts)
+      noexcept(noexcept((ss::forward<T1>(t1).*f)(ss::forward<Ts>(ts)...)))
+            -> decltype((ss::forward<T1>(t1).*f)(ss::forward<Ts>(ts)...))
+               { return (ss::forward<T1>(t1).*f)(ss::forward<Ts>(ts)...); }
+};
+
+template<>
+struct invoke_impl<invoke_tag_1::pointer_to_function, invoke_tag_2::reference_wrapper> {
+  template<typename F, typename T1, typename ...Ts>
+  static constexpr auto INVOKE(F f, T1&& t1, Ts&&... ts)
+      noexcept(noexcept((ss::forward<T1>(t1).get().*f)(ss::forward<Ts>(ts)...)))
+            -> decltype((ss::forward<T1>(t1).get().*f)(ss::forward<Ts>(ts)...))
+               { return (ss::forward<T1>(t1).get().*f)(ss::forward<Ts>(ts)...); }
+};
+
+template<>
+struct invoke_impl<invoke_tag_1::pointer_to_function, invoke_tag_2::ptr_or_else> {
+  template<typename F, typename T1, typename ...Ts>
+  static constexpr auto INVOKE(F f, T1&& t1, Ts&&... ts)
+      noexcept(noexcept(((*ss::forward<T1>(t1)).*f)(ss::forward<Ts>(ts)...)))
+            -> decltype(((*ss::forward<T1>(t1)).*f)(ss::forward<Ts>(ts)...))
+               { return ((*ss::forward<T1>(t1)).*f)(ss::forward<Ts>(ts)...); }
+};
+
+template<>
+struct invoke_impl<invoke_tag_1::pointer_to_data_member, invoke_tag_2::object> {
+  template<typename F, typename T1>
+  static constexpr auto INVOKE(F f, T1&& t1)
+      noexcept(noexcept((ss::forward<T1>(t1).*f)))
+            -> decltype((ss::forward<T1>(t1).*f))
+               { return (ss::forward<T1>(t1).*f); }
+};
+
+template<>
+struct invoke_impl<invoke_tag_1::pointer_to_data_member, invoke_tag_2::reference_wrapper> {
+  template<typename F, typename T1>
+  static constexpr auto INVOKE(F f, T1&& t1)
+      noexcept(noexcept((ss::forward<T1>(t1).get().*f)))
+            -> decltype((ss::forward<T1>(t1).get().*f))
+               { return (ss::forward<T1>(t1).get().*f); }
+};
+
+template<>
+struct invoke_impl<invoke_tag_1::pointer_to_data_member, invoke_tag_2::ptr_or_else> {
+  template<typename F, typename T1>
+  static constexpr auto INVOKE(F f, T1&& t1)
+      noexcept(noexcept((*ss::forward<T1>(t1).*f)))
+            -> decltype((*ss::forward<T1>(t1).*f))
+               { return (*ss::forward<T1>(t1).*f); }
+};
+
+template<invoke_tag_2 any>
+struct invoke_impl<invoke_tag_1::function_object, any> {
+  template<typename F, typename ...Ts>
+  static constexpr auto INVOKE(F&& f, Ts&&... ts)
+      noexcept(noexcept(ss::forward<F>(f)(ss::forward<Ts>(ts)...)))
+            -> decltype(ss::forward<F>(f)(ss::forward<Ts>(ts)...))
+               { return ss::forward<F>(f)(ss::forward<Ts>(ts)...); }
+};
+
+template<typename T> struct get_class_type_or { using type = T; };
+template<typename R, typename C>
+struct get_class_type_or<R (C::*)> { using type = C; };
+
+template<typename F,
+         bool v1 = is_member_function_pointer<F>::value,
+         bool v2 = is_member_object_pointer<F>::value>
+struct get_invoke_tag_1;
+
+template<typename F>
+struct get_invoke_tag_1<F, true, false> : integral_constant<invoke_tag_1, invoke_tag_1::pointer_to_function> {};
+
+template<typename F>
+struct get_invoke_tag_1<F, false, true> : integral_constant<invoke_tag_1, invoke_tag_1::pointer_to_data_member> {};
+
+template<typename F>
+struct get_invoke_tag_1<F, false, false> : integral_constant<invoke_tag_1, invoke_tag_1::function_object> {};
+
+template<typename T, typename T1,
+         bool v1 = is_base_of<T, remove_reference_t<T1>>::value,
+         bool v2 = is_specialization<remove_cv_t<T1>, reference_wrapper>::value>
+struct get_invoke_tag_2;
+
+template<typename T, typename T1, bool any>
+struct get_invoke_tag_2<T, T1, true, any> : integral_constant<invoke_tag_2, invoke_tag_2::object> {};
+
+template<typename T, typename T1>
+struct get_invoke_tag_2<T, T1, false, true> : integral_constant<invoke_tag_2, invoke_tag_2::reference_wrapper> {};
+
+template<typename T, typename T1>
+struct get_invoke_tag_2<T, T1, false, false> : integral_constant<invoke_tag_2, invoke_tag_2::ptr_or_else> {};
+
+template<typename F, typename ...Ts>
+struct invoke_concrete : invoke_impl<invoke_tag_1::function_object, invoke_tag_2::ptr_or_else> {};
+
+template<typename F, typename T1, typename ...Ts>
+struct invoke_concrete<F, T1, Ts...> : invoke_impl<
+    get_invoke_tag_1<F>::value,
+    get_invoke_tag_2<typename get_class_type_or<remove_cvref_t<F>>::type, T1>::value> {};
+
+
+template<typename F, typename ...Args>
+auto INVOKE(F&& f, Args&&... args)
+    noexcept(noexcept(invoke_concrete<F, Args...>::INVOKE(ss::declval<F>(),  ss::declval<Args>()...)     ))
+          -> decltype(invoke_concrete<F, Args...>::INVOKE(ss::declval<F>(),  ss::declval<Args>()...)      )
+             { return invoke_concrete<F, Args...>::INVOKE(ss::forward<F>(f), ss::forward<Args>(args)...); }
+
+template<typename T>
+struct satisfies_invocable_type : disjunction<is_complete<T>, is_void<T>, is_unbounded_array<T>> {};
+
+template<typename R, typename F, typename ...Args>
+struct is_invocable_r_impl {
+  // TODO: handle requirements
+//  static_assert(satisfies_invocable_type<R>::value, "ss::invocable: Return type does not meet the requirements");
+//  static_assert(satisfies_invocable_type<F>::value, "ss::invocable: Callable type does not meet the requirements");
+//  static_assert(conjunction<satisfies_invocable_type<Args>...>::value,
+//                "ss::invocable: Argument types do not meet the requirements");
+ private:
+  template<typename F2, typename ...Args2>
+  static auto test(int)
+  noexcept(noexcept(INVOKE(ss::declval<F2>(), ss::declval<Args2>()...)))
+        -> decltype(INVOKE(ss::declval<F2>(), ss::declval<Args2>()...));
+  template<typename F2, typename ...Args2>
+  static auto test(...) -> unused;
+
+ public:
+  using test_return_type = decltype(test<F, Args...>(0));
+  using convertible = disjunction<is_void<R>, is_convertible<test_return_type, R>>;
+  using invocable = conjunction<is_not_same<test_return_type, unused>, convertible>;
+  using nothrow_invocable = conjunction<invocable, bool_constant<noexcept(test<F, Args...>(0))>>;
+};
+
+} // namespace detail
+
+
+/**
+ * invoke_result
+ * @tparam F
+ * @tparam Args
+ */
+template<typename F, typename ...Args>
+struct invoke_result : enable_if<
+  detail::is_invocable_r_impl<void, F, Args...>::invocable::value,
+  typename detail::is_invocable_r_impl<void, F, Args...>::test_return_type> {};
+
+template<typename F, typename ...Args>
+using invoke_result_t = typename invoke_result<F, Args...>::type;
+
+
+
+/**
+ * is_invocable
+ * @tparam F
+ * @tparam Args
+ */
+template<typename F, typename ...Args>
+struct is_invocable : detail::is_invocable_r_impl<void, F, Args...>::invocable {};
+# if SS_CXX_VER >= 14
+template<typename F, typename ...Args> SS_INLINE_VAR constexpr bool is_invocable_v = is_invocable<F, Args...>::value;
+# endif
+
+
+/**
+ * is_invocable_r
+ * @tparam R
+ * @tparam F
+ * @tparam Args
+ */
+template<typename R, typename F, typename ...Args>
+struct is_invocable_r : detail::is_invocable_r_impl<R, F, Args...>::invocable {};
+# if SS_CXX_VER >= 14
+template<typename F, typename ...Args> SS_INLINE_VAR constexpr bool is_invocable_r_v = is_invocable_r<F, Args...>::value;
+# endif
+
+
+
+/**
+ * is_nothrow_invocable
+ * @tparam F
+ * @tparam Args
+ */
+template<typename F, typename ...Args>
+struct is_nothrow_invocable : detail::is_invocable_r_impl<void, F, Args...>::nothrow_invocable {};
+
+
+
+/**
+ * is_nothrow_invocable_r
+ * @tparam R
+ * @tparam F
+ * @tparam Args
+ */
+template<typename R, typename F, typename ...Args>
+struct is_nothrow_invocable_r : detail::is_invocable_r_impl<R, F, Args...>::nothrow_invocable {};
+
+
+
+/**
+ * invoke
+ * @tparam F
+ * @tparam Args
+ * @param f
+ * @param args
+ * @return
+ */
+template<typename F, typename ...Args>
+constexpr invoke_result_t<F, Args...>
+invoke(F&& f, Args&&... args)
+noexcept(is_nothrow_invocable<F, Args...>::value)
+{
+  return INVOKE(ss::forward<F>(f), ss::forward<Args>(args)...);
+}
+
+
+// Standard says it's return type is R, and participate in overload resolution only if it is invocable.
+// Using enable_if for now.
+/**
+ * invoke_r
+ * @tparam R
+ * @tparam F
+ * @tparam Args
+ * @param f
+ * @param args
+ * @return
+ */
+template<typename R, typename F, typename ...Args>
+constexpr enable_if_t<is_invocable_r<R, F, Args...>::value, R>
+invoke_r(F&& f, Args&&... args)
+noexcept(is_nothrow_invocable_r<R, F, Args...>::value)
+{
+  return INVOKE(ss::forward<F>(f), ss::forward<Args>(args)...);
+}
+
+
 /**
  * reference_wrapper
  * @tparam T
@@ -1877,29 +2138,12 @@ class reference_wrapper {
     return static_cast<T&>(*val);
   }
 
-  // TODO
-//  template<typename ...Args>
-//  operator()(Args&&... args))
-
+  template<typename ...Args>
+  constexpr invoke_result_t<type&, Args...>
+  operator()(Args&&... args) const {
+    return invoke(get(), std::forward<Args>(args)...);
+  }
 };
-
-
-// TODO
-template<typename Fn, typename ...ArgTypes>
-struct is_invocable {};
-
-template<typename R, typename Fn, typename ...ArgTypes>
-struct is_invocable_r {};
-
-template<typename Fn, typename ...ArgTypes>
-struct is_nothrow_invocable {};
-
-template<typename R, typename Fn, typename ...ArgTypes>
-struct is_nothrow_invocable_r {};
-
-template<typename F, typename ...ArgTypes>
-class invoke_result {};
-
 
 
 /**
@@ -1913,6 +2157,23 @@ template<size_t Len, size_t Align = alignof(typename std::aligned_storage<Len>::
 using aligned_storage_t = typename aligned_storage<Len, Align>::type;
 
 
+namespace detail {
+
+template<typename T, T ...>
+struct static_max;
+
+template<typename T, T v>
+struct static_max<T, v> {
+  static constexpr T value = v;
+};
+
+template<typename T, T v1, T v2, T ...v3>
+struct static_max<T, v1, v2, v3...> {
+  static constexpr T value = (v1 > v2) ? static_max<T, v1, v3...>::value :
+                                         static_max<T, v2, v3...>::value;
+};
+
+} // namespace detail
 
 /**
  * aligned_union
@@ -1921,9 +2182,9 @@ using aligned_storage_t = typename aligned_storage<Len, Align>::type;
  */
 template<size_t Len, typename ...Types>
 struct aligned_union {
-  SS_INLINE_VAR static constexpr size_t alignment_value = std::max({alignof(Types)...});
+  SS_INLINE_VAR static constexpr size_t alignment_value = detail::static_max<size_t, alignof(Types)...>::value;
   struct type {
-    alignas(alignment_value) char data[std::max({Len, sizeof(Types)...})];
+    alignas(alignment_value) char data[detail::static_max<size_t, Len, sizeof(Types)...>::value];
   };
 };
 template<size_t Len, typename ...Types>
