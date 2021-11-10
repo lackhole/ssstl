@@ -67,7 +67,7 @@ Focusing on implementing high C++ features for low C++(i.e. You can use `ss::opt
 | Dynamic memory management                     | Feature status                                          |
 |-----------------------------------------------|---------------------------------------------------------|
 | new                                           | ![][unknown_]                                           |
-| memory                                        | ![][cpp11003] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
+| [memory](status/memory.md)                    | ![][cpp11003] ![][cpp14000] ![][cpp17000] ![][cpp20000] |
 | scoped_allocator                              | ![][unknown_]                                           |
 | memory_resource                               | ![][unknown_]                                           |
 
