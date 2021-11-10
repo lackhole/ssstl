@@ -1522,10 +1522,34 @@ int main() {
     SS_TESTC(ss::is_same<ss::invoke_result_t<int()>, int>::value)
     SS_TESTC(ss::is_same<ss::invoke_result_t<foo()>, foo>::value)
     SS_TESTC(ss::is_same<ss::invoke_result_t<void(incomplete[]), incomplete[3]>, void>::value)
+
+    auto lambda = [](auto x) -> ss::conditional_t<ss::is_integral<decltype(x)>::value, int, float> { return 0; };
+    SS_TESTC(ss::is_same<ss::invoke_result_t<decltype(lambda), int>, int>::value)
+    SS_TESTC(ss::is_same<ss::invoke_result_t<decltype(lambda), float>, float>::value)
+
+    struct c {
+      int operator()();
+      void operator()(int);
+    };
+    SS_TESTC(ss::is_same<ss::invoke_result_t<c>, int>::value)
+    SS_TESTC(ss::is_same<ss::invoke_result_t<c, float>, void>::value)
+
+    static_assert(std::is_same<void, std::invoke_result_t<c, int>>::value);
   }
 
   { // invocable
+    SS_TESTC(ss::is_invocable<void()>::value)
+    SS_TESTC(ss::is_invocable<void(*)()>::value)
+    SS_TESTC(ss::is_invocable<void(&)()>::value)
+    SS_TESTC(ss::is_invocable<void(int), float>::value)
+    SS_TESTC(ss::is_invocable<void(bool), int>::value)
+    SS_TESTC(ss::is_invocable<void(int), bool>::value)
+    SS_TESTC(ss::is_invocable<void(int), ss::bool_constant<true>>::value)
 
+    struct a {};
+    struct b : a {};
+
+    SS_TESTC(ss::is_invocable<void(a&), b&>::value)
   }
 
   { // decay
