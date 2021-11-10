@@ -13,12 +13,12 @@
 |---------------------------------------|:--------:|:-----------------------:|
 | **Classes**                           |          |                         |
 | **Pointer traits**                    |          |                         |
-|pointer_traits                         |![][cpp11]| ![][notyet]             |
+|pointer_traits                         |![][cpp11]| ![][cpp11]              |
 | **Garbage collector support**         |          |                         |
 |~~pointer_safety~~                     |![][cpp11]| Removed in C++23        |
 | **Allocators**                        |          |                         |
 |allocator                              |![][legcy]| ![][notyet]             |
-|allocator_traits                       |![][cpp11]| ![][notyet]             |
+|allocator_traits                       |![][cpp11]| ![][cpp11]*             |
 |allocation_result                      |![][cpp23]| ![][notyet]             |
 |allocator_arg_t                        |![][cpp11]| ![][notyet]             |
 |uses_allocator                         |![][cpp11]| ![][notyet]             |
@@ -113,6 +113,7 @@
 |ranges::uninitialized_destroy             |![][cpp20]| ![][notyet]                     |
 |ranges::uninitialized_destroy_n           |![][cpp20]| ![][notyet]                     |
 
+\* Used `std::numeric_limits`
 
 [notyet]: https://img.shields.io/badge/Not_yet-orange
 [removed]: https://img.shields.io/badge/Removed-red
