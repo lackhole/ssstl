@@ -7,11 +7,15 @@
 #
 # include <cstddef>
 #
+# include <limits>
+# include <exception>
+#
 # include "ss/detail/macro.h"
 # include "ss/detail/addressof.h"
 # include "ss/iterator.h"
 # include "ss/type_traits.h"
-# include <limits>
+
+# include "ss/experimental/utility.h"
 
 namespace ss {
 
@@ -340,7 +344,7 @@ auto test_select_on_container_copy_construction(int) -> decltype(ss::declval<All
 template<typename Alloc>
 auto test_select_on_container_copy_construction(...) -> unused;
 template<typename Alloc>
-struct has_select_on_container_copy_construction : is_not_same<unused, decltype(select_on_container_copy_construction<Alloc>(0))> {};
+struct has_select_on_container_copy_construction : is_not_same<unused, decltype(test_select_on_container_copy_construction<Alloc>(0))> {};
 
 } // namespace detail
 
@@ -435,12 +439,185 @@ struct allocator_traits {
   static constexpr Alloc select_on_container_copy_construction_impl(const Alloc& a, false_type) {
     return a;
   }
+};
 
+template<typename Pointer>
+class allocation_result {
+  Pointer ptr;
+  size_t count;
 };
 
 template<typename T>
 struct allocator {
   using value_type = T;
+  using size_type = size_t;
+  using difference_type = ptrdiff_t;
+  using propagate_on_container_move_assignment = true_type;
+
+  constexpr allocator() noexcept = default;
+  constexpr allocator(const allocator&) noexcept = default;
+
+  template<typename U>
+  constexpr allocator(const allocator<U>&) noexcept {}
+
+  SS_AFTER_CXX20(constexpr) ~allocator() = default;
+
+  // TODO: Check operator new(size_t, align_val_t), operator delete(void*, align_val_t) is available
+
+  SS_NODISCARD SS_CONSTEXPR_AFTER_14 T* allocate(size_t n) {
+    if (std::numeric_limits<size_t>::max() / sizeof(T) < n)
+      throw std::bad_array_new_length();
+    return ::operator new(n * sizeof(T), static_cast<std::align_val_t>(alignof(T)));
+  }
+
+  SS_NODISCARD SS_CONSTEXPR_AFTER_14 allocation_result<T*> allocate_at_least(size_t n) {
+    // http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2021/p0401r6.html#motivation
+    if ((std::numeric_limits<size_t>::max() / sizeof(T)) < n)
+      throw std::bad_array_new_length();
+    return {
+      ::operator new(n * sizeof(T), static_cast<std::align_val_t>(sizeof(T))), n};
+  }
+
+  SS_CONSTEXPR_AFTER_14 void deallocate(T* p, size_t n) {
+    ::operator delete(p, static_cast<std::align_val_t>(alignof(T)));
+  }
+};
+
+template<typename T1, typename T2>
+constexpr bool operator==(const allocator<T1>& lhs, const allocator<T2>& rhs) noexcept {
+  return true;
+}
+# if SS_CXX_VER < 20
+template<typename T1, typename T2>
+constexpr bool operator!=(const allocator<T1>& lhs, const allocator<T2>& rhs) noexcept {
+  return false;
+}
+# endif
+
+
+namespace detail {
+
+template<typename Alloc, typename = void>
+struct has_allocate_at_least : false_type {};
+
+template<typename Alloc>
+struct has_allocate_at_least<Alloc,
+    void_t<decltype(ss::declval<Alloc>().allocate_at_least(size_t{}))>> : true_type {};
+
+template<typename Alloc>
+constexpr allocation_result<typename allocator_traits<Alloc>::pointer>
+allocate_at_least_impl(Alloc& a, size_t n, true_type) {
+  return a.allocate_at_least(n);
+}
+
+template<typename Alloc>
+constexpr allocation_result<typename allocator_traits<Alloc>::pointer>
+allocate_at_least_impl(Alloc& a, size_t n, false_type) {
+  return {a.allocate(n), n};
+}
+
+} // namespace detail
+
+/**
+ * allocate_at_least
+ */
+template<typename Alloc>
+SS_NODISCARD constexpr allocation_result<typename allocator_traits<Alloc>::pointer>
+allocate_at_least(Alloc& a, size_t n) {
+  return detail::allocate_at_least_impl(detail::has_allocate_at_least<Alloc>{});
+}
+
+/**
+ * allocator_arg_t
+ */
+struct allocator_arg_t { explicit allocator_arg_t() = default; };
+
+
+
+namespace detail {
+
+template<typename T, typename = void>
+struct has_allocator_type : false_type {};
+
+template<typename T>
+struct has_allocator_type<T, void_t<typename T::allocator_type>> : true_type {};
+
+template<typename T, typename Alloc, bool v = has_allocator_type<T>::value>
+struct uses_allocator_impl : false_type {};
+
+template<typename T, typename Alloc>
+struct uses_allocator_impl<T, Alloc, true> : is_convertible<Alloc, typename T::allocator_type> {};
+
+template<typename Alloc>
+struct uses_allocator_impl<ss::experimental::erased_type, Alloc, true> : true_type {};
+
+} // namespace detail
+
+/**
+ * uses_allocator
+ */
+template<typename T, typename Alloc>
+struct uses_allocator : detail::uses_allocator_impl<T, Alloc> {};
+
+# if SS_CXX_VER >= 14
+template<typename T, typename Alloc> SS_INLINE_VAR constexpr bool uses_allocator_v = uses_allocator<T, Alloc>::value;
+# endif
+
+
+
+/**
+ * default_delete<T>
+ * @tparam T
+ */
+template<typename T>
+struct default_delete {
+  constexpr default_delete() = default;
+
+  template<typename U, enable_if_t<is_convertible<U*, T*>::value, int> = 0>
+  default_delete(const default_delete<U>&) noexcept {}
+
+  void operator()(T* ptr) const { delete ptr; }
+};
+
+
+
+/**
+ * default_delete<T[]>
+ * @tparam T
+ */
+template<typename T>
+struct default_delete<T[]> {
+  constexpr default_delete() = default;
+
+  template<typename U, enable_if_t<is_convertible<U(*)[], T(*)[]>::value, int> = 0>
+  default_delete(const default_delete<U[]>&) noexcept {}
+
+  template<typename U, enable_if_t<is_convertible<U(*)[], T(*)[]>::value, int> = 0>
+  void operator()(U* ptr) const {
+    static_assert(detail::is_complete<U>::value, "U must be complete type");
+    delete[] ptr;
+  }
+};
+
+
+/**
+ * unique_ptr<T>
+ * @tparam T
+ * @tparam Deleter
+ */
+template<typename T, typename Deleter = default_delete<T>>
+class unique_ptr {
+
+};
+
+/**
+ * unique_ptr<T[]>
+ * @tparam T
+ * @tparam Deleter
+ */
+template<typename T, typename Deleter>
+class unique_ptr<T[], Deleter> {
+
 };
 
 } // namespace ss
