@@ -159,8 +159,8 @@ struct dtor {
     }
   }
 
-  constexpr const        value_type* pointer() const noexcept { return addressof(val); }
-  SS_CONSTEXPR_AFTER_14  value_type* pointer()       noexcept { return addressof(val); }
+  constexpr const        value_type* pointer() const noexcept { return ss::addressof(val); }
+  SS_CONSTEXPR_AFTER_14  value_type* pointer()       noexcept { return ss::addressof(val); }
 
   constexpr const        value_type& ref() const&  noexcept { return val;       }
   SS_CONSTEXPR_AFTER_14  value_type& ref()      &  noexcept { return val;       }
@@ -169,7 +169,7 @@ struct dtor {
 
   template<typename ...Args>
   void construct(Args&&... args) {
-    ::new((void*)addressof(val)) value_type(ss::forward<Args>(args)...);
+    ::new((void*)ss::addressof(val)) value_type(ss::forward<Args>(args)...);
     valid = true;
   }
 
@@ -207,8 +207,8 @@ struct dtor<T, false> {
     }
   }
 
-  constexpr             const value_type* pointer() const { return addressof(val); }
-  SS_CONSTEXPR_AFTER_14       value_type* pointer()       { return addressof(val); }
+  constexpr             const value_type* pointer() const { return ss::addressof(val); }
+  SS_CONSTEXPR_AFTER_14       value_type* pointer()       { return ss::addressof(val); }
 
   constexpr             const value_type& ref() const&  { return val;        }
   SS_CONSTEXPR_AFTER_14       value_type& ref()      &  { return val;        }
@@ -217,7 +217,7 @@ struct dtor<T, false> {
 
   template<typename ...Args>
   void construct(Args&&... args) {
-    ::new((void*)addressof(val)) value_type(ss::forward<Args>(args)...);
+    ::new((void*)ss::addressof(val)) value_type(ss::forward<Args>(args)...);
     valid = true;
   }
 
