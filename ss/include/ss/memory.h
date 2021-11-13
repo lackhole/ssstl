@@ -467,7 +467,11 @@ struct allocator {
   SS_NODISCARD SS_CONSTEXPR_AFTER_14 T* allocate(size_t n) {
     if (std::numeric_limits<size_t>::max() / sizeof(T) < n)
       throw std::bad_array_new_length();
+# if SS_CXX_VER < 17
+    return ::operator new(n * sizeof(T));
+# else
     return ::operator new(n * sizeof(T), static_cast<std::align_val_t>(alignof(T)));
+# endif
   }
 
   SS_NODISCARD SS_CONSTEXPR_AFTER_14 allocation_result<T*> allocate_at_least(size_t n) {
@@ -475,11 +479,20 @@ struct allocator {
     if ((std::numeric_limits<size_t>::max() / sizeof(T)) < n)
       throw std::bad_array_new_length();
     return {
-      ::operator new(n * sizeof(T), static_cast<std::align_val_t>(sizeof(T))), n};
+# if SS_CXX_VER < 17
+      ::operator new(n * sizeof(T)),
+# else
+      ::operator new(n * sizeof(T), static_cast<std::align_val_t>(sizeof(T))),
+# endif
+      n};
   }
 
   SS_CONSTEXPR_AFTER_14 void deallocate(T* p, size_t n) {
+# if SS_CXX_VER < 17
+    ::operator delete(p);
+# else
     ::operator delete(p, static_cast<std::align_val_t>(alignof(T)));
+# endif
   }
 };
 
