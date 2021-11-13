@@ -5,13 +5,13 @@
 # ifndef SS_DETAIL_MACRO_H_
 # define SS_DETAIL_MACRO_H_
 #
-# if __cplusplus > 202300L
+# if __cplusplus >= 202300L
 #   define SS_CXX_VER 23
-# elif __cplusplus > 201703L
+# elif __cplusplus >= 202002L
 #   define SS_CXX_VER 20
-# elif __cplusplus > 201402L
+# elif __cplusplus >= 201703L
 #   define SS_CXX_VER 17
-# elif __cplusplus > 201103L
+# elif __cplusplus >= 201402L
 #   define SS_CXX_VER 14
 # elif __cplusplus == 201103L
 #   define SS_CXX_VER 11

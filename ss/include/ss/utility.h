@@ -266,12 +266,9 @@ struct pair {
   constexpr pair(pair&&) = default;
 
 
-  template<typename Dummy = void,
-    enable_if_t<
-      is_same<Dummy, void>::value &&
-      both<is_copy_assignable>::value,
-    int> = 0>
-  SS_CONSTEXPR_AFTER_14 pair& operator=(const pair& other) {
+  SS_CONSTEXPR_AFTER_14 pair& operator=(enable_if_t<both<is_copy_assignable>::value, const pair&> other)
+    noexcept(both<is_nothrow_copy_assignable>::value)
+  {
     first = other.first;
     second = other.second;
     return *this;
@@ -282,18 +279,18 @@ struct pair {
       is_assignable<first_type& , const U1&>::value &&
       is_assignable<second_type&, const U2&>::value,
     int> = 0>
-  SS_CONSTEXPR_AFTER_14 pair& operator=(const pair<U1, U2>& other) {
+  SS_CONSTEXPR_AFTER_14 pair& operator=(const pair<U1, U2>& other)
+    noexcept(conjunction<is_nothrow_assignable<first_type&, const U1&>,
+                         is_nothrow_assignable<second_type&, const U2&>>::value)
+  {
     first = other.first;
     second = other.second;
     return *this;
   }
 
-  template<typename Dummy = void,
-    enable_if_t<
-      is_same<Dummy, void>::value &&
-      both<is_move_assignable>::value,
-    int> = 0>
-  SS_CONSTEXPR_AFTER_14 pair& operator=(pair&& other) {
+  SS_CONSTEXPR_AFTER_14 pair& operator=(enable_if_t<both<is_move_assignable>::value, pair&&> other)
+    noexcept(both<is_nothrow_move_assignable>::value)
+  {
     first = ss::move(other.first);
     second = ss::move(other.second);
     return *this;
@@ -305,7 +302,7 @@ struct pair {
       is_assignable<second_type&, U2>::value,
     int> = 0>
   SS_CONSTEXPR_AFTER_14 pair& operator=(pair<U1, U2>&& other)
-    noexcept(is_nothrow_move_assignable<first_type>::value && is_nothrow_move_assignable<second_type>::value)
+    noexcept(conjunction<is_nothrow_assignable<first_type&, U1>, is_nothrow_assignable<second_type&, U2>>::value)
   {
     first = ss::forward<U1>(other.first);
     second = ss::forward<U2>(other.second);

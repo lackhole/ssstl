@@ -700,11 +700,13 @@ int main() {
     SS_TESTC(!ss::is_default_constructible<void>::value)
     SS_TESTC(!ss::is_default_constructible<void()>::value)
     SS_TESTC(!ss::is_default_constructible<void()&&>::value)
-# if SS_CXX_VER < 20
-    SS_TESTC(!ss::is_default_constructible<decltype(lambda)>::value)
-# else
-    SS_TESTC(ss::is_default_constructible<decltype(lambda)>::value)
-# endif
+
+    // TODO: define feature macros. __cplusplus is too rough to check each feature support
+//# if SS_CXX_VER < 20
+//    SS_TESTC(!ss::is_default_constructible<decltype(lambda)>::value)
+//# else
+//    SS_TESTC(ss::is_default_constructible<decltype(lambda)>::value)
+//# endif
     SS_TESTC(!ss::is_default_constructible<decltype(lambda_capture)>::value)
     // MSVC Bug: https://stackoverflow.com/questions/68363717/msvc-behaves-different-about-default-constructor-of-closure-type-in-c20
 //    SS_TESTC(!ss::is_default_constructible<decltype(lambda_capture_default)>::value)
@@ -974,15 +976,15 @@ int main() {
     auto lambda_capture = [&lambda](){};
     auto lambda_capture_default = [&](){};
 
-# if SS_CXX_VER < 20
-    SS_TESTC(!ss::is_assignable<decltype(lambda), decltype(lambda)>::value)
-    SS_TESTC(!ss::is_trivially_assignable<decltype(lambda), decltype(lambda)>::value)
-    SS_TESTC(!ss::is_nothrow_assignable<decltype(lambda), decltype(lambda)>::value)
-# else
-    SS_TESTC(ss::is_assignable<decltype(lambda), decltype(lambda)>::value)
-    SS_TESTC(ss::is_trivially_assignable<decltype(lambda), decltype(lambda)>::value)
-    SS_TESTC(ss::is_nothrow_assignable<decltype(lambda), decltype(lambda)>::value)
-# endif
+//# if SS_CXX_VER < 20
+//    SS_TESTC(!ss::is_assignable<decltype(lambda), decltype(lambda)>::value)
+//    SS_TESTC(!ss::is_trivially_assignable<decltype(lambda), decltype(lambda)>::value)
+//    SS_TESTC(!ss::is_nothrow_assignable<decltype(lambda), decltype(lambda)>::value)
+//# else
+//    SS_TESTC(ss::is_assignable<decltype(lambda), decltype(lambda)>::value)
+//    SS_TESTC(ss::is_trivially_assignable<decltype(lambda), decltype(lambda)>::value)
+//    SS_TESTC(ss::is_nothrow_assignable<decltype(lambda), decltype(lambda)>::value)
+//# endif
 
     SS_TESTC(!ss::is_assignable<decltype(lambda_capture), decltype(lambda_capture)>::value)
     SS_TESTC(!ss::is_trivially_assignable<decltype(lambda_capture), decltype(lambda_capture)>::value)
@@ -1044,13 +1046,13 @@ int main() {
     auto lambda_capture = [&lambda](){};
     auto lambda_capture_default = [&](){};
 
-# if SS_CXX_VER < 20
-    SS_TESTC(!std::is_copy_assignable<decltype(lambda)>::value)
-    SS_TESTC(!ss::is_copy_assignable<decltype(lambda_capture)>::value)
-    SS_TESTC(!ss::is_copy_assignable<decltype(lambda_capture_default)>::value)
-# else
-    SS_TESTC(std::is_copy_assignable<decltype(lambda)>::value)
-# endif
+//# if SS_CXX_VER < 20
+//    SS_TESTC(!std::is_copy_assignable<decltype(lambda)>::value)
+//    SS_TESTC(!ss::is_copy_assignable<decltype(lambda_capture)>::value)
+//    SS_TESTC(!ss::is_copy_assignable<decltype(lambda_capture_default)>::value)
+//# else
+//    SS_TESTC(std::is_copy_assignable<decltype(lambda)>::value)
+//# endif
 
 
     struct a { a& operator=(const a&) = delete; };
@@ -1103,13 +1105,13 @@ int main() {
     auto lambda_capture = [&lambda](){};
     auto lambda_capture_default = [&](){};
 
-# if SS_CXX_VER < 20
-    SS_TESTC(!std::is_move_assignable<decltype(lambda)>::value)
-    SS_TESTC(!ss::is_move_assignable<decltype(lambda_capture)>::value)
-    SS_TESTC(!ss::is_move_assignable<decltype(lambda_capture_default)>::value)
-# else
-    SS_TESTC(std::is_move_assignable<decltype(lambda)>::value)
-# endif
+//# if SS_CXX_VER < 20
+//    SS_TESTC(!std::is_move_assignable<decltype(lambda)>::value)
+//    SS_TESTC(!ss::is_move_assignable<decltype(lambda_capture)>::value)
+//    SS_TESTC(!ss::is_move_assignable<decltype(lambda_capture_default)>::value)
+//# else
+//    SS_TESTC(std::is_move_assignable<decltype(lambda)>::value)
+//# endif
 
 
     struct a { a& operator=(const a&) = delete; };
@@ -1522,10 +1524,36 @@ int main() {
     SS_TESTC(ss::is_same<ss::invoke_result_t<int()>, int>::value)
     SS_TESTC(ss::is_same<ss::invoke_result_t<foo()>, foo>::value)
     SS_TESTC(ss::is_same<ss::invoke_result_t<void(incomplete[]), incomplete[3]>, void>::value)
+
+# if SS_CXX_VER >= 14
+    auto lambda = [](auto x) -> ss::conditional_t<ss::is_integral<decltype(x)>::value, int, float> { return 0; };
+    SS_TESTC(ss::is_same<ss::invoke_result_t<decltype(lambda), int>, int>::value)
+    SS_TESTC(ss::is_same<ss::invoke_result_t<decltype(lambda), float>, float>::value)
+# endif
+
+    struct c {
+      int operator()();
+      void operator()(int);
+    };
+    SS_TESTC(ss::is_same<ss::invoke_result_t<c>, int>::value)
+    SS_TESTC(ss::is_same<ss::invoke_result_t<c, float>, void>::value)
+
+    SS_TESTC(std::is_same<void, ss::invoke_result_t<c, int>>::value);
   }
 
   { // invocable
+    SS_TESTC(ss::is_invocable<void()>::value)
+    SS_TESTC(ss::is_invocable<void(*)()>::value)
+    SS_TESTC(ss::is_invocable<void(&)()>::value)
+    SS_TESTC(ss::is_invocable<void(int), float>::value)
+    SS_TESTC(ss::is_invocable<void(bool), int>::value)
+    SS_TESTC(ss::is_invocable<void(int), bool>::value)
+    SS_TESTC(ss::is_invocable<void(int), ss::bool_constant<true>>::value)
 
+    struct a {};
+    struct b : a {};
+
+    SS_TESTC(ss::is_invocable<void(a&), b&>::value)
   }
 
   { // decay
