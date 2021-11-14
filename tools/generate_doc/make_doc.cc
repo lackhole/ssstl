@@ -352,20 +352,21 @@ std::vector<ss::optional<ss::pair<MarkType, int>>> GetMarks(xmlNodePtr node, boo
     if (!spans)
       return {ss::make_pair(kMarkVersion, kVersionLegacy)};
 
+    //FIXME: attach marks to each names
     for (const auto& s: make_span(spans.get())) {
-      if (const auto versions = xpathSearch(s, xpath_version)) {
-        const auto str = make_span(versions.get())[0]->content;
-        result.emplace_back(ss::in_place, kMarkVersion, ExtractCppVersion(str));
-        continue;
+      bool all_no = true;
+      if (const auto removed = xpathSearch(s, xpath_removed)) {
+        const auto str = make_span(removed.get())[0]->content;
+        result.emplace_back(ss::in_place,kMarkRemoved, ExtractCppVersion(str));
+        all_no = false;
       } else if (const auto deprecated = xpathSearch(s, xpath_deprecated)) {
         const auto str = make_span(deprecated.get())[0]->content;
         if (const auto version = ExtractCppVersion(str); version != kVersionUnknown)
-          result.emplace_back(ss::in_place, kMarkDeprecated, ExtractCppVersion(str));
-        continue;
-      } else if (const auto removed = xpathSearch(s, xpath_removed)) {
-        const auto str = make_span(removed.get())[0]->content;
-        result.emplace_back(ss::in_place, kMarkRemoved, ExtractCppVersion(str));
-        continue;
+          result.emplace_back(ss::in_place,kMarkDeprecated, ExtractCppVersion(str));
+        all_no = false;
+      } else if (const auto versions = xpathSearch(s, xpath_version)) {
+        const auto str = make_span(versions.get())[0]->content;
+        result.emplace_back(ss::in_place, kMarkVersion, ExtractCppVersion(str));
       } else {
         result.emplace_back(ss::in_place, kMarkVersion, kVersionLegacy);
       }
@@ -440,6 +441,11 @@ std::vector<Feature> GetFeatures(const xmlChar* page, const char* encoding) {
 
       case kTypeFeature: {
         const auto member = xpathSearch(node, "//div[@class='t-dsc-member-div']");
+        if (!member) {
+          feature = Feature();
+          std::cerr << "Failed to decode xpath " << __FILE__ << ", line " << __LINE__ << std::endl;
+          break;
+        }
         feature.names = GetFeatureName(make_span(member.get())[0]);
 
 //        if (xmlStrstr(feature.names[0].data(), "atomic_is_lock_free"_xstr) != nullptr)
@@ -700,11 +706,14 @@ int main(int argc, char* argv[]) {
   std::string pwd = __FILE__;
   pwd = pwd.substr(0, pwd.find_last_of('/'));
 
-  std::string url = "https://en.cppreference.com/w/cpp/header/atomic";
-  std::string dst = pwd + "/../../status/atomic.md";
+  std::string title = "chrono";
+  if (argc >= 2) title = argv[1];
 
-  if (argc >= 2) url = argv[1];
-  if (argc >= 3) dst = argv[2];
+  std::string url = "https://en.cppreference.com/w/cpp/header/" + title;
+  std::string dst = pwd + "/../../status/" + title + ".md";
+
+  if (argc >= 3) url   = argv[2];
+  if (argc >= 4) dst   = argv[3];
 
   const auto data = GetPage(url.data());
   if (!data)
@@ -714,7 +723,7 @@ int main(int argc, char* argv[]) {
   const auto features = GetFeatures(reinterpret_cast<const xmlChar *>(response.data()), "UTF-8");
 
 
-  MakeDocument(features, "atomic", dst);
+  MakeDocument(features, title, dst);
 
   return EXIT_SUCCESS;
 }
