@@ -2567,6 +2567,94 @@ inline constexpr bool is_constant_evaluated() noexcept {
 }
 # endif
 
+
+// Named Requirements
+namespace detail {
+
+/**
+ * Basic
+ */
+template<typename T> using DefaultConstructible = is_default_constructible<T>;
+template<typename T> using MoveConstructible    = is_move_constructible<T>;
+template<typename T> using CopyConstructible    = conjunction<MoveConstructible<T>, is_copy_constructible<T>>;
+
+template<typename T, bool v = is_move_assignable<T>::value>
+struct MoveAssignable : false_type {};
+
+template<typename T>
+struct MoveAssignable<T, true> : is_same<decltype(ss::declval<T&>() = ss::declval<T&&>()), T&> {};
+
+template<typename T, bool v = conjunction<MoveAssignable<T>, is_copy_assignable<T>>::value>
+struct CopyAssignable : false_type {};
+
+template<typename T>
+struct CopyAssignable<T, true> : is_same<decltype(ss::declval<T&>() = ss::declval<T&>()), T&> {};
+
+
+/**
+ * Type Properties
+ */
+template<typename T> using TriviallyCopyable  = is_trivially_copyable<T>;
+template<typename T> using TrivialType        = is_trivial<T>;
+template<typename T> using StandardLayoutType = is_standard_layout<T>;
+
+
+/**
+ * Library-wid
+ */
+
+template<typename T, typename = void>
+struct EqualityComparable : false_type {};
+
+template<typename T>
+struct EqualityComparable<T, void_t<decltype(ss::declval<const remove_reference_t<T>&>() == ss::declval<const remove_reference_t<T>&>())>>
+  : is_convertible<decltype(ss::declval<const remove_reference_t<T>&>() == ss::declval<const remove_reference_t<T>&>()), bool> {};
+
+template<typename T, typename U, typename = void>
+struct EqualityComparableWith : false_type {};
+
+template<typename T, typename U>
+struct EqualityComparableWith<T, U, void_t<decltype(ss::declval<const remove_reference_t<T>&>() == ss::declval<const remove_reference_t<U>&>())>>
+  : is_convertible<decltype(ss::declval<const remove_reference_t<T>&>() == ss::declval<const remove_reference_t<U>&>()), bool> {};
+
+template<typename T, typename = void>
+struct NonEqualityComparable : false_type {};
+
+template<typename T>
+struct NonEqualityComparable<T, void_t<decltype(ss::declval<const remove_reference_t<T>&>() != ss::declval<const remove_reference_t<T>&>())>>
+  : is_convertible<decltype(ss::declval<const remove_reference_t<T>&>() != ss::declval<const remove_reference_t<T>&>()), bool> {};
+
+template<typename T, typename U, typename = void>
+struct NonEqualityComparableWith : false_type {};
+
+template<typename T, typename U>
+struct NonEqualityComparableWith<T, U, void_t<decltype(ss::declval<const remove_reference_t<T>&>() != ss::declval<const remove_reference_t<U>&>())>>
+  : is_convertible<decltype(ss::declval<const remove_reference_t<T>&>() != ss::declval<const remove_reference_t<U>&>()), bool> {};
+
+template<typename T, typename = void>
+struct LessThanComparable : false_type {};
+
+template<typename T>
+struct LessThanComparable<T, void_t<decltype(ss::declval<const remove_reference_t<T>&>() < ss::declval<const remove_reference_t<T>&>())>>
+  : is_convertible<decltype(ss::declval<const remove_reference_t<T>&>() < ss::declval<const remove_reference_t<T>&>()), bool> {};
+
+
+
+template<typename T>
+using NullablePointer = conjunction<
+  EqualityComparable<T>,
+  is_default_constructible<T>,
+  is_copy_constructible<T>,
+  is_copy_assignable<T>,
+  is_destructible<T>,
+  is_constructible<T, const nullptr_t&>,
+  conjunction<is_assignable<T&, const nullptr_t&>, is_same<T&, decltype(ss::declval<T&>() = ss::declval<const nullptr_t&>())>>,
+  conjunction<EqualityComparableWith<const T&, const nullptr_t&>, EqualityComparableWith<const nullptr_t&, const T&>>,
+  conjunction<NonEqualityComparableWith<const T&, const nullptr_t&>, NonEqualityComparableWith<const nullptr_t&, const T&>>
+  >;
+
+} // namespace detail
+
 } // namespace ss
 
 
