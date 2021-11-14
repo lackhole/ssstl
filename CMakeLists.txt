@@ -18,5 +18,11 @@ option(SS_TEST_MATRIX "If running in github workflow with matrix" OFF)
 
 if (SS_TEST)
     enable_testing()
-    add_subdirectory(${SS_DIR}/test)
+    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/test)
+endif()
+
+option(SS_GENERATE_DOCS "Generate status documents" OFF)
+
+if (SS_GENERATE_DOCS)
+    add_subdirectory(tools/generate_doc)
 endif()
