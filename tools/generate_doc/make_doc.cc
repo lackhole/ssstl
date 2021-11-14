@@ -8,10 +8,12 @@
 #include <string_view>
 #include <vector>
 #include <iostream>
+#include <map>
 #include <unordered_map>
 #include <regex>
 #include <fstream>
 #include <filesystem>
+#include <numeric>
 
 #include "ss/optional.h"
 #include "ss/type_traits.h"
@@ -520,6 +522,8 @@ void MakeDocument(const std::vector<Feature>& features,
 
   ofs << CreateDocumentHeader(title);
 
+  std::map<int, int> version_count;
+
   if (type == kDocumentTypeDefault) {
     std::vector<xstring> categories;
     constexpr const int feature_width = 47;
@@ -587,6 +591,7 @@ void MakeDocument(const std::vector<Feature>& features,
         bool all_deprecated = false;
         bool all_removed = false;
         int unused_version = 0;
+        int min_version = 99;
 
         if (feature.names.size() == 1 || feature.t_mark.size() <= 1) {
           std::vector<std::string> names;
@@ -624,7 +629,9 @@ void MakeDocument(const std::vector<Feature>& features,
             names.emplace_back(ss::move(name));
             if (feature.t_mark.size() <= 1 && it != begin)
               continue;
-            versions.emplace_back("![][cpp" + std::to_string(version < kVersion11 || version == kVersionLegacy ? kVersion11 : version) + "]");
+            version = (version < kVersion11 || version == kVersionLegacy) ? kVersion11 : version;
+            versions.emplace_back("![][cpp" + std::to_string(version) + "]");
+            min_version = std::min(version, min_version);
           }
 
           std::string name_result = names[0];
@@ -635,12 +642,14 @@ void MakeDocument(const std::vector<Feature>& features,
           for (auto it = std::next(versions.begin()); it != versions.end(); ++it)
             version_result += " <br/>" + *it;
 
-          if (all_removed)
+          if (all_removed) {
             ofs << make_line(name_result, version_result, "Removed in C++" + std::to_string(unused_version));
-          else if (all_deprecated)
+          } else if (all_deprecated) {
             ofs << make_line(name_result, version_result, "Deprecated in C++" + std::to_string(unused_version));
-          else
+          } else {
             ofs << make_line(name_result, version_result, "![][notyet]");
+            version_count[min_version]++;
+          }
         } else {
           std::vector<std::string> names;
           std::vector<std::string> versions;
@@ -697,6 +706,16 @@ void MakeDocument(const std::vector<Feature>& features,
       }
     }
   }
+
+  ofs << "\n\n"
+      << "<!--\n";
+  for (const auto& kv : version_count)
+    ofs << "\tC++" << kv.first << ": " << kv.second << "\t| 0\n";
+  ofs << "\n\tTotal: " << std::accumulate(version_count.begin(), version_count.end(), 0, [](int sum, const auto& elem) {
+    return sum + elem.second;
+  }) << "\t| 0";
+  ofs << "-->\n";
+
 
   ofs << '\n' << CreateDocumentFooter();
   ofs.close();
