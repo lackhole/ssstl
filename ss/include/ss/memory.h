@@ -12,8 +12,10 @@
 #
 # include "ss/detail/macro.h"
 # include "ss/detail/addressof.h"
+# include "ss/compressed_pair.h"
 # include "ss/iterator.h"
 # include "ss/type_traits.h"
+# include "ss/utility.h"
 
 # include "ss/experimental/utility.h"
 
@@ -589,7 +591,10 @@ struct default_delete {
   template<typename U, enable_if_t<is_convertible<U*, T*>::value, int> = 0>
   default_delete(const default_delete<U>&) noexcept {}
 
-  void operator()(T* ptr) const { delete ptr; }
+  void operator()(T* ptr) const {
+    static_assert(detail::is_complete<T>::value, "ss::default_delete<T>: T must be complete type");
+    delete ptr;
+  }
 };
 
 
@@ -607,11 +612,68 @@ struct default_delete<T[]> {
 
   template<typename U, enable_if_t<is_convertible<U(*)[], T(*)[]>::value, int> = 0>
   void operator()(U* ptr) const {
-    static_assert(detail::is_complete<U>::value, "U must be complete type");
+    static_assert(detail::is_complete<U>::value, "ss::default_delete<T[]>: U must be complete type");
     delete[] ptr;
   }
 };
 
+
+namespace detail {
+
+template<typename T, typename Deleter, bool v = has_pointer<remove_reference_t<Deleter>>::value /* true */>
+struct unique_ptr_pointer {
+  using type = typename remove_reference_t<Deleter>::pointer;
+};
+
+template<typename T, typename Deleter>
+struct unique_ptr_pointer<T, Deleter, false> {
+  using type = T*;
+};
+
+template<typename Deleter>
+struct unique_ptr_deleter_default_constructible
+  : conjunction<is_default_constructible<Deleter>, negation<is_pointer<Deleter>>> {};
+
+template<typename A>
+struct unique_ptr_deleter_ctor {
+  using lvalue_reference = const A&;
+  using rvalue_reference = A&&;
+# ifdef SS_STRICT_NOEXCEPT
+  using enable_lvalue = conjunction<is_constructible<A, lvalue_reference>, is_nothrow_move_constructible<A>, is_nothrow_copy_constructible<A>>;
+  using enable_rvalue = conjunction<is_constructible<A, rvalue_reference>, is_nothrow_move_constructible<A>>;
+# else
+  using enable_lvalue = is_constructible<A, lvalue_reference>;
+  using enable_rvalue = is_constructible<A, rvalue_reference>;
+# endif
+};
+
+template<typename A>
+struct unique_ptr_deleter_ctor<A&> {
+  using lvalue_reference = A&;
+  using rvalue_reference = A&&;
+  using enable_lvalue = is_constructible<A, lvalue_reference>;
+  using enable_rvalue = is_constructible<A, rvalue_reference>;
+};
+
+template<typename A>
+struct unique_ptr_deleter_ctor<const A&> {
+  using lvalue_reference = const A&;
+  using rvalue_reference = const A&&;
+  using enable_lvalue = is_constructible<A, lvalue_reference>;
+  using enable_rvalue = is_constructible<A, rvalue_reference>;
+};
+
+template<typename A>
+struct unique_ptr_deleter_ctor<A&&> {
+  using enable_lvalue = false_type;
+  using enable_rvalue = false_type;
+};
+
+
+}
+
+// Require not throw -> interpret as implementation-defined(noexcept block) behavior. Not changing overload resolution.
+// Define SS_STRICT_NOEXCEPT to change its overload resolution
 
 /**
  * unique_ptr<T>
@@ -620,7 +682,207 @@ struct default_delete<T[]> {
  */
 template<typename T, typename Deleter = default_delete<T>>
 class unique_ptr {
+ public:
+  using pointer = typename detail::unique_ptr_pointer<T, Deleter>::type;
+  using element_type = T;
+  using deleter_type = Deleter;
 
+  static_assert(detail::NullablePointer<pointer>::value, "ss::unique_ptr<T>: pointer type must satisfy NullablePointer");
+
+  template<typename Dummy = void,
+    enable_if_t<
+      conjunction<
+        is_void<Dummy>,
+        detail::unique_ptr_deleter_default_constructible<deleter_type>
+      >::value,
+    int> = 0>
+  constexpr unique_ptr() noexcept : ptr_(pointer()) {}
+
+  template<typename Dummy = void,
+    enable_if_t<
+      conjunction<
+        is_void<Dummy>,
+        detail::unique_ptr_deleter_default_constructible<deleter_type>
+      >::value,
+    int> = 0>
+  constexpr unique_ptr(nullptr_t)
+    : ptr_(nullptr_t{}) {}
+
+  template<typename Dummy = void,
+    enable_if_t<
+      conjunction<
+        is_void<Dummy>,
+        detail::unique_ptr_deleter_default_constructible<deleter_type>
+      >::value,
+    int> = 0>
+  constexpr explicit unique_ptr(pointer p) noexcept : ptr_(p) {}
+
+  template<typename Dummy = void,
+    enable_if_t<
+      conjunction<
+        is_void<Dummy>,
+        negation<is_reference<deleter_type>>,
+        typename detail::unique_ptr_deleter_ctor<deleter_type>::enable_lvalue
+      >::value,
+      int> = 0>
+  constexpr unique_ptr(pointer p, const deleter_type& d) noexcept : ptr_(p, ss::forward<decltype(d)>(d)) {}
+
+  template<typename Dummy = void,
+    enable_if_t<
+      conjunction<
+        is_void<Dummy>,
+        is_reference<deleter_type>,
+        typename detail::unique_ptr_deleter_ctor<deleter_type>::enable_lvalue
+      >::value,
+      int> = 0>
+  constexpr unique_ptr(pointer p, deleter_type d) noexcept : ptr_(p, ss::forward<decltype(d)>(d)) {}
+
+  template<typename Dummy = void,
+    enable_if_t<
+      conjunction<
+        is_void<Dummy>,
+        negation<is_reference<deleter_type>>,
+        typename detail::unique_ptr_deleter_ctor<deleter_type>::enable_rvalue
+      >::value,
+      int> = 0>
+  constexpr unique_ptr(pointer p, deleter_type&& d) noexcept : ptr_(p, ss::forward<decltype(d)>(d)) {}
+
+  template<typename Dummy = void,
+    enable_if_t<
+      conjunction<
+        is_void<Dummy>,
+        is_reference<deleter_type>,
+        typename detail::unique_ptr_deleter_ctor<deleter_type>::enable_rvalue
+      >::value,
+    int> = 0>
+  constexpr unique_ptr(pointer p, typename detail::unique_ptr_deleter_ctor<deleter_type>::rvalue_reference d) = delete;
+
+
+  template<typename Dummy = void,
+    enable_if_t<
+      conjunction<
+        is_void<Dummy>,
+        is_reference<deleter_type>,
+# ifdef SS_STRICT_NOEXCEPT
+        is_nothrow_move_constructible<deleter_type>
+# else
+        is_move_constructible<deleter_type>
+# endif
+      >::value,
+    int> = 0>
+  constexpr unique_ptr(unique_ptr&& other) noexcept : ptr_(other.release(), other.get_deleter()) {}
+
+  template<typename Dummy = void,
+    enable_if_t<
+      conjunction<
+        is_void<Dummy>,
+        negation<is_reference<deleter_type>>,
+        is_move_constructible<deleter_type>
+      >::value,
+    int> = 0>
+  constexpr unique_ptr(unique_ptr&& other) noexcept : ptr_(other.release(), other.get_deleter()) {}
+
+  template<typename U, typename E,
+    enable_if_t<
+      conjunction<
+        is_convertible<typename unique_ptr<U, E>::pointer, pointer>,
+        negation<is_array<U>>,
+        disjunction <
+          conjunction <
+            is_reference<deleter_type>,
+            is_same<deleter_type, E>
+# ifdef SS_STRICT_NOEXCEPT
+            , is_nothrow_constructible<deleter_type, const remove_reference_t<E>&>
+# endif
+          >, conjunction <
+            negation<is_reference<deleter_type>>,
+            is_convertible<E, deleter_type>
+# ifdef SS_STRICT_NOEXCEPT
+            , is_nothrow_constructible<deleter_type, E&&>
+# endif
+          >
+        >
+      >::value,
+    int> = 0>
+  unique_ptr(unique_ptr<U, E>&& u) noexcept : ptr_(u.release(), ss::forward<E>(u.get_deleter())) {}
+
+  template<typename D = deleter_type,
+    enable_if_t<
+      conjunction<
+        is_move_assignable<D>
+# ifdef SS_STRICT_NOEXCEPT
+        , disjunction <
+            conjunction <
+              is_reference<deleter_type>,
+              is_nothrow_move_assignable<remove_reference_t<deleter_type>>,
+              is_nothrow_copy_assignable<remove_reference_t<deleter_type>>
+            >, conjunction <
+              negation<is_reference<deleter_type>>,
+              is_nothrow_move_assignable<deleter_type>
+            >
+        >
+# endif
+      >::value,
+    int> = 0>
+  unique_ptr& operator=(unique_ptr&& r) noexcept {
+    reset(r.release());
+    get_deleter() = ss::forward<deleter_type>(r.get_deleter());
+  }
+
+  template<typename U, typename E,
+    enable_if_t<
+      conjunction<
+        negation<is_array<U>>,
+        is_convertible<typename unique_ptr<U, E>::pointer, pointer>,
+        is_assignable<deleter_type&, E&&>
+      >::value,
+    int> = 0>
+  unique_ptr& operator=(unique_ptr<U, E>&& r) noexcept {
+    reset(r.release());
+    get_deleter() = ss::forward<deleter_type>(r.get_deleter());
+  }
+
+  unique_ptr& operator=(nullptr_t) noexcept {
+    reset();
+  }
+
+  ~unique_ptr() noexcept {
+    if (get() != nullptr) {
+      get_deleter()(get());
+      ptr_.first() = pointer();
+    }
+  }
+
+  pointer release() noexcept {
+    pointer p = ptr_.first();
+    ptr_.first() = pointer();
+    return p;
+  }
+
+  void reset(pointer ptr = pointer()) noexcept {
+    // TODO: assert self-reset for debugging
+    pointer old_ptr = ptr_.first();
+    ptr_.first() = ptr;
+    if (old_ptr)
+      get_deleter()(old_ptr);
+  }
+
+  void swap(unique_ptr& other) noexcept {
+    ptr_.swap(other.ptr_);
+  }
+
+  pointer get() const noexcept { return ptr_.first(); }
+
+  deleter_type& get_deleter() noexcept { return ptr_.second(); }
+  const deleter_type& get_deleter() const noexcept { return ptr_.second(); }
+
+  explicit operator bool() const noexcept { return get() != nullptr; }
+
+  add_lvalue_reference_t<element_type> operator*() const noexcept(noexcept(*ss::declval<pointer>())) { return *get(); }
+  pointer operator->() const noexcept { return get(); }
+
+ private:
+  compressed_pair<pointer, deleter_type> ptr_;
 };
 
 /**
