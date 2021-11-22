@@ -32,4 +32,4 @@ jobs:
 
       - name: Run Test
         working-directory: ${{github.workspace}}/build-${{matrix.cxx}}
-        run: ctest -C ${{env.BUILD_TYPE}} --extra-verbose --output-on-failure
+        run: ctest -C ${{env.BUILD_TYPE}} --extra-verbose --output-on-failure -j9
