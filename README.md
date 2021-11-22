@@ -67,7 +67,7 @@ Focusing on implementing high C++ features for low C++(i.e. You can use `ss::opt
 | Dynamic memory management                     | Feature status                                                        | Notes            |
 |-----------------------------------------------|-----------------------------------------------------------------------|------------------|
 | new                                           | ![][unknown_]                                                         |                  |
-| [memory](status/memory.md)                    | ![][cpp11021] ![][cpp14100] ![][cpp17000] ![][cpp20000] ![][cpp23033] |                  |
+| [memory](status/memory.md)                    | ![][cpp11024] ![][cpp14100] ![][cpp17000] ![][cpp20000] ![][cpp23033] |                  |
 | scoped_allocator                              | ![][unknown_]                                                         |                  |
 | memory_resource                               | ![][unknown_]                                                         |                  |
 
@@ -196,7 +196,7 @@ Focusing on implementing high C++ features for low C++(i.e. You can use `ss::opt
 [cpp11003]: https://img.shields.io/badge/C++11-3%25-orange
 [cpp11005]: https://img.shields.io/badge/C++11-5%25-orange
 [cpp11007]: https://img.shields.io/badge/C++11-7%25-orange
-[cpp11021]: https://img.shields.io/badge/C++11-21%25-orange
+[cpp11024]: https://img.shields.io/badge/C++11-24%25-orange
 [cpp11063]: https://img.shields.io/badge/C++11-63%25-yellowgreen
 [cpp11100]: https://img.shields.io/badge/C++11-100%25-brightgreen
 [cpp11200]: https://img.shields.io/badge/C++11-100%25-blue

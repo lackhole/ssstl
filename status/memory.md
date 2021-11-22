@@ -87,7 +87,7 @@
 |static_pointer_cast<br/> dynamic_pointer_cast<br/> const_pointer_cast<br/> reinterpret_pointer_cast            |![][cpp11]<br/> ![][cpp17]<br/> ![][cpp20] | ![][notyet]                |
 |get_deleter                                                                                                    |![][legcy]                                 | ![][notyet]                |
 |operator==<br/> ~~operator!=~~<br/> ~~operator<~~<br/> ~~operator<=~~<br/> ~~operator>~~<br/> ~~operator>=~~<br/> operator<=><br/> |![][cpp11]<br/> ![][cpp20] | (`shared_ptr`)![][notyet]  |
-|operator<<                                                                                                     |![][legcy]                                 | ![][notyet]                |
+|operator<<                                                                                                     |![][legcy]                                 | ![][cpp11]                 |
 |ss::swap(ss::unique_ptr)                                                                                       |![][legcy]                                 | ![][notyet]                |
 |ss::swap(ss::weak_ptr)                                                                                         |![][legcy]                                 | ![][notyet]                |
 | **Smart pointer adaptor creation**       |          |                                 |
@@ -114,13 +114,13 @@
 |ranges::uninitialized_destroy_n           |![][cpp20]| ![][notyet]                     |
 
 <!-- 
-    C++11 : 33  | 7
+    C++11 : 33  | 8
     C++14 : 1   | 1
     C++17 : 9   | 0
     C++20 : 19  | 0
     C++23 : 6   | 2
 
-    Total: 68   | 9
+    Total: 68   | 11
 -->
 
 \* Used `std::numeric_limits`

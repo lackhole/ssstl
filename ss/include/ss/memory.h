@@ -9,10 +9,12 @@
 #
 # include <limits>
 # include <exception>
+# include <ostream>
 #
 # include "ss/detail/macro.h"
 # include "ss/detail/addressof.h"
 # include "ss/compressed_pair.h"
+# include "ss/functional.h"
 # include "ss/iterator.h"
 # include "ss/type_traits.h"
 # include "ss/utility.h"
@@ -24,7 +26,7 @@ namespace ss {
 namespace detail {
 
 template<typename T, typename ...Args>
-auto in_place_new_test(int) -> decltype(::new(::ss::declval<void*>()) T(ss::declval<Args>()...));
+auto in_place_new_test(int) -> decltype(::new(::ss::declval<void *>()) T(ss::declval<Args>()...));
 
 template<typename...>
 auto in_place_new_test(...) -> unused;
@@ -41,16 +43,13 @@ struct in_place_new_allocatable : is_not_same<unused, decltype(in_place_new_test
  * @return
  */
 template<typename T, typename ...Args>
-constexpr enable_if_t<detail::in_place_new_allocatable<T, Args...>::value, T*>
-construct_at(T* p, Args&&... args) {
-  return ::new (const_cast<void*>(static_cast<const volatile void*>(p))) T(ss::forward<Args>(args)...);
+constexpr enable_if_t<detail::in_place_new_allocatable<T, Args...>::value, T *>
+construct_at(T *p, Args&& ... args) {
+  return ::new(const_cast<void *>(static_cast<const volatile void *>(p))) T(ss::forward<Args>(args)...);
 }
-
 
 template<typename ForwardIt>
 SS_CONSTEXPR_AFTER_14 void destroy(ForwardIt first, ForwardIt last);
-
-
 
 /**
  * destroy_at
@@ -58,16 +57,14 @@ SS_CONSTEXPR_AFTER_14 void destroy(ForwardIt first, ForwardIt last);
  * @param p
  */
 template<typename T, enable_if_t<!is_array<T>::value, int> = 0>
-SS_CONSTEXPR_AFTER_14 void destroy_at(T* p) {
+SS_CONSTEXPR_AFTER_14 void destroy_at(T *p) {
   p->~T();
 }
 
 template<typename T, enable_if_t<is_array<T>::value, int> = 0>
-SS_CONSTEXPR_AFTER_14 void destroy_at(T* p) {
+SS_CONSTEXPR_AFTER_14 void destroy_at(T *p) {
   ss::destroy(ss::begin(p), ss::end(p));
 }
-
-
 
 /**
  * destroy
@@ -80,49 +77,73 @@ SS_CONSTEXPR_AFTER_14 void destroy(ForwardIt first, ForwardIt last) {
     ss::destroy_at(ss::addressof(*first));
 }
 
-
 template<typename ForwardIt, typename Size>
 SS_CONSTEXPR_AFTER_14 ForwardIt destroy_n(ForwardIt first, Size n) {
-  for(; n > 0; (void) ++first, --n)
+  for (; n > 0; (void) ++first, --n)
     ss::destroy_at(ss::addressof(first));
   return first;
 }
 
-
 namespace detail {
 
-template<typename T, typename = void> struct has_pointer : false_type {};
-template<typename T> struct has_pointer<T, void_t<typename T::pointer>> : true_type {};
+template<typename T, typename = void>
+struct has_pointer : false_type {};
+template<typename T>
+struct has_pointer<T, void_t<typename T::pointer>> : true_type {};
 
-template<typename T, typename = void> struct has_const_pointer : false_type {};
-template<typename T> struct has_const_pointer<T, void_t<typename T::const_pointer>> : true_type {};
+template<typename T, typename = void>
+struct has_const_pointer : false_type {};
+template<typename T>
+struct has_const_pointer<T, void_t<typename T::const_pointer>> : true_type {};
 
-template<typename T, typename = void> struct has_void_pointer : false_type {};
-template<typename T> struct has_void_pointer<T, void_t<typename T::void_pointer>> : true_type {};
+template<typename T, typename = void>
+struct has_void_pointer : false_type {};
+template<typename T>
+struct has_void_pointer<T, void_t<typename T::void_pointer>> : true_type {};
 
-template<typename T, typename = void> struct has_const_void_pointer : false_type {};
-template<typename T> struct has_const_void_pointer<T, void_t<typename T::const_void_pointer>> : true_type {};
+template<typename T, typename = void>
+struct has_const_void_pointer : false_type {};
+template<typename T>
+struct has_const_void_pointer<T, void_t<typename T::const_void_pointer>> : true_type {};
 
-template<typename T, typename = void> struct has_difference_type : false_type {};
-template<typename T> struct has_difference_type<T, void_t<typename T::difference_type>> : true_type {};
+template<typename T, typename = void>
+struct has_difference_type : false_type {};
+template<typename T>
+struct has_difference_type<T, void_t<typename T::difference_type>> : true_type {};
 
-template<typename T, typename = void> struct has_size_type : false_type {};
-template<typename T> struct has_size_type<T, void_t<typename T::size_type>> : true_type {};
+template<typename T, typename = void>
+struct has_size_type : false_type {};
+template<typename T>
+struct has_size_type<T, void_t<typename T::size_type>> : true_type {};
 
-template<typename T, typename = void> struct has_propagate_on_container_copy_assignment : false_type {};
-template<typename T> struct has_propagate_on_container_copy_assignment<T, void_t<typename T::propagate_on_container_copy_assignment>> : true_type {};
+template<typename T, typename = void>
+struct has_propagate_on_container_copy_assignment : false_type {};
+template<typename T>
+struct has_propagate_on_container_copy_assignment<T, void_t<typename T::propagate_on_container_copy_assignment>>
+  : true_type {
+};
 
-template<typename T, typename = void> struct has_propagate_on_container_move_assignment : false_type {};
-template<typename T> struct has_propagate_on_container_move_assignment<T, void_t<typename T::propagate_on_container_move_assignment>> : true_type {};
+template<typename T, typename = void>
+struct has_propagate_on_container_move_assignment : false_type {};
+template<typename T>
+struct has_propagate_on_container_move_assignment<T, void_t<typename T::propagate_on_container_move_assignment>>
+  : true_type {
+};
 
-template<typename T, typename = void> struct has_propagate_on_container_swap : false_type {};
-template<typename T> struct has_propagate_on_container_swap<T, void_t<typename T::propagate_on_container_swap>> : true_type {};
+template<typename T, typename = void>
+struct has_propagate_on_container_swap : false_type {};
+template<typename T>
+struct has_propagate_on_container_swap<T, void_t<typename T::propagate_on_container_swap>> : true_type {};
 
-template<typename T, typename = void> struct has_is_always_equal : false_type {};
-template<typename T> struct has_is_always_equal<T, void_t<typename T::is_always_equal>> : true_type {};
+template<typename T, typename = void>
+struct has_is_always_equal : false_type {};
+template<typename T>
+struct has_is_always_equal<T, void_t<typename T::is_always_equal>> : true_type {};
 
-template<typename T, typename U, typename = void> struct has_rebind : false_type {};
-template<typename T, typename U> struct has_rebind<T, U, void_t<typename T::template rebind<U>>> : true_type {};
+template<typename T, typename U, typename = void>
+struct has_rebind : false_type {};
+template<typename T, typename U>
+struct has_rebind<T, U, void_t<typename T::template rebind<U>>> : true_type {};
 
 //template<typename T, typename = void> struct has_element_type : false_type {};
 //template<typename T> struct has_element_type<T, void_t<typename T::element_type>> : true_type {};
@@ -174,9 +195,9 @@ struct pointer_traits_rebind<Ptr, U, false> {
  */
 template<typename Ptr>
 struct pointer_traits {
-  using pointer           = Ptr;
-  using element_type      = typename detail::pointer_traits_element_type<Ptr>::type;
-  using difference_type   = typename detail::pointer_traits_difference_type<Ptr>::type;
+  using pointer = Ptr;
+  using element_type = typename detail::pointer_traits_element_type<Ptr>::type;
+  using difference_type = typename detail::pointer_traits_difference_type<Ptr>::type;
 
   template<typename U>
   using rebind = typename detail::pointer_traits_rebind<Ptr, U>::type;
@@ -187,18 +208,17 @@ struct pointer_traits {
 };
 
 template<typename T>
-struct pointer_traits<T*> {
-  using pointer           = T*;
-  using element_type      = T;
-  using difference_type   = ptrdiff_t;
+struct pointer_traits<T *> {
+  using pointer = T *;
+  using element_type = T;
+  using difference_type = ptrdiff_t;
 
-  template<typename U> using rebind = U*;
+  template<typename U> using rebind = U *;
 
   static constexpr pointer pointer_to(conditional_t<is_void<element_type>::value, void, element_type>& r) noexcept {
     return ss::addressof(r);
   }
 };
-
 
 namespace detail {
 
@@ -208,7 +228,7 @@ struct alloc_traits_pointer {
 };
 template<typename Alloc, typename value_type>
 struct alloc_traits_pointer<Alloc, value_type, false> {
-  using type = value_type*;
+  using type = value_type *;
 };
 
 template<typename Alloc, typename pointer, typename value_type, bool v = has_const_pointer<Alloc>::value>
@@ -292,7 +312,6 @@ struct alloc_traits_is_always_equal<Alloc, false> {
   using type = typename is_empty<Alloc>::type;
 };
 
-
 template<typename T, typename = void>
 struct has_other : false_type {};
 template<typename T>
@@ -313,22 +332,23 @@ struct alloc_traits_rebind_alloc<Alloc, T, false> {
   using type = typename template_type<Alloc>::template rebind_first<T>;
 };
 
-
 template<typename Alloc, typename size_type, typename pointer, typename = void>
 struct has_allocate_hint : false_type {};
 template<typename A, typename size_type, typename pointer>
 struct has_allocate_hint<A, size_type, pointer,
-    void_t<decltype(ss::declval<A>().allocate(ss::declval<size_type>(), ss::declval<pointer>()))>> : true_type {};
+                         void_t<decltype(ss::declval<A>().allocate(ss::declval<size_type>(), ss::declval<pointer>()))>>
+  : true_type {
+};
 
 template<typename Alloc, typename T, typename ...Args>
-auto test_construct(int) -> decltype(ss::declval<Alloc>().construct(ss::declval<T*>(), ss::declval<Args>()...));
+auto test_construct(int) -> decltype(ss::declval<Alloc>().construct(ss::declval<T *>(), ss::declval<Args>()...));
 template<typename Alloc, typename T, typename ...Args>
 auto test_construct(...) -> unused;
 template<typename Alloc, typename T, typename ...Args>
 struct has_construct : is_not_same<unused, decltype(test_construct<Alloc, T, Args...>(0))> {};
 
 template<typename Alloc, typename T>
-auto test_destroy(int) -> decltype(ss::declval<Alloc>().destroy(ss::declval<T*>()));
+auto test_destroy(int) -> decltype(ss::declval<Alloc>().destroy(ss::declval<T *>()));
 template<typename...>
 auto test_destroy(...) -> unused;
 template<typename Alloc, typename T>
@@ -346,7 +366,10 @@ auto test_select_on_container_copy_construction(int) -> decltype(ss::declval<All
 template<typename Alloc>
 auto test_select_on_container_copy_construction(...) -> unused;
 template<typename Alloc>
-struct has_select_on_container_copy_construction : is_not_same<unused, decltype(test_select_on_container_copy_construction<Alloc>(0))> {};
+struct has_select_on_container_copy_construction : is_not_same<unused,
+                                                               decltype(test_select_on_container_copy_construction<Alloc>(
+                                                                 0))> {
+};
 
 } // namespace detail
 
@@ -356,18 +379,20 @@ struct has_select_on_container_copy_construction : is_not_same<unused, decltype(
  */
 template<typename Alloc>
 struct allocator_traits {
-  using allocator_type      = Alloc;
-  using value_type          = typename Alloc::value_type;
-  using pointer             = typename detail::alloc_traits_pointer<Alloc, value_type>::type;
-  using const_pointer       = typename detail::alloc_traits_const_pointer<Alloc, pointer, value_type>::type;
-  using void_pointer        = typename detail::alloc_traits_void_pointer<Alloc, pointer>::type;
-  using const_void_pointer  = typename detail::alloc_traits_const_void_pointer<Alloc, pointer>::type;
-  using difference_type     = typename detail::alloc_traits_difference_type<Alloc, pointer>::type;
-  using size_type           = typename detail::alloc_traits_size_type<Alloc, difference_type>::type;
-  using propagate_on_container_copy_assignment  = typename detail::alloc_traits_propagate_on_container_copy_assignment<Alloc>::type;
-  using propagate_on_container_move_assignment  = typename detail::alloc_traits_propagate_on_container_move_assignment<Alloc>::type;
-  using propagate_on_container_swap             = typename detail::alloc_traits_propagate_on_container_swap<Alloc>::type;
-  using is_always_equal                         = typename detail::alloc_traits_is_always_equal<Alloc>::type;
+  using allocator_type = Alloc;
+  using value_type = typename Alloc::value_type;
+  using pointer = typename detail::alloc_traits_pointer<Alloc, value_type>::type;
+  using const_pointer = typename detail::alloc_traits_const_pointer<Alloc, pointer, value_type>::type;
+  using void_pointer = typename detail::alloc_traits_void_pointer<Alloc, pointer>::type;
+  using const_void_pointer = typename detail::alloc_traits_const_void_pointer<Alloc, pointer>::type;
+  using difference_type = typename detail::alloc_traits_difference_type<Alloc, pointer>::type;
+  using size_type = typename detail::alloc_traits_size_type<Alloc, difference_type>::type;
+  using propagate_on_container_copy_assignment = typename detail::alloc_traits_propagate_on_container_copy_assignment<
+    Alloc>::type;
+  using propagate_on_container_move_assignment = typename detail::alloc_traits_propagate_on_container_move_assignment<
+    Alloc>::type;
+  using propagate_on_container_swap = typename detail::alloc_traits_propagate_on_container_swap<Alloc>::type;
+  using is_always_equal = typename detail::alloc_traits_is_always_equal<Alloc>::type;
 
   template<typename T>
   using rebind_alloc = typename detail::alloc_traits_rebind_alloc<Alloc, T>::type;
@@ -384,12 +409,12 @@ struct allocator_traits {
   }
 
   template<typename T, typename ...Args>
-  static SS_CONSTEXPR_AFTER_14 void construct(Alloc& a, T* p, Args&&... args) {
+  static SS_CONSTEXPR_AFTER_14 void construct(Alloc& a, T *p, Args&& ... args) {
     construct_impl(detail::has_construct<Alloc, T, Args...>{}, a, p, ss::forward<Args>(args)...);
   }
 
   template<typename T>
-  static SS_CONSTEXPR_AFTER_14 void destroy(Alloc& a, T* p) {
+  static SS_CONSTEXPR_AFTER_14 void destroy(Alloc& a, T *p) {
     destroy_impl(a, p);
   }
 
@@ -410,20 +435,20 @@ struct allocator_traits {
   }
 
   template<typename T, typename ...Args>
-  static SS_CONSTEXPR_AFTER_14 void construct_impl(true_type, Alloc& a, T* p, Args&&... args) {
+  static SS_CONSTEXPR_AFTER_14 void construct_impl(true_type, Alloc& a, T *p, Args&& ... args) {
     a.construct(p, ss::forward<Args>(args)...);
   }
   template<typename T, typename ...Args>
-  static SS_CONSTEXPR_AFTER_14 void construct_impl(false_type, Alloc& a, T* p, Args&&... args) {
+  static SS_CONSTEXPR_AFTER_14 void construct_impl(false_type, Alloc& a, T *p, Args&& ... args) {
     ss::construct_at(p, ss::forward<Args>(args)...);
   }
 
   template<typename T>
-  static SS_CONSTEXPR_AFTER_14 void destroy_impl(Alloc& a, T* p, true_type) {
+  static SS_CONSTEXPR_AFTER_14 void destroy_impl(Alloc& a, T *p, true_type) {
     a.destroy(p);
   }
   template<typename T>
-  static SS_CONSTEXPR_AFTER_14 void destroy_impl(Alloc& a, T* p, false_type) {
+  static SS_CONSTEXPR_AFTER_14 void destroy_impl(Alloc& a, T *p, false_type) {
     ss::destroy_at(p);
   }
 
@@ -462,11 +487,12 @@ struct allocator {
   template<typename U>
   constexpr allocator(const allocator<U>&) noexcept {}
 
-  SS_AFTER_CXX20(constexpr) ~allocator() = default;
+  SS_AFTER_CXX20(constexpr)
+  ~allocator() = default;
 
   // TODO: Check operator new(size_t, align_val_t), operator delete(void*, align_val_t) is available
 
-  SS_NODISCARD SS_CONSTEXPR_AFTER_14 T* allocate(size_t n) {
+  SS_NODISCARD SS_CONSTEXPR_AFTER_14 T *allocate(size_t n) {
     if (std::numeric_limits<size_t>::max() / sizeof(T) < n)
       throw std::bad_array_new_length();
 # if SS_CXX_VER < 17
@@ -476,7 +502,7 @@ struct allocator {
 # endif
   }
 
-  SS_NODISCARD SS_CONSTEXPR_AFTER_14 allocation_result<T*> allocate_at_least(size_t n) {
+  SS_NODISCARD SS_CONSTEXPR_AFTER_14 allocation_result<T *> allocate_at_least(size_t n) {
     // http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2021/p0401r6.html#motivation
     if ((std::numeric_limits<size_t>::max() / sizeof(T)) < n)
       throw std::bad_array_new_length();
@@ -489,7 +515,7 @@ struct allocator {
       n};
   }
 
-  SS_CONSTEXPR_AFTER_14 void deallocate(T* p, size_t n) {
+  SS_CONSTEXPR_AFTER_14 void deallocate(T *p, size_t n) {
 # if SS_CXX_VER < 17
     ::operator delete(p);
 # else
@@ -509,7 +535,6 @@ constexpr bool operator!=(const allocator<T1>& lhs, const allocator<T2>& rhs) no
 }
 # endif
 
-
 namespace detail {
 
 template<typename Alloc, typename = void>
@@ -517,7 +542,8 @@ struct has_allocate_at_least : false_type {};
 
 template<typename Alloc>
 struct has_allocate_at_least<Alloc,
-    void_t<decltype(ss::declval<Alloc>().allocate_at_least(size_t{}))>> : true_type {};
+                             void_t<decltype(ss::declval<Alloc>().allocate_at_least(size_t{}))>> : true_type {
+};
 
 template<typename Alloc>
 constexpr allocation_result<typename allocator_traits<Alloc>::pointer>
@@ -546,8 +572,6 @@ allocate_at_least(Alloc& a, size_t n) {
  * allocator_arg_t
  */
 struct allocator_arg_t { explicit allocator_arg_t() = default; };
-
-
 
 namespace detail {
 
@@ -578,8 +602,6 @@ struct uses_allocator : detail::uses_allocator_impl<T, Alloc> {};
 template<typename T, typename Alloc> SS_INLINE_VAR constexpr bool uses_allocator_v = uses_allocator<T, Alloc>::value;
 # endif
 
-
-
 /**
  * default_delete<T>
  * @tparam T
@@ -588,16 +610,14 @@ template<typename T>
 struct default_delete {
   constexpr default_delete() = default;
 
-  template<typename U, enable_if_t<is_convertible<U*, T*>::value, int> = 0>
+  template<typename U, enable_if_t<is_convertible<U *, T *>::value, int> = 0>
   default_delete(const default_delete<U>&) noexcept {}
 
-  void operator()(T* ptr) const {
+  void operator()(T *ptr) const {
     static_assert(detail::is_complete<T>::value, "ss::default_delete<T>: T must be complete type");
     delete ptr;
   }
 };
-
-
 
 /**
  * default_delete<T[]>
@@ -611,12 +631,11 @@ struct default_delete<T[]> {
   default_delete(const default_delete<U[]>&) noexcept {}
 
   template<typename U, enable_if_t<is_convertible<U(*)[], T(*)[]>::value, int> = 0>
-  void operator()(U* ptr) const {
+  void operator()(U *ptr) const {
     static_assert(detail::is_complete<U>::value, "ss::default_delete<T[]>: U must be complete type");
     delete[] ptr;
   }
 };
-
 
 namespace detail {
 
@@ -627,12 +646,13 @@ struct unique_ptr_pointer {
 
 template<typename T, typename Deleter>
 struct unique_ptr_pointer<T, Deleter, false> {
-  using type = T*;
+  using type = T *;
 };
 
 template<typename Deleter>
 struct unique_ptr_deleter_default_constructible
-  : conjunction<is_default_constructible<Deleter>, negation<is_pointer<Deleter>>> {};
+  : conjunction<is_default_constructible<Deleter>, negation<is_pointer<Deleter>>> {
+};
 
 template<typename A>
 struct unique_ptr_deleter_ctor {
@@ -679,7 +699,8 @@ struct unique_ptr_move_constructible :
 # else
   is_move_constructible<Deleter>
 # endif
-  {};
+{
+};
 
 template<typename Deleter>
 struct unique_ptr_deleter_move_assignable :
@@ -698,52 +719,53 @@ struct unique_ptr_deleter_move_assignable :
 # else
   is_move_assignable<Deleter>
 # endif
-  {};
-
+{
+};
 
 template<typename U, typename ElementType>
 struct unique_ptr_array_ptr_convertible : false_type {};
 
 template<typename U, typename ElementType>
-struct unique_ptr_array_ptr_convertible<U*, ElementType> : is_convertible<U(*)[], ElementType(*)[]> {};
+struct unique_ptr_array_ptr_convertible<U *, ElementType> : is_convertible<U(*)[], ElementType(*)[]> {};
 
 template<typename U, typename Pointer, typename ElementType>
 struct unique_ptr_array_pointer_ctor_valid :
   disjunction<
     is_same<U, Pointer>,
     conjunction<
-      is_same<Pointer, ElementType*>,
+      is_same<Pointer, ElementType *>,
       unique_ptr_array_ptr_convertible<U, ElementType>
     >
-  > {};
+  > {
+};
 
 template<typename From, typename To>
 struct unique_ptr_array_alien_check :
   conjunction<
-    is_same<typename To::pointer, typename To::element_type*>,
-    is_same<typename From::pointer, typename From::element_type*>,
+    is_same<typename To::pointer, typename To::element_type *>,
+    is_same<typename From::pointer, typename From::element_type *>,
     is_convertible<typename From::element_type(*)[], typename To::element_type(*)[]>
-  > {};
+  > {
+};
 
 template<typename Deleter, typename E>
 using unique_ptr_deleter_convertible =
-  disjunction<
-    conjunction<
-      is_reference<Deleter>,
-      is_same<Deleter, E>
+disjunction<
+  conjunction<
+    is_reference<Deleter>,
+    is_same<Deleter, E>
 # ifdef SS_STRICT_NOEXCEPT
-      , is_nothrow_copy_constructible<deleter_type>
+    , is_nothrow_copy_constructible<deleter_type>
 # endif
-    >,
-    conjunction<
-      negation<is_reference<Deleter>>,
-      is_convertible<E, Deleter>
+  >,
+  conjunction<
+    negation<is_reference<Deleter>>,
+    is_convertible<E, Deleter>
 # ifdef SS_STRICT_NOEXCEPT
-      , is_nothrow_constructible<deleter_type, E&&>
+    , is_nothrow_constructible<deleter_type, E&&>
 # endif
-    >
-  >;
-
+  >
+>;
 
 }
 
@@ -762,7 +784,8 @@ class unique_ptr {
   using element_type = T;
   using deleter_type = Deleter;
 
-  static_assert(detail::NullablePointer<pointer>::value, "ss::unique_ptr<T>: pointer type must satisfy NullablePointer");
+  static_assert(detail::NullablePointer<pointer>::value,
+                "ss::unique_ptr<T>: pointer type must satisfy NullablePointer");
 
   template<typename Dummy = void,
     enable_if_t<
@@ -770,7 +793,7 @@ class unique_ptr {
         is_void<Dummy>,
         detail::unique_ptr_deleter_default_constructible<deleter_type>
       >::value,
-    int> = 0>
+      int> = 0>
   constexpr unique_ptr() noexcept : ptr_(pointer()) {}
 
   template<typename Dummy = void,
@@ -779,7 +802,7 @@ class unique_ptr {
         is_void<Dummy>,
         detail::unique_ptr_deleter_default_constructible<deleter_type>
       >::value,
-    int> = 0>
+      int> = 0>
   constexpr unique_ptr(nullptr_t) noexcept
     : ptr_(nullptr_t{}) {}
 
@@ -789,7 +812,7 @@ class unique_ptr {
         is_void<Dummy>,
         detail::unique_ptr_deleter_default_constructible<deleter_type>
       >::value,
-    int> = 0>
+      int> = 0>
   explicit unique_ptr(pointer p) noexcept : ptr_(p) {}
 
   // D is A / A& / const A&, signature: (pointer, const A& / A& / const A&)
@@ -799,7 +822,7 @@ class unique_ptr {
         is_void<Dummy>,
         typename detail::unique_ptr_deleter_ctor<deleter_type>::enable_lvalue
       >::value,
-    int> = 0>
+      int> = 0>
   unique_ptr(pointer p, typename detail::unique_ptr_deleter_ctor<deleter_type>::lvalue_reference d) noexcept
     : ptr_(p, ss::forward<decltype(d)>(d)) {}
 
@@ -811,7 +834,7 @@ class unique_ptr {
         negation<is_reference<deleter_type>>,
         typename detail::unique_ptr_deleter_ctor<deleter_type>::enable_rvalue
       >::value,
-    int> = 0>
+      int> = 0>
   unique_ptr(pointer p, deleter_type&& d) noexcept : ptr_(p, ss::forward<decltype(d)>(d)) {}
 
   // D is lvalue-reference type A& / const A&, signature: (pointer, A&& / const A&&)
@@ -822,7 +845,7 @@ class unique_ptr {
         is_reference<deleter_type>,
         typename detail::unique_ptr_deleter_ctor<deleter_type>::enable_rvalue
       >::value,
-    int> = 0>
+      int> = 0>
   unique_ptr(pointer p, typename detail::unique_ptr_deleter_ctor<deleter_type>::rvalue_reference d) = delete;
 
   template<typename Dummy = void,
@@ -831,7 +854,7 @@ class unique_ptr {
         is_void<Dummy>,
         detail::unique_ptr_move_constructible<deleter_type>
       >::value,
-    int> = 0>
+      int> = 0>
   unique_ptr(unique_ptr&& other) noexcept : ptr_(other.release(), other.get_deleter()) {}
 
   template<typename U, typename E,
@@ -841,7 +864,7 @@ class unique_ptr {
         is_convertible<typename unique_ptr<U, E>::pointer, pointer>,
         detail::unique_ptr_deleter_convertible<deleter_type, E>
       >::value,
-  int> = 0>
+      int> = 0>
   unique_ptr(unique_ptr<U, E>&& u) noexcept : ptr_(u.release(), ss::forward<E>(u.get_deleter())) {}
 
   template<typename Dummy = void,
@@ -850,7 +873,7 @@ class unique_ptr {
         is_void<Dummy>,
         detail::unique_ptr_deleter_move_assignable<deleter_type>
       >::value,
-    int> = 0>
+      int> = 0>
   unique_ptr& operator=(unique_ptr&& r) noexcept {
     reset(r.release());
     get_deleter() = ss::forward<deleter_type>(r.get_deleter());
@@ -863,7 +886,7 @@ class unique_ptr {
         is_convertible<typename unique_ptr<U, E>::pointer, pointer>,
         is_assignable<deleter_type&, E&&>
       >::value,
-    int> = 0>
+      int> = 0>
   unique_ptr& operator=(unique_ptr<U, E>&& r) noexcept {
     reset(r.release());
     get_deleter() = ss::forward<deleter_type>(r.get_deleter());
@@ -924,7 +947,8 @@ class unique_ptr<T[], Deleter> {
   using element_type = T;
   using deleter_type = Deleter;
 
-  static_assert(detail::NullablePointer<pointer>::value, "ss::unique_ptr<T>: pointer type must satisfy NullablePointer");
+  static_assert(detail::NullablePointer<pointer>::value,
+                "ss::unique_ptr<T>: pointer type must satisfy NullablePointer");
 
   template<typename Dummy = void,
     enable_if_t<
@@ -954,7 +978,7 @@ class unique_ptr<T[], Deleter> {
           detail::unique_ptr_array_pointer_ctor_valid<U, pointer, element_type>
         >
       >::value,
-    int> = 0>
+      int> = 0>
   explicit unique_ptr(U p) noexcept : ptr_(p) {}
 
   // D is A / A& / const A&, signature: (U, const A& / A& / const A&)
@@ -967,7 +991,7 @@ class unique_ptr<T[], Deleter> {
           detail::unique_ptr_array_pointer_ctor_valid<U, pointer, element_type>
         >
       >::value,
-    int> = 0>
+      int> = 0>
   unique_ptr(U p, typename detail::unique_ptr_deleter_ctor<deleter_type>::lvalue_reference d) noexcept
     : ptr_(p, ss::forward<decltype(d)>(d)) {}
 
@@ -982,7 +1006,7 @@ class unique_ptr<T[], Deleter> {
           detail::unique_ptr_array_pointer_ctor_valid<U, pointer, element_type>
         >
       >::value,
-    int> = 0>
+      int> = 0>
   unique_ptr(U p, deleter_type&& d) noexcept : ptr_(p, ss::forward<decltype(d)>(d)) {}
 
   // D is lvalue-reference type A& / const A&, signature: (U p, A&& / const A&& d)
@@ -996,7 +1020,7 @@ class unique_ptr<T[], Deleter> {
           detail::unique_ptr_array_pointer_ctor_valid<U, pointer, element_type>
         >
       >::value,
-    int> = 0>
+      int> = 0>
   unique_ptr(U p, typename detail::unique_ptr_deleter_ctor<deleter_type>::rvalue_reference d) = delete;
 
   template<typename Dummy = void,
@@ -1005,7 +1029,7 @@ class unique_ptr<T[], Deleter> {
         is_void<Dummy>,
         detail::unique_ptr_move_constructible<deleter_type>
       >::value,
-    int> = 0>
+      int> = 0>
   unique_ptr(unique_ptr&& other) noexcept : ptr_(other.release(), other.get_deleter()) {}
 
   template<typename U, typename E,
@@ -1015,7 +1039,7 @@ class unique_ptr<T[], Deleter> {
         detail::unique_ptr_array_alien_check<unique_ptr<T[], Deleter>, unique_ptr<U, E>>,
         detail::unique_ptr_deleter_convertible<deleter_type, E>
       >::value,
-    int> = 0>
+      int> = 0>
   unique_ptr(unique_ptr<U, E>&& u) noexcept : ptr_(u.release(), ss::forward<E>(u.get_deleter())) {}
 
   template<typename Dummy = void,
@@ -1024,7 +1048,7 @@ class unique_ptr<T[], Deleter> {
         is_void<Dummy>,
         detail::unique_ptr_deleter_move_assignable<deleter_type>
       >::value,
-    int> = 0>
+      int> = 0>
   unique_ptr& operator=(unique_ptr&& r) noexcept {
     reset(r.release());
     get_deleter() = ss::forward<deleter_type>(r.get_deleter());
@@ -1037,7 +1061,7 @@ class unique_ptr<T[], Deleter> {
         detail::unique_ptr_array_alien_check<unique_ptr<T[], Deleter>, unique_ptr<U, E>>,
         is_assignable<deleter_type&, E&&>
       >::value,
-    int> = 0>
+      int> = 0>
   unique_ptr& operator=(unique_ptr<U, E>&& r) noexcept {
     reset(r.release());
     get_deleter() = ss::forward<deleter_type>(r.get_deleter());
@@ -1052,7 +1076,7 @@ class unique_ptr<T[], Deleter> {
   template<typename U,
     enable_if_t<
       detail::unique_ptr_array_pointer_ctor_valid<U, pointer, element_type>::value,
-    int> = 0>
+      int> = 0>
   void reset(U ptr) noexcept {
     // TODO: assert self-reset for debugging
     pointer old_ptr = ptr_.first();
@@ -1084,6 +1108,119 @@ class unique_ptr<T[], Deleter> {
   compressed_pair<pointer, deleter_type> ptr_;
 };
 
+template<typename T1, typename D1, typename T2, typename D2>
+bool operator==(const unique_ptr<T1, D1>& lhs, const unique_ptr<T2, D2>& rhs) {
+  return lhs.get() == rhs.get();
+}
+
+# if SS_CXX_VER < 20
+template<typename T1, typename D1, typename T2, typename D2>
+bool operator!=(const unique_ptr<T1, D1>& lhs, const unique_ptr<T2, D2>& rhs) {
+  return lhs.get() != rhs.get();
+}
+# endif
+
+template<typename T1, typename D1, typename T2, typename D2>
+bool operator<(const unique_ptr<T1, D1>& lhs, const unique_ptr<T2, D2>& rhs) {
+  using ct = common_type_t<typename unique_ptr<T1, D1>::pointer, typename unique_ptr<T2, D2>::pointer>;
+  return less<ct>(lhs.get(), rhs.get());
+}
+
+template<typename T1, typename D1, typename T2, typename D2>
+bool operator<=(const unique_ptr<T1, D1>& lhs, const unique_ptr<T2, D2>& rhs) {
+  return !(rhs < lhs);
+}
+
+template<typename T1, typename D1, typename T2, typename D2>
+bool operator>(const unique_ptr<T1, D1>& lhs, const unique_ptr<T2, D2>& rhs) {
+  return rhs < lhs;
+}
+
+template<typename T1, typename D1, typename T2, typename D2>
+bool operator>=(const unique_ptr<T1, D1>& lhs, const unique_ptr<T2, D2>& rhs) {
+  return !(lhs < rhs);
+}
+
+// TODO
+//template<class T1, class D1, class T2, class D2>
+//requires std::three_way_comparable_with<
+//  typename unique_ptr<T1, D1>::pointer,
+//  typename unique_ptr<T2, D2>::pointer>
+//std::compare_three_way_result_t<typename unique_ptr<T1, D1>::pointer,
+//                                typename unique_ptr<T2, D2>::pointer>
+//operator<=>(const unique_ptr<T1, D1>& x, const unique_ptr<T2, D2>& y) {
+//  return std::compare_three_way{}(x.get(), y.get());
+//}
+
+template<typename T, typename D>
+bool operator==(const unique_ptr<T, D>& x, nullptr_t) noexcept {
+  return !x;
+}
+
+# if SS_CXX_VER < 20
+template<typename T, typename D>
+bool operator==(nullptr_t, const unique_ptr<T, D>& x) noexcept {
+  return !x;
+}
+
+template<typename T, typename D>
+bool operator!=(const unique_ptr<T, D>& x, nullptr_t) noexcept {
+  return (bool) x;
+}
+
+template<typename T, typename D>
+bool operator!=(nullptr_t, const unique_ptr<T, D>& x) noexcept {
+  return (bool) x;
+}
+# endif
+
+template<typename T, typename D>
+bool operator<(const unique_ptr<T, D>& x, nullptr_t) {
+  return less<typename unique_ptr<T, D>::pointer>()(x.get(), nullptr);
+}
+
+template<typename T, typename D>
+bool operator<(nullptr_t, const unique_ptr<T, D>& y) {
+  return less<typename unique_ptr<T, D>::pointer>()(nullptr, y.get());
+}
+
+template<typename T, typename D>
+bool operator<=(const unique_ptr<T, D>& x, nullptr_t) {
+  return !(nullptr < x);
+}
+
+template<typename T, typename D>
+bool operator<=(nullptr_t, const unique_ptr<T, D>& y) {
+  return !(y < nullptr);
+}
+
+template<typename T, typename D>
+bool operator>(const unique_ptr<T, D>& x, nullptr_t) {
+  return nullptr < x;
+}
+
+template<typename T, typename D>
+bool operator>(nullptr_t, const unique_ptr<T, D>& y) {
+  return y < nullptr;
+}
+
+template<typename T, typename D>
+bool operator>=(const unique_ptr<T, D>& x, nullptr_t) {
+  return !(x < nullptr);
+}
+
+template<typename T, typename D>
+bool operator>=(nullptr_t, const unique_ptr<T, D>& y) {
+  return !(nullptr < y);
+}
+
+// TODO
+//template<class T, class D>
+//requires std::three_way_comparable<typename unique_ptr<T, D>::pointer>
+//std::compare_three_way_result_t<typename unique_ptr<T, D>::pointer>
+//operator<=>(const unique_ptr<T, D>& x, std::nullptr_t) {
+//  return std::compare_three_way{}(x.get(), static_cast<typename unique_ptr<T, D>::pointer>(nullptr));
+//}
 
 
 /**
@@ -1151,6 +1288,27 @@ template<typename T, typename ...Args, enable_if_t<is_bounded_array<T>::value, i
 void make_unique_for_overwrite(Args&&...) = delete;
 
 
+template<typename CharT, typename Traits, typename Y, typename D,
+  enable_if_t<
+    is_same<std::basic_ostream<CharT, Traits>&, decltype(ss::declval<std::basic_ostream<CharT, Traits>&>() << ss::declval<const unique_ptr<Y, D>&>().get())>::value,
+  int> = 0>
+std::basic_ostream<CharT, Traits>& operator<<(std::basic_ostream<CharT, Traits>& os, const unique_ptr<Y, D>& p) {
+  os << p.get();
+  return os;
+}
+
+
+
+/**
+ * swap(unique_ptr)
+ * @param lhs
+ * @param rhs
+ * @return
+ */
+template<typename T, typename D>
+enable_if<is_swappable<D>::value> swap(unique_ptr<T, D>& lhs, unique_ptr<T, D>& rhs) noexcept {
+  lhs.swap(rhs);
+}
 
 
 } // namespace ss
