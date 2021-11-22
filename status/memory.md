@@ -80,7 +80,7 @@
 |~~get_temporary_buffer~~               |![][legcy]| Removed in C++20        |
 |~~return_temporary_buffer~~            |![][legcy]| Removed in C++20        |
 | **Smart pointer non-member operations**                                                                       |                                           |                            |
-|make_unique<br/> make_unique_for_overwrite                                                                     |![][cpp14]<br/> ![][cpp20]                 | ![][notyet]                |
+|make_unique<br/> make_unique_for_overwrite                                                                     |![][cpp14]<br/> ![][cpp20]                 | ![][cpp11]                 |
 |operator==<br/> operator!=<br/> operator<<br/> operator<=<br/> operator><br/> operator>=<br/> operator<=><br/> |![][cpp11]<br/> ![][cpp20]                 | (`unique_ptr`)![][notyet]  |
 |make_shared<br/> make_shared_for_overwrite                                                                     |![][cpp11]<br/> ![][cpp20]                 | ![][notyet]                |
 |allocate_shared<br/> allocate_shared_for_overwrite                                                             |![][cpp11]<br/> ![][cpp20]                 | ![][notyet]                |
@@ -115,7 +115,7 @@
 
 <!-- 
     C++11 : 33  | 7
-    C++14 : 1   | 0
+    C++14 : 1   | 1
     C++17 : 9   | 0
     C++20 : 19  | 0
     C++23 : 6   | 2
