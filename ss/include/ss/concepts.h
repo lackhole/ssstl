@@ -5,7 +5,10 @@
 # ifndef SS_CONCEPTS_H_
 # define SS_CONCEPTS_H_
 #
+# include "ss/detail/macro.h"
 # include "ss/type_traits.h"
+
+# if SS_CXX_VER >= 20
 
 namespace ss {
 
@@ -40,5 +43,7 @@ concept derived_from = is_public_base_of_v<Base, Derived>;
 
 
 }
+
+# endif
 
 # endif // SS_CONCEPTS_H_

@@ -5,12 +5,14 @@
 #ifndef SS_TEST_H_
 #define SS_TEST_H_
 
+#include <cstdio>
+#include <cmath>
+
+#include <algorithm>
 #include <sstream>
 #include <string>
-#include <cstdio>
 #include <iostream>
 #include <vector>
-#include <cmath>
 
 namespace ss {
 

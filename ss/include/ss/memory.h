@@ -794,7 +794,7 @@ class unique_ptr {
         detail::unique_ptr_deleter_default_constructible<deleter_type>
       >::value,
       int> = 0>
-  constexpr unique_ptr() noexcept : ptr_(pointer()) {}
+  constexpr unique_ptr() noexcept : ptr_(pointer(), compressed_pair_empty) {}
 
   template<typename Dummy = void,
     enable_if_t<
@@ -804,7 +804,7 @@ class unique_ptr {
       >::value,
       int> = 0>
   constexpr unique_ptr(nullptr_t) noexcept
-    : ptr_(nullptr_t{}) {}
+    : ptr_(nullptr_t{}, compressed_pair_empty) {}
 
   template<typename Dummy = void,
     enable_if_t<
@@ -813,7 +813,7 @@ class unique_ptr {
         detail::unique_ptr_deleter_default_constructible<deleter_type>
       >::value,
       int> = 0>
-  explicit unique_ptr(pointer p) noexcept : ptr_(p) {}
+  explicit unique_ptr(pointer p) noexcept : ptr_(p, compressed_pair_empty) {}
 
   // D is A / A& / const A&, signature: (pointer, const A& / A& / const A&)
   template<typename Dummy = void,
@@ -957,7 +957,7 @@ class unique_ptr<T[], Deleter> {
         detail::unique_ptr_deleter_default_constructible<deleter_type>
       >::value,
       int> = 0>
-  constexpr unique_ptr() noexcept : ptr_(pointer()) {}
+  constexpr unique_ptr() noexcept : ptr_(pointer(), compressed_pair_empty) {}
 
   template<typename Dummy = void,
     enable_if_t<
@@ -967,7 +967,7 @@ class unique_ptr<T[], Deleter> {
       >::value,
       int> = 0>
   constexpr unique_ptr(nullptr_t) noexcept
-    : ptr_(nullptr_t{}) {}
+    : ptr_(nullptr_t{}, compressed_pair_empty) {}
 
   template<typename U,
     enable_if_t<
@@ -979,7 +979,7 @@ class unique_ptr<T[], Deleter> {
         >
       >::value,
       int> = 0>
-  explicit unique_ptr(U p) noexcept : ptr_(p) {}
+  explicit unique_ptr(U p) noexcept : ptr_(p, compressed_pair_empty) {}
 
   // D is A / A& / const A&, signature: (U, const A& / A& / const A&)
   template<typename U,
