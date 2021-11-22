@@ -17,15 +17,15 @@
 | **Garbage collector support**         |          |                         |
 |~~pointer_safety~~                     |![][cpp11]| Removed in C++23        |
 | **Allocators**                        |          |                         |
-|allocator                              |![][legcy]| ![][notyet]             |
+|allocator                              |![][legcy]| ![][cpp11]              |
 |allocator_traits                       |![][cpp11]| ![][cpp11]*             |
-|allocation_result                      |![][cpp23]| ![][notyet]             |
-|allocator_arg_t                        |![][cpp11]| ![][notyet]             |
-|uses_allocator                         |![][cpp11]| ![][notyet]             |
+|allocation_result                      |![][cpp23]| ![][cpp11]              |
+|allocator_arg_t                        |![][cpp11]| ![][cpp11]              |
+|uses_allocator                         |![][cpp11]| ![][cpp11]              |
 | **Uninitialized storage**             |          |                         |
 |~~raw_storage_iterator~~               |![][legcy]| Removed in C++20        |
 | **Smart pointers**                    |          |                         |
-|unique_ptr                             |![][cpp11]| ![][notyet]             |
+|unique_ptr                             |![][cpp11]| ![][cpp11]              |
 |shared_ptr                             |![][cpp11]| ![][notyet]             |
 |weak_ptr                               |![][cpp11]| ![][notyet]             |
 |~~auto_ptr~~                           |![][cpp11]| Removed in C++17        |
@@ -35,7 +35,7 @@
 |owner_less                             |![][cpp11]| ![][notyet]             |
 |enable_shared_from_this                |![][cpp11]| ![][notyet]             |
 |bad_weak_ptr                           |![][cpp11]| ![][notyet]             |
-|default_delete                         |![][cpp11]| ![][notyet]             |
+|default_delete                         |![][cpp11]| ![][cpp11]              |
 |ss::hash\<ss::unique_ptr>              |![][cpp11]| ![][notyet]             |
 |ss::hash\<ss::shared_ptr>              |![][cpp11]| ![][notyet]             |
 | **Smart pointer adaptors**            |          |                         |
@@ -50,10 +50,10 @@
 |                                       |          |                         |
 | **Functions**                         |          |                         |
 | **Allocators**                        |          |                         |
-|allocate_at_least                      |![][cpp23]| ![][notyet]             |
+|allocate_at_least                      |![][cpp23]| ![][cpp11]              |
 | **Miscellaneous**                     |          |                         |
 |to_address                             |![][cpp20]| ![][notyet]             |
-|addressof                              |![][cpp11]| ![][notyet]             |
+|addressof                              |![][cpp11]| ![][cpp11]              |
 |align                                  |![][cpp11]| ![][notyet]             |
 |assume_aligned                         |![][cpp20]| ![][notyet]             |
 | **Garbage collector support**         |          |                         |
@@ -112,6 +112,16 @@
 |ranges::uninitialized_destroy_at          |![][cpp20]| ![][notyet]                     |
 |ranges::uninitialized_destroy             |![][cpp20]| ![][notyet]                     |
 |ranges::uninitialized_destroy_n           |![][cpp20]| ![][notyet]                     |
+
+<!-- 
+    C++11 : 33  | 7
+    C++14 : 1   | 0
+    C++17 : 9   | 0
+    C++20 : 19  | 0
+    C++23 : 6   | 2
+
+    Total: 68   | 9
+-->
 
 \* Used `std::numeric_limits`
 
