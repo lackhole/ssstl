@@ -949,8 +949,10 @@ class unique_ptr<T[], Deleter> {
     enable_if_t<
       conjunction<
         detail::unique_ptr_deleter_default_constructible<deleter_type>,
-        is_null_pointer<U>,
-        detail::unique_ptr_array_pointer_ctor_valid<U, pointer, element_type>
+        disjunction<
+          is_null_pointer<U>,
+          detail::unique_ptr_array_pointer_ctor_valid<U, pointer, element_type>
+        >
       >::value,
     int> = 0>
   explicit unique_ptr(U p) noexcept : ptr_(p) {}
@@ -960,8 +962,10 @@ class unique_ptr<T[], Deleter> {
     enable_if_t<
       conjunction<
         typename detail::unique_ptr_deleter_ctor<deleter_type>::enable_lvalue,
-        is_null_pointer<U>,
-        detail::unique_ptr_array_pointer_ctor_valid<U, pointer, element_type>
+        disjunction<
+          is_null_pointer<U>,
+          detail::unique_ptr_array_pointer_ctor_valid<U, pointer, element_type>
+        >
       >::value,
     int> = 0>
   unique_ptr(U p, typename detail::unique_ptr_deleter_ctor<deleter_type>::lvalue_reference d) noexcept
@@ -973,8 +977,10 @@ class unique_ptr<T[], Deleter> {
       conjunction<
         negation<is_reference<deleter_type>>,
         typename detail::unique_ptr_deleter_ctor<deleter_type>::enable_rvalue,
-        is_null_pointer<U>,
-        detail::unique_ptr_array_pointer_ctor_valid<U, pointer, element_type>
+        disjunction<
+          is_null_pointer<U>,
+          detail::unique_ptr_array_pointer_ctor_valid<U, pointer, element_type>
+        >
       >::value,
     int> = 0>
   unique_ptr(U p, deleter_type&& d) noexcept : ptr_(p, ss::forward<decltype(d)>(d)) {}
@@ -985,8 +991,10 @@ class unique_ptr<T[], Deleter> {
       conjunction<
         is_reference<deleter_type>,
         typename detail::unique_ptr_deleter_ctor<deleter_type>::enable_rvalue,
-        is_null_pointer<U>,
-        detail::unique_ptr_array_pointer_ctor_valid<U, pointer, element_type>
+        disjunction<
+          is_null_pointer<U>,
+          detail::unique_ptr_array_pointer_ctor_valid<U, pointer, element_type>
+        >
       >::value,
     int> = 0>
   unique_ptr(U p, typename detail::unique_ptr_deleter_ctor<deleter_type>::rvalue_reference d) = delete;
@@ -1075,6 +1083,75 @@ class unique_ptr<T[], Deleter> {
  private:
   compressed_pair<pointer, deleter_type> ptr_;
 };
+
+
+
+/**
+ * make_unique <T>
+ * @tparam T
+ * @tparam Args
+ * @param args
+ * @return
+ */
+template<typename T, typename ...Args, enable_if_t<!is_array<T>::value, int> = 0>
+unique_ptr<T> make_unique(Args&&... args) {
+  return unique_ptr<T>(new T(ss::forward<Args>(args)...));
+}
+
+
+
+/**
+ * make_unique <T[]>
+ * @tparam T
+ * @tparam Args
+ * @param args
+ * @return
+ */
+template<typename T, enable_if_t<is_unbounded_array<T>::value, int> = 0>
+unique_ptr<T> make_unique(size_t size) {
+  return unique_ptr<T>(new remove_extent_t<T>[size]());
+}
+
+
+
+template<typename T, typename ...Args, enable_if_t<is_bounded_array<T>::value, int> = 0>
+void make_unique(Args&&...) = delete;
+
+
+
+/**
+ * make_unique_for_overwrite <T>
+ * @tparam T
+ * @tparam Args
+ * @param args
+ * @return
+ */
+template<typename T, enable_if_t<!is_array<T>::value, int> = 0>
+unique_ptr<T> make_unique_for_overwrite() {
+  return unique_ptr<T>(new T);
+}
+
+
+
+/**
+ * make_unique_for_overwrite <T[]>
+ * @tparam T
+ * @tparam Args
+ * @param args
+ * @return
+ */
+template<typename T, enable_if_t<is_unbounded_array<T>::value, int> = 0>
+unique_ptr<T> make_unique_for_overwrite(size_t size) {
+  return unique_ptr<T>(new remove_extent_t<T>[size]);
+}
+
+
+
+template<typename T, typename ...Args, enable_if_t<is_bounded_array<T>::value, int> = 0>
+void make_unique_for_overwrite(Args&&...) = delete;
+
+
+
 
 } // namespace ss
 
