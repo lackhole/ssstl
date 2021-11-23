@@ -24,27 +24,27 @@
 |is_bind_expression                | ![][notyet]             |
 |is_placeholder                    | ![][notyet]             |
 | **Arithmetic operations**        |                         |
-|plus                              | ![][notyet]             |
-|minus                             | ![][notyet]             |
-|multiplies                        | ![][notyet]             |
-|divides                           | ![][notyet]             |
-|modulus                           | ![][notyet]             |
-|negate                            | ![][notyet]             |
+|plus                              | ![][cpp11]              |
+|minus                             | ![][cpp11]              |
+|multiplies                        | ![][cpp11]              |
+|divides                           | ![][cpp11]              |
+|modulus                           | ![][cpp11]              |
+|negate                            | ![][cpp11]              |
 | **Comparisons**                  |                         |
-|equal_to                          | ![][notyet]             |
-|not_equal_to                      | ![][notyet]             |
-|greater                           | ![][notyet]             |
-|less                              | ![][notyet]             |
-|greater_equal                     | ![][notyet]             |
-|less_equal                        | ![][notyet]             |
+|equal_to                          | ![][cpp11]              |
+|not_equal_to                      | ![][cpp11]              |
+|greater                           | ![][cpp11]              |
+|less                              | ![][cpp11]              |
+|greater_equal                     | ![][cpp11]              |
+|less_equal                        | ![][cpp11]              |
 | **Logical operations**           |                         |
-|logical_and                       | ![][notyet]             |
-|logical_or                        | ![][notyet]             |
-|logical_not                       | ![][notyet]             |
+|logical_and                       | ![][cpp11]              |
+|logical_or                        | ![][cpp11]              |
+|logical_not                       | ![][cpp11]              |
 | **Bitwise operations**           |                         |
-|bit_and                           | ![][notyet]             |
-|bit_or                            | ![][notyet]             |
-|bit_xor                           | ![][notyet]             |
+|bit_and                           | ![][cpp11]              |
+|bit_or                            | ![][cpp11]              |
+|bit_xor                           | ![][cpp11]              |
 | **Hashing**                      |                         |
 |hash                              | ![][notyet]             |
 |ss::hash<*Arithmetic*> <br/> ss::hash< ss::nullptr_t> </br> ss::hash<T*> | ![][notyet] |
@@ -62,7 +62,7 @@
 |----------------------------------|:-----------------------:|
 | **Classes**                      |                         |
 | **Bitwise operations**           |                         |
-|bit_not                           | ![][notyet]             |
+|bit_not                           | ![][cpp11]              |
 
 
 | C++ 17 Features                  | Implemented in          |
@@ -102,6 +102,16 @@
 |----------------------------------|:-----------------------:|
 | **Functions**                    |                         |
 |invoke_r                          | ![][cpp11]              |
+
+<!-- 
+    C++11 : 30  | 19
+    C++14 : 1   | 1
+    C++17 : 5   | 1
+    C++20 : 9   | 0
+    C++23 : 1   | 1
+
+    Total: 46   | 4
+-->
 
 [notyet]: https://img.shields.io/badge/Not_yet-orange
 [removed]: https://img.shields.io/badge/Removed-red

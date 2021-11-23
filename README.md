@@ -49,7 +49,7 @@ Focusing on implementing high C++ features for low C++(i.e. You can use `ss::opt
 | typeindex                                     | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000]               |                  |
 | [type_traits](status/type_traits.md)          | ![][cpp11100] ![][cpp14100] ![][cpp17100] ![][cpp20064]               |                  |
 | bitset                                        | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000]               |                  |
-| [functional](status/functional.md)            | ![][cpp11003] ![][cpp14000] ![][cpp17020] ![][cpp20000] ![][cpp23100] |                  |
+| [functional](status/functional.md)            | ![][cpp11063] ![][cpp14100] ![][cpp17020] ![][cpp20000] ![][cpp23100] |                  |
 | [utility](status/utility.md)                  | ![][cpp11100] ![][cpp14100] ![][cpp17100] ![][cpp20096]               |                  |
 | chrono                                        | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000]               |                  |
 | initializer_list                              | ![][impossib]                                                         |                  |
@@ -67,7 +67,7 @@ Focusing on implementing high C++ features for low C++(i.e. You can use `ss::opt
 | Dynamic memory management                     | Feature status                                                        | Notes            |
 |-----------------------------------------------|-----------------------------------------------------------------------|------------------|
 | new                                           | ![][unknown_]                                                         |                  |
-| [memory](status/memory.md)                    | ![][cpp11021] ![][cpp14000] ![][cpp17000] ![][cpp20000] ![][cpp23033] |                  |
+| [memory](status/memory.md)                    | ![][cpp11024] ![][cpp14100] ![][cpp17000] ![][cpp20000] ![][cpp23033] |                  |
 | scoped_allocator                              | ![][unknown_]                                                         |                  |
 | memory_resource                               | ![][unknown_]                                                         |                  |
 
@@ -196,7 +196,8 @@ Focusing on implementing high C++ features for low C++(i.e. You can use `ss::opt
 [cpp11003]: https://img.shields.io/badge/C++11-3%25-orange
 [cpp11005]: https://img.shields.io/badge/C++11-5%25-orange
 [cpp11007]: https://img.shields.io/badge/C++11-7%25-orange
-[cpp11021]: https://img.shields.io/badge/C++11-21%25-orange
+[cpp11024]: https://img.shields.io/badge/C++11-24%25-orange
+[cpp11063]: https://img.shields.io/badge/C++11-63%25-yellowgreen
 [cpp11100]: https://img.shields.io/badge/C++11-100%25-brightgreen
 [cpp11200]: https://img.shields.io/badge/C++11-100%25-blue
 [cpp11300]: https://img.shields.io/badge/C++11-100%25-blue

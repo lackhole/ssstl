@@ -27,5 +27,12 @@ int main() {
 
   static_assert(ss::is_constructible<foo, foo&&>::value, " ");
 
+  auto p1 = ss::make_unique<int>(3);
+  auto p2 = ss::make_unique<int[]>(3);
+//  auto p3 = ss::make_unique<int[4]>(3);
+
+  *p1 = 99;
+  p2[1] = 99;
+
   SS_TEST_RETURN
 }

@@ -44,7 +44,8 @@ struct compressed_slot<T, index, true> : public T {
 
 } // namespace detail
 
-
+struct compressed_pair_empty_t {};
+constexpr compressed_pair_empty_t compressed_pair_empty;
 
 template<typename T, typename U, bool v = is_empty<T>::value>
 class compressed_pair : private detail::compressed_slot<T, 0>, private detail::compressed_slot<U, 1> {
@@ -59,7 +60,10 @@ class compressed_pair : private detail::compressed_slot<T, 0>, private detail::c
   constexpr compressed_pair() = default;
 
   template<typename T2>
-  constexpr compressed_pair(T2&& t2) : first_base(ss::forward<T2>(t2)) {}
+  constexpr compressed_pair(T2&& t2, compressed_pair_empty_t) : first_base(ss::forward<T2>(t2)) {}
+
+  template<typename T2>
+  constexpr compressed_pair(compressed_pair_empty_t, T2&& t2) : second_base(ss::forward<T2>(t2)) {}
 
   template<typename T2, typename U2>
   constexpr compressed_pair(T2&& t2, U2&& u2) : first_base(ss::forward<T2>(t2)), second_base(ss::forward<U2>(u2)) {}
@@ -91,7 +95,10 @@ class compressed_pair<T, T, true> : private detail::compressed_slot<T, 0> {
   constexpr compressed_pair() = default;
 
   template<typename T2>
-  constexpr compressed_pair(T2&& t2) : first_base(ss::forward<T2>(t2)) {}
+  constexpr compressed_pair(T2&& t2, compressed_pair_empty_t) : first_base(ss::forward<T2>(t2)) {}
+
+  template<typename T2>
+  constexpr compressed_pair(compressed_pair_empty_t, T2&& t2) : second_base(ss::forward<T2>(t2)) {}
 
   template<typename T2, typename U2>
   constexpr compressed_pair(T2&& t2, U2&& u2) : first_base(ss::forward<T2>(t2)) {}
@@ -121,7 +128,10 @@ class compressed_pair<T, T, false> : private detail::compressed_slot<T, 0>,
   constexpr compressed_pair() = default;
 
   template<typename T2>
-  constexpr compressed_pair(T2&& t2) : first_base(ss::forward<T2>(t2)) {}
+  constexpr compressed_pair(T2&& t2, compressed_pair_empty_t) : first_base(ss::forward<T2>(t2)) {}
+
+  template<typename T2>
+  constexpr compressed_pair(compressed_pair_empty_t, T2&& t2) : second_base(ss::forward<T2>(t2)) {}
 
   template<typename T2, typename U2>
   constexpr compressed_pair(T2&& t2, U2&& u2) : first_base(ss::forward<T2>(t2)), second_base(ss::forward<U2>(u2)) {}
