@@ -139,7 +139,7 @@ SS_INLINE_VAR constexpr piecewise_construct_t piecewise_construct{};
  * tuple forward-declare
  */
 template<typename ...Ts>
-struct tuple;
+class tuple;
 
 
 /**
@@ -512,7 +512,7 @@ template<typename T> struct gen<T, 1> : sequence<T, 0> {};
 template<typename T, T N>
 struct make_integer_sequence_impl {
   static_assert(is_integral<T>::value, "ss::make_integer_sequence : T must be integral");
-  static_assert(N < 0, "ss::make_integer_sequence : N must be greater or equal to zero");
+  static_assert(N >= 0, "ss::make_integer_sequence : N must be greater or equal to zero");
   using type = typename gen_t<T, N>::template to_type<T, integer_sequence>;
 };
 
