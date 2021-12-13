@@ -58,17 +58,6 @@ struct tuple_element<I, const volatile T> {
   using type = add_cv_t<tuple_element_t<I, T>>;
 };
 
-namespace detail {
-
-template<size_t I>
-struct tuple_get {
-  template<typename T> static constexpr       tuple_element_t<I, T>&  get(const T& t) noexcept;
-  template<typename T> static constexpr const tuple_element_t<I, T>&  get(T& t) noexcept;
-  template<typename T> static constexpr       tuple_element_t<I, T>&& get(T&& t) noexcept;
-};
-
-} // namespace detail
-
 } // namespace ss
 
 #endif // SS_DETAIL_TUPLE_HELPER_H_

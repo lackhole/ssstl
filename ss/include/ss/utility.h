@@ -400,44 +400,57 @@ struct tuple_size<pair<T1, T2>> : integral_constant<size_t, 2> {};
 
 template<size_t I, typename T1, typename T2>
 struct tuple_element<I, pair<T1, T2>> {
-  static_assert(I < 2, "ss::tuple_element : I must be 0 or 1");
+  static_assert(I < 2, "ss::tuple_element<I, pair<T1, T2>> : I must be 0 or 1");
 };
 
 template<typename T1, typename T2> struct tuple_element<0, pair<T1, T2>> { using type = T1; };
 template<typename T1, typename T2> struct tuple_element<1, pair<T1, T2>> { using type = T2; };
 
 namespace detail {
+
+template<size_t>
+struct get_pair;
+
 template<>
-struct tuple_get<0> {
-  template<typename T> static constexpr tuple_element_t<0, T> get(const T& p) noexcept { return p.first; }
-  template<typename T> static constexpr tuple_element_t<0, T> get(T& p) noexcept  { return p.first; };
-  template<typename T> static constexpr tuple_element_t<0, T> get(T&& p) noexcept { return ss::move(p.first); };
+struct get_pair<0> {
+  template<typename T1, typename T2> static constexpr       T1&  get(      pair<T1, T2>&  p) noexcept { return p.first;           }
+  template<typename T1, typename T2> static constexpr const T1&  get(const pair<T1, T2>&  p) noexcept { return p.first;           }
+  template<typename T1, typename T2> static constexpr       T1&& get(      pair<T1, T2>&& p) noexcept { return ss::move(p.first); }
+  template<typename T1, typename T2> static constexpr const T1&& get(const pair<T1, T2>&& p) noexcept { return ss::move(p.first); }
 };
 
 template<>
-struct tuple_get<1> {
-  template<typename T> static constexpr tuple_element_t<1, T> get(const T& p) noexcept { return p.second; }
-  template<typename T> static constexpr tuple_element_t<1, T> get(T& p) noexcept  { return p.second; };
-  template<typename T> static constexpr tuple_element_t<1, T> get(T&& p) noexcept { return ss::move(p.second); };
+struct get_pair<1> {
+  template<typename T1, typename T2> static constexpr       T2&  get(      pair<T1, T2>&  p) noexcept { return p.second;           }
+  template<typename T1, typename T2> static constexpr const T2&  get(const pair<T1, T2>&  p) noexcept { return p.second;           }
+  template<typename T1, typename T2> static constexpr       T2&& get(      pair<T1, T2>&& p) noexcept { return ss::move(p.second); }
+  template<typename T1, typename T2> static constexpr const T2&& get(const pair<T1, T2>&& p) noexcept { return ss::move(p.second); }
 };
-}
+
+} // namespace detail
 
 template<size_t I, typename T1, typename T2>
-constexpr inline tuple_element_t<I, pair<T1, T2>>
+constexpr inline tuple_element_t<I, pair<T1, T2>>&
 get(pair<T1, T2>& p) noexcept {
-  return detail::tuple_get<I>(p);
+  return detail::get_pair<I>::get(p);
 }
 
 template<size_t I, typename T1, typename T2>
-constexpr inline tuple_element_t<I, pair<T1, T2>>
+constexpr inline const tuple_element_t<I, pair<T1, T2>>&
 get(const pair<T1, T2>& p) noexcept {
-  return detail::tuple_get<I>(p);
+  return detail::get_pair<I>::get(p);
 }
 
 template<size_t I, typename T1, typename T2>
-constexpr inline tuple_element_t<I, pair<T1, T2>>
+constexpr inline tuple_element_t<I, pair<T1, T2>>&&
 get(pair<T1, T2>&& p) noexcept {
-  return detail::tuple_get<I>(p);
+  return detail::get_pair<I>::get(p);
+}
+
+template<size_t I, typename T1, typename T2>
+constexpr inline const tuple_element_t<I, pair<T1, T2>>&&
+get(pair<T1, T2>&& p) noexcept {
+  return detail::get_pair<I>::get(p);
 }
 
 template<typename T, typename U>
