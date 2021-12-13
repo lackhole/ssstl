@@ -139,7 +139,7 @@ SS_INLINE_VAR constexpr piecewise_construct_t piecewise_construct{};
  * tuple forward-declare
  */
 template<typename ...Ts>
-struct tuple;
+class tuple;
 
 
 /**
