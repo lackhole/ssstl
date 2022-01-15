@@ -573,6 +573,8 @@ allocate_at_least(Alloc& a, size_t n) {
  */
 struct allocator_arg_t { explicit allocator_arg_t() = default; };
 
+SS_INLINE_VAR constexpr allocator_arg_t allocator_arg = allocator_arg_t();
+
 namespace detail {
 
 template<typename T, typename = void>
