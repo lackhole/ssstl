@@ -3,7 +3,11 @@
 //
 
 #include "curlpp.hpp"
+
+#include <cstring>
+
 #include <curl/curl.h>
+
 #include <string>
 
 static int writer(char *data, size_t size, size_t nmemb,
