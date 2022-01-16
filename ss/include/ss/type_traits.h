@@ -204,7 +204,11 @@ struct is_specialization<Class<TParams...>, Class> : true_type {};
 template<typename ...> struct always_false : false_type {};
 template<typename ...> struct always_true : true_type {};
 
-struct unused {};
+struct unused {
+  unused() = delete;
+  unused(const unused&) = delete;
+  unused(unused&&) = delete;
+};
 
 } // namespace detail
 
