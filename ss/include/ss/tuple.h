@@ -871,7 +871,7 @@ namespace detail {
 
 struct ignore_t {
   template<typename T>
-  constexpr void operator=(T&&) const noexcept {}
+  SS_CONSTEXPR_AFTER_14 void operator=(T&&) const noexcept {}
 };
 
 } // namespace detail
@@ -885,7 +885,7 @@ SS_INLINE_VAR constexpr detail::ignore_t ignore;
 
 namespace detail {
 
-inline constexpr void dev_null(...) noexcept {}
+inline SS_CONSTEXPR_AFTER_14 void dev_null(...) noexcept {}
 
 template<typename Dst, typename Src, size_t... I>
 SS_CONSTEXPR_AFTER_14 void tuple_element_wise_copy(Dst& dst, const Src& src, index_sequence<I...>) {
