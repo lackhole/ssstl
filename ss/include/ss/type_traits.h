@@ -2571,10 +2571,42 @@ inline constexpr bool is_constant_evaluated() noexcept {
 }
 # endif
 
-
-// Named Requirements
+// Others
 namespace detail {
 
+template<typename T, typename = void>
+struct dereferenceable : false_type {};
+template<typename T>
+struct dereferenceable<T, void_t<decltype(*ss::declval<T&>())>> : true_type {};
+
+template<typename T, typename = void>
+struct incrementable  : false_type {};
+template<typename T>
+struct incrementable <T, void_t<decltype(++ss::declval<T&>())>> : true_type {};
+
+template<typename T, typename = void>
+struct post_incrementable  : false_type {};
+template<typename T>
+struct post_incrementable <T, void_t<decltype(ss::declval<T&>()++)>> : true_type {};
+
+
+
+template<typename T, typename = void>
+struct has_difference_type : false_type {};
+template<typename T>
+struct has_difference_type<T, void_t<typename T::difference_type>> : true_type {};
+
+template<typename T, typename = void>
+struct has_pointer : false_type {};
+template<typename T>
+struct has_pointer<T, void_t<typename T::pointer>> : true_type {};
+
+template<typename T, typename = void>
+struct has_reference : false_type {};
+template<typename T>
+struct has_reference<T, void_t<typename T::reference>> : true_type {};
+
+// Named Requirements
 /**
  * Basic
  */
@@ -2594,6 +2626,11 @@ struct CopyAssignable : false_type {};
 template<typename T>
 struct CopyAssignable<T, true> : is_same<decltype(ss::declval<T&>() = ss::declval<T&>()), T&> {};
 
+template<typename T, typename = void>
+struct Destructible : false_type {};
+
+template<typename T>
+struct Destructible<T, void_t<decltype(ss::declval<T&>().~T())>> : true_type {};
 
 /**
  * Type Properties
@@ -2642,7 +2679,8 @@ template<typename T>
 struct LessThanComparable<T, void_t<decltype(ss::declval<const remove_reference_t<T>&>() < ss::declval<const remove_reference_t<T>&>())>>
   : is_convertible<decltype(ss::declval<const remove_reference_t<T>&>() < ss::declval<const remove_reference_t<T>&>()), bool> {};
 
-
+template<typename T>
+using Swappable = is_swappable<T>;
 
 template<typename T>
 using NullablePointer = conjunction<

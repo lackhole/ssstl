@@ -89,11 +89,6 @@ SS_CONSTEXPR_AFTER_14 ForwardIt destroy_n(ForwardIt first, Size n) {
 namespace detail {
 
 template<typename T, typename = void>
-struct has_pointer : false_type {};
-template<typename T>
-struct has_pointer<T, void_t<typename T::pointer>> : true_type {};
-
-template<typename T, typename = void>
 struct has_const_pointer : false_type {};
 template<typename T>
 struct has_const_pointer<T, void_t<typename T::const_pointer>> : true_type {};
@@ -107,11 +102,6 @@ template<typename T, typename = void>
 struct has_const_void_pointer : false_type {};
 template<typename T>
 struct has_const_void_pointer<T, void_t<typename T::const_void_pointer>> : true_type {};
-
-template<typename T, typename = void>
-struct has_difference_type : false_type {};
-template<typename T>
-struct has_difference_type<T, void_t<typename T::difference_type>> : true_type {};
 
 template<typename T, typename = void>
 struct has_size_type : false_type {};
