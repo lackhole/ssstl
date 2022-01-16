@@ -5,6 +5,8 @@
 # ifndef SS_DETAIL_MACRO_H_
 # define SS_DETAIL_MACRO_H_
 #
+# include <cassert>
+#
 # if __cplusplus >= 202300L
 #   define SS_CXX_VER 23
 # elif __cplusplus >= 202002L
@@ -18,6 +20,8 @@
 # else
 #   error "C++11 is required at least"
 # endif
+
+# define SS_DEBUG_ASSERT(expr, msg) assert(((void)(msg), (expr)));
 
 # /** likely */
 # /* Apple clang doens't supports [[likely]] and [[unlikely]]. Work needed later */

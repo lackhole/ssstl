@@ -44,13 +44,13 @@
 |(ss::istream_iterator) <br/> operator== <br/> operator != <br/> | ![][notyet] |
 |(ss::istreambuf_iterator) <br/> operator== <br/> operator != <br/> | ![][notyet] |
 | **Operations**                   |                         |
-|advance                           | ![][notyet]             |
-|distance                          | ![][notyet]             |
+|advance                           | ![][cpp11]              |
+|distance                          | ![][cpp11]              |
 |next                              | ![][notyet]             |
 |prev                              | ![][notyet]             |
 | **Range access**                 |                         |
-|begin                             | ![][notyet]             |
-|end                               | ![][notyet]             |
+|begin                             | ![][cpp11]              |
+|end                               | ![][cpp11]              |
 
 
 | C++14 Features                   | Implemented in          |
@@ -59,19 +59,19 @@
 | **Adaptors**                     |                         |
 | make_reverse_iterator            | ![][notyet]             |
 | **Range access**                 |                         |
-|cbegin                            | ![][notyet]             |
-|cend                              | ![][notyet]             |
-|rbegin <br/> crbegin              | ![][notyet]             |
-|end <br/> crend                   | ![][notyet]             |
+|cbegin                            | ![][cpp11]              |
+|cend                              | ![][cpp11]              |
+|rbegin <br/> crbegin              | ![][cpp11]              |
+|end <br/> crend                   | ![][cpp11]              |
 
 
 | C++17 Features                   | Implemented in          |
 |----------------------------------|:-----------------------:|
 | **Functions**                    |                         |
 | **Range access**                 |                         |
-|size                              | ![][notyet]             |
-|empty                             | ![][notyet]             |
-|data                              | ![][notyet]             |
+|size                              | ![][cpp11]              |
+|empty                             | ![][cpp11]              |
+|data                              | ![][cpp11]              |
 
 | C++20 Features                   | Implemented in          |
 |----------------------------------|:-----------------------:|
@@ -141,7 +141,16 @@
 |ranges::next                      | ![][notyet]             |
 |ranges::prev                      | ![][notyet]             |
 | **Range access**                 |                         |
-|ssize                             | ![][notyet]             |
+|ssize                             | ![][cpp11]              |
+
+
+<!--
+	C++11: 29	| 6
+	C++14: 5	| 4
+	C++17: 3	| 3
+	C++20: 50	| 2
+
+	Total: 87	| 17-->
 
 [notyet]: https://img.shields.io/badge/Not_yet-orange
 [removed]: https://img.shields.io/badge/Removed-red
