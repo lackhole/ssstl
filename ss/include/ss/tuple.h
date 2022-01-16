@@ -95,10 +95,10 @@ struct pair_to_tuple_constructible<tuple<T1, T2>, pair<U1, U2>> {
 };
 
 template<typename Dst, typename Src, size_t... I>
-constexpr void tuple_element_wise_copy(Dst& dst, const Src& src, index_sequence<I...>);
+SS_CONSTEXPR_AFTER_14 void tuple_element_wise_copy(Dst& dst, const Src& src, index_sequence<I...>);
 
 template<typename Dst, typename Src, size_t... I>
-constexpr void tuple_element_wise_forward(Dst& dst, Src&& src, index_sequence<I...>);
+SS_CONSTEXPR_AFTER_14 void tuple_element_wise_forward(Dst& dst, Src&& src, index_sequence<I...>);
 
 } // namespace detail
 
@@ -888,12 +888,12 @@ namespace detail {
 inline constexpr void dev_null(...) noexcept {}
 
 template<typename Dst, typename Src, size_t... I>
-constexpr void tuple_element_wise_copy(Dst& dst, const Src& src, index_sequence<I...>) {
+SS_CONSTEXPR_AFTER_14 void tuple_element_wise_copy(Dst& dst, const Src& src, index_sequence<I...>) {
   dev_null(((ss::get<I>(dst) = ss::get<I>(src)), 0)...);
 }
 
 template<typename Dst, typename Src, size_t... I>
-constexpr void tuple_element_wise_forward(Dst& dst, Src&& src, index_sequence<I...>) {
+SS_CONSTEXPR_AFTER_14 void tuple_element_wise_forward(Dst& dst, Src&& src, index_sequence<I...>) {
   dev_null(((ss::get<I>(dst) = ss::get<I>(ss::forward<Src>(src))), 0)...);
 }
 
