@@ -54,9 +54,9 @@ Focusing on implementing high C++ features for low C++(i.e. You can use `ss::opt
 | chrono                                        | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000]               |                  |
 | initializer_list                              | ![][impossib]                                                         |                  |
 | [tuple](status/tuple.md)                      | ![][cpp11075] ![][cpp14100] ![][cpp17100] ![][cpp20000]               |                  |
-| any                                           | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000]               |                  |
-| [optional](status/optional.md)                | ![][cpp11300] ![][cpp14200] ![][cpp17100] ![][cpp20000]               |                  |
-| variant                                       | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000]               |                  |
+| any                                           | ![][cpp17000] ![][cpp20000]                                           |                  |
+| [optional](status/optional.md)                | ![][cpp17100] ![][cpp20000]                                           |                  |
+| variant                                       | ![][cpp17000] ![][cpp20000]                                           |                  |
 | compare                                       | ![][unknown_]                                                         |                  |
 | version                                       | ![][unknown_]                                                         |                  |
 | source_location                               | ![][impossib]                                                         |                  |
@@ -96,13 +96,13 @@ Focusing on implementing high C++ features for low C++(i.e. You can use `ss::opt
 | cwchar                                        | ![][unknown_]                                                         |                  |
 | cuchar                                        | ![][unknown_]                                                         |                  |
 | string                                        | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000]               |                  |
-| string_view                                   | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000]               |                  |
+| string_view                                   | ![][cpp17000] ![][cpp20000]                                           |                  |
 | charconv                                      | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000]               |                  |
-| format                                        | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000]               |                  |
+| format                                        | ![][cpp20000]                                                         |                  |
 
 | Containers library                            | Feature status                                                        | Notes            |
 |-----------------------------------------------|-----------------------------------------------------------------------|------------------|
-| array                                         | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000]               |                  |
+| array                                         | ![][cpp11090] ![][cpp14100] ![][cpp17100] ![][cpp20050]               |                  |
 | vector                                        | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000]               |                  |
 | deque                                         | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000]               |                  |
 | list                                          | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000]               |                  |
@@ -113,19 +113,19 @@ Focusing on implementing high C++ features for low C++(i.e. You can use `ss::opt
 | unordered_map                                 | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000]               |                  |
 | stack                                         | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000]               |                  |
 | queue                                         | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000]               |                  |
-| span                                          | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000]               |                  |
+| span                                          | ![][cpp20000]                                                         |                  |
 
 | Iterators library                             | Feature status                                                        | Notes            |
 |-----------------------------------------------|-----------------------------------------------------------------------|------------------|
-| [iterator](status/iterator.md)                | ![][cpp11007] ![][cpp14000] ![][cpp17000] ![][cpp20002]               |                  |
+| [iterator](status/iterator.md)                | ![][cpp11021] ![][cpp14080] ![][cpp17100] ![][cpp20004]               |                  |
 
 | Ranges library                                | Feature status                                                        | Notes            |
 |-----------------------------------------------|-----------------------------------------------------------------------|------------------|
-| [ranges](status/ranges.md)                    | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000]               |                  |
+| [ranges](status/ranges.md)                    | ![][cpp20000]                                                         |                  |
 
 | Algorithms library                            | Feature status                                                        | Notes            |
 |-----------------------------------------------|-----------------------------------------------------------------------|------------------|
-| [algorithm](status/algorithm.md)              | ![][cpp11003] ![][cpp14000] ![][cpp17000] ![][cpp20000]               |                  |
+| [algorithm](status/algorithm.md)              | ![][cpp11009] ![][cpp17000] ![][cpp20000]               |                  |
 | execution                                     | ![][unknown_]                                                         |                  |
 
 | Numerics library                              | Feature status                                                        | Notes            |
@@ -138,7 +138,7 @@ Focusing on implementing high C++ features for low C++(i.e. You can use `ss::opt
 | ratio                                         | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000]               |                  |
 | cfenv                                         | ![][unknown_]                                                         |                  |
 | bit                                           | ![][unknown_]                                                         |                  |
-| numbers                                       | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000]               |                  |
+| numbers                                       | ![][cpp20000]                                                         |                  |
 
 | Localization library                          | Feature status                                                        | Notes            |
 |-----------------------------------------------|-----------------------------------------------------------------------|------------------|
@@ -193,17 +193,19 @@ Focusing on implementing high C++ features for low C++(i.e. You can use `ss::opt
 
 [cpp11000]: https://img.shields.io/badge/C++11-0%25-red
 [cpp11001]: https://img.shields.io/badge/C++11-1%25-orange
-[cpp11003]: https://img.shields.io/badge/C++11-3%25-orange
 [cpp11005]: https://img.shields.io/badge/C++11-5%25-orange
-[cpp11007]: https://img.shields.io/badge/C++11-7%25-orange
+[cpp11009]: https://img.shields.io/badge/C++11-9%25-orange
+[cpp11021]: https://img.shields.io/badge/C++11-21%25-orange
 [cpp11024]: https://img.shields.io/badge/C++11-24%25-orange
 [cpp11063]: https://img.shields.io/badge/C++11-63%25-yellowgreen
 [cpp11075]: https://img.shields.io/badge/C++11-75%25-green
+[cpp11090]: https://img.shields.io/badge/C++11-90%25-green
 [cpp11100]: https://img.shields.io/badge/C++11-100%25-brightgreen
 [cpp11200]: https://img.shields.io/badge/C++11-100%25-blue
 [cpp11300]: https://img.shields.io/badge/C++11-100%25-blue
 
 [cpp14000]: https://img.shields.io/badge/C++14-0%25-red
+[cpp14080]: https://img.shields.io/badge/C++14-80%25-green
 [cpp14100]: https://img.shields.io/badge/C++14-100%25-brightgreen
 [cpp14200]: https://img.shields.io/badge/C++14-100%25-blue
 
@@ -214,8 +216,9 @@ Focusing on implementing high C++ features for low C++(i.e. You can use `ss::opt
 [cpp17200]: https://img.shields.io/badge/C++17-100%25-blue
 
 [cpp20000]: https://img.shields.io/badge/C++20-0%25-red
-[cpp20002]: https://img.shields.io/badge/C++20-2%25-orange
+[cpp20004]: https://img.shields.io/badge/C++20-4%25-orange
 [cpp20007]: https://img.shields.io/badge/C++20-7%25-orange
+[cpp20050]: https://img.shields.io/badge/C++20-50%25-yellowgreen
 [cpp20064]: https://img.shields.io/badge/C++20-64%25-yellowgreen
 [cpp20096]: https://img.shields.io/badge/C++20-96%25-green
 [cpp20100]: https://img.shields.io/badge/C++20-100%25-brightgreen
