@@ -53,34 +53,34 @@ struct array {
     return elements[pos];
   }
 
-  constexpr reference operator[](size_type pos) {
+  SS_CONSTEXPR_AFTER_14 reference operator[](size_type pos) {
     SS_DEBUG_ASSERT(pos < size(), "ss::array : Index out of bounds");
     return elements[pos];
   }
-  constexpr const_reference operator[](size_type pos) const {
+  SS_CONSTEXPR_AFTER_14 const_reference operator[](size_type pos) const {
     SS_DEBUG_ASSERT(pos < size(), "ss::array : Index out of bounds");
     return elements[pos];
   }
 
-  constexpr       reference front()       { return (*this)[0]; }
-  constexpr const_reference front() const { return (*this)[0]; }
-  constexpr       reference back()        { return (*this)[size() - 1]; }
-  constexpr const_reference back()  const { return (*this)[size() - 1]; }
+  SS_CONSTEXPR_AFTER_14 reference front()       { return (*this)[0]; }
+  constexpr       const_reference front() const { return (*this)[0]; }
+  SS_CONSTEXPR_AFTER_14 reference back()        { return (*this)[size() - 1]; }
+  constexpr       const_reference back()  const { return (*this)[size() - 1]; }
 
-  constexpr       T* data()       noexcept { return elements; }
-  constexpr const T* data() const noexcept { return elements; }
+  SS_CONSTEXPR_AFTER_14 T* data()       noexcept { return elements; }
+  constexpr       const T* data() const noexcept { return elements; }
 
-  constexpr iterator       begin()        noexcept { return iterator      (data()); }
+  SS_CONSTEXPR_AFTER_14 iterator begin()  noexcept { return iterator      (data()); }
   constexpr const_iterator begin()  const noexcept { return const_iterator(data()); }
   constexpr const_iterator cbegin() const noexcept { return const_iterator(data()); }
-  constexpr iterator       end()          noexcept { return iterator      (data() + size()); }
+  SS_CONSTEXPR_AFTER_14 iterator end()    noexcept { return iterator      (data() + size()); }
   constexpr const_iterator end()    const noexcept { return const_iterator(data() + size()); }
   constexpr const_iterator cend()   const noexcept { return const_iterator(data() + size()); }
 
-  constexpr reverse_iterator       rbegin()        noexcept { return reverse_iterator      (end()); }
+  SS_CONSTEXPR_AFTER_14 reverse_iterator rbegin()  noexcept { return reverse_iterator      (end()); }
   constexpr const_reverse_iterator rbegin()  const noexcept { return const_reverse_iterator(end()); }
   constexpr const_reverse_iterator rcbegin() const noexcept { return const_reverse_iterator(end()); }
-  constexpr reverse_iterator       rend()          noexcept { return reverse_iterator      (begin()); }
+  SS_CONSTEXPR_AFTER_14 reverse_iterator rend()    noexcept { return reverse_iterator      (begin()); }
   constexpr const_reverse_iterator rend()    const noexcept { return const_reverse_iterator(begin()); }
   constexpr const_reverse_iterator rcend()   const noexcept { return const_reverse_iterator(begin()); }
 
