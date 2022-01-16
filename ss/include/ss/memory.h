@@ -11,8 +11,10 @@
 # include <exception>
 # include <ostream>
 #
-# include "ss/detail/macro.h"
 # include "ss/detail/addressof.h"
+# include "ss/detail/allocator_arg.h"
+# include "ss/detail/uses_allocator.h"
+# include "ss/detail/macro.h"
 # include "ss/compressed_pair.h"
 # include "ss/functional.h"
 # include "ss/iterator.h"
@@ -567,40 +569,6 @@ SS_NODISCARD constexpr allocation_result<typename allocator_traits<Alloc>::point
 allocate_at_least(Alloc& a, size_t n) {
   return detail::allocate_at_least_impl(detail::has_allocate_at_least<Alloc>{});
 }
-
-/**
- * allocator_arg_t
- */
-struct allocator_arg_t { explicit allocator_arg_t() = default; };
-
-namespace detail {
-
-template<typename T, typename = void>
-struct has_allocator_type : false_type {};
-
-template<typename T>
-struct has_allocator_type<T, void_t<typename T::allocator_type>> : true_type {};
-
-template<typename T, typename Alloc, bool v = has_allocator_type<T>::value>
-struct uses_allocator_impl : false_type {};
-
-template<typename T, typename Alloc>
-struct uses_allocator_impl<T, Alloc, true> : is_convertible<Alloc, typename T::allocator_type> {};
-
-template<typename Alloc>
-struct uses_allocator_impl<ss::experimental::erased_type, Alloc, true> : true_type {};
-
-} // namespace detail
-
-/**
- * uses_allocator
- */
-template<typename T, typename Alloc>
-struct uses_allocator : detail::uses_allocator_impl<T, Alloc> {};
-
-# if SS_CXX_VER >= 14
-template<typename T, typename Alloc> SS_INLINE_VAR constexpr bool uses_allocator_v = uses_allocator<T, Alloc>::value;
-# endif
 
 /**
  * default_delete<T>

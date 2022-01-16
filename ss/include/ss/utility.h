@@ -266,7 +266,7 @@ struct pair {
   constexpr pair(pair&&) = default;
 
 
-  SS_CONSTEXPR_AFTER_14 pair& operator=(enable_if_t<both<is_copy_assignable>::value, const pair&> other)
+  SS_CONSTEXPR_AFTER_14 pair& operator=(conditional_t<both<is_copy_assignable>::value, const pair&, detail::unused> other)
     noexcept(both<is_nothrow_copy_assignable>::value)
   {
     first = other.first;
@@ -444,13 +444,13 @@ get(const pair<T1, T2>& p) noexcept {
 template<size_t I, typename T1, typename T2>
 constexpr inline tuple_element_t<I, pair<T1, T2>>&&
 get(pair<T1, T2>&& p) noexcept {
-  return detail::get_pair<I>::get(p);
+  return detail::get_pair<I>::get(ss::move(p));
 }
 
 template<size_t I, typename T1, typename T2>
 constexpr inline const tuple_element_t<I, pair<T1, T2>>&&
-get(pair<T1, T2>&& p) noexcept {
-  return detail::get_pair<I>::get(p);
+get(const pair<T1, T2>&& p) noexcept {
+  return detail::get_pair<I>::get(ss::move(p));
 }
 
 template<typename T, typename U>
@@ -510,6 +510,7 @@ struct sequence {
   using to_type = Seq<U, static_cast<U>(N)...>;
 };
 
+// TODO: Optimize speed of sizeof... operator in clang
 template<typename C1, typename C2> struct concat;
 template<typename T, T... I1, T... I2>
 struct concat<sequence<T, I1...>, sequence<T, I2...>> : sequence<T, I1..., (sizeof...(I1) + I2)...> {};

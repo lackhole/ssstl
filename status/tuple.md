@@ -15,33 +15,33 @@
 |                                              |                      |                                   |
 | **Classes**                                  |                      |                                   |
 | tuple                                        | ![][cpp11]           | ![][notyet]                       |
-| tuple_size                                   | ![][cpp11]           | ![][notyet]                       |
-| tuple_element                                | ![][cpp11]           | ![][notyet]                       |
-| ss::tuple_size\<ss::tuple>                   | ![][cpp11]           | ![][notyet]                       |
-| ss::tuple_element\<ss::tuple>                | ![][cpp11]           | ![][notyet]                       |
-| ss::uses_allocator\<ss::tuple>               | ![][cpp11]           | ![][notyet]                       |
+| tuple_size                                   | ![][cpp11]           | ![][cpp11]                        |
+| tuple_element                                | ![][cpp11]           | ![][cpp11]                        |
+| ss::tuple_size\<ss::tuple>                   | ![][cpp11]           | ![][cpp11]                        |
+| ss::tuple_element\<ss::tuple>                | ![][cpp11]           | ![][cpp11]                        |
+| ss::uses_allocator\<ss::tuple>               | ![][cpp11]           | ![][cpp11]                        |
 |                                              |                      |                                   |
 | **Constants**                                |                      |                                   |
-| ignore                                       | ![][cpp11]           | ![][notyet]                       |
+| ignore                                       | ![][cpp11]           | ![][cpp11]                        |
 |                                              |                      |                                   |
 | **Functions**                                |                      |                                   |
-| make_tuple                                   | ![][cpp11]           | ![][notyet]                       |
-| tie                                          | ![][cpp11]           | ![][notyet]                       |
-| forward_as_tuple                             | ![][cpp11]           | ![][notyet]                       |
-| tuple_cat                                    | ![][cpp11]           | ![][notyet]                       |
-| ss::get(ss::tuple)                           | ![][cpp11]           | ![][notyet]                       |
+| make_tuple                                   | ![][cpp11]           | ![][cpp11]                        |
+| tie                                          | ![][cpp11]           | ![][cpp11]                        |
+| forward_as_tuple                             | ![][cpp11]           | ![][cpp11]                        |
+| tuple_cat                                    | ![][cpp11]           | ![][cpp11]                        |
+| ss::get(ss::tuple)                           | ![][cpp11]           | ![][cpp11]                        |
 | operator== <br/>~~operator!=~~ <br/>~~operator\<~~ <br/>~~operator\<=~~ <br/>~~operator>~~ <br/>~~operator>=~~ <br/>operator\<=> | ![][cpp11] <br/>![][cpp11] <br/>![][cpp11] <br/>![][cpp11] <br/>![][cpp11] <br/>![][cpp11] <br/>![][cpp20] | ![][notyet]                       |
 | ss::swap(ss::tuple)                          | ![][cpp11]           | ![][notyet]                       |
-| apply                                        | ![][cpp17]           | ![][notyet]                       |
-| make_from_tuple                              | ![][cpp17]           | ![][notyet]                       |
+| apply                                        | ![][cpp17]           | ![][cpp11]                        |
+| make_from_tuple                              | ![][cpp17]           | ![][cpp11]                        |
 
 
 <!--
-	C++11: 13	| 0
-	C++17: 2	| 0
+	C++11: 13	| 10
+	C++17: 2	| 2
 	C++20: 1	| 0
 
-	Total: 16	| 0-->
+	Total: 16	| 12-->
 
 [notyet]: https://img.shields.io/badge/Not_yet-orange
 [removed]: https://img.shields.io/badge/Removed-red
