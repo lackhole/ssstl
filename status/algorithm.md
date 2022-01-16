@@ -31,7 +31,7 @@
 |move                              | ![][notyet]             |
 |move_backward                     | ![][notyet]             |
 |fill                              | ![][notyet]             |
-|fill_n                            | ![][notyet]             |
+|fill_n                            | ![][cpp11]              |
 |transform                         | ![][notyet]             |
 |generate                          | ![][notyet]             |
 |generate_n                        | ![][notyet]             |
@@ -95,8 +95,8 @@
 |minmax                            | ![][notyet]             |
 |minmax_element                    | ![][notyet]             |
 | **Comparison operations**        |                         |
-|equal                             | ![][notyet]             |
-|lexicographical_compare           | ![][notyet]             |
+|equal                             | ![][cpp11]              |
+|lexicographical_compare           | ![][cpp11]              |
 | **Permutation operations**       |                         |
 |is_permutation                    | ![][notyet]             |
 |next_permutation                  | ![][notyet]             |
@@ -220,6 +220,14 @@
 |ranges::next_permutation          | ![][notyet]             |
 |ranges::prev_permutation          | ![][notyet]             |
 
+
+<!--
+	C++11: 79	| 7
+	C++14: 0	| 0
+	C++17: 3	| 0
+	C++20: 86	| 0
+
+	Total: 21	| 18-->
 
 [notyet]: https://img.shields.io/badge/Not_yet-orange
 [removed]: https://img.shields.io/badge/Removed-red
