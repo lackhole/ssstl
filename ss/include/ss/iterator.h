@@ -208,10 +208,10 @@ SS_CONSTEXPR_AFTER_14 void advance(InputIt& it, Distance n) {
   detail::advance_impl(it, n, typename iterator_traits<InputIt>::iterator_category{});
 }
 
-template<typename BidirIt>
-constexpr BidirIt prev(BidirIt it, typename iterator_traits<BidirIt>::difference_type n = 1) {
-
-}
+// template<typename BidirIt>
+// constexpr BidirIt prev(BidirIt it, typename iterator_traits<BidirIt>::difference_type n = 1) {
+// 
+// }
 
 // TODO: Implement C++20
 template<typename BidIter>
@@ -254,7 +254,7 @@ class reverse_iterator {
     return current;
   }
 
-  constexpr reference operator*() const {
+  SS_CONSTEXPR_AFTER_14 reference operator*() const {
     iterator_type tmp = current;
     return *--tmp;
   }
