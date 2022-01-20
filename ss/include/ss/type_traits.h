@@ -1710,6 +1710,15 @@ template<typename From, typename To>
 SS_INLINE_VAR constexpr bool is_convertible_v = is_convertible<From, To>::value;
 # endif
 
+namespace detail {
+// Difference between is_convertible / convertible_to
+// https://stackoverflow.com/a/62644127/8176989
+template<typename From, typename To, typename = void>
+struct is_explicitly_convertible_to : false_type {};
+
+template<typename From, typename To>
+struct is_explicitly_convertible_to<From, To, void_t<decltype(static_cast<To>(ss::declval<From>()))>> : true_type {};
+} // namespace detail 
 
 
 namespace detail {

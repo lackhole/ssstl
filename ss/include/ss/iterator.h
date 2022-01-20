@@ -5,6 +5,7 @@
 # ifndef SS_ITERATOR_H_
 # define SS_ITERATOR_H_
 #
+# include "ss/detail/assert.h"
 # include "ss/detail/macro.h"
 # include "ss/type_traits.h"
 
@@ -47,7 +48,7 @@ struct incrementable_traits_impl<T*, true> {
   using difference_type = ptrdiff_t;
 };
 
-} //
+} // namespace detail
 
 // TODO: finish incrementable_traits
 template<typename T>
@@ -132,6 +133,9 @@ struct LegacyInputIterator<It, true> : conjunction<
 
 } // namespace detail
 
+
+
+
 /**
  * distance
  * @tparam InputIt
@@ -208,10 +212,21 @@ SS_CONSTEXPR_AFTER_14 void advance(InputIt& it, Distance n) {
   detail::advance_impl(it, n, typename iterator_traits<InputIt>::iterator_category{});
 }
 
-// template<typename BidirIt>
-// constexpr BidirIt prev(BidirIt it, typename iterator_traits<BidirIt>::difference_type n = 1) {
-// 
-// }
+
+
+/**
+ * prev
+ * @tparam BidirIt 
+ * @param it 
+ * @param n 
+ * @return 
+ */
+template<typename BidirIt>
+SS_CONSTEXPR_AFTER_14 BidirIt prev(BidirIt it, typename iterator_traits<BidirIt>::difference_type n = 1) {
+  // TODO: Check LegacyBidirectionalIterator
+  advance(it, -n);
+  return it;
+}
 
 // TODO: Implement C++20
 template<typename BidIter>
@@ -240,8 +255,9 @@ class reverse_iterator {
   template<typename U,
     enable_if_t<
       conjunction<
-        negation<is_same<U, iterator_type>>
-        // convertible_to<const U&, iterator_type
+        negation<is_same<U, iterator_type>>,
+        is_convertible<const U&, iterator_type>,
+        detail::is_explicitly_convertible_to<const U&, iterator_type>
         // assignable_from<Iter&, const U&>
       >::value,
     int> = 0>
@@ -263,18 +279,201 @@ class reverse_iterator {
     return get_ptr(is_pointer<iterator_type>{});
   }
 
+  constexpr reference operator[](difference_type n) const {
+    return base()[static_cast<difference_type>(-n-1)];
+  }
+  
+  SS_CONSTEXPR_AFTER_14 reverse_iterator& operator++()    {                               --current; return *this; }
+  SS_CONSTEXPR_AFTER_14 reverse_iterator  operator++(int) { reverse_iterator temp(*this); --current; return temp;  }
+  SS_CONSTEXPR_AFTER_14 reverse_iterator& operator--()    {                               ++current; return *this; } 
+  SS_CONSTEXPR_AFTER_14 reverse_iterator  operator--(int) { reverse_iterator temp(*this); ++current; return *temp; } 
+  
+  SS_CONSTEXPR_AFTER_14 reverse_iterator  operator+ (difference_type n) const { return reverse_iterator(current - n); }
+  SS_CONSTEXPR_AFTER_14 reverse_iterator  operator- (difference_type n) const { return reverse_iterator(current + n); }
+  SS_CONSTEXPR_AFTER_14 reverse_iterator& operator+=(difference_type n) { current -= n; return *this; }
+  SS_CONSTEXPR_AFTER_14 reverse_iterator& operator-=(difference_type n) { current += n; return *this; }
+  
  private:
   constexpr pointer get_ptr(true_type) const {
     return current - 1;
   }
 
   constexpr pointer get_ptr(false_type) const {
-    return prev(current).operator->();
+    return ss::prev(current).operator->();
   }
 
+ protected:
   iterator_type current;
 };
 
+namespace detail {
+
+template<template<typename...> class F, typename... Args> struct apply_tf : F<Args...> {};
+template<template<typename...> class F, typename... Args> struct tf_invocable : apply_tf<F, Args...> {};
+
+template<bool v/* = tf_invocable<F, Args...>*/,
+         typename R, template<typename...> class F, typename... Args>
+struct tf_invocable_r_impl : false_type {};
+
+template<typename R, template<typename...> class F, typename... Args>
+struct tf_invocable_r_impl<true, R, F, Args...>
+    : is_convertible<typename apply_tf<F, Args...>::return_type, R> {};
+
+template<typename R, template<typename...> class F, typename... Args>
+struct tf_invocable_r : tf_invocable_r_impl<tf_invocable<F, Args...>::value, R, F, Args...> {};
+
+
+template<typename T, typename U, typename = void> struct tf_equal : false_type {};
+template<typename T, typename U>
+struct tf_equal <T, U,
+               void_t<decltype(ss::declval<T&>() == ss::declval<U&>())>> : true_type {
+  using return_type = decltype(ss::declval<T&>() == ss::declval<U&>());
+};
+template<typename T, typename U, typename = void> struct tf_not_equal : false_type {};
+template<typename T, typename U>
+struct tf_not_equal <T, U,
+               void_t<decltype(ss::declval<T&>() != ss::declval<U&>())>> : true_type {
+  using return_type = decltype(ss::declval<T&>() != ss::declval<U&>());
+};
+template<typename T, typename U, typename = void> struct tf_greater : false_type {};
+template<typename T, typename U>
+struct tf_greater <T, U,
+               void_t<decltype(ss::declval<T&>() > ss::declval<U&>())>> : true_type {
+  using return_type = decltype(ss::declval<T&>() > ss::declval<U&>());
+};
+template<typename T, typename U, typename = void> struct tf_greater_equal : false_type {};
+template<typename T, typename U>
+struct tf_greater_equal <T, U,
+               void_t<decltype(ss::declval<T&>() >= ss::declval<U&>())>> : true_type {
+  using return_type = decltype(ss::declval<T&>() >= ss::declval<U&>());
+};
+template<typename T, typename U, typename = void> struct tf_less : false_type {};
+template<typename T, typename U>
+struct tf_less <T, U,
+               void_t<decltype(ss::declval<T&>() < ss::declval<U&>())>> : true_type {
+  using return_type = decltype(ss::declval<T&>() < ss::declval<U&>());
+};
+template<typename T, typename U, typename = void> struct tf_less_equal : false_type {};
+template<typename T, typename U>
+struct tf_less_equal <T, U,
+               void_t<decltype(ss::declval<T&>() <= ss::declval<U&>())>> : true_type {
+  using return_type = decltype(ss::declval<T&>() <= ss::declval<U&>());
+};
+
+# if SS_CXX_VER >= 20
+template<typename T, typename U, typename = void> struct tf_three_way : false_type {};
+template<typename T, typename U>
+struct tf_three_way <T, U,
+               void_t<decltype(ss::declval<T&>() <=> ss::declval<U&>())>> : true_type {
+  using return_type = decltype(ss::declval<T&>() <=> ss::declval<U&>());
+};
+# endif
+
+} // namespace detail
+
+
+/**
+ * Comparison operators
+ * @tparam It1 
+ * @tparam It2 
+ * @param lhs 
+ * @param rhs 
+ * @return 
+ */
+template<typename It1, typename It2>
+constexpr enable_if_t<detail::tf_invocable_r<bool, detail::tf_equal, It1, It2>::value>
+operator==(const reverse_iterator<It1>& lhs, const reverse_iterator<It2>& rhs) {
+  return lhs.base() == rhs.base();
+}
+
+template<typename It1, typename It2>
+constexpr enable_if_t<detail::tf_invocable_r<bool, detail::tf_not_equal, It1, It2>::value>
+operator!=(const reverse_iterator<It1>& lhs, const reverse_iterator<It2>& rhs) {
+  return lhs.base() != rhs.base();
+}
+
+template<typename It1, typename It2>
+constexpr enable_if_t<detail::tf_invocable_r<bool, detail::tf_greater, It1, It2>::value>
+operator>(const reverse_iterator<It1>& lhs, const reverse_iterator<It2>& rhs) {
+  return lhs.base() > rhs.base();
+}
+
+template<typename It1, typename It2>
+constexpr enable_if_t<detail::tf_invocable_r<bool, detail::tf_greater_equal, It1, It2>::value>
+operator>=(const reverse_iterator<It1>& lhs, const reverse_iterator<It2>& rhs) {
+  return lhs.base() >= rhs.base();
+}
+
+template<typename It1, typename It2>
+constexpr enable_if_t<detail::tf_invocable_r<bool, detail::tf_less, It1, It2>::value>
+operator<(const reverse_iterator<It1>& lhs, const reverse_iterator<It2>& rhs) {
+  return lhs.base() < rhs.base();
+}
+
+template<typename It1, typename It2>
+constexpr enable_if_t<detail::tf_invocable_r<bool, detail::tf_less_equal, It1, It2>::value>
+operator<=(const reverse_iterator<It1>& lhs, const reverse_iterator<It2>& rhs) {
+  return lhs.base() <= rhs.base();
+}
+
+# if SS_CXX_VER >= 20
+template<typename It1, typename It2>
+constexpr enable_if_t<detail::tf_invocable_r<bool, detail::tf_equal, It1, It2>::value>
+operator<=>(const reverse_iterator<It1>& lhs, const reverse_iterator<It2>& rhs) {
+  return lhs.base() <=> rhs.base();
+}
+# endif
+
+
+/**
+ * operator+
+ * @tparam Iter 
+ * @param n 
+ * @param it 
+ * @return 
+ */
+template<typename Iter>
+constexpr reverse_iterator<Iter>
+operator+(typename reverse_iterator<Iter>::difference_type n, const reverse_iterator<Iter>& it) {
+  return reverse_iterator<Iter>(it.base() - n);
+}
+
+
+
+/**
+ * operator-(ss::reverse_iterator)
+ * @tparam Iter 
+ * @param n 
+ * @param it 
+ * @return 
+ */
+template<typename Iter>
+constexpr auto
+operator-(const reverse_iterator<Iter>& lhs, const reverse_iterator<Iter>& rhs)
+    -> decltype(rhs.base() - lhs.base())
+{
+  return rhs.base() - lhs.base();
+}
+
+
+template<typename Iter>
+constexpr reverse_iterator<Iter> make_reverse_iterator(Iter i) {
+  return reverse_iterator<Iter>(i);
+}
+
+// TODO: iter_move(C++20)
+// TODO: iter_swap(C++20)
+
+
+
+
+
+// C++20
+//template< class Iterator1, class Iterator2 >
+//requires (!std::sized_sentinal_for<Iterator1, Iterator2>)
+//inline constexpr bool disable_sized_sentinel_for<
+//  std::reverse_iterator<Iterator1>,
+//  std::reverse_iterator<Iterator2>> = true;
 
 
 template<typename C>           constexpr auto begin(C& c)       -> decltype(c.begin()) { return c.begin(); }

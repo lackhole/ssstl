@@ -8,8 +8,8 @@
 # include <cstddef> // size_t, ptrdiff_t
 #
 # include <exception>
-# include <initializer_list>
 #
+# include "ss/detail/assert.h"
 # include "ss/algorithm.h"
 # include "ss/iterator.h"
 # include "ss/utility.h"

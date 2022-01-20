@@ -11,6 +11,7 @@
 #
 # include "ss/type_traits.h"
 # include "ss/functional.h"
+# include "ss/initializer_list.h"
 # include "ss/utility.h"
 # include "ss/memory.h"
 

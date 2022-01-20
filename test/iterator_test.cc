@@ -2,7 +2,7 @@
 #include <utility>
 #include <string>
 
-#include "ss/concepts.h"
+#include "ss/iterator.h"
 
 #include "ss_test.h"
 
@@ -15,7 +15,7 @@
 
 
 int main() {
-  SS_INIT_TEST("concepts")
+  SS_INIT_TEST("iterator")
   std::cerr << "__cplusplus: " << __cplusplus << '\n';
   std::cerr << "NDEBUG: " << NDEBUG_DEFINED << '\n';
 
