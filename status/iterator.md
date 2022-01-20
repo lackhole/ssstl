@@ -13,11 +13,11 @@
 |----------------------------------|:-----------------------:|
 | **Classes**                      |                         |
 | **Primitives**                   |                         |
-|iterator_traits                   | ![][cpp11]                        |
+|iterator_traits                   | ![][cpp11]              |
 |input_iterator_tag <br/> output_iterator_tag <br/> forward_iterator_tag <br/> bidirectional_iterator_tag <br/> random_access_iterator_tag | ![][cpp11] |
-|iterator                          |                         |
+|iterator                          | Deprecated in C++17     |
 | **Adaptors**                     |                         |
-|reverse_iterator                  | ![][notyet]             |
+|reverse_iterator                  | ![][cpp11] ![][cpppt20] |
 |move_iterator                     | ![][notyet]             |
 |back_insert_iterator              | ![][notyet]             |
 |front_insert_iterator             | ![][notyet]             |
@@ -38,16 +38,16 @@
 |(ss::move_iterator) <br/> operator== <br/> operator!= <br/> operator< <br/> operator<= <br/> operator> <br/> operator>= | ![][notyet] |
 |operator+(ss::move_iterator)      | ![][notyet]             |
 |operator-(ss::move_iterator)      | ![][notyet]             |
-|(ss::reverse_iterator) <br/> operator== <br/> operator!= <br/> operator< <br/> operator<= <br/> operator> <br/> operator>= | ![][notyet] |
-|operator+(ss::reverse_iterator)   | ![][notyet]             |
-|operator-(ss::reverse_iterator)   | ![][notyet]             |
-|(ss::istream_iterator) <br/> operator== <br/> operator != <br/> | ![][notyet] |
+|(ss::reverse_iterator) <br/> operator== <br/> operator!= <br/> operator< <br/> operator<= <br/> operator> <br/> operator>= | ![][cpp11] |
+|operator+(ss::reverse_iterator)   | ![][cpp11]              |
+|operator-(ss::reverse_iterator)   | ![][cpp11]              |
+|(ss::istream_iterator) <br/> operator== <br/> operator != <br/>    | ![][notyet] |
 |(ss::istreambuf_iterator) <br/> operator== <br/> operator != <br/> | ![][notyet] |
 | **Operations**                   |                         |
 |advance                           | ![][cpp11]              |
 |distance                          | ![][cpp11]              |
 |next                              | ![][notyet]             |
-|prev                              | ![][notyet]             |
+|prev                              | ![][cpp11]              |
 | **Range access**                 |                         |
 |begin                             | ![][cpp11]              |
 |end                               | ![][cpp11]              |
@@ -57,7 +57,7 @@
 |----------------------------------|:-----------------------:|
 | **Functions**                    |                         |
 | **Adaptors**                     |                         |
-| make_reverse_iterator            | ![][notyet]             |
+| make_reverse_iterator            | ![][cpp11]              |
 | **Range access**                 |                         |
 |cbegin                            | ![][cpp11]              |
 |cend                              | ![][cpp11]              |
@@ -125,13 +125,13 @@
 |unreachable_sentinel_t            | ![][notyet]             |
 |                                  |                         |
 | **Customization point objects**  | Defined in namespace ss::ranges |
-|iter_move                         |                         |
+|iter_move                         | ![][notyet]             |
 |iter_swap                         | ![][notyet]             |
 |                                  |                         |
 | **Functions**                    | Defined in namespace ss::ranges |
 | **Non-member operators**         |                         |
 |operator<=>(ss::move_iterator)    | ![][notyet]             |
-|operator<=>(ss::reverse_iterator) | ![][notyet]             |
+|operator<=>(ss::reverse_iterator) | ![][cpp20]              |
 |(ss::counted_iterator) <br/> operator== <br/> operator<=> | ![][notyet] |
 |operator+(ss::counted_iterator)   | ![][notyet]             |
 |operator-(ss::counted_iterator)   | ![][notyet]             |
@@ -145,10 +145,10 @@
 
 
 <!--
-	C++11: 29	| 6
-	C++14: 5	| 4
+	C++11: 29	| 11
+	C++14: 5	| 5
 	C++17: 3	| 3
-	C++20: 50	| 2
+	C++20: 51	| 3
 
 	Total: 87	| 17-->
 

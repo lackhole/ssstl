@@ -117,7 +117,7 @@ Focusing on implementing high C++ features for low C++(i.e. You can use `ss::opt
 
 | Iterators library                             | Feature status                                                        | Notes            |
 |-----------------------------------------------|-----------------------------------------------------------------------|------------------|
-| [iterator](status/iterator.md)                | ![][cpp11021] ![][cpp14080] ![][cpp17100] ![][cpp20004]               |                  |
+| [iterator](status/iterator.md)                | ![][cpp11038] ![][cpp14100] ![][cpp17100] ![][cpp20006]               |                  |
 
 | Ranges library                                | Feature status                                                        | Notes            |
 |-----------------------------------------------|-----------------------------------------------------------------------|------------------|
@@ -195,8 +195,8 @@ Focusing on implementing high C++ features for low C++(i.e. You can use `ss::opt
 [cpp11001]: https://img.shields.io/badge/C++11-1%25-orange
 [cpp11005]: https://img.shields.io/badge/C++11-5%25-orange
 [cpp11009]: https://img.shields.io/badge/C++11-9%25-orange
-[cpp11021]: https://img.shields.io/badge/C++11-21%25-orange
-[cpp11024]: https://img.shields.io/badge/C++11-24%25-orange
+[cpp11024]: https://img.shields.io/badge/C++11-24%25-orang
+[cpp11038]: https://img.shields.io/badge/C++11-38%25-yellow
 [cpp11063]: https://img.shields.io/badge/C++11-63%25-yellowgreen
 [cpp11075]: https://img.shields.io/badge/C++11-75%25-green
 [cpp11090]: https://img.shields.io/badge/C++11-90%25-green
@@ -205,7 +205,6 @@ Focusing on implementing high C++ features for low C++(i.e. You can use `ss::opt
 [cpp11300]: https://img.shields.io/badge/C++11-100%25-blue
 
 [cpp14000]: https://img.shields.io/badge/C++14-0%25-red
-[cpp14080]: https://img.shields.io/badge/C++14-80%25-green
 [cpp14100]: https://img.shields.io/badge/C++14-100%25-brightgreen
 [cpp14200]: https://img.shields.io/badge/C++14-100%25-blue
 
@@ -216,7 +215,7 @@ Focusing on implementing high C++ features for low C++(i.e. You can use `ss::opt
 [cpp17200]: https://img.shields.io/badge/C++17-100%25-blue
 
 [cpp20000]: https://img.shields.io/badge/C++20-0%25-red
-[cpp20004]: https://img.shields.io/badge/C++20-4%25-orange
+[cpp20006]: https://img.shields.io/badge/C++20-6%25-orange
 [cpp20007]: https://img.shields.io/badge/C++20-7%25-orange
 [cpp20050]: https://img.shields.io/badge/C++20-50%25-yellowgreen
 [cpp20064]: https://img.shields.io/badge/C++20-64%25-yellowgreen
