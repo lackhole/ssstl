@@ -8,7 +8,7 @@
 # include <cstddef>
 #
 # include <limits>
-# include <exception>
+# include <new>
 # include <ostream>
 #
 # include "ss/detail/addressof.h"
