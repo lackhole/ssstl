@@ -15,7 +15,7 @@
 
 
 int main() {
-  SS_INIT_TEST("utility")
+  SS_INIT_TEST("concepts")
   std::cerr << "__cplusplus: " << __cplusplus << '\n';
   std::cerr << "NDEBUG: " << NDEBUG_DEFINED << '\n';
 
