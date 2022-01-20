@@ -5,8 +5,6 @@
 # ifndef SS_UTILITY_H_
 # define SS_UTILITY_H_
 #
-# include <initializer_list>
-#
 # include "ss/type_traits.h"
 # include "ss/detail/swap.h"
 # include "ss/detail/tuple_helper.h"
@@ -335,7 +333,7 @@ struct make_pair_type_impl {
 };
 
 template<typename T>
-struct make_pair_type_impl<std::reference_wrapper<T>> {
+struct make_pair_type_impl<reference_wrapper<T>> {
   using type = T&;
 };
 
