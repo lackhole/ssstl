@@ -82,7 +82,7 @@ Focusing on implementing high C++ features for low C++(i.e. You can use `ss::opt
 
 | Error handling                                | Feature status                                                        | Notes            |
 |-----------------------------------------------|-----------------------------------------------------------------------|------------------|
-| [exception](status/exception.md)              | ![][unknown_]                                                         |                  |
+| exception                                     | ![][unknown_]                                                         |                  |
 | stdexcept                                     | ![][unknown_]                                                         |                  |
 | cassert                                       | ![][unknown_]                                                         |                  |
 | system_error                                  | ![][unknown_]                                                         |                  |
@@ -102,7 +102,7 @@ Focusing on implementing high C++ features for low C++(i.e. You can use `ss::opt
 
 | Containers library                            | Feature status                                                        | Notes            |
 |-----------------------------------------------|-----------------------------------------------------------------------|------------------|
-| array                                         | ![][cpp11090] ![][cpp14100] ![][cpp17100] ![][cpp20050]               |                  |
+| [array](status/array.md)                      | ![][cpp11090] ![][cpp14100] ![][cpp17100] ![][cpp20050]               |                  |
 | vector                                        | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000]               |                  |
 | deque                                         | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000]               |                  |
 | list                                          | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000]               |                  |
