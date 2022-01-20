@@ -103,7 +103,7 @@ Focusing on implementing high C++ features for low C++(i.e. You can use `ss::opt
 | Containers library                            | Feature status                                                        | Notes            |
 |-----------------------------------------------|-----------------------------------------------------------------------|------------------|
 | [array](status/array.md)                      | ![][cpp11090] ![][cpp14100] ![][cpp17100] ![][cpp20050]               |                  |
-| vector                                        | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000]               |                  |
+| [vector](status/vector.md)                    | ![][cpp11017] ![][cpp20000]                                           |                  |
 | deque                                         | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000]               |                  |
 | list                                          | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000]               |                  |
 | forward_list                                  | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000]               |                  |
@@ -195,6 +195,7 @@ Focusing on implementing high C++ features for low C++(i.e. You can use `ss::opt
 [cpp11001]: https://img.shields.io/badge/C++11-1%25-orange
 [cpp11005]: https://img.shields.io/badge/C++11-5%25-orange
 [cpp11009]: https://img.shields.io/badge/C++11-9%25-orange
+[cpp11017]: https://img.shields.io/badge/C++11-17%25-orange
 [cpp11024]: https://img.shields.io/badge/C++11-24%25-orang
 [cpp11038]: https://img.shields.io/badge/C++11-38%25-yellow
 [cpp11063]: https://img.shields.io/badge/C++11-63%25-yellowgreen
