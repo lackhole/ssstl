@@ -461,7 +461,7 @@ struct allocator_traits {
 };
 
 template<typename Pointer>
-class allocation_result {
+struct allocation_result {
   Pointer ptr;
   size_t count;
 };
@@ -484,27 +484,28 @@ struct allocator {
 
   // TODO: Check operator new(size_t, align_val_t), operator delete(void*, align_val_t) is available
 
-  SS_NODISCARD SS_CONSTEXPR_AFTER_14 T *allocate(size_t n) {
+  SS_NODISCARD SS_CONSTEXPR_AFTER_14 T* allocate(size_t n) {
     if (std::numeric_limits<size_t>::max() / sizeof(T) < n)
       throw std::bad_array_new_length();
 # if SS_CXX_VER < 17
-    return ::operator new(n * sizeof(T));
+    return static_cast<T*>(::operator new(n * sizeof(T)));
 # else
-    return ::operator new(n * sizeof(T), static_cast<std::align_val_t>(alignof(T)));
+    return static_cast<T*>(::operator new(n * sizeof(T), static_cast<std::align_val_t>(alignof(T))));
 # endif
   }
 
-  SS_NODISCARD SS_CONSTEXPR_AFTER_14 allocation_result<T *> allocate_at_least(size_t n) {
+  SS_NODISCARD SS_CONSTEXPR_AFTER_14 allocation_result<T*> allocate_at_least(size_t n) {
     // http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2021/p0401r6.html#motivation
     if ((std::numeric_limits<size_t>::max() / sizeof(T)) < n)
       throw std::bad_array_new_length();
     return {
 # if SS_CXX_VER < 17
-      ::operator new(n * sizeof(T)),
+      static_cast<T*>(::operator new(n * sizeof(T))),
 # else
-      ::operator new(n * sizeof(T), static_cast<std::align_val_t>(sizeof(T))),
+      static_cast<T*>(::operator new(n * sizeof(T), static_cast<std::align_val_t>(sizeof(T)))),
 # endif
-      n};
+      n
+    };
   }
 
   SS_CONSTEXPR_AFTER_14 void deallocate(T *p, size_t n) {
@@ -528,6 +529,23 @@ constexpr bool operator!=(const allocator<T1>& lhs, const allocator<T2>& rhs) no
 # endif
 
 namespace detail {
+
+template<typename T, typename X = allocator<T>>
+struct is_allocator_completeness : conjunction<
+    is_complete<X>,
+    is_complete<typename allocator_traits<X>::allocator_type>,
+    is_complete<typename allocator_traits<X>::value_type>,
+    is_complete<typename allocator_traits<X>::pointer>,
+    is_complete<typename allocator_traits<X>::const_pointer>,
+    is_complete<typename allocator_traits<X>::void_pointer>,
+    is_complete<typename allocator_traits<X>::const_void_pointer>,
+    is_complete<typename allocator_traits<X>::difference_type>,
+    is_complete<typename allocator_traits<X>::size_type>,
+    is_complete<typename allocator_traits<X>::propagate_on_container_copy_assignment>,
+    is_complete<typename allocator_traits<X>::propagate_on_container_move_assignment>,
+    is_complete<typename allocator_traits<X>::propagate_on_container_swap>,
+    is_complete<typename allocator_traits<X>::is_always_equal>
+    > {};
 
 template<typename Alloc, typename = void>
 struct has_allocate_at_least : false_type {};
