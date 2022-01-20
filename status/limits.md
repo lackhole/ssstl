@@ -11,7 +11,7 @@
 
 | Features                              | Standard | Implemented in          |
 |---------------------------------------|:--------:|:-----------------------:|
-| **Declarations**                      |![][legcy]| ![][notyet]             |
+| **Declarations**                      |          |                         |
 |numeric_limits                         |![][legcy]| ![][notyet]             |
 |float_round_style                      |![][legcy]| ![][notyet]             |
 |float_denorm_style                     |![][legcy]| ![][notyet]             |
