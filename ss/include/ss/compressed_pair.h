@@ -15,7 +15,7 @@ namespace ss {
 
 namespace detail {
 
-template<typename T, size_t index, bool v = is_empty<T>::value>
+template<typename T, size_t index, bool v = is_empty<T>::value /* false */>
 struct compressed_slot {
   constexpr compressed_slot() = default;
 
@@ -57,6 +57,9 @@ class compressed_pair : private detail::compressed_slot<T, 0>, private detail::c
   using second_base::second_base;
 
  public:
+  using first_type = T;
+  using second_type = U;
+  
   constexpr compressed_pair() = default;
 
   template<typename T2>
