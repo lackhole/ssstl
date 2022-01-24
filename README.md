@@ -102,7 +102,7 @@ Focusing on implementing high C++ features for low C++(i.e. You can use `ss::opt
 
 | Containers library                            | Feature status                                                        | Notes            |
 |-----------------------------------------------|-----------------------------------------------------------------------|------------------|
-| [array](status/array.md)                      | ![][cpp11090] ![][cpp14100] ![][cpp17100] ![][cpp20050]               |                  |
+| [array](status/array.md)                      | ![][cpp11100] ![][cpp14100] ![][cpp17100] ![][cpp20050]               |                  |
 | [vector](status/vector.md)                    | ![][cpp11017] ![][cpp20000]                                           |                  |
 | deque                                         | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000]               |                  |
 | list                                          | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000]               |                  |
@@ -200,7 +200,6 @@ Focusing on implementing high C++ features for low C++(i.e. You can use `ss::opt
 [cpp11038]: https://img.shields.io/badge/C++11-38%25-yellow
 [cpp11063]: https://img.shields.io/badge/C++11-63%25-yellowgreen
 [cpp11075]: https://img.shields.io/badge/C++11-75%25-green
-[cpp11090]: https://img.shields.io/badge/C++11-90%25-green
 [cpp11100]: https://img.shields.io/badge/C++11-100%25-brightgreen
 [cpp11200]: https://img.shields.io/badge/C++11-100%25-blue
 [cpp11300]: https://img.shields.io/badge/C++11-100%25-blue

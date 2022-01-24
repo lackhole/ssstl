@@ -15,7 +15,7 @@
 | \<initializer_list>                          | ![][cpp11]           | -                                 |
 |                                              |                      |                                   |
 | **Classes**                                  |                      |                                   |
-| array                                        | ![][cpp11]           | ![][notyet]                       |
+| array                                        | ![][cpp11]           | ![][cpp11] ![][cpppt20]           |
 | tuple_size                                   | ![][cpp11]           | ![][cpp11]                        |
 | tuple_element                                | ![][cpp11]           | ![][cpp11]                        |
 | ss::tuple_size\<ss::array>                   | ![][cpp11]           | ![][cpp11]                        |
@@ -37,12 +37,12 @@
 
 
 <!--
-	C++11: 10	| 9
+	C++11: 10	| 10
 	C++14: 4	| 4
 	C++17: 3	| 3
 	C++20: 4	| 2
 
-	Total: 21	| 18-->
+	Total: 21	| 19-->
 
 [notyet]: https://img.shields.io/badge/Not_yet-orange
 [removed]: https://img.shields.io/badge/Removed-red
