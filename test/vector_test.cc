@@ -27,8 +27,6 @@ int main() {
   static_assert(sizeof(int*) == 8, " ");
   
   ss::vector<int> vv;
-  
-  ss::allocator<int>{}.allocate_at_least(3);
 
   {
     SS_TESTC(!ss::detail::is_complete<incomplete>::value)
