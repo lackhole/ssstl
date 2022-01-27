@@ -336,6 +336,21 @@ struct pair {
     second = other.second;
     return *this;
   }
+  
+  template<typename Dummy = void, 
+    enable_if_t<
+      conjunction<
+        is_void<Dummy>,
+        both<is_copy_assignable>
+      >::value,
+    int> = 0>
+  SS_CONSTEXPR_AFTER_14 const pair& operator=(type_identity_t<const pair&> other)
+    noexcept(both<is_nothrow_copy_assignable>::value)
+  {
+    first = other.first;
+    second = other.second;
+    return *this;
+  }
 
   template<typename U1, typename U2,
     enable_if_t<
@@ -351,7 +366,23 @@ struct pair {
     return *this;
   }
 
-  template<typename Dummy = void, 
+  template<typename U1, typename U2,
+    enable_if_t<
+      conjunction<
+        is_assignable<const first_type& , const U1&>,
+        is_assignable<const second_type&, const U2&>
+      >::value,
+    int> = 0>
+  SS_CONSTEXPR_AFTER_14 const pair& operator=(const pair<U1, U2>& other)
+  noexcept(conjunction<is_nothrow_assignable<const first_type&, const U1&>,
+                       is_nothrow_assignable<const second_type&, const U2&>>::value)
+  {
+    first = other.first;
+    second = other.second;
+    return *this;
+  }
+
+  template<typename Dummy = void,
     enable_if_t<
       conjunction<
         is_void<Dummy>,
@@ -366,6 +397,23 @@ struct pair {
     return *this;
   }
 
+  template<typename Dummy = void,
+    enable_if_t<
+      conjunction<
+        is_void<Dummy>,
+        is_assignable<const first_type&, first_type>,
+        is_assignable<const second_type&, second_type>
+      >::value,
+      int> = 0>
+  SS_CONSTEXPR_AFTER_14 const pair& operator=(pair&& other)
+    noexcept(conjunction<is_nothrow_assignable<const first_type&, first_type>,
+                         is_nothrow_assignable<const second_type&, second_type>>::value)
+  {
+    first = ss::move(other.first);
+    second = ss::move(other.second);
+    return *this;
+  }
+
   template<typename U1, typename U2,
     enable_if_t<
       is_assignable<first_type& , U1>::value &&
@@ -373,6 +421,22 @@ struct pair {
     int> = 0>
   SS_CONSTEXPR_AFTER_14 pair& operator=(pair<U1, U2>&& other)
     noexcept(conjunction<is_nothrow_assignable<first_type&, U1>, is_nothrow_assignable<second_type&, U2>>::value)
+  {
+    first = ss::forward<U1>(other.first);
+    second = ss::forward<U2>(other.second);
+    return *this;
+  }
+
+  template<typename U1, typename U2,
+    enable_if_t<
+      conjunction<
+        is_assignable<const first_type& , U1>,
+        is_assignable<const second_type&, U2>
+      >::value,
+    int> = 0>
+  SS_CONSTEXPR_AFTER_14 const pair& operator=(pair<U1, U2>&& other)
+    noexcept(conjunction<is_nothrow_assignable<const first_type&, U1>,
+                         is_nothrow_assignable<const second_type&, U2>>::value)
   {
     first = ss::forward<U1>(other.first);
     second = ss::forward<U2>(other.second);
