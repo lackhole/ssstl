@@ -89,11 +89,11 @@
 |sort_heap                         | ![][notyet]             |
 | **Minimum/maximun operations**   |                         |
 |max                               | ![][cpp11]              |
-|max_element                       | ![][notyet]             |
-|min                               | ![][notyet]             |
-|min_element                       | ![][notyet]             |
-|minmax                            | ![][notyet]             |
-|minmax_element                    | ![][notyet]             |
+|max_element                       | ![][cpp11]              |
+|min                               | ![][cpp11]              |
+|min_element                       | ![][cpp11]              |
+|minmax                            | ![][cpp11]              |
+|minmax_element                    | ![][cpp11]              |
 | **Comparison operations**        |                         |
 |equal                             | ![][cpp11]              |
 |lexicographical_compare           | ![][cpp11]              |
@@ -222,7 +222,7 @@
 
 
 <!--
-	C++11: 79	| 7
+	C++11: 79	| 12
 	C++14: 0	| 0
 	C++17: 3	| 0
 	C++20: 86	| 0

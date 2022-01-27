@@ -85,6 +85,7 @@ endmacro()
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
+SS_TEST(algorithm_test      algorithm_test.cc)
 SS_TEST(array_test          array_test.cc)
 SS_TEST_CXX(concepts_test   concepts_test.cc 20)
 SS_TEST(functional_test     functional_test.cc)
