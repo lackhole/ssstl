@@ -286,7 +286,14 @@ struct pair {
     return *this;
   }
 
-  SS_CONSTEXPR_AFTER_14 pair& operator=(enable_if_t<both<is_move_assignable>::value, pair&&> other)
+  template<typename Dummy = void, 
+    enable_if_t<
+      conjunction<
+        is_void<Dummy>,
+        both<is_move_assignable>
+      >::value,
+    int> = 0>
+  SS_CONSTEXPR_AFTER_14 pair& operator=(pair&& other)
     noexcept(both<is_nothrow_move_assignable>::value)
   {
     first = ss::move(other.first);
