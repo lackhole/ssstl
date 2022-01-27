@@ -126,6 +126,67 @@ constexpr inline bool cmp_greater_equal(T t, U u) noexcept {
   return !detail::cmp<T, U>::less(t, u);
 }
 
+
+
+/**
+ * integer_sequence
+ */
+
+template<typename T, T... Ints>
+struct integer_sequence {
+  static_assert(is_integral<T>::value, "ss::integer_sequence : T must be integral");
+  using value_type = T;
+  static constexpr size_t size() noexcept { return sizeof...(Ints); }
+};
+
+namespace detail {
+
+template<typename T, T ...N>
+struct sequence {
+  using type = sequence;
+  template<typename U, template<typename U2, U2...> class Seq>
+  using to_type = Seq<U, static_cast<U>(N)...>;
+};
+
+// TODO: Optimize speed of sizeof... operator in clang
+template<typename C1, typename C2> struct concat;
+template<typename T, T... I1, T... I2>
+struct concat<sequence<T, I1...>, sequence<T, I2...>> : sequence<T, I1..., (sizeof...(I1) + I2)...> {};
+
+template<typename T, size_t N> struct gen;
+template<typename T, size_t N> using gen_t = typename gen<T, N>::type;
+
+template<typename T, size_t N> struct gen : concat<gen_t<T, N / 2>, gen_t<T, N - N / 2>> {};
+template<typename T> struct gen<T, 0> : sequence<T> {};
+template<typename T> struct gen<T, 1> : sequence<T, 0> {};
+
+
+template<typename T, T N>
+struct make_integer_sequence_impl {
+  static_assert(is_integral<T>::value, "ss::make_integer_sequence : T must be integral");
+  static_assert(N >= 0, "ss::make_integer_sequence : N must be greater or equal to zero");
+  using type = typename gen_t<T, N>::template to_type<T, integer_sequence>;
+};
+
+} // namespace detail
+
+/**
+ * integer_sequence helper templates
+ */
+template<size_t... Ints>
+using index_sequence = integer_sequence<size_t, Ints...>;
+
+template<typename T, T N>
+using make_integer_sequence = typename detail::make_integer_sequence_impl<T, N>::type;
+
+template<size_t N>
+using make_index_sequence = make_integer_sequence<size_t, N>;
+
+template<typename ...T>
+using index_sequence_for = make_index_sequence<sizeof...(T)>;
+
+
+
 /**
  * piecewise_construct_t
  */
@@ -256,9 +317,13 @@ struct pair {
   constexpr explicit pair(pair<U1, U2>&& p)  noexcept(both_nothrow_constructible<U1&&, U2&&>::value)
     : first(ss::forward<U1>(p.first)), second(ss::forward<U2>(p.second)) {}
 
-    // TODO
-//  template<typename ...Args1, typename ...Args2>
-//  constexpr pair(piecewise_construct_t, tuple<Args1...> first_args, tuple<Args2...> second_args)
+  template<typename ...Args1, typename ...Args2>
+  constexpr pair(piecewise_construct_t, tuple<Args1...> first_args, tuple<Args2...> second_args)
+  noexcept(conjunction<is_nothrow_constructible<first_type, Args1...>,
+                       is_nothrow_constructible<second_type, Args2...>>::value)
+    : pair(piecewise_construct_t{}, ss::move(first_args), ss::move(second_args),
+           make_index_sequence<tuple_size<tuple<Args1...>>::value>{},
+           make_index_sequence<tuple_size<tuple<Args2...>>::value>{}) {}
 
   constexpr pair(const pair&) = default;
   constexpr pair(pair&&) = default;
@@ -324,6 +389,12 @@ struct pair {
 
   first_type first;
   second_type second;
+  
+ private:
+  template<typename... Args1, typename... Args2, size_t... I1, size_t... I2>
+  constexpr pair(piecewise_construct_t,
+                 tuple<Args1...> first_args, tuple<Args2...> second_args,
+                 index_sequence<I1...>, index_sequence<I2...>);
 };
 
 # if SS_CXX_VER >= 17
@@ -495,62 +566,13 @@ template<typename T> const T& get(const pair<T, T>& p) = delete;
 template<typename T> T&& get(pair<T, T>&& p) = delete;
 template<typename T> const T&& get(const pair<T, T>&& p) = delete;
 
-/**
- * integer_sequence
- */
-
-template<typename T, T... Ints>
-struct integer_sequence {
-  static_assert(is_integral<T>::value, "ss::integer_sequence : T must be integral");
-  using value_type = T;
-  static constexpr size_t size() noexcept { return sizeof...(Ints); }
-};
-
-namespace detail {
-
-template<typename T, T ...N>
-struct sequence {
-  using type = sequence;
-  template<typename U, template<typename U2, U2...> class Seq>
-  using to_type = Seq<U, static_cast<U>(N)...>;
-};
-
-// TODO: Optimize speed of sizeof... operator in clang
-template<typename C1, typename C2> struct concat;
-template<typename T, T... I1, T... I2>
-struct concat<sequence<T, I1...>, sequence<T, I2...>> : sequence<T, I1..., (sizeof...(I1) + I2)...> {};
-
-template<typename T, size_t N> struct gen;
-template<typename T, size_t N> using gen_t = typename gen<T, N>::type;
-
-template<typename T, size_t N> struct gen : concat<gen_t<T, N / 2>, gen_t<T, N - N / 2>> {};
-template<typename T> struct gen<T, 0> : sequence<T> {};
-template<typename T> struct gen<T, 1> : sequence<T, 0> {};
-
-
-template<typename T, T N>
-struct make_integer_sequence_impl {
-  static_assert(is_integral<T>::value, "ss::make_integer_sequence : T must be integral");
-  static_assert(N >= 0, "ss::make_integer_sequence : N must be greater or equal to zero");
-  using type = typename gen_t<T, N>::template to_type<T, integer_sequence>;
-};
-
-} // namespace detail
-
-/**
- * integer_sequence helper templates
- */
-template<size_t... Ints>
-  using index_sequence = integer_sequence<size_t, Ints...>;
-
-template<typename T, T N>
-  using make_integer_sequence = typename detail::make_integer_sequence_impl<T, N>::type;
-
-template<size_t N>
-  using make_index_sequence = make_integer_sequence<size_t, N>;
-
-template<typename ...T>
-  using index_sequence_for = make_index_sequence<sizeof...(T)>;
+template<typename T1, typename T2>
+template<typename... Args1, typename... Args2, size_t... I1, size_t... I2>
+constexpr pair<T1, T2>::pair(piecewise_construct_t,
+               tuple<Args1...> first_args, tuple<Args2...> second_args,
+               index_sequence<I1...>, index_sequence<I2...>)
+  : first(ss::forward<Args1>(ss::get<I1>(first_args))...),
+    second(ss::forward<Args2>(ss::get<I2>(second_args))...) {}
 
 
 /**
