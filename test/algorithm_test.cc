@@ -1,4 +1,5 @@
 #include <iostream>
+#include <initializer_list>
 #include <algorithm>
 
 #include "ss/array.h"
