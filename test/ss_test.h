@@ -23,14 +23,14 @@ class Tester {
     print_result();
   }
 
-  void do_test(bool result, const char* source, int line) {
+  void do_test(const char* source, int line, bool result) {
     if (result)
       test_data_.emplace_back("", line, result);
     else
       test_data_.emplace_back(source, line, result);
   }
 
-  void do_test(bool result, const char* source, int line, std::string info) {
+  void do_test(const char* source, int line, bool result, std::string info) {
     if (result)
       test_data_.emplace_back("", line, result);
     else
@@ -100,20 +100,6 @@ class Tester {
 
 }
 
-#define SS_TEST_GET_FIRST_IMPL_1(x) x
-#define SS_TEST_GET_FIRST_IMPL_2(x, ...) x
-#define SS_TEST_GET_FIRST_IMPL(_1,_2,N,...) SS_TEST_GET_FIRST_IMPL_##N
-#define SS_TEST_GET_FIRST(...) SS_TEST_GET_FIRST_IMPL(__VA_ARGS__,2,1,0)(__VA_ARGS__)
-
-#define SS_TEST_GET_SECOND_OR_EMPTY_IMPL_1(x)
-#define SS_TEST_GET_SECOND_OR_EMPTY_IMPL_2(x, ...) , __VA_ARGS__
-#define SS_TEST_GET_SECOND_OR_EMPTY_IMPL(_1,_2,N,...) SS_TEST_GET_SECOND_OR_EMPTY_IMPL_##N
-#define SS_TEST_GET_SECOND_OR_EMPTY(...) SS_TEST_GET_SECOND_OR_EMPTY_IMPL(__VA_ARGS__,2,1,0)(__VA_ARGS__)
-
-# define SS_TEST_FILE_LINE_IMPL2(f, l) #l
-# define SS_TEST_FILE_LINE_IMPL(f, l) f ", line " #l
-# define SS_TEST_FILE_LINE SS_TEST_FILE_LINE_IMPL(__FILE__, __LINE__)
-
 # define SS_TEST_MAKE_DUMMY_NAME_IMPL2(x, y) x ## y
 # define SS_TEST_MAKE_DUMMY_NAME_IMPL(x, y) SS_TEST_MAKE_DUMMY_NAME_IMPL2(x, y)
 # define SS_TEST_MAKE_DUMMY_NAME(x) SS_TEST_MAKE_DUMMY_NAME_IMPL(x, __COUNTER__)
@@ -121,7 +107,9 @@ class Tester {
 # define SS_TEST_DUMMY_NAME ss_$238be_$zzfe_
 
 # define SS_INIT_TEST(name) ::ss::Tester SS_TEST_DUMMY_NAME(name);
-# define SS_TEST(...) SS_TEST_DUMMY_NAME.do_test(SS_TEST_GET_FIRST(__VA_ARGS__), __FILE__, __LINE__ SS_TEST_GET_SECOND_OR_EMPTY(__VA_ARGS__));
+
+# define SS_TEST_IMPL(...) SS_TEST_DUMMY_NAME.do_test(__VA_ARGS__);
+# define SS_TEST(...) SS_TEST_IMPL(__FILE__, __LINE__, __VA_ARGS__)
 
 # define SS_TESTC(...) static_assert((__VA_ARGS__), " "); SS_TEST(true) // if false this doesn't even compiles.
 
