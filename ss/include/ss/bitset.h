@@ -412,7 +412,7 @@ class bitset {
     constexpr size_t type_bit = sizeof(T) * CHAR_BIT;
 
     for (size_t i = type_bit; i < element_bit; ++i) {
-      if (get_bit(i) > 0)
+      if (get_bit(i) != 0)
         ss::detail::throw_overflow(overflow_msg);
     }
 
