@@ -48,7 +48,7 @@ Focusing on implementing high C++ features for low C++(i.e. You can use `ss::opt
 | typeinfo                                      | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000]               |                  |
 | typeindex                                     | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000]               |                  |
 | [type_traits](status/type_traits.md)          | ![][cpp11100] ![][cpp14100] ![][cpp17100] ![][cpp20064]               |                  |
-| bitset                                        | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000]               |                  |
+| [bitset](status/bitset.md)                    | ![][cpp11043]                                                         |                  |
 | [functional](status/functional.md)            | ![][cpp11063] ![][cpp14100] ![][cpp17020] ![][cpp20000] ![][cpp23100] |                  |
 | [utility](status/utility.md)                  | ![][cpp11100] ![][cpp14100] ![][cpp17100] ![][cpp20096]               |                  |
 | chrono                                        | ![][cpp11000] ![][cpp14000] ![][cpp17000] ![][cpp20000]               |                  |
@@ -198,6 +198,7 @@ Focusing on implementing high C++ features for low C++(i.e. You can use `ss::opt
 [cpp11017]: https://img.shields.io/badge/C++11-17%25-orange
 [cpp11024]: https://img.shields.io/badge/C++11-24%25-orang
 [cpp11038]: https://img.shields.io/badge/C++11-38%25-yellow
+[cpp11043]: https://img.shields.io/badge/C++11-43%25-yellow
 [cpp11063]: https://img.shields.io/badge/C++11-63%25-yellowgreen
 [cpp11075]: https://img.shields.io/badge/C++11-75%25-green
 [cpp11100]: https://img.shields.io/badge/C++11-100%25-brightgreen
