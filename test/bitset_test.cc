@@ -148,6 +148,8 @@ int main() {
     b >>= 2;
     SS_TEST(b == bit8("00000011"))
     SS_TEST((bit8("00001111") >> 2) == bit8("00000011"))
+    std::cout << "LHS : " << (bit8("00001111") >> 2) << " | " << (bit8("00001111") >> 2).to_string() << std::endl;
+    std::cout << "RHS : " << bit8("00000011") << " | " << bit8("00000011").to_string() << std::endl;
   }
 
   { // set, reset, flip
