@@ -30,6 +30,13 @@ class Tester {
       test_data_.emplace_back(source, line, result);
   }
 
+  void do_test(bool result, const char* source, int line, std::string info) {
+    if (result)
+      test_data_.emplace_back("", line, result);
+    else
+      test_data_.emplace_back(source, line, result, std::move(info));
+  }
+
   void print_result() const {
     std::vector<decltype(test_data_)::const_iterator> fails;
 
@@ -67,22 +74,41 @@ class Tester {
       << "\n";
 
     for (auto it = begin; it != end; ++it) {
-      std::cout << "Test failed at " << (*it)->source << ", line " << (*it)->line << '\n';
+      std::cout
+          << "Test failed at " << (*it)->source
+          << ", line " << (*it)->line;
+      if (!(*it)->info.empty())
+          std::cout << " (" << (*it)->info <<  ")";
+      std::cout << '\n';
     }
   }
 
   enum class test_result { success, fail };
   struct tests {
-    tests(const char* s, int line, bool r) : source(s), line(line), success(r) {}
+    tests(const char* s, int line, bool r)
+        : source(s), line(line), success(r) {}
+    tests(const char* s, int line, bool r, std::string info)
+        : source(s), line(line), success(r), info(std::move(info)) {}
     const char* source;
     int line;
     bool success;
+    std::string info;
   };
   std::string test_name_;
   std::vector<tests> test_data_;
 };
 
 }
+
+#define SS_TEST_GET_FIRST_IMPL_1(x) x
+#define SS_TEST_GET_FIRST_IMPL_2(x, ...) x
+#define SS_TEST_GET_FIRST_IMPL(_1,_2,N,...) SS_TEST_GET_FIRST_IMPL_##N
+#define SS_TEST_GET_FIRST(...) SS_TEST_GET_FIRST_IMPL(__VA_ARGS__,2,1,0)(__VA_ARGS__)
+
+#define SS_TEST_GET_SECOND_OR_EMPTY_IMPL_1(x)
+#define SS_TEST_GET_SECOND_OR_EMPTY_IMPL_2(x, ...) , __VA_ARGS__
+#define SS_TEST_GET_SECOND_OR_EMPTY_IMPL(_1,_2,N,...) SS_TEST_GET_SECOND_OR_EMPTY_IMPL_##N
+#define SS_TEST_GET_SECOND_OR_EMPTY(...) SS_TEST_GET_SECOND_OR_EMPTY_IMPL(__VA_ARGS__,2,1,0)(__VA_ARGS__)
 
 # define SS_TEST_FILE_LINE_IMPL2(f, l) #l
 # define SS_TEST_FILE_LINE_IMPL(f, l) f ", line " #l
@@ -95,9 +121,27 @@ class Tester {
 # define SS_TEST_DUMMY_NAME ss_$238be_$zzfe_
 
 # define SS_INIT_TEST(name) ::ss::Tester SS_TEST_DUMMY_NAME(name);
-# define SS_TEST(expr) SS_TEST_DUMMY_NAME.do_test((expr), __FILE__, __LINE__);
+# define SS_TEST(...) SS_TEST_DUMMY_NAME.do_test(SS_TEST_GET_FIRST(__VA_ARGS__), __FILE__, __LINE__ SS_TEST_GET_SECOND_OR_EMPTY(__VA_ARGS__));
 
 # define SS_TESTC(...) static_assert((__VA_ARGS__), " "); SS_TEST(true) // if false this doesn't even compiles.
+
+# define SS_TEST_CATCH(expr, excep)         \
+try {                                       \
+  (expr);                                   \
+  SS_TEST(false, "exception not thrown")    \
+} catch (const excep&) {                    \
+  SS_TEST(true)                             \
+} catch (...) {                             \
+  SS_TEST(false, "wrong exception thrown")  \
+}
+
+# define SS_TEST_NOCATCH(expr)              \
+try {                                       \
+  (expr);                                   \
+  SS_TEST(true)                             \
+} catch (...) {                             \
+  SS_TEST(false, "exception thrown")        \
+}
 
 # define SS_TEST_RETURN return SS_TEST_DUMMY_NAME.test_succeed();
 
