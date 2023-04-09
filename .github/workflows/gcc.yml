@@ -2,16 +2,14 @@ name: gcc
 
 on: pull_request
 
-env:
-  BUILD_TYPE: Release
-
 jobs:
   test_cxx:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        cxx: [ 11, 14, 17, 20 ]
+        CXX_STD: [ 11, 14, 17, 20 ]
+        BUILD_TYPE: [ Debug, Release ]
       fail-fast: false
 
     steps:
@@ -21,15 +19,15 @@ jobs:
         env:
           CXX: g++
         run: >
-          cmake -B ${{github.workspace}}/build-${{matrix.cxx}}
-          -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
-          -DCMAKE_CXX_STANDARD=${{matrix.cxx}}
+          cmake -B ${{ github.workspace }}/build
+          -DCMAKE_BUILD_TYPE=${{ matrix.BUILD_TYPE }}
+          -DCMAKE_CXX_STANDARD=${{ matrix.CXX_STD }}
           -DSS_TEST=ON
           -DSS_TEST_MATRIX=ON
 
       - name: Build Test
-        run: cmake --build build-${{matrix.cxx}} --target all -- -j 9
+        run: cmake --build ${{ github.workspace }}/build --target all -- -j 9
 
       - name: Run Test
-        working-directory: ${{github.workspace}}/build-${{matrix.cxx}}
-        run: ctest -C ${{env.BUILD_TYPE}} --extra-verbose --output-on-failure -j9
+        working-directory: ${{ github.workspace }}/build
+        run: ctest -C ${{ matrix.BUILD_TYPE }} --extra-verbose --output-on-failure -j9
