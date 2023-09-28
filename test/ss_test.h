@@ -122,8 +122,9 @@ class Tester {
 
 # define SS_INIT_TEST(name) ::ss::Tester SS_TEST_DUMMY_NAME(name);
 # define SS_TEST(...) SS_TEST_DUMMY_NAME.do_test(SS_TEST_GET_FIRST(__VA_ARGS__), __FILE__, __LINE__ SS_TEST_GET_SECOND_OR_EMPTY(__VA_ARGS__));
+# define SS_TEST_EQ(x, y) SS_TEST_DUMMY_NAME.do_test((x) == (y), __FILE__, __LINE__);
 
-# define SS_TESTC(...) static_assert((__VA_ARGS__), " "); SS_TEST(true) // if false this doesn't even compiles.
+# define SS_TESTC(...) static_assert((__VA_ARGS__), " "); SS_TEST(true) // if false this doesn't even compile.
 
 # define SS_TEST_CATCH(expr, excep)         \
 try {                                       \
