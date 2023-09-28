@@ -125,7 +125,7 @@ Focusing on implementing high C++ features for low C++(i.e. You can use `ss::opt
 
 | Algorithms library                            | Feature status                                                        | Notes            |
 |-----------------------------------------------|-----------------------------------------------------------------------|------------------|
-| [algorithm](status/algorithm.md)              | ![][cpp11009] ![][cpp17000] ![][cpp20000]               |                  |
+| [algorithm](status/algorithm.md)              | ![][cpp11015] ![][cpp17000] ![][cpp20000]               |                  |
 | execution                                     | ![][unknown_]                                                         |                  |
 
 | Numerics library                              | Feature status                                                        | Notes            |
@@ -194,7 +194,7 @@ Focusing on implementing high C++ features for low C++(i.e. You can use `ss::opt
 [cpp11000]: https://img.shields.io/badge/C++11-0%25-red
 [cpp11001]: https://img.shields.io/badge/C++11-1%25-orange
 [cpp11005]: https://img.shields.io/badge/C++11-5%25-orange
-[cpp11009]: https://img.shields.io/badge/C++11-9%25-orange
+[cpp11015]: https://img.shields.io/badge/C++11-15%25-orange
 [cpp11017]: https://img.shields.io/badge/C++11-17%25-orange
 [cpp11024]: https://img.shields.io/badge/C++11-24%25-orang
 [cpp11038]: https://img.shields.io/badge/C++11-38%25-yellow

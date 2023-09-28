@@ -1549,27 +1549,12 @@ template<typename T> SS_INLINE_VAR constexpr bool is_polymorphic_v = is_polymorp
 # endif
 
 
-
-namespace detail {
-// https://en.cppreference.com/w/cpp/language/abstract_class
-// Abstract types cannot be used as parameter types, as function return types,
-// or as the type of an explicit conversion (note this is checked at the point of definition and function call,
-// since at the point of function declaration parameter and return type may be incomplete)
-template<typename T> auto test_abstract(T(*)[1]) -> false_type;
-template<typename> auto test_abstract(...) -> true_type;
-
-template<typename T, bool v = is_class<T>::value>
-struct is_abstract_impl : decltype(test_abstract<T>(0)) {};
-
-template<typename T>
-struct is_abstract_impl<T, false> : false_type {};
-}
-
 /**
  * is_abstract
  * @tparam T
  */
-template<typename T> struct is_abstract : detail::is_abstract_impl<T> {};
+// GCC has a bug using return-type fallback implementation
+template<typename T> using is_abstract = std::is_abstract<T>;
 # if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_abstract_v = is_abstract<T>::value;
 # endif

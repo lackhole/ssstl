@@ -815,7 +815,7 @@ template<typename Indices> struct repeat_sequence_impl;
 template<typename T, T... I>
 struct repeat_sequence_impl<integer_sequence<T, I...>> {
   template<T v>
-  using type = integer_sequence<T, (I, v)...>;
+  using type = integer_sequence<T, ((void)I, v)...>;
 };
 
 template<typename T, T v, T n>

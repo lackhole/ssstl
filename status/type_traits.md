@@ -47,7 +47,7 @@
 |~~is_literal_type~~               | ![][removed]            |
 |is_empty                          | ![][cpp11]              |
 |is_polymorphic                    | ![][cpp11]              |
-|is_abstract                       | ![][cpp11]              |
+|is_abstract                       | ![][cppno11]            |
 |is_signed                         | ![][cpp11]              |
 |is_unsigned                       | ![][cpp11]              |
 |                                  |                         |

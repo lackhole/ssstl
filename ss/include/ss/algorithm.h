@@ -5,21 +5,165 @@
 # ifndef SS_ALGORITHM_H_
 # define SS_ALGORITHM_H_
 #
+# include <initializer_list>
+#
 # include "ss/detail/macro.h"
 # include "ss/detail/swap.h"
 # include "ss/functional.h"
 # include "ss/iterator.h"
+# include "ss/utility.h"
 
 namespace ss {
 
+template<typename ForwardIt, typename Compare>
+SS_CONSTEXPR_AFTER_14 ForwardIt min_element(ForwardIt first, ForwardIt last, Compare comp) {
+  if (first == last)
+    return last;
+
+  ForwardIt min_ = first;
+  ++first;
+
+  while(first != last) {
+    if (comp(*first, *min_))
+      min_ = first;
+    ++first;
+  }
+  return min_;
+}
+
+template<typename ForwardIt>
+SS_CONSTEXPR_AFTER_14 ForwardIt min_element(ForwardIt first, ForwardIt last) {
+  return min_element(first, last, less<>{});
+}
+
+template<typename ForwardIt, typename Compare>
+SS_CONSTEXPR_AFTER_14 ForwardIt max_element(ForwardIt first, ForwardIt last, Compare comp) {
+  if (first == last)
+    return last;
+
+  ForwardIt max_ = first;
+  ++first;
+
+  while(first != last) {
+    if (comp(*max_, *first))
+      max_ = first;
+    ++first;
+  }
+  return max_;
+}
+
+template<typename ForwardIt>
+SS_CONSTEXPR_AFTER_14 ForwardIt max_element(ForwardIt first, ForwardIt last) {
+  return max_element(first, last, less<>{});
+}
+
+template<typename ForwardIt, typename Compare>
+SS_CONSTEXPR_AFTER_14 pair<ForwardIt, ForwardIt>
+minmax_element(ForwardIt first, ForwardIt last, Compare comp) {
+  pair<ForwardIt, ForwardIt> result(first, first);
+  
+  // Input is empty
+  if (first == last)
+    return result;
+  
+  while (++first != last) {
+    ForwardIt next = first;
+    if (++first == last) { // compare one (next)
+      if (comp(*next, *result.first)) {
+        result.first = next;
+      } else if (!comp(*next, *result.second)) {
+        result.second = next;
+      }
+      break;
+    } else { // compare ahead pair (next, first)
+      if (comp(*next, *first)) { // next < first
+        if (comp(*next, *result.first)) {
+          result.first = next;
+        }
+        if (!comp(*first, *result.second)) {
+          result.second = first;
+        }
+      } else { // first <= next
+        if (comp(*first, *result.first)) {
+          result.first = first;
+        }
+        if (!comp(*next, *result.second)) {
+          result.second = next;
+        }
+      }
+    }
+  }
+  
+  return result;
+}
+
+template<typename ForwardIt>
+SS_CONSTEXPR_AFTER_14 pair<ForwardIt, ForwardIt>
+minmax_element(ForwardIt first, ForwardIt last) {
+  return ss::minmax_element(first, last, less<>{});
+}
+
+
 template<typename T>
-SS_CONSTEXPR_AFTER_14 const T& max(const T& a, const T& b) {
-  return ((a > b)) ? a : b;
+constexpr const T& min(const T& a, const T& b) {
+  return (a < b) ? a : b;
 }
 
 template<typename T, typename Compare>
-SS_CONSTEXPR_AFTER_14 const T& max(const T& a, const T& b, Compare comp) {
-  return (comp(a, b)) ? a : b;
+constexpr const T& min(const T& a, const T& b, Compare comp) {
+  return (comp(a < b)) ? a : b;
+}
+
+template<typename T>
+constexpr T min(std::initializer_list<T> ilist) {
+  return *ss::min_element(ilist.begin(), ilist.end(), less<T>{});
+}
+
+template<typename T, typename Compare>
+constexpr T min(std::initializer_list<T> ilist, Compare comp) {
+  return *ss::min_element(ilist.begin(), ilist.end(), comp);
+}
+
+template<typename T, typename Compare>
+constexpr const T& max(const T& a, const T& b, Compare comp) {
+  return (comp(a, b)) ? b : a;
+}
+
+template<typename T>
+constexpr const T& max(const T& a, const T& b) {
+  return ss::max(a, b, less<T>{});
+}
+
+template<typename T>
+constexpr T max(std::initializer_list<T> ilist) {
+  return *ss::max_element(ilist.begin(), ilist.end());
+}
+
+template<typename T, typename Compare>
+constexpr T max(std::initializer_list<T> ilist, Compare comp) {
+  return *ss::max_element(ilist.begin(), ilist.end(), comp);
+}
+
+template<typename T, typename Compare>
+constexpr pair<const T&, const T&> minmax(const T& a, const T& b, Compare comp) {
+  return comp(a, b) ? pair<const T&, const T&>(a, b) : pair<const T&, const T&>(b, a);
+}
+
+template<typename T>
+constexpr pair<const T&, const T&> minmax(const T& a, const T& b) {
+  return ss::minmax(a, b, less<T>{});
+}
+
+template<typename T>
+SS_CONSTEXPR_AFTER_14 pair<T, T> minmax(std::initializer_list<T> ilist) {
+  auto res = ss::minmax_element(ilist.begin(), ilist.end());
+  return pair<T, T>(*res.first, *res.second);
+}
+
+template<typename T, typename Compare>
+SS_CONSTEXPR_AFTER_14 pair<T, T> minmax(std::initializer_list<T> ilist, Compare comp) {
+  auto res = ss::minmax_element(ilist.begin(), ilist.end(), comp);
+  return pair<T, T>(*res.first, *res.second);
 }
 
 
