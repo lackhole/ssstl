@@ -61,7 +61,7 @@
 |----------------------------------|:-----------------------:|
 | **Functions**                    |                         |
 |cmp_equal <br/> cmp_not_equal <br/> cmp_less <br/> cmp_greater <br/> cmp_less_equal <br/> cmp_greater_equal | ![][cpp11] |
-|in_range                          | ![][notyet]             |
+|in_range                          |   ![][cpp11]            |
 
 [notyet]: https://img.shields.io/badge/Not_yet-orange
 [removed]: https://img.shields.io/badge/Removed-red

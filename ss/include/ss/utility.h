@@ -5,6 +5,7 @@
 # ifndef SS_UTILITY_H_
 # define SS_UTILITY_H_
 #
+# include "ss/limits.h"
 # include "ss/type_traits.h"
 # include "ss/detail/swap.h"
 # include "ss/detail/tuple_helper.h"
@@ -658,6 +659,18 @@ template<size_t I> struct in_place_index_t { explicit in_place_index_t() = defau
 # if SS_CXX_VER >= 14
 template<size_t I> SS_INLINE_VAR constexpr in_place_index_t<I> in_place_index{};
 # endif
+
+/**
+ * in_range
+ * @tparam R
+ * @tparam T
+ * @param t
+ * @return
+ */
+template<typename R, typename T>
+constexpr bool in_range(T t) noexcept {
+  return cmp_greater_equal(t, numeric_limits<R>::min()) && cmp_less_equal(t, numeric_limits<R>::max());
+}
 
 } // namespace ss
 
