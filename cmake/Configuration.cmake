@@ -4,17 +4,15 @@ include(CheckCXXSymbolExists)
 # Custom modules
 include(CheckTypeExists)
 include(CheckCXXStandardSupport)
+include(CheckCXX_CFloatSymbolExists)
+include(CheckCXX_CMathSymbolExists)
+include(CheckCXX_InitializerListExists)
 
 macro(CheckArithmeticTypeExists type)
     string(REPLACE " " "_" _name "${type}")
     string(TOUPPER ${_name} _name)
     set(_name SS_HAS_TYPE_${_name})
     CheckTypeExists(${type} "cstdint" ${_name})
-    if (${_name})
-        target_compile_definitions(ss INTERFACE ${_name}=1)
-    else()
-        target_compile_definitions(ss INTERFACE ${_name}=0)
-    endif ()
 endmacro()
 
 set(_types_to_check
@@ -73,14 +71,7 @@ else()
     message(FATAL_ERROR "Compiler must support C++11")
 endif ()
 
-check_cxx_symbol_exists(INFINITY cmath SS_DEFINED_INFINITY)
-check_cxx_symbol_exists(NAN cmath SS_DEFINED_NAN)
-
-check_cxx_symbol_exists(DECIMAL_DIG cfloat SS_DEFINED_DECIMAL_DIG)
-check_cxx_symbol_exists(FLT_DECIMAL_DIG cfloat SS_DEFINED_FLT_DECIMAL_DIG)
-check_cxx_symbol_exists(DBL_DECIMAL_DIG cfloat SS_DEFINED_DBL_DECIMAL_DIG)
-check_cxx_symbol_exists(LDBL_DECIMAL_DIG cfloat SS_DEFINED_LDBL_DECIMAL_DIG)
-
+# Generate config header
 set(SS_GENERATED_DIR "${SS_BINARY_DIR}/generated")
 set(SS_GENERATED_INCLUDE_DIR "${SS_GENERATED_DIR}/include")
 
