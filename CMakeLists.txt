@@ -1,9 +1,14 @@
 cmake_minimum_required(VERSION 3.15)
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+
 project(ss)
 add_library(ss INTERFACE)
 
 set(SS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/ss)
 set(SS_INCLUDE_DIR ${SS_DIR}/include)
+set(SS_BINARY_DIR "${PROJECT_BINARY_DIR}")
+
+include(Configuration)
 
 target_include_directories(ss INTERFACE ${SS_INCLUDE_DIR})
 

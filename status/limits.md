@@ -9,12 +9,12 @@
 * ![][notyet]: Not yet implemented
 
 
-| Features                              | Standard | Implemented in          |
-|---------------------------------------|:--------:|:-----------------------:|
-| **Declarations**                      |          |                         |
-|numeric_limits                         |![][legcy]| ![][notyet]             |
-|float_round_style                      |![][legcy]| ![][notyet]             |
-|float_denorm_style                     |![][legcy]| ![][notyet]             |
+| Features                              | Standard | Implemented in |
+|---------------------------------------|:--------:|:--------------:|
+| **Declarations**                      |          |                |
+|numeric_limits                         |![][legcy]|   ![][cpppt11] |
+|float_round_style                      |![][legcy]|   ![][cpp11]   |
+|float_denorm_style                     |![][legcy]|   ![][cpp11]   |
 
 
 [notyet]: https://img.shields.io/badge/Not_yet-orange
