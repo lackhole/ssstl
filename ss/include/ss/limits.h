@@ -5,9 +5,10 @@
 # ifndef S_LIMITS_H_
 # define S_LIMITS_H_
 #
-# include <cstdint>
-# include <climits>
 # include <cfloat>
+# include <climits>
+# include <cmath>
+# include <cstdint>
 # include <limits>
 #
 # include "ss/__deprecated.h"
