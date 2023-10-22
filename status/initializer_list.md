@@ -8,20 +8,20 @@
 * ![](https://img.shields.io/badge/C%2B%2B-N-green): Fully implemented with C++ N
 * ![][notyet]: Not yet implemented
 
-| Features                                     | Standard             | Implemented in                    |
-|----------------------------------------------|:--------------------:|:---------------------------------:|
-| **Classes**                                  |                      |                                   |
-| initializer_list                             | ![][cpp11]           | ![][notyet]                       |
-|                                              |                      |                                   |
-| **Functions**                                |                      |                                   |
-| ss::begin(ss::initializer_list)              | ![][cpp11]           | ![][notyet]                       |
-| ss::end(ss::initializer_list)                | ![][cpp11]           | ![][notyet]                       |
+| Features                        |  Standard  | Implemented in |
+|---------------------------------|:----------:|:--------------:|
+| **Classes**                     |            |                |
+| initializer_list                | ![][cpp11] |   ![][cpp11]   |
+|                                 |            |                |
+| **Functions**                   |            |                |
+| ss::begin(ss::initializer_list) | ![][cpp11] |   ![][cpp11]   |
+| ss::end(ss::initializer_list)   | ![][cpp11] |   ![][cpp11]   |
 
 
 <!--
-	C++11: 3	| 0
+	C++11: 3	| 3
 
-	Total: 3	| 0-->
+	Total: 3	| 3-->
 
 [notyet]: https://img.shields.io/badge/Not_yet-orange
 [removed]: https://img.shields.io/badge/Removed-red
