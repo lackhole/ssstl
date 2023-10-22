@@ -1,4 +1,9 @@
+# CMake defined modules
+include(CheckCXXSymbolExists)
+
+# Custom modules
 include(CheckTypeExists)
+include(CheckCXXStandardSupport)
 
 macro(CheckArithmeticTypeExists type)
     string(REPLACE " " "_" _name "${type}")
@@ -32,16 +37,12 @@ set(_types_to_check
     "float"
     "double"
     "long double"
-    "float"
-    "double"
-    "long double"
 )
 
 foreach(type ${_types_to_check})
     CheckArithmeticTypeExists(${type})
 endforeach()
 
-include(CheckCXXStandardSupport)
 
 if ("${CMAKE_CXX_STANDARD}" STREQUAL "")
     CheckCXXStandardSupport(11 SS_COMPILER_SUPPORT_STD_11)
@@ -72,17 +73,19 @@ else()
     message(FATAL_ERROR "Compiler must support C++11")
 endif ()
 
-include(CheckCXXSymbolExists)
-check_cxx_symbol_exists(INFINITY math.h SS_DEFINED_INFINITY)
-if (SS_DEFINED_INFINITY)
-    target_compile_definitions(ss INTERFACE SS_DEFINED_INFINITY=1)
-else ()
-    target_compile_definitions(ss INTERFACE SS_DEFINED_INFINITY=0)
+check_cxx_symbol_exists(INFINITY cmath SS_DEFINED_INFINITY)
+check_cxx_symbol_exists(NAN cmath SS_DEFINED_NAN)
+
+set(SS_GENERATED_DIR "${SS_BINARY_DIR}/generated")
+set(SS_GENERATED_INCLUDE_DIR "${SS_GENERATED_DIR}/include")
+
+if (NOT EXISTS "${SS_GENERATED_INCLUDE_DIR}/ss")
+    file(MAKE_DIRECTORY "${SS_GENERATED_INCLUDE_DIR}/ss")
 endif ()
 
-check_cxx_symbol_exists(NAN math.h SS_DEFINED_NAN)
-if (SS_DEFINED_NAN)
-    target_compile_definitions(ss INTERFACE SS_DEFINED_NAN=1)
-else ()
-    target_compile_definitions(ss INTERFACE SS_DEFINED_NAN=0)
-endif ()
+configure_file(
+    "${SS_INCLUDE_DIR}/ss/__config.cmake.in"
+    "${SS_GENERATED_INCLUDE_DIR}/ss/__config.h"
+)
+
+target_include_directories(ss INTERFACE "${SS_GENERATED_INCLUDE_DIR}")

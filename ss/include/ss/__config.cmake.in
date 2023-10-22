@@ -1,0 +1,32 @@
+//
+// Created by yonggyulee on 2023/10/22.
+//
+
+#ifndef SS___CONFIG_H_
+#define SS___CONFIG_H_
+
+#cmakedefine01 SS_HAS_TYPE_BOOL
+#cmakedefine01 SS_HAS_TYPE_CHAR
+#cmakedefine01 SS_HAS_TYPE_SIGNED_CHAR
+#cmakedefine01 SS_HAS_TYPE_UNSIGNED_CHAR
+#cmakedefine01 SS_HAS_TYPE_WCHAR_T
+#cmakedefine01 SS_HAS_TYPE_CHAR8_T
+#cmakedefine01 SS_HAS_TYPE_CHAR16_T
+#cmakedefine01 SS_HAS_TYPE_CHAR32_T
+#cmakedefine01 SS_HAS_TYPE_SHORT
+#cmakedefine01 SS_HAS_TYPE_UNSIGNED_SHORT
+#cmakedefine01 SS_HAS_TYPE_INT
+#cmakedefine01 SS_HAS_TYPE_UNSIGNED_INT
+#cmakedefine01 SS_HAS_TYPE_LONG
+#cmakedefine01 SS_HAS_TYPE_UNSIGNED_LONG
+#cmakedefine01 SS_HAS_TYPE_LONG_LONG
+#cmakedefine01 SS_HAS_TYPE_UNSIGNED_LONG_LONG
+
+#cmakedefine01 SS_HAS_TYPE_FLOAT
+#cmakedefine01 SS_HAS_TYPE_DOUBLE
+#cmakedefine01 SS_HAS_TYPE_LONG_DOUBLE
+
+#cmakedefine01 SS_DEFINED_INFINITY
+#cmakedefine01 SS_DEFINED_NAN
+
+#endif // SS___CONFIG_H_
