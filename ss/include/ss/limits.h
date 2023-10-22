@@ -8,8 +8,10 @@
 # include <cstdint>
 # include <climits>
 # include <cfloat>
+# include <limits>
 #
 # include "ss/__deprecated.h"
+# include "ss/type_traits.h"
 
 #define SS_DEPRECATED_DENORM_CXX23 SS_DEPRECATED_AFTER_CXX_23("")
 #define SS_DEPRECATED_DENORM_LOSS_CXX23 SS_DEPRECATED_AFTER_CXX_23("")
