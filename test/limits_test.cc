@@ -25,7 +25,7 @@ int main() {
   SS_TEST_EQ(ss::numeric_limits<double>::has_infinity, true)
 
   SS_TEST_EQ(ss::numeric_limits<std::int8_t>::max(), 127)
-  SS_TEST_EQ(ss::numeric_limits<std::uint8_t>::max(), 256U)
+  SS_TEST_EQ(ss::numeric_limits<std::uint8_t>::max(), 255U)
   SS_TEST_EQ(ss::numeric_limits<std::int16_t>::max(), 32767)
   SS_TEST_EQ(ss::numeric_limits<std::uint16_t>::max(), 65535U)
   SS_TEST_EQ(ss::numeric_limits<std::int32_t>::max(), 2147483647)
