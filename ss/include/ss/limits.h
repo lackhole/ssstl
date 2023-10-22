@@ -2,8 +2,8 @@
 #  * Created by YongGyu Lee on 2021/11/11.
 #  */
 #
-# ifndef S_LIMITS_H_
-# define S_LIMITS_H_
+# ifndef SS_LIMITS_H_
+# define SS_LIMITS_H_
 #
 # include <cfloat>
 # include <climits>
@@ -11,6 +11,7 @@
 # include <cstdint>
 # include <limits>
 #
+# include "ss/__config.h"
 # include "ss/__deprecated.h"
 # include "ss/type_traits.h"
 
@@ -33,11 +34,9 @@ enum float_denorm_style {
   denorm_present       = 1
 };
 
-namespace detail {
-
 template<typename T>
-class numeric_limits_base {
- protected:
+class numeric_limits {
+ public:
   static constexpr bool is_specialized = false;
   static constexpr bool is_signed = false;
   static constexpr bool is_integer = false;
@@ -75,8 +74,8 @@ class numeric_limits_base {
 
 #if SS_HAS_TYPE_BOOL
 template<>
-class numeric_limits_base<bool> {
- protected:
+class numeric_limits<bool> {
+ public:
   using type = bool;
 
   static constexpr bool is_specialized = true;
@@ -117,8 +116,8 @@ class numeric_limits_base<bool> {
 
 #if SS_HAS_TYPE_CHAR
 template<>
-class numeric_limits_base<char> {
- protected:
+class numeric_limits<char> {
+ public:
   using type = char;
 
   static constexpr bool is_specialized = true;
@@ -159,8 +158,8 @@ class numeric_limits_base<char> {
 
 #if SS_HAS_TYPE_SIGNED_CHAR
 template<>
-class numeric_limits_base<signed char> {
- protected:
+class numeric_limits<signed char> {
+ public:
   using type = signed char;
 
   static constexpr bool is_specialized = true;
@@ -201,8 +200,8 @@ class numeric_limits_base<signed char> {
 
 #if SS_HAS_TYPE_UNSIGNED_CHAR
 template<>
-class numeric_limits_base<unsigned char> {
- protected:
+class numeric_limits<unsigned char> {
+ public:
   using type = unsigned char;
 
   static constexpr bool is_specialized = true;
@@ -243,8 +242,8 @@ class numeric_limits_base<unsigned char> {
 
 #if SS_HAS_TYPE_WCHAR_T
 template<>
-class numeric_limits_base<wchar_t> {
- protected:
+class numeric_limits<wchar_t> {
+ public:
   using type = wchar_t;
 
   static constexpr bool is_specialized = true;
@@ -285,8 +284,8 @@ class numeric_limits_base<wchar_t> {
 
 #if SS_HAS_TYPE_CHAR8_T
 template<>
-class numeric_limits_base<char8_t> {
- protected:
+class numeric_limits<char8_t> {
+ public:
   using type = char8_t;
 
   static constexpr bool is_specialized = true;
@@ -327,8 +326,8 @@ class numeric_limits_base<char8_t> {
 
 #if SS_HAS_TYPE_CHAR16_T
 template<>
-class numeric_limits_base<char16_t> {
- protected:
+class numeric_limits<char16_t> {
+ public:
   using type = char16_t;
 
   static constexpr bool is_specialized = true;
@@ -369,8 +368,8 @@ class numeric_limits_base<char16_t> {
 
 #if SS_HAS_TYPE_CHAR32_T
 template<>
-class numeric_limits_base<char32_t> {
- protected:
+class numeric_limits<char32_t> {
+ public:
   using type = char32_t;
 
   static constexpr bool is_specialized = true;
@@ -411,8 +410,8 @@ class numeric_limits_base<char32_t> {
 
 #if SS_HAS_TYPE_SHORT
 template<>
-class numeric_limits_base<short> {
- protected:
+class numeric_limits<short> {
+ public:
   using type = short;
 
   static constexpr bool is_specialized = true;
@@ -453,8 +452,8 @@ class numeric_limits_base<short> {
 
 #if SS_HAS_TYPE_UNSIGNED_SHORT
 template<>
-class numeric_limits_base<unsigned short> {
- protected:
+class numeric_limits<unsigned short> {
+ public:
   using type = unsigned short;
 
   static constexpr bool is_specialized = true;
@@ -495,8 +494,8 @@ class numeric_limits_base<unsigned short> {
 
 #if SS_HAS_TYPE_INT
 template<>
-class numeric_limits_base<int> {
- protected:
+class numeric_limits<int> {
+ public:
   using type = int;
 
   static constexpr bool is_specialized = true;
@@ -537,8 +536,8 @@ class numeric_limits_base<int> {
 
 #if SS_HAS_TYPE_UNSIGNED_INT
 template<>
-class numeric_limits_base<unsigned int> {
- protected:
+class numeric_limits<unsigned int> {
+ public:
   using type = unsigned int;
 
   static constexpr bool is_specialized = true;
@@ -579,8 +578,8 @@ class numeric_limits_base<unsigned int> {
 
 #if SS_HAS_TYPE_LONG
 template<>
-class numeric_limits_base<long> {
- protected:
+class numeric_limits<long> {
+ public:
   using type = long;
 
   static constexpr bool is_specialized = true;
@@ -621,8 +620,8 @@ class numeric_limits_base<long> {
 
 #if SS_HAS_TYPE_UNSIGNED_LONG
 template<>
-class numeric_limits_base<unsigned long> {
- protected:
+class numeric_limits<unsigned long> {
+ public:
   using type = unsigned long;
 
   static constexpr bool is_specialized = true;
@@ -663,8 +662,8 @@ class numeric_limits_base<unsigned long> {
 
 #if SS_HAS_TYPE_LONG_LONG
 template<>
-class numeric_limits_base<long long> {
- protected:
+class numeric_limits<long long> {
+ public:
   using type = long long;
 
   static constexpr bool is_specialized = true;
@@ -705,8 +704,8 @@ class numeric_limits_base<long long> {
 
 #if SS_HAS_TYPE_UNSIGNED_LONG_LONG
 template<>
-class numeric_limits_base<unsigned long long> {
- protected:
+class numeric_limits<unsigned long long> {
+ public:
   using type = unsigned long long;
 
   static constexpr bool is_specialized = true;
@@ -747,8 +746,8 @@ class numeric_limits_base<unsigned long long> {
 
 #if SS_HAS_TYPE_FLOAT
 template<>
-class numeric_limits_base<float> {
- protected:
+class numeric_limits<float> {
+ public:
   using type = float;
 
   static constexpr bool is_specialized = true;
@@ -789,8 +788,8 @@ class numeric_limits_base<float> {
 
 #if SS_HAS_TYPE_DOUBLE
 template<>
-class numeric_limits_base<double> {
- protected:
+class numeric_limits<double> {
+ public:
   using type = double;
 
   static constexpr bool is_specialized = true;
@@ -831,8 +830,8 @@ class numeric_limits_base<double> {
 
 #if SS_HAS_TYPE_LONG_DOUBLE
 template<>
-class numeric_limits_base<long double> {
- protected:
+class numeric_limits<long double> {
+ public:
   using type = long double;
 
   static constexpr bool is_specialized = true;
@@ -871,15 +870,6 @@ class numeric_limits_base<long double> {
 };
 #endif
 
-} // namespace detail
-
-template<typename T>
-class numeric_limits : private detail::numeric_limits_base<remove_cv_t<T>> {
-
-};
-
-
-
 } // namespace ss
 
-#endif // S_LIMITS_H_
+#endif // SS_LIMITS_H_
