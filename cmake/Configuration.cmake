@@ -76,6 +76,11 @@ endif ()
 check_cxx_symbol_exists(INFINITY cmath SS_DEFINED_INFINITY)
 check_cxx_symbol_exists(NAN cmath SS_DEFINED_NAN)
 
+check_cxx_symbol_exists(DECIMAL_DIG cfloat SS_DEFINED_DECIMAL_DIG)
+check_cxx_symbol_exists(FLT_DECIMAL_DIG cfloat SS_DEFINED_FLT_DECIMAL_DIG)
+check_cxx_symbol_exists(DBL_DECIMAL_DIG cfloat SS_DEFINED_DBL_DECIMAL_DIG)
+check_cxx_symbol_exists(LDBL_DECIMAL_DIG cfloat SS_DEFINED_LDBL_DECIMAL_DIG)
+
 set(SS_GENERATED_DIR "${SS_BINARY_DIR}/generated")
 set(SS_GENERATED_INCLUDE_DIR "${SS_GENERATED_DIR}/include")
 

@@ -20,6 +20,15 @@
 
 namespace ss {
 
+namespace detail {
+
+template<typename T, typename R = int>
+constexpr inline R rough_ceil(T x) {
+  return static_cast<R>(x) + ((static_cast<R>(x) == x) ? 0 : 1);
+}
+
+} // namespace detail
+
 enum float_round_style {
   round_indeterminate       = -1,
   round_toward_zero         = 0,
@@ -765,7 +774,12 @@ class numeric_limits<float> {
   static constexpr bool is_modulo = false;
   static constexpr int digits = FLT_MANT_DIG;
   static constexpr int digits10 = FLT_DIG;
-  static constexpr int max_digits10 = FLT_DECIMAL_DIG;
+  static constexpr int max_digits10 =
+#if SS_DEFINED_FLT_DECIMAL_DIG
+  FLT_DECIMAL_DIG;
+#else
+  detail::rough_ceil<type>(digits * 0.30103000 + 1);
+#endif
   static constexpr int radix = FLT_RADIX;
   static constexpr int min_exponent = FLT_MIN_EXP;
   static constexpr int min_exponent10 = FLT_MIN_10_EXP;
@@ -807,7 +821,12 @@ class numeric_limits<double> {
   static constexpr bool is_modulo = false;
   static constexpr int digits = DBL_MANT_DIG;
   static constexpr int digits10 = DBL_DIG;
-  static constexpr int max_digits10 = DBL_DECIMAL_DIG;
+  static constexpr int max_digits10 =
+#if SS_DEFINED_DBL_DECIMAL_DIG
+      DBL_DECIMAL_DIG;
+#else
+      detail::rough_ceil<type>(digits * 0.30103000 + 1);
+#endif
   static constexpr int radix = FLT_RADIX;
   static constexpr int min_exponent = DBL_MIN_EXP;
   static constexpr int min_exponent10 = DBL_MIN_10_EXP;
@@ -849,7 +868,14 @@ class numeric_limits<long double> {
   static constexpr bool is_modulo = false;
   static constexpr int digits = LDBL_MANT_DIG;
   static constexpr int digits10 = LDBL_DIG;
-  static constexpr int max_digits10 = DECIMAL_DIG;
+  static constexpr int max_digits10 =
+#if SS_DEFINED_LDBL_DECIMAL_DIG
+      DECIMAL_DIG;
+#elif SS_DEFINED_DECIMAL_DIG
+      DECIMAL_DIG;
+#else
+      detail::rough_ceil<type>(digits * 0.30103000 + 1);
+#endif
   static constexpr int radix = FLT_RADIX;
   static constexpr int min_exponent = LDBL_MIN_EXP;
   static constexpr int min_exponent10 = LDBL_MIN_10_EXP;
