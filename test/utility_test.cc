@@ -44,5 +44,5 @@ int main() {
   }
 
 
-  return 0;
+  SS_TEST_RETURN
 }
