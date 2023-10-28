@@ -7,10 +7,10 @@
 #
 # include <cstddef>
 #
-# include <limits>
 # include <new>
 # include <ostream>
 #
+# include "ss/__nullptr_t.h"
 # include "ss/detail/addressof.h"
 # include "ss/detail/allocator_arg.h"
 # include "ss/detail/uses_allocator.h"
@@ -18,6 +18,7 @@
 # include "ss/compressed_pair.h"
 # include "ss/functional.h"
 # include "ss/iterator.h"
+# include "ss/limits.h"
 # include "ss/type_traits.h"
 # include "ss/utility.h"
 
@@ -449,7 +450,7 @@ struct allocator_traits {
   }
   static constexpr size_type max_size_impl(const Alloc& a, false_type) noexcept {
     // TODO
-    return std::numeric_limits<size_type>::max() / sizeof(value_type);
+    return numeric_limits<size_type>::max() / sizeof(value_type);
   }
 
   static constexpr Alloc select_on_container_copy_construction_impl(const Alloc& a, true_type) {
@@ -485,7 +486,7 @@ struct allocator {
   // TODO: Check operator new(size_t, align_val_t), operator delete(void*, align_val_t) is available
 
   SS_NODISCARD SS_CONSTEXPR_AFTER_14 T* allocate(size_t n) {
-    if (std::numeric_limits<size_t>::max() / sizeof(T) < n)
+    if (numeric_limits<size_t>::max() / sizeof(T) < n)
       throw std::bad_array_new_length();
 # if SS_CXX_VER < 17
     return static_cast<T*>(::operator new(n * sizeof(T)));
@@ -496,7 +497,7 @@ struct allocator {
 
   SS_NODISCARD SS_CONSTEXPR_AFTER_14 allocation_result<T*> allocate_at_least(size_t n) {
     // http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2021/p0401r6.html#motivation
-    if ((std::numeric_limits<size_t>::max() / sizeof(T)) < n)
+    if ((numeric_limits<size_t>::max() / sizeof(T)) < n)
       throw std::bad_array_new_length();
     return {
 # if SS_CXX_VER < 17

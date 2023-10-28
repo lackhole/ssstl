@@ -7,9 +7,9 @@
 #
 # include <cstddef>
 #
+# include "ss/__nullptr_t.h"
 # include "ss/detail/addressof.h"
 # include "ss/detail/macro.h"
-# include "ss/detail/nullptr_t.h"
 
 // TODO: add GCC, Clang pragma
 # ifdef _MSC_VER

@@ -6,14 +6,13 @@
 # define SS_OPTIONAL_H_
 #
 # include <exception>
-# include <functional>
 # include <new>
 #
-# include "ss/type_traits.h"
-# include "ss/functional.h"
+# include "ss/__functional/hash.h"
 # include "ss/initializer_list.h"
-# include "ss/utility.h"
 # include "ss/memory.h"
+# include "ss/type_traits.h"
+# include "ss/utility.h"
 
 namespace ss {
 
@@ -45,7 +44,7 @@ struct constructible {};
 template<typename T>
 using hash_constructible =
 conditional_t<
-  is_default_constructible<std::hash<T>>::value,
+  is_default_constructible<hash<T>>::value,
   constructible,
   not_constructible>;
 
@@ -66,7 +65,7 @@ struct hash<optional<T>> : detail::hash_constructible<remove_const_t<T>> {
   using result_type = size_t;
 
   result_type operator()(const argument_type& key) const {
-    return key.has_value() ? std::hash<remove_const_t<T>>()(*key) : 0;
+    return key.has_value() ? hash<remove_const_t<T>>()(*key) : 0;
   }
 };
 
