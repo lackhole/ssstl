@@ -23,7 +23,7 @@ using basic_string = std::basic_string<CharT, Traits, Allocator>;
 using string =	basic_string<char>;
 using wstring =	basic_string<wchar_t>;
 #if SS_HAS_TYPE_CHAR8_T_CXX20
-using u8string = basic_string<char8_t>
+using u8string = basic_string<char8_t>;
 #endif
 #if SS_HAS_TYPE_CHAR16_T
 using u16string = basic_string<char16_t>;
