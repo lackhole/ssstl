@@ -46,8 +46,8 @@
 |bit_or                            | ![][cpp11]              |
 |bit_xor                           | ![][cpp11]              |
 | **Hashing**                      |                         |
-|hash                              | ![][notyet]             |
-|ss::hash<*Arithmetic*> <br/> ss::hash< ss::nullptr_t> </br> ss::hash<T*> | ![][notyet] |
+|hash                              | ![][cpp11]             |
+|ss::hash<*Arithmetic*> <br/> ss::hash< ss::nullptr_t> </br> ss::hash<T*> | ![][cpp11] |
 |                                  |                         |
 | **Constants**                    | defined in namespace ss::placeholders |
 |_1, _2, _3, _4, ...               | ![][notyet]             |
@@ -104,7 +104,7 @@
 |invoke_r                          | ![][cpp11]              |
 
 <!-- 
-    C++11 : 30  | 19
+    C++11 : 30  | 21
     C++14 : 1   | 1
     C++17 : 5   | 1
     C++20 : 9   | 0
