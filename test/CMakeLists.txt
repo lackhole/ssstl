@@ -1,8 +1,3 @@
-
-if(MSVC)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP /WX /Zc:__cplusplus /Zc:ternary /permissive-")
-endif()
-
 message("============================================================")
 message("CMAKE_SYSTEM_NAME : ${CMAKE_SYSTEM_NAME}")
 message("CMAKE_HOST_SYSTEM_NAME : ${CMAKE_HOST_SYSTEM_NAME}")
@@ -21,6 +16,8 @@ macro(SS_TEST_IMPL name target cxx)
     add_executable(${name} ${target})
     set_property(TARGET ${name} PROPERTY CXX_STANDARD ${cxx})
     target_link_libraries(${name} PUBLIC ss ${ARGN})
+    target_compile_options(${name} PRIVATE /MP)
+    target_compile_options(${name} PRIVATE /WX)
 endmacro()
 
 macro(SS_TEST_CXX name target)
