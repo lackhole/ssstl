@@ -48,7 +48,7 @@ Focusing on implementing high C++ features for low C++(i.e. You can use `ss::opt
 | [functional](status/functional.md)             | ![][cpp11]![][p063] ![][cpp14]![][p100] ![][cpp17]![][p020] ![][cpp20]![][p000] ![][cpp23]![][p100] |       |
 | [utility](status/utility.md)                   | ![][cpp11]![][p100] ![][cpp14]![][p100] ![][cpp17]![][p100] ![][cpp20]![][p096]                     |       |
 | [chrono](status/chrono.md)                     | ![][cpp11]![][p000] ![][cpp14]![][p000] ![][cpp17]![][p000] ![][cpp20]![][p000]                     |       |
-| [initializer_list](status/initializer_list.md) | ![][impossib]                                                                                       |       |
+| [initializer_list](status/initializer_list.md) | ![][cpp11]![][p100]                                                                                 |       |
 | [tuple](status/tuple.md)                       | ![][cpp11]![][p075] ![][cpp14]![][p100] ![][cpp17]![][p100] ![][cpp20]![][p000]                     |       |
 | [any](status/any.md)                           | ![][cpp17]![][p000] ![][cpp20]![][p000]                                                             |       |
 | [optional](status/optional.md)                 | ![][cpp17]![][p100] ![][cpp20]![][p000]                                                             |       |
@@ -281,4 +281,4 @@ Focusing on implementing high C++ features for low C++(i.e. You can use `ss::opt
 [p097]: https://img.shields.io/badge/97%25-green
 [p098]: https://img.shields.io/badge/98%25-green
 [p099]: https://img.shields.io/badge/99%25-green
-[p100]: https://img.shields.io/badge/99%25-brightgreen
+[p100]: https://img.shields.io/badge/100%25-brightgreen

@@ -18,6 +18,12 @@
 #define SS_DEPRECATED_DENORM_CXX23 SS_DEPRECATED_AFTER_CXX_23("")
 #define SS_DEPRECATED_DENORM_LOSS_CXX23 SS_DEPRECATED_AFTER_CXX_23("")
 
+#if defined(INFINITY)
+#define SS_DEFINED_INFINITY 1
+#else
+#define SS_DEFINED_INFINITY 0
+#endif
+
 namespace ss {
 
 namespace detail {
@@ -775,7 +781,7 @@ class numeric_limits<float> {
   static constexpr int digits = FLT_MANT_DIG;
   static constexpr int digits10 = FLT_DIG;
   static constexpr int max_digits10 =
-#if SS_DEFINED_FLT_DECIMAL_DIG
+#if defined(FLT_DECIMAL_DIG)
   FLT_DECIMAL_DIG;
 #else
   detail::rough_ceil<type>(digits * 0.30103000 + 1);
@@ -822,7 +828,7 @@ class numeric_limits<double> {
   static constexpr int digits = DBL_MANT_DIG;
   static constexpr int digits10 = DBL_DIG;
   static constexpr int max_digits10 =
-#if SS_DEFINED_DBL_DECIMAL_DIG
+#if defined(DBL_DECIMAL_DIG)
       DBL_DECIMAL_DIG;
 #else
       detail::rough_ceil<type>(digits * 0.30103000 + 1);
@@ -869,9 +875,9 @@ class numeric_limits<long double> {
   static constexpr int digits = LDBL_MANT_DIG;
   static constexpr int digits10 = LDBL_DIG;
   static constexpr int max_digits10 =
-#if SS_DEFINED_LDBL_DECIMAL_DIG
-      DECIMAL_DIG;
-#elif SS_DEFINED_DECIMAL_DIG
+#if defined(LDBL_DECIMAL_DIG)
+      LDBL_DECIMAL_DIG;
+#elif defined(DECIMAL_DIG)
       DECIMAL_DIG;
 #else
       detail::rough_ceil<type>(digits * 0.30103000 + 1);

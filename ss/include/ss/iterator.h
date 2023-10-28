@@ -489,13 +489,11 @@ template<typename C> constexpr auto cend(const C& c) noexcept(noexcept(ss::end(c
 template<typename C>           constexpr auto rbegin(C& c)       -> decltype(c.rbegin()) { return c.rbegin(); }
 template<typename C>           constexpr auto rbegin(const C& c) -> decltype(c.rbegin()) { return c.rbegin(); }
 template<typename T, size_t N> constexpr reverse_iterator<T*> rbegin(T (&arr)[N])        { return reverse_iterator<T*>(arr + N); }
-template<typename T> constexpr reverse_iterator<const T*> rbegin(std::initializer_list<T> il) { return reverse_iterator<const T*>(il.end()); }
 template<typename C> constexpr auto crbegin(const C& c) noexcept(noexcept(ss::begin(c))) -> decltype(ss::rbegin(c)) { return rbegin(c); }
 
 template<typename C>           constexpr auto rend(C& c)       -> decltype(c.rend()) { return c.rend(); }
 template<typename C>           constexpr auto rend(const C& c) -> decltype(c.rend()) { return c.rend(); }
 template<typename T, size_t N> constexpr reverse_iterator<T*> rend(T (&arr)[N])      { return reverse_iterator<T*>(arr); }
-template<typename T> constexpr reverse_iterator<const T*> rend(std::initializer_list<T> il) { return reverse_iterator<const T*>(il.begin()); }
 template<typename C> constexpr auto crend(const C& c) noexcept(noexcept(ss::end(c))) -> decltype(ss::rend(c)) { return rend(c); }
 
 template<typename C>           constexpr auto   size(const C& c) -> decltype(c.size()) { return c.size(); }
@@ -511,12 +509,10 @@ template<typename T, size_t N> constexpr ptrdiff_t ssize(T (&arr)[N]) noexcept {
 
 template<typename C>           SS_NODISCARD constexpr auto empty(const C& c)    -> decltype(c.empty()) { return c.empty(); }
 template<typename T, size_t N> SS_NODISCARD constexpr bool empty(const T (&arr)[N])           noexcept { return false; }
-template<typename T>           SS_NODISCARD constexpr bool empty(std::initializer_list<T> il) noexcept { return il.size() == 0; }
 
 template<typename C>           constexpr auto data(C& c)           -> decltype(c.data()) { return c.data();   }
 template<typename C>           constexpr auto data(const C& c)     -> decltype(c.data()) { return c.data();   }
 template<typename T, size_t N> constexpr T*   data(T (&arr)[N])                 noexcept { return arr;        }
-template<typename T>           constexpr T*   data(std::initializer_list<T> il) noexcept { return il.begin(); }
 
 } // namespace ss
 
