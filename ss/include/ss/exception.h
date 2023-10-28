@@ -64,7 +64,8 @@ class exception {
   }
 
   explicit exception(const char* what_arg) {
-    const ExceptionData view{const_cast<char*>(what_arg)};
+    ExceptionData view;
+    view.message = const_cast<char*>(what_arg);
     CopyExceptionData(data_, view);
   }
 
