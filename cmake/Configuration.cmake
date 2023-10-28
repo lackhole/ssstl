@@ -1,8 +1,3 @@
-# CMake defined modules
-include(CheckCXXSymbolExists)
-
-# Custom modules
-include(CheckTypeExists)
 include(CheckCXXStandardSupport)
 include(CheckCXX_TypeExists)
 include(CheckCXX_InitializerListExists)

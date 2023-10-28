@@ -17,7 +17,6 @@ check_cxx_compiler_flag("${__SS_STD_CXX_COMPILER_FLAG_PREFIX}14" __SS_COMPILE_TE
 check_cxx_compiler_flag("${__SS_STD_CXX_COMPILER_FLAG_PREFIX}17" __SS_COMPILE_TEST_STD_CXX_17)
 check_cxx_compiler_flag("${__SS_STD_CXX_COMPILER_FLAG_PREFIX}20" __SS_COMPILE_TEST_STD_CXX_20)
 check_cxx_compiler_flag("${__SS_STD_CXX_COMPILER_FLAG_PREFIX}23" __SS_COMPILE_TEST_STD_CXX_23)
-check_cxx_compiler_flag("${__SS_STD_CXX_COMPILER_FLAG_PREFIX}26" __SS_COMPILE_TEST_STD_CXX_26)
 
 function(GetCXXStandardCompilerFlag version out_var)
     if ("${__SS_COMPILE_TEST_STD_CXX_${version}}")
@@ -27,22 +26,22 @@ function(GetCXXStandardCompilerFlag version out_var)
 
     # Override to 14
     if (MSVC AND version EQUAL 11)
-        GetCXXStandardCompilerFlag(14 ${out_var})
+        GetCXXStandardCompilerFlag(14 _override_to_14)
+        set(${out_var} "${_override_to_14}" PARENT_SCOPE)
         return()
     endif()
 
-    set(${out_var} PARENT_SCOPE)
+    set(${out_var} "NOTFOUND" PARENT_SCOPE)
 endfunction(GetCXXStandardCompilerFlag)
 
-# TODO: Integrate
 function(CheckCXXStandardSupport version variable)
     if (NOT "${version}" MATCHES "^(11|14|17|20|23)$")
         message(FATAL_ERROR "Undetermined C++ standard: ${version}")
     endif()
 
     GetCXXStandardCompilerFlag(${version} _flag)
-    if (${_flag})
-        set(${variable} 1 PARENT_SCOPE)
+    if ("${_flag}" STREQUAL "NOTFOUND")
+        set(${variable} 0 PARENT_SCOPE)
         return()
     endif()
 
@@ -52,6 +51,7 @@ function(CheckCXXStandardSupport version variable)
     set(_cplusplus_20 "202002L")
     set(_cplusplus_23 "202302L")
 
+    set(CMAKE_REQUIRED_FLAGS "${_flag}")
     if (MSVC)
         set(CMAKE_REQUIRED_FLAGS "${CMAKE_REQUIRED_FLAGS} /Zc:__cplusplus")
     endif()
@@ -60,8 +60,8 @@ function(CheckCXXStandardSupport version variable)
 #error 1
 #endif
 int main() { return 0; }")
-    check_cxx_source_compiles("${_source}" __SS_COMPILE_TEST_CPLUSPLUS_${version})
-    set(${variable} ${__SS_COMPILE_TEST_CPLUSPLUS_${version}} PARENT_SCOPE)
+    check_cxx_source_compiles("${_source}" __SS_COMPILE_TEST_FULL_CXX_${version}_SUPPORT)
+    set(${variable} ${__SS_COMPILE_TEST_FULL_CXX_${version}_SUPPORT} PARENT_SCOPE)
 endfunction()
 
 

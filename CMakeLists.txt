@@ -13,9 +13,11 @@ include(Configuration)
 target_include_directories(ss INTERFACE ${SS_INCLUDE_DIR})
 
 if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-    set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-fconcepts")
+    target_compile_options(ss INTERFACE -fconcepts)
 elseif (MSVC)
-    target_compile_options(ss INTERFACE "/Zc:__cplusplus /permissive-")
+    target_compile_options(ss INTERFACE /Zc:__cplusplus)
+    target_compile_options(ss INTERFACE /Zc:ternary)
+    target_compile_options(ss INTERFACE /permissive-)
 endif ()
 
 option(SS_TEST "Run test" OFF)
