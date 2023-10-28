@@ -7,10 +7,9 @@
 #
 # include <cstddef>
 #
-# include <new>
-# include <ostream>
-#
-# include "ss/__nullptr_t.h"
+# include "__new/align_val_t.h"
+# include "__new/bad_alloc.h"
+# include "__new/bad_array_new_length.h"
 # include "ss/detail/addressof.h"
 # include "ss/detail/allocator_arg.h"
 # include "ss/detail/uses_allocator.h"
@@ -19,6 +18,7 @@
 # include "ss/functional.h"
 # include "ss/iterator.h"
 # include "ss/limits.h"
+# include "ss/ostream.h"
 # include "ss/type_traits.h"
 # include "ss/utility.h"
 
@@ -487,23 +487,23 @@ struct allocator {
 
   SS_NODISCARD SS_CONSTEXPR_AFTER_14 T* allocate(size_t n) {
     if (numeric_limits<size_t>::max() / sizeof(T) < n)
-      throw std::bad_array_new_length();
+      throw bad_array_new_length();
 # if SS_CXX_VER < 17
     return static_cast<T*>(::operator new(n * sizeof(T)));
 # else
-    return static_cast<T*>(::operator new(n * sizeof(T), static_cast<std::align_val_t>(alignof(T))));
+    return static_cast<T*>(::operator new(n * sizeof(T), static_cast<align_val_t>(alignof(T))));
 # endif
   }
 
   SS_NODISCARD SS_CONSTEXPR_AFTER_14 allocation_result<T*> allocate_at_least(size_t n) {
     // http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2021/p0401r6.html#motivation
     if ((numeric_limits<size_t>::max() / sizeof(T)) < n)
-      throw std::bad_array_new_length();
+      throw bad_array_new_length();
     return {
 # if SS_CXX_VER < 17
       static_cast<T*>(::operator new(n * sizeof(T))),
 # else
-      static_cast<T*>(::operator new(n * sizeof(T), static_cast<std::align_val_t>(sizeof(T)))),
+      static_cast<T*>(::operator new(n * sizeof(T), static_cast<align_val_t>(sizeof(T)))),
 # endif
       n
     };
@@ -513,7 +513,7 @@ struct allocator {
 # if SS_CXX_VER < 17
     ::operator delete(p);
 # else
-    ::operator delete(p, static_cast<std::align_val_t>(alignof(T)));
+    ::operator delete(p, static_cast<align_val_t>(alignof(T)));
 # endif
   }
 };
@@ -1267,9 +1267,9 @@ void make_unique_for_overwrite(Args&&...) = delete;
 
 template<typename CharT, typename Traits, typename Y, typename D,
   enable_if_t<
-    is_same<std::basic_ostream<CharT, Traits>&, decltype(ss::declval<std::basic_ostream<CharT, Traits>&>() << ss::declval<const unique_ptr<Y, D>&>().get())>::value,
+    is_same<basic_ostream<CharT, Traits>&, decltype(ss::declval<basic_ostream<CharT, Traits>&>() << ss::declval<const unique_ptr<Y, D>&>().get())>::value,
   int> = 0>
-std::basic_ostream<CharT, Traits>& operator<<(std::basic_ostream<CharT, Traits>& os, const unique_ptr<Y, D>& p) {
+basic_ostream<CharT, Traits>& operator<<(basic_ostream<CharT, Traits>& os, const unique_ptr<Y, D>& p) {
   os << p.get();
   return os;
 }
