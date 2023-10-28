@@ -11,7 +11,7 @@
 # include "ss/detail/macro.h"
 # include "ss/iterator.h"
 #
-# if SS_HAS_INITIALIZER_LIST & 0
+# if SS_HAS_INITIALIZER_LIST
 
 #include <initializer_list>
 
