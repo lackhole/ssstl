@@ -1,4 +1,0 @@
-include(CheckCXXSymbolExists)
-
-check_cxx_symbol_exists(INFINITY cmath SS_DEFINED_INFINITY)
-check_cxx_symbol_exists(NAN cmath SS_DEFINED_NAN)

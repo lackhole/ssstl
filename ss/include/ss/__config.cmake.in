@@ -28,16 +28,6 @@
 #cmakedefine01 SS_HAS_TYPE_DOUBLE
 #cmakedefine01 SS_HAS_TYPE_LONG_DOUBLE
 
-// <cmath>
-#cmakedefine01 SS_DEFINED_INFINITY
-#cmakedefine01 SS_DEFINED_NAN
-
-// <cfloat>
-#cmakedefine01 SS_DEFINED_DECIMAL_DIG
-#cmakedefine01 SS_DEFINED_FLT_DECIMAL_DIG
-#cmakedefine01 SS_DEFINED_DBL_DECIMAL_DIG
-#cmakedefine01 SS_DEFINED_LDBL_DECIMAL_DIG
-
 // <initializer_list>
 #cmakedefine01 SS_HAS_INITIALIZER_LIST
 

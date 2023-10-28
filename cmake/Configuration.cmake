@@ -5,8 +5,6 @@ include(CheckCXXSymbolExists)
 include(CheckTypeExists)
 include(CheckCXXStandardSupport)
 include(CheckCXX_TypeExists)
-include(CheckCXX_CFloatSymbolExists)
-include(CheckCXX_CMathSymbolExists)
 include(CheckCXX_InitializerListExists)
 
 CheckCXXStandardSupport(11 SS_COMPILER_SUPPORT_STD_11)
