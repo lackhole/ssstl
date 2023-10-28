@@ -3,6 +3,7 @@
 
 #include "ss/array.h"
 #include "ss/algorithm.h"
+#include "ss/initializer_list.h"
 
 #include "ss_test.h"
 
@@ -26,7 +27,7 @@ int main() {
     SS_TESTC(ss::minmax(1, 2).second == 2)
     SS_TESTC(ss::minmax(1, 2) == ss::minmax(2, 1))
     
-    std::initializer_list<int> ilist = {2,4,1,5,3};
+    ss::initializer_list<int> ilist = {2,4,1,5,3};
     
     SS_TEST(ss::min(ilist) == 1)
     SS_TEST(ss::max(ilist) == 5)

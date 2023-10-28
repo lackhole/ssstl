@@ -7,9 +7,8 @@
 #
 # include <cstddef> // size_t, ptrdiff_t
 #
-# include <exception>
-#
 # include "ss/detail/assert.h"
+# include "ss/__stdexcept/out_of_range.h"
 # include "ss/algorithm.h"
 # include "ss/iterator.h"
 # include "ss/utility.h"
@@ -32,7 +31,7 @@ struct array {
 
  private:
   void throw_range() const {
-    throw std::out_of_range("ss::array::at : Out of range");
+    throw out_of_range("ss::array::at : Out of range");
   }
 
 

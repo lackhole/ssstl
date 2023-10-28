@@ -72,12 +72,12 @@ Focusing on implementing high C++ features for low C++(i.e. You can use `ss::opt
 |----------------------------|-----------------------------------------------------------------------|------------------|
 | [limits](status/limits.md) | ![][unknown_]                                                         |                  |
 
-| Error handling                         | Feature status                                                        | Notes            |
-|----------------------------------------|-----------------------------------------------------------------------|------------------|
-| [exception](status/exception.md)       | ![][unknown_]                                                         |                  |
-| [stdexcept](status/stdexcept.md)       | ![][unknown_]                                                         |                  |
-| [system_error](status/system_error.md) | ![][unknown_]                                                         |                  |
-| [cerrno](status/cerrno.md)             | ![][unknown_]                                                         |                  |
+| Error handling                         | Feature status      | Notes            |
+|----------------------------------------|---------------------|------------------|
+| [exception](status/exception.md)       | ![][cpp11]![][p007] |                  |
+| [stdexcept](status/stdexcept.md)       | ![][cpp11]![][p100] |                  |
+| [system_error](status/system_error.md) | ![][unknown_]       |                  |
+| [cerrno](status/cerrno.md)             | ![][unknown_]       |                  |
 
 | Strings library                      | Feature status                                                                  | Notes |
 |--------------------------------------|---------------------------------------------------------------------------------|-------|

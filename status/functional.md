@@ -110,7 +110,7 @@
     C++20 : 9   | 0
     C++23 : 1   | 1
 
-    Total: 46   | 4
+    Total: 46   | 24
 -->
 
 [notyet]: https://img.shields.io/badge/Not_yet-orange
