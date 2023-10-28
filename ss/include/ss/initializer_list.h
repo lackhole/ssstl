@@ -57,6 +57,11 @@ class initializer_list {
   size_type size_;
 };
 
+} // namespace ss
+
+# endif
+
+namespace ss {
 
 template<typename T>
 constexpr const T* begin(ss::initializer_list<T> il) noexcept {
@@ -81,6 +86,4 @@ constexpr const T* data(ss::initializer_list<T> il) noexcept {
 
 } // namespace ss
 
-# endif
-#
-# endif // SS_INITIALIZER_LIST_H_
+#endif // SS_INITIALIZER_LIST_H_
