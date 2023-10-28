@@ -11,7 +11,7 @@
 | Features                                     | Standard             | Implemented in                    |
 |----------------------------------------------|:--------------------:|:---------------------------------:|
 | **Types**                                    |                      |                                   |
-| exception                                    | ![][legacy]          | ![][notyet]                       |
+| exception                                    | ![][legacy]          | ![][cpp11]                       |
 | nested_exception                             | ![][cpp11]           | ![][notyet]                       |
 | bad_exception                                | ![][legacy]          | ![][notyet]                       |
 | ~~unexpected_handler~~                       | ![][legacy]          | Removed in C++17                  |
@@ -34,9 +34,9 @@
 
 
 <!--
-	C++11: 13	| 0
+	C++11: 14	| 1
 
-	Total: 13	| 0-->
+	Total: 14	| 1-->
 
 [notyet]: https://img.shields.io/badge/Not_yet-orange
 [removed]: https://img.shields.io/badge/Removed-red

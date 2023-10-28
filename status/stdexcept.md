@@ -8,25 +8,25 @@
 * ![](https://img.shields.io/badge/C%2B%2B-N-green): Fully implemented with C++ N
 * ![][notyet]: Not yet implemented
 
-| Features                                     | Standard             | Implemented in                    |
-|----------------------------------------------|:--------------------:|:---------------------------------:|
-| **Classes**                                  |                      |                                   |
-| logic_error                                  | ![][legacy]          | ![][notyet]                       |
-| invalid_argument                             | ![][legacy]          | ![][notyet]                       |
-| domain_error                                 | ![][legacy]          | ![][notyet]                       |
-| length_error                                 | ![][legacy]          | ![][notyet]                       |
-| out_of_range                                 | ![][legacy]          | ![][notyet]                       |
-| runtime_error                                | ![][legacy]          | ![][notyet]                       |
-| range_error                                  | ![][legacy]          | ![][notyet]                       |
-| overflow_error                               | ![][legacy]          | ![][notyet]                       |
-| underflow_error                              | ![][legacy]          | ![][notyet]                       |
-| exception                                    | ![][legacy]          | ![][notyet]                       |
+| Features         |  Standard   | Implemented in |
+|------------------|:-----------:|:--------------:|
+| **Classes**      |             |                |
+| logic_error      | ![][legacy] |   ![][cpp11]   |
+| invalid_argument | ![][legacy] |   ![][cpp11]   |
+| domain_error     | ![][legacy] |   ![][cpp11]   |
+| length_error     | ![][legacy] |   ![][cpp11]   |
+| out_of_range     | ![][legacy] |   ![][cpp11]   |
+| runtime_error    | ![][legacy] |   ![][cpp11]   |
+| range_error      | ![][legacy] |   ![][cpp11]   |
+| overflow_error   | ![][legacy] |   ![][cpp11]   |
+| underflow_error  | ![][legacy] |   ![][cpp11]   |
+| exception        | ![][legacy] |   ![][cpp11]   |
 
 
 <!--
-	C++11: 10	| 0
+	C++11: 10	| 10
 
-	Total: 10	| 0-->
+	Total: 10	| 10-->
 
 [notyet]: https://img.shields.io/badge/Not_yet-orange
 [removed]: https://img.shields.io/badge/Removed-red
