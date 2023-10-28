@@ -10,7 +10,9 @@
 #cmakedefine01 SS_HAS_TYPE_SIGNED_CHAR
 #cmakedefine01 SS_HAS_TYPE_UNSIGNED_CHAR
 #cmakedefine01 SS_HAS_TYPE_WCHAR_T
-#cmakedefine01 SS_HAS_TYPE_CHAR8_T
+#if __cplusplus >= 202002L
+#cmakedefine01 SS_HAS_TYPE_CHAR8_T_CXX20
+#endif
 #cmakedefine01 SS_HAS_TYPE_CHAR16_T
 #cmakedefine01 SS_HAS_TYPE_CHAR32_T
 #cmakedefine01 SS_HAS_TYPE_SHORT
