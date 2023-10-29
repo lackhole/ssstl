@@ -5,11 +5,10 @@
 # ifndef SS_ALGORITHM_H_
 # define SS_ALGORITHM_H_
 #
-# include <initializer_list>
-#
 # include "ss/detail/macro.h"
-# include "ss/detail/swap.h"
+# include "ss/__algorithm/swap.h"
 # include "ss/functional.h"
+# include "ss/initializer_list.h"
 # include "ss/iterator.h"
 # include "ss/utility.h"
 
@@ -115,12 +114,12 @@ constexpr const T& min(const T& a, const T& b, Compare comp) {
 }
 
 template<typename T>
-constexpr T min(std::initializer_list<T> ilist) {
+constexpr T min(initializer_list<T> ilist) {
   return *ss::min_element(ilist.begin(), ilist.end(), less<T>{});
 }
 
 template<typename T, typename Compare>
-constexpr T min(std::initializer_list<T> ilist, Compare comp) {
+constexpr T min(initializer_list<T> ilist, Compare comp) {
   return *ss::min_element(ilist.begin(), ilist.end(), comp);
 }
 
@@ -135,12 +134,12 @@ constexpr const T& max(const T& a, const T& b) {
 }
 
 template<typename T>
-constexpr T max(std::initializer_list<T> ilist) {
+constexpr T max(initializer_list<T> ilist) {
   return *ss::max_element(ilist.begin(), ilist.end());
 }
 
 template<typename T, typename Compare>
-constexpr T max(std::initializer_list<T> ilist, Compare comp) {
+constexpr T max(initializer_list<T> ilist, Compare comp) {
   return *ss::max_element(ilist.begin(), ilist.end(), comp);
 }
 
@@ -155,13 +154,13 @@ constexpr pair<const T&, const T&> minmax(const T& a, const T& b) {
 }
 
 template<typename T>
-SS_CONSTEXPR_AFTER_14 pair<T, T> minmax(std::initializer_list<T> ilist) {
+SS_CONSTEXPR_AFTER_14 pair<T, T> minmax(initializer_list<T> ilist) {
   auto res = ss::minmax_element(ilist.begin(), ilist.end());
   return pair<T, T>(*res.first, *res.second);
 }
 
 template<typename T, typename Compare>
-SS_CONSTEXPR_AFTER_14 pair<T, T> minmax(std::initializer_list<T> ilist, Compare comp) {
+SS_CONSTEXPR_AFTER_14 pair<T, T> minmax(initializer_list<T> ilist, Compare comp) {
   auto res = ss::minmax_element(ilist.begin(), ilist.end(), comp);
   return pair<T, T>(*res.first, *res.second);
 }

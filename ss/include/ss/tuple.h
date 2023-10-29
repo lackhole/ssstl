@@ -5,18 +5,19 @@
 # ifndef SS_TUPLE_H_
 # define SS_TUPLE_H_
 #
-# include "ss/detail/allocator_arg.h"
-# include "ss/detail/uses_allocator.h"
 # include "ss/detail/macro.h"
-# include "ss/detail/tuple_helper.h"
+# include "ss/__memory/allocator_arg.h"
+# include "ss/__memory/uses_allocator.h"
+# include "ss/__tuple/forward_declare.h"
+# include "ss/__tuple/tuple_element.h"
+# include "ss/__tuple/tuple_size.h"
+# include "ss/type_traits.h"
 # include "ss/utility.h"
 # if SS_CXX_VER >= 20
 #   include "ss/compare.h"
 # endif
 
 namespace ss {
-
-template<typename...> class tuple;
 
 namespace detail {
 

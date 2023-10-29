@@ -7,8 +7,14 @@
 #
 # include "ss/limits.h"
 # include "ss/type_traits.h"
-# include "ss/detail/swap.h"
-# include "ss/detail/tuple_helper.h"
+# include "ss/__algorithm/swap.h"
+# include "ss/__tuple/forward_declare.h"
+# include "ss/__tuple/tuple_size.h"
+# include "ss/__tuple/tuple_element.h"
+# include "ss/__utility/declval.h"
+# include "ss/__utility/forward.h"
+# include "ss/__utility/move.h"
+# include "ss/type_traits.h"
 #
 # if SS_CXX_VER >= 20
 #   include "ss/compare.h"
@@ -193,13 +199,6 @@ using index_sequence_for = make_index_sequence<sizeof...(T)>;
  */
 struct piecewise_construct_t { explicit piecewise_construct_t() = default; };
 SS_INLINE_VAR constexpr piecewise_construct_t piecewise_construct{};
-
-
-/**
- * tuple forward-declare
- */
-template<typename ...Ts>
-class tuple;
 
 
 /**
