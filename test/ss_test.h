@@ -18,38 +18,55 @@ namespace ss {
 
 class Tester {
  public:
+  struct TestData {
+    explicit TestData(bool r) : success_(r) {}
+    TestData(bool r, std::string message) : success_(r), message_(std::move(message)) {}
+
+    TestData& SetMessage(std::string message) {
+      message_ = std::move(message);
+      return *this;
+    }
+
+    TestData& SetSource(const char* source, int line) {
+      source_ = source;
+      line_ = line;
+      return *this;
+    }
+
+    std::string source_;
+    int line_;
+    bool success_;
+    std::string message_;
+  };
+
   explicit Tester(std::string name) : test_name_(std::move(name)) {}
   ~Tester() {
     print_result();
   }
 
-  void do_test(bool result, const char* source, int line) {
-    if (result)
-      test_data_.emplace_back("", line, result);
-    else
-      test_data_.emplace_back(source, line, result);
+  TestData& AddTest(bool v) {
+    tests_.emplace_back(v);
+    return tests_.back();
   }
 
-  void do_test(bool result, const char* source, int line, std::string info) {
-    if (result)
-      test_data_.emplace_back("", line, result);
-    else
-      test_data_.emplace_back(source, line, result, std::move(info));
+  TestData& AddTest(bool v, std::string message) {
+    tests_.emplace_back(v, std::move(message));
+    return tests_.back();
   }
 
   void print_result() const {
-    std::vector<decltype(test_data_)::const_iterator> fails;
+    std::vector<decltype(tests_)::const_iterator> fails;
 
-    for (auto it = test_data_.cbegin(); it != test_data_.cend(); ++it) {
-      if (!it->success)
+    for (auto it = tests_.cbegin(); it != tests_.cend(); ++it) {
+      if (!it->success_)
         fails.emplace_back(it);
     }
     print_result_impl(fails.begin(), fails.end());
   }
 
   int test_succeed() const {
-    for (const auto& elem : test_data_) {
-      if (!elem.success)
+    for (const auto& elem : tests_) {
+      if (!elem.success_)
         return EXIT_FAILURE;
     }
     return EXIT_SUCCESS;
@@ -61,10 +78,10 @@ class Tester {
     static constexpr const char* star60 = "............................................................";
 
     int failed_count = std::distance(begin, end);
-    int succeed_count = static_cast<int>(test_data_.size()) - failed_count;
+    int succeed_count = static_cast<int>(tests_.size()) - failed_count;
 
     std::stringstream ss;
-    ss << '(' << std::to_string(test_data_.size() - failed_count) << " / " << test_data_.size() << ')';
+    ss << '(' << std::to_string(tests_.size() - failed_count) << " / " << tests_.size() << ')';
     auto status = ss.str();
 
     std::cout
@@ -75,44 +92,29 @@ class Tester {
 
     for (auto it = begin; it != end; ++it) {
       std::cout
-          << "Test failed at " << (*it)->source
-          << ", line " << (*it)->line;
-      if (!(*it)->info.empty())
-          std::cout << " (" << (*it)->info <<  ")";
+          << "Test failed at " << (*it)->source_
+          << ", line " << (*it)->line_;
+      if (!(*it)->message_.empty())
+          std::cout << " (" << (*it)->message_ <<  ")";
       std::cout << '\n';
     }
   }
 
-  enum class test_result { success, fail };
-  struct tests {
-    tests(const char* s, int line, bool r)
-        : source(s), line(line), success(r) {}
-    tests(const char* s, int line, bool r, std::string info)
-        : source(s), line(line), success(r), info(std::move(info)) {}
-    const char* source;
-    int line;
-    bool success;
-    std::string info;
-  };
   std::string test_name_;
-  std::vector<tests> test_data_;
+  std::vector<TestData> tests_;
 };
 
-}
+} // namespace ss
 
-#define SS_TEST_GET_FIRST_IMPL_1(x) x
-#define SS_TEST_GET_FIRST_IMPL_2(x, ...) x
-#define SS_TEST_GET_FIRST_IMPL(_1,_2,N,...) SS_TEST_GET_FIRST_IMPL_##N
-#define SS_TEST_GET_FIRST(...) SS_TEST_GET_FIRST_IMPL(__VA_ARGS__,2,1,0)(__VA_ARGS__)
+#define SS_TEST_GET_HEAD_IMPL_1(x) x
+#define SS_TEST_GET_HEAD_IMPL_2(x, ...) x
+#define SS_TEST_GET_HEAD_IMPL(_1,_2,N,...) SS_TEST_GET_FIRST_IMPL_##N
+#define SS_TEST_GET_HEAD(...) SS_TEST_GET_FIRST_IMPL(__VA_ARGS__,2,1,0)(__VA_ARGS__)
 
-#define SS_TEST_GET_SECOND_OR_EMPTY_IMPL_1(x)
-#define SS_TEST_GET_SECOND_OR_EMPTY_IMPL_2(x, ...) , __VA_ARGS__
-#define SS_TEST_GET_SECOND_OR_EMPTY_IMPL(_1,_2,N,...) SS_TEST_GET_SECOND_OR_EMPTY_IMPL_##N
-#define SS_TEST_GET_SECOND_OR_EMPTY(...) SS_TEST_GET_SECOND_OR_EMPTY_IMPL(__VA_ARGS__,2,1,0)(__VA_ARGS__)
-
-# define SS_TEST_FILE_LINE_IMPL2(f, l) #l
-# define SS_TEST_FILE_LINE_IMPL(f, l) f ", line " #l
-# define SS_TEST_FILE_LINE SS_TEST_FILE_LINE_IMPL(__FILE__, __LINE__)
+#define SS_TEST_GET_TAIL_IMPL_1(x)
+#define SS_TEST_GET_TAIL_IMPL_2(x, ...) __VA_ARGS__
+#define SS_TEST_GET_TAIL_IMPL(_1,_2,N,...) SS_TEST_GET_SECOND_OR_EMPTY_IMPL_##N
+#define SS_TEST_GET_TAIL(...) SS_TEST_GET_SECOND_OR_EMPTY_IMPL(__VA_ARGS__,2,1,0)(__VA_ARGS__)
 
 # define SS_TEST_MAKE_DUMMY_NAME_IMPL2(x, y) x ## y
 # define SS_TEST_MAKE_DUMMY_NAME_IMPL(x, y) SS_TEST_MAKE_DUMMY_NAME_IMPL2(x, y)
@@ -121,12 +123,12 @@ class Tester {
 # define SS_TEST_DUMMY_NAME ss_$238be_$zzfe_
 
 # define SS_INIT_TEST(name) ::ss::Tester SS_TEST_DUMMY_NAME(name);
-# define SS_TEST(...) SS_TEST_DUMMY_NAME.do_test(SS_TEST_GET_FIRST(__VA_ARGS__), __FILE__, __LINE__ SS_TEST_GET_SECOND_OR_EMPTY(__VA_ARGS__));
-# define SS_TEST_EQ(x, y) SS_TEST_DUMMY_NAME.do_test((x) == (y), __FILE__, __LINE__);
+# define SS_TEST(...) SS_TEST_DUMMY_NAME.AddTest(__VA_ARGS__).SetSource(__FILE__, __LINE__);
+# define SS_TEST_EQ(x, y) SS_TEST_DUMMY_NAME.AddTest((x) == (y)).SetSource(__FILE__, __LINE__);
 
 # define SS_TESTC(...) static_assert((__VA_ARGS__), " "); SS_TEST(true) // if false this doesn't even compile.
 
-# define SS_TEST_CATCH(expr, excep)         \
+# define SS_TEST_THROW(expr, excep)         \
 try {                                       \
   (expr);                                   \
   SS_TEST(false, "exception not thrown")    \
@@ -136,12 +138,20 @@ try {                                       \
   SS_TEST(false, "wrong exception thrown")  \
 }
 
-# define SS_TEST_NOCATCH(expr)              \
-try {                                       \
-  (expr);                                   \
-  SS_TEST(true)                             \
-} catch (...) {                             \
-  SS_TEST(false, "exception thrown")        \
+# define SS_TEST_THROW_ANY(expr)          \
+try {                                     \
+  (expr);                                 \
+  SS_TEST(false, "exception not thrown")  \
+} catch (...) {                           \
+  SS_TEST(true)                           \
+}
+
+# define SS_TEST_NOTHROW(expr)        \
+try {                                 \
+  (expr);                             \
+  SS_TEST(true)                       \
+} catch (...) {                       \
+  SS_TEST(false, "exception thrown")  \
 }
 
 # define SS_TEST_RETURN return SS_TEST_DUMMY_NAME.test_succeed();
