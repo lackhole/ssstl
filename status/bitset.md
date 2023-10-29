@@ -8,27 +8,21 @@
 * ![](https://img.shields.io/badge/C%2B%2B-N-green): Fully implemented with C++ N
 * ![][notyet]: Not yet implemented
 
-| Features                                     | Standard             | Implemented in                    |
-|----------------------------------------------|:--------------------:|:---------------------------------:|
-| **Includes**                                 |                      |                                   |
-| \<string>                                    | ![][legacy]          | ![][notyet]                       |
-| \<iosfwd>                                    | ![][legacy]          | ![][notyet]                       |
-|                                              |                      |                                   |
-| **Classes**                                  |                      |                                   |
-| bitset                                       | ![][legacy]          | ![][notyet]                       |
-| ss::hash\<ss::bitset>                        | ![][cpp11]           | ![][notyet]                       |
-| **Forward declarations**                     |                      |                                   |
-| hash                                         | ![][cpp11]           | ![][notyet]                       |
-|                                              |                      |                                   |
-| **Functions**                                |                      |                                   |
-| operator& <br/>operator| <br/>operator^      | ![][legacy]          | ![][notyet]                       |
-| operator\<\< <br/>operator>>                 | ![][legacy]          | ![][notyet]                       |
+| Features                                 |  Standard   | Implemented in |
+|------------------------------------------|:-----------:|:--------------:|
+| **Classes**                              |             |                |
+| bitset                                   | ![][legacy] |   ![][cpp11]   |
+| ss::hash\<ss::bitset>                    | ![][cpp11]  |   ![][cpp11]   |
+|                                          |             |                |
+| **Functions**                            |             |                |
+| operator& <br/>operator\| <br/>operator^ | ![][legacy] |   ![][cpp11]   |
+| operator\<\< <br/>operator>>             | ![][legacy] |  ![][notyet]   |
 
 
 <!--
-	C++11: 7	| 0
+	C++11: 4	| 3
 
-	Total: 7	| 0-->
+	Total: 4	| 3-->
 
 [notyet]: https://img.shields.io/badge/Not_yet-orange
 [removed]: https://img.shields.io/badge/Removed-red
