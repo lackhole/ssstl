@@ -6,7 +6,7 @@
 # define SS_ALGORITHM_H_
 #
 # include "ss/detail/macro.h"
-# include "ss/detail/swap.h"
+# include "ss/__algorithm/swap.h"
 # include "ss/functional.h"
 # include "ss/initializer_list.h"
 # include "ss/iterator.h"

@@ -6,11 +6,14 @@
 # define SS_ARRAY_H_
 #
 # include <cstddef> // size_t, ptrdiff_t
-#
+
+# include "ss/algorithm.h"
 # include "ss/detail/assert.h"
 # include "ss/__stdexcept/out_of_range.h"
-# include "ss/algorithm.h"
 # include "ss/iterator.h"
+# include "ss/__tuple/tuple_element.h"
+# include "ss/__tuple/tuple_size.h"
+# include "ss/type_traits.h"
 # include "ss/utility.h"
 
 namespace ss {

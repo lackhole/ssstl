@@ -5,10 +5,10 @@
 # ifndef SS_COMPRESSED_PAIR_H_
 # define SS_COMPRESSED_PAIR_H_
 #
+# include "ss/__algorithm/swap.h"
 # include "ss/detail/macro.h"
-#
 # include "ss/type_traits.h"
-# include "ss/utility.h"
+# include "ss/__utility/forward.h"
 
 namespace ss {
 

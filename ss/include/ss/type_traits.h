@@ -8,8 +8,16 @@
 # include <cstddef>
 #
 # include "ss/__nullptr_t.h"
-# include "ss/detail/addressof.h"
+# include "ss/__memory/addressof.h"
 # include "ss/detail/macro.h"
+# include "ss/__type_traits/add_lvalue_reference.h"
+# include "ss/__type_traits/add_rvalue_reference.h"
+# include "ss/__type_traits/integral_constant.h"
+# include "ss/__type_traits/is_lvalue_reference.h"
+# include "ss/__type_traits/remove_reference.h"
+# include "ss/__type_traits/void_t.h"
+# include "ss/__utility/declval.h"
+# include "ss/__utility/forward.h"
 
 // TODO: add GCC, Clang pragma
 # ifdef _MSC_VER
@@ -168,30 +176,6 @@ is_constant_evaluated                   (C++20)
  */
 
 namespace ss {
-
-/**
- * integral_constant
- * @tparam T
- * @tparam v
- */
-template<typename T, T v>
-struct integral_constant {
-  using value_type = T;
-  using type = integral_constant;
-
-  SS_INLINE_VAR static constexpr value_type value = v;
-
-  constexpr operator value_type() const noexcept { return value; }
-  constexpr value_type operator()() const noexcept { return value; }
-};
-
-template<bool B>
-using bool_constant = integral_constant<bool, B>;
-
-using true_type  = integral_constant<bool, true >;
-using false_type = integral_constant<bool, false>;
-
-
 
 namespace detail {
 
@@ -422,84 +406,6 @@ template<typename T> using add_volatile_t = typename add_volatile<T>::type;
 template<typename T> struct add_cv { using type = const volatile T; };
 template<typename T> using add_cv_t = typename add_cv<T>::type;
 
-
-
-/**
- * remove_reference
- * @tparam T
- */
-template<typename T> struct remove_reference      { using type = T; };
-template<typename T> struct remove_reference<T&>  { using type = T; };
-template<typename T> struct remove_reference<T&&> { using type = T; };
-template<typename T> using remove_reference_t = typename remove_reference<T>::type;
-
-
-
-namespace detail {
-
-template<typename T>
-auto try_add_lvalue_reference(int) -> type_identity<T&>;
-
-template<typename>
-auto try_add_lvalue_reference(...) -> unused;
-
-template<typename T>
-struct is_lvalue_referencable : is_not_same<unused, decltype(try_add_lvalue_reference<T>(0))> {};
-
-template<typename T>
-auto try_add_rvalue_reference(int) -> type_identity<T&&>;
-
-template<typename>
-auto try_add_rvalue_reference(...) -> unused;
-
-template<typename T>
-struct is_rvalue_referencable : is_not_same<unused, decltype(try_add_rvalue_reference<T>(0))> {};
-
-template<typename T>
-struct is_referencable : bool_constant<is_rvalue_referencable<T>::value && is_lvalue_referencable<T>::value> {};
-
-template<typename T, bool v = is_lvalue_referencable<T>::value>
-struct add_lvalue_reference_impl { using type = T&; };
-
-template<typename T>
-struct add_lvalue_reference_impl<T, false> { using type = T; };
-
-template<typename T, bool v = is_rvalue_referencable<T>::value>
-struct add_rvalue_reference_impl { using type = T&&; };
-
-template<typename T>
-struct add_rvalue_reference_impl<T, false> { using type = T; };
-
-}
-
-/**
- * add_lvalue_reference
- * @tparam T
- */
-template<typename T>
-struct add_lvalue_reference : detail::add_lvalue_reference_impl<T> {};
-template<typename T> using add_lvalue_reference_t = typename add_lvalue_reference<T>::type;
-
-
-
-/**
- * add_rvalue_reference
- * @tparam T
- */
-template<typename T>
-struct add_rvalue_reference : detail::add_rvalue_reference_impl<T> {};
-template<typename T> using add_rvalue_reference_t = typename add_rvalue_reference<T>::type;
-
-
-
-/**
- * declval
- * It have to be declared here to avoid mutal header inclusion error
- * @tparam T
- */
-template<typename T>
-inline add_rvalue_reference_t<T> declval() noexcept;
-
 /**
  * remove_pointer
  * @tparam T
@@ -682,18 +588,6 @@ template<typename T> struct is_pointer<T*> : true_type {};
 template<typename T> struct is_pointer : detail::is_pointer<remove_cv_t<T>> {};
 # if SS_CXX_VER >= 14
 template<typename T> SS_INLINE_VAR constexpr bool is_pointer_v = is_pointer<T>::value;
-# endif
-
-
-
-/**
- * is_lvalue_reference
- * @tparam T
- */
-template<typename T> struct is_lvalue_reference : false_type {};
-template<typename T> struct is_lvalue_reference<T&> : true_type {};
-# if SS_CXX_VER >= 14
-template<typename T> SS_INLINE_VAR constexpr bool is_lvalue_reference_v = is_lvalue_reference<T>::value;
 # endif
 
 
@@ -1402,7 +1296,7 @@ template<typename T, typename U> SS_INLINE_VAR constexpr bool is_swappable_with_
 
 
 namespace detail {
-template<typename T, bool v = is_referencable<T>::value> struct is_swappable_impl : false_type {};
+template<typename T, bool v = is_rvalue_referencable<T>::value && is_lvalue_referencable<T>::value> struct is_swappable_impl : false_type {};
 template<typename T> struct is_swappable_impl<T, true> : is_swappable_with<T&, T&> {};
 }
 
@@ -1432,7 +1326,7 @@ SS_INLINE_VAR constexpr bool is_nothrow_swappable_with_v = is_nothrow_swappable_
 
 
 namespace detail {
-template<typename T, bool v = is_referencable<T>::value> struct is_nothrow_swappable_impl : false_type {};
+template<typename T, bool v = is_rvalue_referencable<T>::value && is_lvalue_referencable<T>::value> struct is_nothrow_swappable_impl : false_type {};
 template<typename T> struct is_nothrow_swappable_impl<T, true> : is_nothrow_swappable_with<T&, T&> {};
 }
 
@@ -1814,18 +1708,6 @@ SS_INLINE_VAR constexpr bool is_public_base_of_v = is_public_base_of<Base, Deriv
 //template<typename Base, typename Derived>
 //inline constexpr bool is_pointer_interconvertible_base_of_v = is_pointer_interconvertible_base_of<Base, Derived>::value;
 # endif
-
-
-template<typename T> // T = U (rvalue) T = U&(lvalue) where U is no-ref
-constexpr inline T&& forward(remove_reference_t<T>& t) noexcept {
-  return static_cast<T&&>(t);
-}
-
-template<typename T>
-constexpr inline T&& forward(remove_reference_t<T>&& t) noexcept {
-  static_assert(!is_lvalue_reference<T>::value, "Forwarding rvalue to lvalue is prohibited");
-  return static_cast<T&&>(t);
-}
 
 
 
