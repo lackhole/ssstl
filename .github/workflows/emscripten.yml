@@ -27,12 +27,12 @@ jobs:
       - name: Configure CMake
         run: |
           source emsdk/emsdk_env.sh
-          cmake -B build -DCMAKE_BUILD_TYPE=${{ matrix.BUILD_TYPE }} -DCMAKE_CXX_STANDARD=${{ matrix.CXX_STD }} -DSS_TEST=ON -DSS_TEST_MATRIX=ON -DCMAKE_CROSSCOMPILING_EMULATOR=node
+          emcmake cmake -B build -DCMAKE_BUILD_TYPE=${{ matrix.BUILD_TYPE }} -DCMAKE_CXX_STANDARD=${{ matrix.CXX_STD }} -DSS_TEST=ON -DSS_TEST_MATRIX=ON -DCMAKE_CROSSCOMPILING_EMULATOR=node
 
       - name: Build Test
         run: |
           source emsdk/emsdk_env.sh
-          cmake --build build --target all -- -j 9
+          emcmake cmake --build build --target all -- -j 9
 
       - name: Run Test
         working-directory: ${{ github.workspace }}/build
