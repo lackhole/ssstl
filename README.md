@@ -9,6 +9,7 @@ Focusing on implementing high C++ features for low C++(i.e. You can use `ss::opt
 [![g++](https://github.com/lackhole/ssstl/actions/workflows/gcc.yml/badge.svg)](https://github.com/lackhole/ssstl/actions/workflows/gcc.yml)
 [![clang++](https://github.com/lackhole/ssstl/actions/workflows/clang.yml/badge.svg)](https://github.com/lackhole/ssstl/actions/workflows/clang.yml)
 [![MSVC](https://github.com/lackhole/ssstl/actions/workflows/msvc.yml/badge.svg)](https://github.com/lackhole/ssstl/actions/workflows/msvc.yml)
+[![Emscripten](https://github.com/lackhole/ssstl/actions/workflows/emscripten.yml/badge.svg)](https://github.com/lackhole/ssstl/actions/workflows/emscripten.yml)
 </div>
 
 # Code Coverage
