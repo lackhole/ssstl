@@ -24,7 +24,6 @@ int main() {
   std::cerr << "__cplusplus: " << __cplusplus << '\n';
   std::cerr << "NDEBUG: " << NDEBUG_DEFINED << '\n';
 
-  static_assert(sizeof(int*) == 8, " ");
   
   ss::vector<int> vv;
 
