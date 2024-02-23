@@ -1,0 +1,39 @@
+name: clang
+
+on: pull_request
+
+jobs:
+  test_cxx:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        CXX_STD: [ 11, 14, 17, 20 ]
+        BUILD_TYPE: [ Debug, Release ]
+      fail-fast: false
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+
+      - name: Install Emscripten
+        run: |
+          git clone https://github.com/emscripten-core/emsdk.git
+          cd emsdk
+          ./emsdk install latest
+          ./emsdk activate latest
+          source ./emsdk_env.sh
+
+      - name: Configure CMake
+        run: |
+          source emsdk/emsdk_env.sh
+          cmake -B build -DCMAKE_BUILD_TYPE=${{ matrix.BUILD_TYPE }} -DCMAKE_CXX_STANDARD=${{ matrix.CXX_STD }} -DSS_TEST=ON -DSS_TEST_MATRIX=ON -DCMAKE_CROSSCOMPILING_EMULATOR=node
+
+      - name: Build Test
+        run: |
+          source emsdk/emsdk_env.sh
+          cmake --build build --target all -- -j 9
+
+      - name: Run Test
+        working-directory: ${{ github.workspace }}/build
+        run: ctest -C ${{ matrix.BUILD_TYPE }} --extra-verbose --output-on-failure -j9
