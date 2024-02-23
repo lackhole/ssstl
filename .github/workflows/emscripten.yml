@@ -1,4 +1,4 @@
-name: clang
+name: emscripten
 
 on: pull_request
 
