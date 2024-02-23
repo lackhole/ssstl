@@ -32,7 +32,7 @@ jobs:
       - name: Build Test
         run: |
           source emsdk/emsdk_env.sh
-          emcmake cmake --build build --target all -- -j 9
+          emmake cmake --build build --target all -- -j 9
 
       - name: Run Test
         working-directory: ${{ github.workspace }}/build
