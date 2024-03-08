@@ -1,7 +1,7 @@
 ## Header `<fstream>` implementation status
 
 [Reference](https://en.cppreference.com/w/cpp/header/fstream)  
-[Implementation](../ss/include/ss/fstream.h)
+[Implementation](../include/lsd/fstream.h)
 
 * ![](https://img.shields.io/badge/C%2B%2B-N-red): Cannot implement with language itself. Need compiler support. Used C++ N STL
 * ![](https://img.shields.io/badge/C%2B%2B-N-blue): Partially implemented with C++ N
@@ -17,10 +17,10 @@
 | basic_fstream                                | ![][legacy]          | ![][notyet]                       |
 |                                              |                      |                                   |
 | **Functions**                                |                      |                                   |
-| ss::swap(ss::basic_filebuf)                  | ![][cpp11]           | ![][notyet]                       |
-| ss::swap(ss::basic_ifstream)                 | ![][cpp11]           | ![][notyet]                       |
-| ss::swap(ss::basic_ofstream)                 | ![][cpp11]           | ![][notyet]                       |
-| ss::swap(ss::basic_fstream)                  | ![][cpp11]           | ![][notyet]                       |
+| lsd::swap(lsd::basic_filebuf)                  | ![][cpp11]           | ![][notyet]                       |
+| lsd::swap(lsd::basic_ifstream)                 | ![][cpp11]           | ![][notyet]                       |
+| lsd::swap(lsd::basic_ofstream)                 | ![][cpp11]           | ![][notyet]                       |
+| lsd::swap(lsd::basic_fstream)                  | ![][cpp11]           | ![][notyet]                       |
 
 
 <!--

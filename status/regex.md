@@ -1,7 +1,7 @@
 ## Header `<regex>` implementation status
 
 [Reference](https://en.cppreference.com/w/cpp/header/regex)  
-[Implementation](../ss/include/ss/regex.h)
+[Implementation](../include/lsd/regex.h)
 
 * ![](https://img.shields.io/badge/C%2B%2B-N-red): Cannot implement with language itself. Need compiler support. Used C++ N STL
 * ![](https://img.shields.io/badge/C%2B%2B-N-blue): Partially implemented with C++ N
@@ -33,11 +33,11 @@
 | regex_search                                 | ![][cpp11]           | ![][notyet]                       |
 | regex_replace                                | ![][cpp11]           | ![][notyet]                       |
 | **Non-member operations**                    |                      |                                   |
-| ss::swap(ss::basic_regex)                    | ![][cpp11]           | ![][notyet]                       |
+| lsd::swap(lsd::basic_regex)                    | ![][cpp11]           | ![][notyet]                       |
 | operator== <br/>~~operator!=~~ <br/>~~operator\<~~ <br/>~~operator\<=~~ <br/>~~operator>~~ <br/>~~operator>=~~ <br/>operator\<=> | ![][legacy] <br/>![][legacy] <br/>![][legacy] <br/>![][legacy] <br/>![][legacy] <br/>![][legacy] <br/>![][cpp20] | ![][notyet]                       |
 | operator\<\<                                 | ![][legacy]          | ![][notyet]                       |
 | operator== <br/>~~operator!=~~               | ![][legacy] <br/>![][legacy] | ![][notyet]                       |
-| ss::swap(ss::match_results)                  | ![][cpp11]           | ![][notyet]                       |
+| lsd::swap(lsd::match_results)                  | ![][cpp11]           | ![][notyet]                       |
 | **Range access**                             |                      |                                   |
 | begin <br/>cbegin                            | ![][cpp11] <br/>![][cpp14] | ![][notyet]                       |
 | end <br/>cend                                | ![][cpp11] <br/>![][cpp14] | ![][notyet]                       |

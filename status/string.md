@@ -1,7 +1,7 @@
 ## Header `<string>` implementation status
 
 [Reference](https://en.cppreference.com/w/cpp/header/string)  
-[Implementation](../ss/include/ss/string.h)
+[Implementation](../include/lsd/string.h)
 
 * ![](https://img.shields.io/badge/C%2B%2B-N-red): Cannot implement with language itself. Need compiler support. Used C++ N STL
 * ![](https://img.shields.io/badge/C%2B%2B-N-blue): Partially implemented with C++ N
@@ -17,13 +17,13 @@
 | **Classes**                                  |                      |                                   |
 | char_traits                                  | ![][legacy]          | ![][notyet]                       |
 | basic_string                                 | ![][legacy]          | ![][notyet]                       |
-| ss::hash\<ss::string> <br/>ss::hash\<ss::u8string> <br/>ss::hash\<ss::u16string> <br/>ss::hash\<ss::u32string> <br/>ss::hash\<ss::wstring> <br/>ss::hash\<ss::pmr::string> <br/>ss::hash\<ss::pmr::u8string> <br/>ss::hash\<ss::pmr::u16string> <br/>ss::hash\<ss::pmr::u32string> <br/>ss::hash\<ss::pmr::wstring> | ![][cpp11] <br/>![][cpp20] <br/>![][cpp11] <br/>![][cpp11] <br/>![][cpp11] <br/>![][cpp17] <br/>![][cpp20] <br/>![][cpp17] <br/>![][cpp17] <br/>![][cpp17] | ![][notyet]                       |
+| lsd::hash\<lsd::string> <br/>lsd::hash\<lsd::u8string> <br/>lsd::hash\<lsd::u16string> <br/>lsd::hash\<lsd::u32string> <br/>lsd::hash\<lsd::wstring> <br/>lsd::hash\<lsd::pmr::string> <br/>lsd::hash\<lsd::pmr::u8string> <br/>lsd::hash\<lsd::pmr::u16string> <br/>lsd::hash\<lsd::pmr::u32string> <br/>lsd::hash\<lsd::pmr::wstring> | ![][cpp11] <br/>![][cpp20] <br/>![][cpp11] <br/>![][cpp11] <br/>![][cpp11] <br/>![][cpp17] <br/>![][cpp20] <br/>![][cpp17] <br/>![][cpp17] <br/>![][cpp17] | ![][notyet]                       |
 |                                              |                      |                                   |
 | **Functions**                                |                      |                                   |
 | operator+                                    | ![][legacy]          | ![][notyet]                       |
 | operator== <br/>~~operator!=~~ <br/>~~operator\<~~ <br/>~~operator>~~ <br/>~~operator\<=~~ <br/>~~operator>=~~ <br/>operator\<=> | ![][legacy] <br/>![][legacy] <br/>![][legacy] <br/>![][legacy] <br/>![][legacy] <br/>![][legacy] <br/>![][cpp20] | ![][notyet]                       |
-| ss::swap(ss::basic_string)                   | ![][legacy]          | ![][notyet]                       |
-| erase(ss::basic_string) <br/>erase_if(ss::basic_string) | ![][cpp20]           | ![][notyet]                       |
+| lsd::swap(lsd::basic_string)                   | ![][legacy]          | ![][notyet]                       |
+| erase(lsd::basic_string) <br/>erase_if(lsd::basic_string) | ![][cpp20]           | ![][notyet]                       |
 | **Input/output**                             |                      |                                   |
 | operator\<\< <br/>operator>>                 | ![][legacy]          | ![][notyet]                       |
 | getline                                      | ![][legacy]          | ![][notyet]                       |

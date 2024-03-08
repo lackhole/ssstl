@@ -2,7 +2,7 @@
 ### Implementing `std::optional` in C++11
 
 [Reference](https://en.cppreference.com/w/cpp/header/optional)  
-[Implementation](../ss/include/ss/optional.h)
+[Implementation](../include/lsd/optional.h)
 
 * ![](https://img.shields.io/badge/C%2B%2B-N-red): Cannot implement with language itself. Need compiler support. Used C++ N STL
 * ![](https://img.shields.io/badge/C%2B%2B-N-blue): Partially implemented with C++ N
@@ -15,7 +15,7 @@
 | **Classes**                      |                         |
 |optional                          | ![][cpppt11]* ![][cpp14] |
 |bad_optional_access               | ![][cpppt11]**          |
-|ss::hash\<ss::optional>           | ![][cpp11]              |
+|lsd::hash\<lsd::optional>           | ![][cpp11]              |
 |nullopt_t                         | ![][cpp11]              |
 |                                  |                         |
 | **Constants**                    |                         |
@@ -25,7 +25,7 @@
 | Comparison                       |                         |
 |operator== <br/> operator!= <br/> operator< <br/> operator<= <br/> operator> <br/> operator>= | ![][cpp11] |
 | Specialized algorithms           |                         |
-|ss::swap(ss::optional)            | ![][cpp11]              |
+|lsd::swap(lsd::optional)            | ![][cpp11]              |
 |make_optional                     | ![][cpp11]              |
 
 | C++20  Features                  | Implemented in          |

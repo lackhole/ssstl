@@ -1,7 +1,7 @@
 ## Header `<array>` implementation status
 
 [Reference](https://en.cppreference.com/w/cpp/header/array)  
-[Implementation](../ss/include/ss/array.h)
+[Implementation](../include/lsd/array.h)
 
 * ![](https://img.shields.io/badge/C%2B%2B-N-red): Cannot implement with language itself. Need compiler support. Used C++ N STL
 * ![](https://img.shields.io/badge/C%2B%2B-N-blue): Partially implemented with C++ N
@@ -18,14 +18,14 @@
 | array                                        | ![][cpp11]           | ![][cpp11] ![][cpppt20]           |
 | tuple_size                                   | ![][cpp11]           | ![][cpp11]                        |
 | tuple_element                                | ![][cpp11]           | ![][cpp11]                        |
-| ss::tuple_size\<ss::array>                   | ![][cpp11]           | ![][cpp11]                        |
-| ss::tuple_element\<ss::array>                | ![][cpp11]           | ![][cpp11]                        |
+| lsd::tuple_size\<lsd::array>                   | ![][cpp11]           | ![][cpp11]                        |
+| lsd::tuple_element\<lsd::array>                | ![][cpp11]           | ![][cpp11]                        |
 |                                              |                      |                                   |
 | **Functions**                                |                      |                                   |
 | operator== <br/>~~operator!=~~ <br/>~~operator\<~~ <br/>~~operator\<=~~ <br/>~~operator>~~ <br/>~~operator>=~~ <br/>operator\<=> | ![][cpp11] <br/>![][cpp11] <br/>![][cpp11] <br/>![][cpp11] <br/>![][cpp11] <br/>![][cpp11] <br/>![][cpp20] | ![][cpp11] ![][notyet] |
-| ss::swap(ss::array)                          | ![][cpp11]           | ![][cpp11]                        |
+| lsd::swap(lsd::array)                          | ![][cpp11]           | ![][cpp11]                        |
 | to_array                                     | ![][cpp20]           | ![][cpp11]                        |
-| ss::get(ss::array)                           | ![][cpp11]           | ![][cpp11]                        |
+| lsd::get(lsd::array)                           | ![][cpp11]           | ![][cpp11]                        |
 | **Range access**                             |                      |                                   |
 | begin <br/>cbegin                            | ![][cpp11] <br/>![][cpp14] | ![][cpp11]                  |
 | end <br/>cend                                | ![][cpp11] <br/>![][cpp14] | ![][cpp11]                  |

@@ -1,7 +1,7 @@
 ## Header `<mutex>` implementation status
 
 [Reference](https://en.cppreference.com/w/cpp/header/mutex)  
-[Implementation](../ss/include/ss/mutex.h)
+[Implementation](../include/lsd/mutex.h)
 
 * ![](https://img.shields.io/badge/C%2B%2B-N-red): Cannot implement with language itself. Need compiler support. Used C++ N STL
 * ![](https://img.shields.io/badge/C%2B%2B-N-blue): Partially implemented with C++ N
@@ -28,7 +28,7 @@
 | try_lock                                     | ![][cpp11]           | ![][notyet]                       |
 | lock                                         | ![][cpp11]           | ![][notyet]                       |
 | call_once                                    | ![][cpp11]           | ![][notyet]                       |
-| ss::swap(ss::unique_lock)                    | ![][cpp11]           | ![][notyet]                       |
+| lsd::swap(lsd::unique_lock)                    | ![][cpp11]           | ![][notyet]                       |
 
 
 <!--

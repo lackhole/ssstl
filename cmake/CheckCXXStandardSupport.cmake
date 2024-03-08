@@ -10,17 +10,17 @@ function(_GetCXXStandardCompilerFlagPrefix out_var)
 endfunction()
 
 _GetCXXStandardCompilerFlagPrefix(_flag_prefix)
-set(__SS_STD_CXX_COMPILER_FLAG_PREFIX "${_flag_prefix}" CACHE STRING "Prefix compiler flag for C++ standard")
+set(__LSD_STD_CXX_COMPILER_FLAG_PREFIX "${_flag_prefix}" CACHE STRING "Prefix compiler flag for C++ standard")
 
-check_cxx_compiler_flag("${__SS_STD_CXX_COMPILER_FLAG_PREFIX}11" __SS_COMPILE_TEST_STD_CXX_11)
-check_cxx_compiler_flag("${__SS_STD_CXX_COMPILER_FLAG_PREFIX}14" __SS_COMPILE_TEST_STD_CXX_14)
-check_cxx_compiler_flag("${__SS_STD_CXX_COMPILER_FLAG_PREFIX}17" __SS_COMPILE_TEST_STD_CXX_17)
-check_cxx_compiler_flag("${__SS_STD_CXX_COMPILER_FLAG_PREFIX}20" __SS_COMPILE_TEST_STD_CXX_20)
-check_cxx_compiler_flag("${__SS_STD_CXX_COMPILER_FLAG_PREFIX}23" __SS_COMPILE_TEST_STD_CXX_23)
+check_cxx_compiler_flag("${__LSD_STD_CXX_COMPILER_FLAG_PREFIX}11" __LSD_COMPILE_TEST_STD_CXX_11)
+check_cxx_compiler_flag("${__LSD_STD_CXX_COMPILER_FLAG_PREFIX}14" __LSD_COMPILE_TEST_STD_CXX_14)
+check_cxx_compiler_flag("${__LSD_STD_CXX_COMPILER_FLAG_PREFIX}17" __LSD_COMPILE_TEST_STD_CXX_17)
+check_cxx_compiler_flag("${__LSD_STD_CXX_COMPILER_FLAG_PREFIX}20" __LSD_COMPILE_TEST_STD_CXX_20)
+check_cxx_compiler_flag("${__LSD_STD_CXX_COMPILER_FLAG_PREFIX}23" __LSD_COMPILE_TEST_STD_CXX_23)
 
 function(GetCXXStandardCompilerFlag version out_var)
-    if ("${__SS_COMPILE_TEST_STD_CXX_${version}}")
-        set(${out_var} "${__SS_STD_CXX_COMPILER_FLAG_PREFIX}${version}" PARENT_SCOPE)
+    if ("${__LSD_COMPILE_TEST_STD_CXX_${version}}")
+        set(${out_var} "${__LSD_STD_CXX_COMPILER_FLAG_PREFIX}${version}" PARENT_SCOPE)
         return()
     endif ()
 
@@ -60,8 +60,8 @@ function(CheckCXXStandardSupport version variable)
 #error 1
 #endif
 int main() { return 0; }")
-    check_cxx_source_compiles("${_source}" __SS_COMPILE_TEST_FULL_CXX_${version}_SUPPORT)
-    set(${variable} ${__SS_COMPILE_TEST_FULL_CXX_${version}_SUPPORT} PARENT_SCOPE)
+    check_cxx_source_compiles("${_source}" __LSD_COMPILE_TEST_FULL_CXX_${version}_SUPPORT)
+    set(${variable} ${__LSD_COMPILE_TEST_FULL_CXX_${version}_SUPPORT} PARENT_SCOPE)
 endfunction()
 
 

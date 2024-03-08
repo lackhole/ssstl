@@ -1,7 +1,7 @@
 ## Header `<bitset>` implementation status
 
 [Reference](https://en.cppreference.com/w/cpp/header/bitset)  
-[Implementation](../ss/include/ss/bitset.h)
+[Implementation](../include/lsd/bitset.h)
 
 * ![](https://img.shields.io/badge/C%2B%2B-N-red): Cannot implement with language itself. Need compiler support. Used C++ N STL
 * ![](https://img.shields.io/badge/C%2B%2B-N-blue): Partially implemented with C++ N
@@ -16,7 +16,7 @@
 |                                              |                      |                                   |
 | **Classes**                                  |                      |                                   |
 | bitset                                       | ![][legacy]          | ![][notyet]                       |
-| ss::hash\<ss::bitset>                        | ![][cpp11]           | ![][notyet]                       |
+| lsd::hash\<lsd::bitset>                        | ![][cpp11]           | ![][notyet]                       |
 | **Forward declarations**                     |                      |                                   |
 | hash                                         | ![][cpp11]           | ![][notyet]                       |
 |                                              |                      |                                   |

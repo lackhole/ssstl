@@ -1,7 +1,7 @@
 ## Header `<iterator>` implementation status
 
 [Reference](https://en.cppreference.com/w/cpp/header/iterator)  
-[Implementation](../ss/include/ss/iterator.h)
+[Implementation](../include/lsd/iterator.h)
 
 * ![](https://img.shields.io/badge/C%2B%2B-N-red): Cannot implement with language itself. Need compiler support. Used C++ N STL
 * ![](https://img.shields.io/badge/C%2B%2B-N-blue): Partially implemented with C++ N
@@ -35,14 +35,14 @@
 |back_inserter                     | ![][notyet]             |
 |inserter                          | ![][notyet]             |
 | **Non-member operators**         |                         |
-|(ss::move_iterator) <br/> operator== <br/> operator!= <br/> operator< <br/> operator<= <br/> operator> <br/> operator>= | ![][notyet] |
-|operator+(ss::move_iterator)      | ![][notyet]             |
-|operator-(ss::move_iterator)      | ![][notyet]             |
-|(ss::reverse_iterator) <br/> operator== <br/> operator!= <br/> operator< <br/> operator<= <br/> operator> <br/> operator>= | ![][cpp11] |
-|operator+(ss::reverse_iterator)   | ![][cpp11]              |
-|operator-(ss::reverse_iterator)   | ![][cpp11]              |
-|(ss::istream_iterator) <br/> operator== <br/> operator != <br/>    | ![][notyet] |
-|(ss::istreambuf_iterator) <br/> operator== <br/> operator != <br/> | ![][notyet] |
+|(lsd::move_iterator) <br/> operator== <br/> operator!= <br/> operator< <br/> operator<= <br/> operator> <br/> operator>= | ![][notyet] |
+|operator+(lsd::move_iterator)      | ![][notyet]             |
+|operator-(lsd::move_iterator)      | ![][notyet]             |
+|(lsd::reverse_iterator) <br/> operator== <br/> operator!= <br/> operator< <br/> operator<= <br/> operator> <br/> operator>= | ![][cpp11] |
+|operator+(lsd::reverse_iterator)   | ![][cpp11]              |
+|operator-(lsd::reverse_iterator)   | ![][cpp11]              |
+|(lsd::istream_iterator) <br/> operator== <br/> operator != <br/>    | ![][notyet] |
+|(lsd::istreambuf_iterator) <br/> operator== <br/> operator != <br/> | ![][notyet] |
 | **Operations**                   |                         |
 |advance                           | ![][cpp11]              |
 |distance                          | ![][cpp11]              |
@@ -124,17 +124,17 @@
 |counted_iterator                  | ![][notyet]             |
 |unreachable_sentinel_t            | ![][notyet]             |
 |                                  |                         |
-| **Customization point objects**  | Defined in namespace ss::ranges |
+| **Customization point objects**  | Defined in namespace lsd::ranges |
 |iter_move                         | ![][notyet]             |
 |iter_swap                         | ![][notyet]             |
 |                                  |                         |
-| **Functions**                    | Defined in namespace ss::ranges |
+| **Functions**                    | Defined in namespace lsd::ranges |
 | **Non-member operators**         |                         |
-|operator<=>(ss::move_iterator)    | ![][notyet]             |
-|operator<=>(ss::reverse_iterator) | ![][cpp20]              |
-|(ss::counted_iterator) <br/> operator== <br/> operator<=> | ![][notyet] |
-|operator+(ss::counted_iterator)   | ![][notyet]             |
-|operator-(ss::counted_iterator)   | ![][notyet]             |
+|operator<=>(lsd::move_iterator)    | ![][notyet]             |
+|operator<=>(lsd::reverse_iterator) | ![][cpp20]              |
+|(lsd::counted_iterator) <br/> operator== <br/> operator<=> | ![][notyet] |
+|operator+(lsd::counted_iterator)   | ![][notyet]             |
+|operator-(lsd::counted_iterator)   | ![][notyet]             |
 | **Operations**                   |                         |
 |ranges::advance                   | ![][notyet]             |
 |ranges::distance                  | ![][notyet]             |

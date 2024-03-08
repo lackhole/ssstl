@@ -1,7 +1,7 @@
 ## Header `<deque>` implementation status
 
 [Reference](https://en.cppreference.com/w/cpp/header/deque)  
-[Implementation](../ss/include/ss/deque.h)
+[Implementation](../include/lsd/deque.h)
 
 * ![](https://img.shields.io/badge/C%2B%2B-N-red): Cannot implement with language itself. Need compiler support. Used C++ N STL
 * ![](https://img.shields.io/badge/C%2B%2B-N-blue): Partially implemented with C++ N
@@ -19,8 +19,8 @@
 |                                              |                      |                                   |
 | **Functions**                                |                      |                                   |
 | operator== <br/>~~operator!=~~ <br/>~~operator\<~~ <br/>~~operator\<=~~ <br/>~~operator>~~ <br/>~~operator>=~~ <br/>operator\<=> | ![][legacy] <br/>![][legacy] <br/>![][legacy] <br/>![][legacy] <br/>![][legacy] <br/>![][legacy] <br/>![][cpp20] | ![][notyet]                       |
-| ss::swap(ss::deque)                          | ![][legacy]          | ![][notyet]                       |
-| erase(ss::deque) <br/>erase_if(ss::deque)    | ![][cpp20]           | ![][notyet]                       |
+| lsd::swap(lsd::deque)                          | ![][legacy]          | ![][notyet]                       |
+| erase(lsd::deque) <br/>erase_if(lsd::deque)    | ![][cpp20]           | ![][notyet]                       |
 | **Range access**                             |                      |                                   |
 | begin <br/>cbegin                            | ![][cpp11] <br/>![][cpp14] | ![][notyet]                       |
 | end <br/>cend                                | ![][cpp11] <br/>![][cpp14] | ![][notyet]                       |

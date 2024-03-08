@@ -1,7 +1,7 @@
 ## Header `<set>` implementation status
 
 [Reference](https://en.cppreference.com/w/cpp/header/set)  
-[Implementation](../ss/include/ss/set.h)
+[Implementation](../include/lsd/set.h)
 
 * ![](https://img.shields.io/badge/C%2B%2B-N-red): Cannot implement with language itself. Need compiler support. Used C++ N STL
 * ![](https://img.shields.io/badge/C%2B%2B-N-blue): Partially implemented with C++ N
@@ -20,11 +20,11 @@
 |                                              |                      |                                   |
 | **Functions**                                |                      |                                   |
 | operator== <br/>~~operator!=~~ <br/>~~operator\<~~ <br/>~~operator\<=~~ <br/>~~operator>~~ <br/>~~operator>=~~ <br/>operator\<=> | ![][legacy] <br/>![][legacy] <br/>![][legacy] <br/>![][legacy] <br/>![][legacy] <br/>![][legacy] <br/>![][cpp20] | ![][notyet]                       |
-| ss::swap(ss::set)                            | ![][legacy]          | ![][notyet]                       |
-| erase_if(ss::set)                            | ![][cpp20]           | ![][notyet]                       |
+| lsd::swap(lsd::set)                            | ![][legacy]          | ![][notyet]                       |
+| erase_if(lsd::set)                            | ![][cpp20]           | ![][notyet]                       |
 | operator== <br/>~~operator!=~~ <br/>~~operator\<~~ <br/>~~operator\<=~~ <br/>~~operator>~~ <br/>~~operator>=~~ <br/>operator\<=> | ![][legacy] <br/>![][legacy] <br/>![][legacy] <br/>![][legacy] <br/>![][legacy] <br/>![][legacy] <br/>![][cpp20] | ![][notyet]                       |
-| ss::swap(ss::multiset)                       | ![][legacy]          | ![][notyet]                       |
-| erase_if(ss::multiset)                       | ![][cpp20]           | ![][notyet]                       |
+| lsd::swap(lsd::multiset)                       | ![][legacy]          | ![][notyet]                       |
+| erase_if(lsd::multiset)                       | ![][cpp20]           | ![][notyet]                       |
 | **Range access**                             |                      |                                   |
 | begin <br/>cbegin                            | ![][cpp11] <br/>![][cpp14] | ![][notyet]                       |
 | end <br/>cend                                | ![][cpp11] <br/>![][cpp14] | ![][notyet]                       |

@@ -1,7 +1,7 @@
 ## Header `<spanstream>` implementation status
 
 [Reference](https://en.cppreference.com/w/cpp/header/spanstream)  
-[Implementation](../ss/include/ss/spanstream.h)
+[Implementation](../include/lsd/spanstream.h)
 
 * ![](https://img.shields.io/badge/C%2B%2B-N-red): Cannot implement with language itself. Need compiler support. Used C++ N STL
 * ![](https://img.shields.io/badge/C%2B%2B-N-blue): Partially implemented with C++ N
@@ -17,10 +17,10 @@
 | basic_spanstream                             | ![][cpp23]           | ![][notyet]                       |
 |                                              |                      |                                   |
 | **Functions**                                |                      |                                   |
-| ss::swap(ss::basic_spanbuf)                  | ![][cpp23]           | ![][notyet]                       |
-| ss::swap(ss::basic_ispanstream)              | ![][cpp23]           | ![][notyet]                       |
-| ss::swap(ss::basic_ospanstream)              | ![][cpp23]           | ![][notyet]                       |
-| ss::swap(ss::basic_spanstream)               | ![][cpp23]           | ![][notyet]                       |
+| lsd::swap(lsd::basic_spanbuf)                  | ![][cpp23]           | ![][notyet]                       |
+| lsd::swap(lsd::basic_ispanstream)              | ![][cpp23]           | ![][notyet]                       |
+| lsd::swap(lsd::basic_ospanstream)              | ![][cpp23]           | ![][notyet]                       |
+| lsd::swap(lsd::basic_spanstream)               | ![][cpp23]           | ![][notyet]                       |
 
 
 <!--

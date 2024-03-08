@@ -2,10 +2,10 @@
 #include <utility>
 #include <string>
 
-#include "ss/utility.h"
-#include "ss/type_traits.h"
+#include "lsd/utility.h"
+#include "lsd/type_traits.h"
 
-#include "ss_test.h"
+#include "lsd_test.h"
 
 #ifdef NDEBUG
 #define NDEBUG_DEFINED 1
@@ -21,28 +21,28 @@ struct foo {
 void test(const foo&);
 
 int main() {
-  SS_INIT_TEST("utility")
+  LSD_INIT_TEST("utility")
   std::cerr << "__cplusplus: " << __cplusplus << '\n';
   std::cerr << "NDEBUG: " << NDEBUG_DEFINED << '\n';
 
   { // move
     std::string str = "hello, world!";
     std::string str2;
-    str2 = ss::move(str);
+    str2 = lsd::move(str);
 
-    SS_TEST(str.empty())
-    SS_TEST(str2 == "hello, world!")
+    LSD_TEST(str.empty())
+    LSD_TEST(str2 == "hello, world!")
   }
 
   {
-    constexpr ss::pair<int, float> p1(1, 2);
+    constexpr lsd::pair<int, float> p1(1, 2);
 
-    SS_TESTC(ss::get<0>(p1) == 1)
-    SS_TESTC(ss::get<int>(p1) == 1)
-    SS_TESTC(ss::get<1>(p1) == 2)
-    SS_TESTC(ss::get<float>(p1) == 2)
+    LSD_TESTC(lsd::get<0>(p1) == 1)
+    LSD_TESTC(lsd::get<int>(p1) == 1)
+    LSD_TESTC(lsd::get<1>(p1) == 2)
+    LSD_TESTC(lsd::get<float>(p1) == 2)
   }
 
 
-  SS_TEST_RETURN
+  LSD_TEST_RETURN
 }

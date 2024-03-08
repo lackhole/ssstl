@@ -1,9 +1,9 @@
 #include <iostream>
 #include <cstdint>
 
-#include "ss/limits.h"
+#include "lsd/limits.h"
 
-#include "ss_test.h"
+#include "lsd_test.h"
 
 class MyInt {
  public:
@@ -17,24 +17,24 @@ class MyInt {
 };
 
 int main() {
-  SS_INIT_TEST("limits")
+  LSD_INIT_TEST("limits")
 
-  SS_TEST_EQ(ss::numeric_limits<bool>::has_infinity, false)
-  SS_TEST_EQ(ss::numeric_limits<int>::has_infinity, false)
-  SS_TEST_EQ(ss::numeric_limits<float>::has_infinity, true)
-  SS_TEST_EQ(ss::numeric_limits<double>::has_infinity, true)
+  LSD_TEST_EQ(lsd::numeric_limits<bool>::has_infinity, false)
+  LSD_TEST_EQ(lsd::numeric_limits<int>::has_infinity, false)
+  LSD_TEST_EQ(lsd::numeric_limits<float>::has_infinity, true)
+  LSD_TEST_EQ(lsd::numeric_limits<double>::has_infinity, true)
 
-  SS_TEST_EQ(ss::numeric_limits<std::int8_t>::max(), 127)
-  SS_TEST_EQ(ss::numeric_limits<std::uint8_t>::max(), 255U)
-  SS_TEST_EQ(ss::numeric_limits<std::int16_t>::max(), 32767)
-  SS_TEST_EQ(ss::numeric_limits<std::uint16_t>::max(), 65535U)
-  SS_TEST_EQ(ss::numeric_limits<std::int32_t>::max(), 2147483647)
-  SS_TEST_EQ(ss::numeric_limits<std::uint32_t>::max(), 4294967295U)
+  LSD_TEST_EQ(lsd::numeric_limits<std::int8_t>::max(), 127)
+  LSD_TEST_EQ(lsd::numeric_limits<std::uint8_t>::max(), 255U)
+  LSD_TEST_EQ(lsd::numeric_limits<std::int16_t>::max(), 32767)
+  LSD_TEST_EQ(lsd::numeric_limits<std::uint16_t>::max(), 65535U)
+  LSD_TEST_EQ(lsd::numeric_limits<std::int32_t>::max(), 2147483647)
+  LSD_TEST_EQ(lsd::numeric_limits<std::uint32_t>::max(), 4294967295U)
 
-  SS_TEST(ss::numeric_limits<float>::max() > 1E+38);
-  SS_TEST(ss::numeric_limits<double>::max() > 1E+308);
-  SS_TEST(ss::numeric_limits<long double>::max() >= ss::numeric_limits<double>::max());
+  LSD_TEST(lsd::numeric_limits<float>::max() > 1E+38);
+  LSD_TEST(lsd::numeric_limits<double>::max() > 1E+308);
+  LSD_TEST(lsd::numeric_limits<long double>::max() >= lsd::numeric_limits<double>::max());
 
 
-  SS_TEST_RETURN
+  LSD_TEST_RETURN
 }

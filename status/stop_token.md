@@ -1,7 +1,7 @@
 ## Header `<stop_token>` implementation status
 
 [Reference](https://en.cppreference.com/w/cpp/header/stop_token)  
-[Implementation](../ss/include/ss/stop_token.h)
+[Implementation](../include/lsd/stop_token.h)
 
 * ![](https://img.shields.io/badge/C%2B%2B-N-red): Cannot implement with language itself. Need compiler support. Used C++ N STL
 * ![](https://img.shields.io/badge/C%2B%2B-N-blue): Partially implemented with C++ N

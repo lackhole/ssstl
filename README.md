@@ -1,16 +1,17 @@
-<div align="center">
+
   
-# SSSTL
-SS Standard Template Library  
-Focusing on implementing high C++ features for low C++(i.e. You can use `ss::optional<T>` in C++11)  
-*Note: This is personal project*
+# LSD - Latest STL for Dummies  
+- Provides latest STL features for unlucky programmers who cannot use latest C++
+(i.e. You can use `lsd::ranges::to` in C++11)  
+
+- Compatible with existing STL
 
 # Build Status
 [![g++](https://github.com/lackhole/ssstl/actions/workflows/gcc.yml/badge.svg)](https://github.com/lackhole/ssstl/actions/workflows/gcc.yml)
 [![clang++](https://github.com/lackhole/ssstl/actions/workflows/clang.yml/badge.svg)](https://github.com/lackhole/ssstl/actions/workflows/clang.yml)
 [![MSVC](https://github.com/lackhole/ssstl/actions/workflows/msvc.yml/badge.svg)](https://github.com/lackhole/ssstl/actions/workflows/msvc.yml)
 [![Emscripten](https://github.com/lackhole/ssstl/actions/workflows/emscripten.yml/badge.svg)](https://github.com/lackhole/ssstl/actions/workflows/emscripten.yml)
-</div>
+
 
 # Code Coverage
 

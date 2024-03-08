@@ -1,7 +1,7 @@
 ## Header `<initializer_list>` implementation status
 
 [Reference](https://en.cppreference.com/w/cpp/header/initializer_list)  
-[Implementation](../ss/include/ss/initializer_list.h)
+[Implementation](../include/lsd/initializer_list.h)
 
 * ![](https://img.shields.io/badge/C%2B%2B-N-red): Cannot implement with language itself. Need compiler support. Used C++ N STL
 * ![](https://img.shields.io/badge/C%2B%2B-N-blue): Partially implemented with C++ N
@@ -14,8 +14,8 @@
 | initializer_list                | ![][cpp11] |   ![][cpp11]   |
 |                                 |            |                |
 | **Functions**                   |            |                |
-| ss::begin(ss::initializer_list) | ![][cpp11] |   ![][cpp11]   |
-| ss::end(ss::initializer_list)   | ![][cpp11] |   ![][cpp11]   |
+| lsd::begin(lsd::initializer_list) | ![][cpp11] |   ![][cpp11]   |
+| lsd::end(lsd::initializer_list)   | ![][cpp11] |   ![][cpp11]   |
 
 
 <!--

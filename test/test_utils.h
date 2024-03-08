@@ -2,10 +2,10 @@
 #  * Created by YongGyu Lee on 2021/08/14.
 #  */
 #
-# ifndef SS_TEST_TEST_UTILS_H_
-# define SS_TEST_TEST_UTILS_H_
+# ifndef LSD_TEST_TEST_UTILS_H_
+# define LSD_TEST_TEST_UTILS_H_
 #
-# include "ss/type_traits.h"
+# include "lsd/type_traits.h"
 
 namespace ss {
 
@@ -79,4 +79,4 @@ struct with_member {
 
 } // namespace ss
 
-# endif // SS_TEST_TEST_UTILS_H_
+# endif // LSD_TEST_TEST_UTILS_H_

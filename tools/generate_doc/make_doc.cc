@@ -43,22 +43,22 @@ class span {
  public:
   constexpr span(T* ptr, size_t n) : ptr(ptr), n(n) {}
 
-  SS_NODISCARD constexpr T* begin() { return ptr; }
-  SS_NODISCARD constexpr const T* begin() const { return ptr; }
-  SS_NODISCARD constexpr const T* cbegin() const { return ptr; }
+  LSD_NODISCARD constexpr T* begin() { return ptr; }
+  LSD_NODISCARD constexpr const T* begin() const { return ptr; }
+  LSD_NODISCARD constexpr const T* cbegin() const { return ptr; }
 
-  SS_NODISCARD constexpr T* end() { return ptr + n; }
-  SS_NODISCARD constexpr const T* end() const { return ptr + n; }
-  SS_NODISCARD constexpr const T* cend() const { return ptr + n; }
+  LSD_NODISCARD constexpr T* end() { return ptr + n; }
+  LSD_NODISCARD constexpr const T* end() const { return ptr + n; }
+  LSD_NODISCARD constexpr const T* cend() const { return ptr + n; }
 
-  SS_NODISCARD constexpr size_t size() const { return n; }
+  LSD_NODISCARD constexpr size_t size() const { return n; }
 
-  SS_NODISCARD constexpr bool empty() const { return ptr == nullptr || n == 0; }
+  LSD_NODISCARD constexpr bool empty() const { return ptr == nullptr || n == 0; }
 
-  SS_NODISCARD constexpr explicit operator bool() const { return ptr != nullptr && n != 0; }
+  LSD_NODISCARD constexpr explicit operator bool() const { return ptr != nullptr && n != 0; }
 
-  SS_NODISCARD constexpr T& operator[](size_t i) { return ptr[i]; }
-  SS_NODISCARD constexpr const T& operator[](size_t i) const { return ptr[i]; }
+  LSD_NODISCARD constexpr T& operator[](size_t i) { return ptr[i]; }
+  LSD_NODISCARD constexpr const T& operator[](size_t i) const { return ptr[i]; }
 
  private:
   T* ptr;
@@ -159,7 +159,7 @@ enum MarkType {
   kMarkRemoved,
 };
 
-ss::optional<std::string> GetPage(const char* url) {
+lsd::optional<std::string> GetPage(const char* url) {
   std::string response;
 
   Curlpp curlpp;
@@ -220,18 +220,18 @@ TRType GetTRType(xmlNodePtr node) {
 }
 
 struct Feature {
-  std::vector<ss::pair<xmlChar, xstring>> category;
+  std::vector<lsd::pair<xmlChar, xstring>> category;
   int order = 0;
 
   std::vector<xstring> names;
   std::string description;
 
-  std::vector<ss::optional<ss::pair<MarkType, int>>> t_mark;
+  std::vector<lsd::optional<lsd::pair<MarkType, int>>> t_mark;
 //  int first_version = kVersionLegacy;
-//  std::vector<ss::optional<int>> deprecated_after;
-//  std::vector<ss::optional<int>> removed_after;
+//  std::vector<lsd::optional<int>> deprecated_after;
+//  std::vector<lsd::optional<int>> removed_after;
 
-  ss::optional<xstring> additional_description;
+  lsd::optional<xstring> additional_description;
 };
 
 int ExtractCppVersion(const xmlChar* str) {
@@ -277,7 +277,7 @@ std::vector<xstring> GetFeatureName(xmlNodePtr node) {
     IF_CHAIN(item, next, children, content) {
       temp += item->next->children->content;
     }
-    result.emplace_back(replace_xstring(temp, "std::", "ss::"));
+    result.emplace_back(replace_xstring(temp, "std::", "lsd::"));
   }
 
   return result;
@@ -295,19 +295,19 @@ int GetVersion(xmlNodePtr node) {
   return ExtractCppVersion(str);
 }
 
-std::vector<ss::optional<int>> GetDeprecatedVersion(xmlNodePtr node) {
+std::vector<lsd::optional<int>> GetDeprecatedVersion(xmlNodePtr node) {
   static constexpr const auto xpath1 =
     "//div[@class='t-dsc-member-div']//span[@class='t-lines']";
   static constexpr const auto xpath2 =
     "//span[@class='t-mark']/text()";
 
-  std::vector<ss::optional<int>> result;
+  std::vector<lsd::optional<int>> result;
   const auto lists = xpathSearch(node, xpath1);
 
   for (const auto& s : make_span(lists.get())) {
     const auto text = xpathSearch(s, xpath2);
     if (!text) {
-      result.emplace_back(ss::nullopt);
+      result.emplace_back(lsd::nullopt);
     } else {
       const auto str = make_span(text.get())[0]->content;
       result.emplace_back(ExtractCppVersion(str));
@@ -317,19 +317,19 @@ std::vector<ss::optional<int>> GetDeprecatedVersion(xmlNodePtr node) {
   return result;
 }
 
-std::vector<ss::optional<int>> GetRemovedVersion(xmlNodePtr node) {
+std::vector<lsd::optional<int>> GetRemovedVersion(xmlNodePtr node) {
   static constexpr const auto xpath1 =
     "//div[@class='t-dsc-member-div']//span[@class='t-lines']";
   static constexpr const auto xpath2 =
     "//span[contains(@class,'t-until-cxx')]/text()";
 
-  std::vector<ss::optional<int>> result;
+  std::vector<lsd::optional<int>> result;
   const auto lists = xpathSearch(node, xpath1);
 
   for (const auto& s : make_span(lists.get())) {
     const auto text = xpathSearch(s, xpath2);
     if (!text) {
-      result.emplace_back(ss::nullopt);
+      result.emplace_back(lsd::nullopt);
     } else {
       const auto str = make_span(text.get())[0]->content;
       result.emplace_back(ExtractCppVersion(str));
@@ -339,7 +339,7 @@ std::vector<ss::optional<int>> GetRemovedVersion(xmlNodePtr node) {
   return result;
 }
 
-std::vector<ss::optional<ss::pair<MarkType, int>>> GetMarks(xmlNodePtr node, bool multiple) {
+std::vector<lsd::optional<lsd::pair<MarkType, int>>> GetMarks(xmlNodePtr node, bool multiple) {
   static constexpr const auto xpath1 =
     "/div/span[@class='t-lines']/span";
 
@@ -347,46 +347,46 @@ std::vector<ss::optional<ss::pair<MarkType, int>>> GetMarks(xmlNodePtr node, boo
   static constexpr const auto xpath_deprecated = "//span[@class='t-mark' or contains(@class, 't-deprecated-')]/text()";
   static constexpr const auto xpath_removed = "//span[contains(@class,'t-until-cxx')]/text()";
 
-  std::vector<ss::optional<ss::pair<MarkType, int>>> result;
+  std::vector<lsd::optional<lsd::pair<MarkType, int>>> result;
 
   if (multiple) {
     const auto spans = xpathSearch(node, xpath1);
     if (!spans)
-      return {ss::make_pair(kMarkVersion, kVersionLegacy)};
+      return {lsd::make_pair(kMarkVersion, kVersionLegacy)};
 
     //FIXME: attach marks to each names
     for (const auto& s: make_span(spans.get())) {
       bool all_no = true;
       if (const auto removed = xpathSearch(s, xpath_removed)) {
         const auto str = make_span(removed.get())[0]->content;
-        result.emplace_back(ss::in_place,kMarkRemoved, ExtractCppVersion(str));
+        result.emplace_back(lsd::in_place,kMarkRemoved, ExtractCppVersion(str));
         all_no = false;
       } else if (const auto deprecated = xpathSearch(s, xpath_deprecated)) {
         const auto str = make_span(deprecated.get())[0]->content;
         if (const auto version = ExtractCppVersion(str); version != kVersionUnknown)
-          result.emplace_back(ss::in_place,kMarkDeprecated, ExtractCppVersion(str));
+          result.emplace_back(lsd::in_place,kMarkDeprecated, ExtractCppVersion(str));
         all_no = false;
       } else if (const auto versions = xpathSearch(s, xpath_version)) {
         const auto str = make_span(versions.get())[0]->content;
-        result.emplace_back(ss::in_place, kMarkVersion, ExtractCppVersion(str));
+        result.emplace_back(lsd::in_place, kMarkVersion, ExtractCppVersion(str));
       } else {
-        result.emplace_back(ss::in_place, kMarkVersion, kVersionLegacy);
+        result.emplace_back(lsd::in_place, kMarkVersion, kVersionLegacy);
       }
     }
   } else {
     if (const auto version = xpathSearch(node, xpath_version); version) {
       const auto str = make_span(version.get())[0]->content;
-      result.emplace_back(ss::in_place, kMarkVersion, ExtractCppVersion(str));
+      result.emplace_back(lsd::in_place, kMarkVersion, ExtractCppVersion(str));
     }
 
     if (const auto deprecated = xpathSearch(node, xpath_deprecated); deprecated) {
       const auto str = make_span(deprecated.get())[0]->content;
       if (const auto version = ExtractCppVersion(str); version != kVersionUnknown)
-        result.emplace_back(ss::in_place, kMarkDeprecated, ExtractCppVersion(str));
+        result.emplace_back(lsd::in_place, kMarkDeprecated, ExtractCppVersion(str));
     }
     if (const auto removed = xpathSearch(node, xpath_removed); removed) {
       const auto str = make_span(removed.get())[0]->content;
-      result.emplace_back(ss::in_place, kMarkRemoved, ExtractCppVersion(str));
+      result.emplace_back(lsd::in_place, kMarkRemoved, ExtractCppVersion(str));
     }
   }
 
@@ -395,7 +395,7 @@ std::vector<ss::optional<ss::pair<MarkType, int>>> GetMarks(xmlNodePtr node, boo
 
 std::vector<Feature> GetFeatures(const xmlChar* page, const char* encoding) {
   std::vector<Feature> result;
-  std::vector<ss::pair<xmlChar, xstring>> categories;
+  std::vector<lsd::pair<xmlChar, xstring>> categories;
   xstring additional_desc;
   Feature feature;
   int order = 0;
@@ -403,7 +403,7 @@ std::vector<Feature> GetFeatures(const xmlChar* page, const char* encoding) {
   // parse string
   xmlSetGenericErrorFunc(NULL, xmlErrorHandler);
 
-  using document_type = std::unique_ptr<ss::remove_pointer_t<htmlDocPtr>, void(*)(htmlDocPtr)>;
+  using document_type = std::unique_ptr<lsd::remove_pointer_t<htmlDocPtr>, void(*)(htmlDocPtr)>;
   document_type doc = {htmlParseDoc(page, encoding), [](htmlDocPtr ptr) {
     xmlFreeDoc(ptr);
     xmlCleanupParser();
@@ -437,7 +437,7 @@ std::vector<Feature> GetFeatures(const xmlChar* page, const char* encoding) {
         for (const auto node2 : make_span(text.get())) {
           additional_desc += node2->content;
         }
-        feature.additional_description = replace_xstring(PrettyString(additional_desc.data()), "std::", "ss::");
+        feature.additional_description = replace_xstring(PrettyString(additional_desc.data()), "std::", "lsd::");
         break;
       }
 
@@ -457,7 +457,7 @@ std::vector<Feature> GetFeatures(const xmlChar* page, const char* encoding) {
         feature.category = categories;
         feature.order = order++;
 
-        result.emplace_back(ss::move(feature));
+        result.emplace_back(lsd::move(feature));
         feature = Feature();
         break;
       }
@@ -610,7 +610,7 @@ void MakeDocument(const std::vector<Feature>& features,
                 return op && op->first != kMarkVersion;
               });
               p != feature.t_mark.end()) {
-              name = "~~" + ss::move(name) + "~~";
+              name = "~~" + lsd::move(name) + "~~";
               unused_version = std::max(unused_version, p->value().second);
               if (const auto mark = p->value().first; mark == kMarkDeprecated)
                 all_deprecated = true;
@@ -626,7 +626,7 @@ void MakeDocument(const std::vector<Feature>& features,
               version = p->value().second;
             }
 
-            names.emplace_back(ss::move(name));
+            names.emplace_back(lsd::move(name));
             if (feature.t_mark.size() <= 1 && it != begin)
               continue;
             version = (version < kVersion11 || version == kVersionLegacy) ? kVersion11 : version;
@@ -672,7 +672,7 @@ void MakeDocument(const std::vector<Feature>& features,
             const auto mark_type = mark_it->value().first;
 
             if (mark_type != kMarkVersion) {
-              name = "~~" + ss::move(name) + "~~";
+              name = "~~" + lsd::move(name) + "~~";
               unused_version = std::max(unused_version, mark_it->value().second);
               if (mark_type == kMarkDeprecated)
                 all_removed = false;
@@ -682,7 +682,7 @@ void MakeDocument(const std::vector<Feature>& features,
               version = mark_it->value().second;
             }
 
-            names.emplace_back(ss::move(name));
+            names.emplace_back(lsd::move(name));
             versions.emplace_back("![][cpp" + std::to_string(version < kVersion11 || version == kVersionLegacy ? kVersion11 : version) + "]");
           }
 

@@ -1,7 +1,7 @@
 ## Header `<locale>` implementation status
 
 [Reference](https://en.cppreference.com/w/cpp/header/locale)  
-[Implementation](../ss/include/ss/locale.h)
+[Implementation](../include/lsd/locale.h)
 
 * ![](https://img.shields.io/badge/C%2B%2B-N-red): Cannot implement with language itself. Need compiler support. Used C++ N STL
 * ![](https://img.shields.io/badge/C%2B%2B-N-blue): Partially implemented with C++ N
@@ -50,21 +50,21 @@
 | use_facet                                    | ![][legacy]          | ![][notyet]                       |
 | has_facet                                    | ![][legacy]          | ![][notyet]                       |
 | **Character classification**                 |                      |                                   |
-| isspace(ss::locale)                          | ![][legacy]          | ![][notyet]                       |
-| isblank(ss::locale)                          | ![][cpp11]           | ![][notyet]                       |
-| iscntrl(ss::locale)                          | ![][legacy]          | ![][notyet]                       |
-| isupper(ss::locale)                          | ![][legacy]          | ![][notyet]                       |
-| islower(ss::locale)                          | ![][legacy]          | ![][notyet]                       |
-| isalpha(ss::locale)                          | ![][legacy]          | ![][notyet]                       |
-| isdigit(ss::locale)                          | ![][legacy]          | ![][notyet]                       |
-| ispunct(ss::locale)                          | ![][legacy]          | ![][notyet]                       |
-| isxdigit(ss::locale)                         | ![][legacy]          | ![][notyet]                       |
-| isalnum(ss::locale)                          | ![][legacy]          | ![][notyet]                       |
-| isprint(ss::locale)                          | ![][legacy]          | ![][notyet]                       |
-| isgraph(ss::locale)                          | ![][legacy]          | ![][notyet]                       |
+| isspace(lsd::locale)                          | ![][legacy]          | ![][notyet]                       |
+| isblank(lsd::locale)                          | ![][cpp11]           | ![][notyet]                       |
+| iscntrl(lsd::locale)                          | ![][legacy]          | ![][notyet]                       |
+| isupper(lsd::locale)                          | ![][legacy]          | ![][notyet]                       |
+| islower(lsd::locale)                          | ![][legacy]          | ![][notyet]                       |
+| isalpha(lsd::locale)                          | ![][legacy]          | ![][notyet]                       |
+| isdigit(lsd::locale)                          | ![][legacy]          | ![][notyet]                       |
+| ispunct(lsd::locale)                          | ![][legacy]          | ![][notyet]                       |
+| isxdigit(lsd::locale)                         | ![][legacy]          | ![][notyet]                       |
+| isalnum(lsd::locale)                          | ![][legacy]          | ![][notyet]                       |
+| isprint(lsd::locale)                          | ![][legacy]          | ![][notyet]                       |
+| isgraph(lsd::locale)                          | ![][legacy]          | ![][notyet]                       |
 | **Character conversions**                    |                      |                                   |
-| toupper(ss::locale)                          | ![][legacy]          | ![][notyet]                       |
-| tolower(ss::locale)                          | ![][legacy]          | ![][notyet]                       |
+| toupper(lsd::locale)                          | ![][legacy]          | ![][notyet]                       |
+| tolower(lsd::locale)                          | ![][legacy]          | ![][notyet]                       |
 
 
 <!--

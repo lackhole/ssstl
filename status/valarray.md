@@ -1,7 +1,7 @@
 ## Header `<valarray>` implementation status
 
 [Reference](https://en.cppreference.com/w/cpp/header/valarray)  
-[Implementation](../ss/include/ss/valarray.h)
+[Implementation](../include/lsd/valarray.h)
 
 * ![](https://img.shields.io/badge/C%2B%2B-N-red): Cannot implement with language itself. Need compiler support. Used C++ N STL
 * ![](https://img.shields.io/badge/C%2B%2B-N-blue): Partially implemented with C++ N
@@ -24,31 +24,31 @@
 |                                              |                      |                                   |
 | **Functions**                                |                      |                                   |
 | **Operations**                               |                      |                                   |
-| ss::swap(ss::valarray)                       | ![][cpp11]           | ![][notyet]                       |
-| ss::begin(ss::valarray)                      | ![][cpp11]           | ![][notyet]                       |
-| ss::end(ss::valarray)                        | ![][cpp11]           | ![][notyet]                       |
+| lsd::swap(lsd::valarray)                       | ![][cpp11]           | ![][notyet]                       |
+| lsd::begin(lsd::valarray)                      | ![][cpp11]           | ![][notyet]                       |
+| lsd::end(lsd::valarray)                        | ![][cpp11]           | ![][notyet]                       |
 | operator+ <br/>operator- <br/>operator* <br/>operator/ <br/>operator% <br/>operator& <br/>operator| <br/>operator^ <br/>operator\<\< <br/>operator>> <br/>operator&& <br/>operator|| | ![][legacy]          | ![][notyet]                       |
 | operator== <br/>operator!= <br/>operator\< <br/>operator\<= <br/>operator> <br/>operator>= | ![][legacy]          | ![][notyet]                       |
-| abs(ss::valarray)                            | ![][legacy]          | ![][notyet]                       |
+| abs(lsd::valarray)                            | ![][legacy]          | ![][notyet]                       |
 | **Exponential functions**                    |                      |                                   |
-| exp(ss::valarray)                            | ![][legacy]          | ![][notyet]                       |
-| log(ss::valarray)                            | ![][legacy]          | ![][notyet]                       |
-| log10(ss::valarray)                          | ![][legacy]          | ![][notyet]                       |
+| exp(lsd::valarray)                            | ![][legacy]          | ![][notyet]                       |
+| log(lsd::valarray)                            | ![][legacy]          | ![][notyet]                       |
+| log10(lsd::valarray)                          | ![][legacy]          | ![][notyet]                       |
 | **Power functions**                          |                      |                                   |
-| pow(ss::valarray)                            | ![][legacy]          | ![][notyet]                       |
-| sqrt(ss::valarray)                           | ![][legacy]          | ![][notyet]                       |
+| pow(lsd::valarray)                            | ![][legacy]          | ![][notyet]                       |
+| sqrt(lsd::valarray)                           | ![][legacy]          | ![][notyet]                       |
 | **Trigonometric functions**                  |                      |                                   |
-| sin(ss::valarray)                            | ![][legacy]          | ![][notyet]                       |
-| cos(ss::valarray)                            | ![][legacy]          | ![][notyet]                       |
-| tan(ss::valarray)                            | ![][legacy]          | ![][notyet]                       |
-| asin(ss::valarray)                           | ![][legacy]          | ![][notyet]                       |
-| acos(ss::valarray)                           | ![][legacy]          | ![][notyet]                       |
-| atan(ss::valarray)                           | ![][legacy]          | ![][notyet]                       |
-| atan2(ss::valarray)                          | ![][legacy]          | ![][notyet]                       |
+| sin(lsd::valarray)                            | ![][legacy]          | ![][notyet]                       |
+| cos(lsd::valarray)                            | ![][legacy]          | ![][notyet]                       |
+| tan(lsd::valarray)                            | ![][legacy]          | ![][notyet]                       |
+| asin(lsd::valarray)                           | ![][legacy]          | ![][notyet]                       |
+| acos(lsd::valarray)                           | ![][legacy]          | ![][notyet]                       |
+| atan(lsd::valarray)                           | ![][legacy]          | ![][notyet]                       |
+| atan2(lsd::valarray)                          | ![][legacy]          | ![][notyet]                       |
 | **Hyperbolic functions**                     |                      |                                   |
-| sinh(ss::valarray)                           | ![][legacy]          | ![][notyet]                       |
-| cosh(ss::valarray)                           | ![][legacy]          | ![][notyet]                       |
-| tanh(ss::valarray)                           | ![][legacy]          | ![][notyet]                       |
+| sinh(lsd::valarray)                           | ![][legacy]          | ![][notyet]                       |
+| cosh(lsd::valarray)                           | ![][legacy]          | ![][notyet]                       |
+| tanh(lsd::valarray)                           | ![][legacy]          | ![][notyet]                       |
 
 
 <!--

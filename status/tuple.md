@@ -1,7 +1,7 @@
 ## Header `<tuple>` implementation status
 
 [Reference](https://en.cppreference.com/w/cpp/header/tuple)  
-[Implementation](../ss/include/ss/tuple.h)
+[Implementation](../include/lsd/tuple.h)
 
 * ![](https://img.shields.io/badge/C%2B%2B-N-red): Cannot implement with language itself. Need compiler support. Used C++ N STL
 * ![](https://img.shields.io/badge/C%2B%2B-N-blue): Partially implemented with C++ N
@@ -17,9 +17,9 @@
 | tuple                                        | ![][cpp11]           | ![][notyet]                       |
 | tuple_size                                   | ![][cpp11]           | ![][cpp11]                        |
 | tuple_element                                | ![][cpp11]           | ![][cpp11]                        |
-| ss::tuple_size\<ss::tuple>                   | ![][cpp11]           | ![][cpp11]                        |
-| ss::tuple_element\<ss::tuple>                | ![][cpp11]           | ![][cpp11]                        |
-| ss::uses_allocator\<ss::tuple>               | ![][cpp11]           | ![][cpp11]                        |
+| lsd::tuple_size\<lsd::tuple>                   | ![][cpp11]           | ![][cpp11]                        |
+| lsd::tuple_element\<lsd::tuple>                | ![][cpp11]           | ![][cpp11]                        |
+| lsd::uses_allocator\<lsd::tuple>               | ![][cpp11]           | ![][cpp11]                        |
 |                                              |                      |                                   |
 | **Constants**                                |                      |                                   |
 | ignore                                       | ![][cpp11]           | ![][cpp11]                        |
@@ -29,9 +29,9 @@
 | tie                                          | ![][cpp11]           | ![][cpp11]                        |
 | forward_as_tuple                             | ![][cpp11]           | ![][cpp11]                        |
 | tuple_cat                                    | ![][cpp11]           | ![][cpp11]                        |
-| ss::get(ss::tuple)                           | ![][cpp11]           | ![][cpp11]                        |
+| lsd::get(lsd::tuple)                           | ![][cpp11]           | ![][cpp11]                        |
 | operator== <br/>~~operator!=~~ <br/>~~operator\<~~ <br/>~~operator\<=~~ <br/>~~operator>~~ <br/>~~operator>=~~ <br/>operator\<=> | ![][cpp11] <br/>![][cpp11] <br/>![][cpp11] <br/>![][cpp11] <br/>![][cpp11] <br/>![][cpp11] <br/>![][cpp20] | ![][notyet]                       |
-| ss::swap(ss::tuple)                          | ![][cpp11]           | ![][notyet]                       |
+| lsd::swap(lsd::tuple)                          | ![][cpp11]           | ![][notyet]                       |
 | apply                                        | ![][cpp17]           | ![][cpp11]                        |
 | make_from_tuple                              | ![][cpp17]           | ![][cpp11]                        |
 

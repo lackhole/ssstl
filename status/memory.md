@@ -1,7 +1,7 @@
 ## Header `<memory>` implementation status
 
 [Reference](https://en.cppreference.com/w/cpp/header/memory)  
-[Implementation](../ss/include/ss/memory.h)
+[Implementation](../include/lsd/memory.h)
 
 * ![](https://img.shields.io/badge/C%2B%2B-N-red): Cannot implement with language itself. Need compiler support. Used C++ N STL
 * ![](https://img.shields.io/badge/C%2B%2B-N-blue): Partially implemented with C++ N
@@ -30,14 +30,14 @@
 |weak_ptr                               |![][cpp11]| ![][notyet]             |
 |~~auto_ptr~~                           |![][cpp11]| Removed in C++17        |
 | **Helper classes**                    |          |                         |
-|ss::atomic\<ss::shared_ptr>            |![][cpp20]| ![][notyet]             |
-|ss::atomic\<ss::weak_ptr>              |![][cpp20]| ![][notyet]             |
+|lsd::atomic\<lsd::shared_ptr>            |![][cpp20]| ![][notyet]             |
+|lsd::atomic\<lsd::weak_ptr>              |![][cpp20]| ![][notyet]             |
 |owner_less                             |![][cpp11]| ![][notyet]             |
 |enable_shared_from_this                |![][cpp11]| ![][notyet]             |
 |bad_weak_ptr                           |![][cpp11]| ![][notyet]             |
 |default_delete                         |![][cpp11]| ![][cpp11]              |
-|ss::hash\<ss::unique_ptr>              |![][cpp11]| ![][notyet]             |
-|ss::hash\<ss::shared_ptr>              |![][cpp11]| ![][notyet]             |
+|lsd::hash\<lsd::unique_ptr>              |![][cpp11]| ![][notyet]             |
+|lsd::hash\<lsd::shared_ptr>              |![][cpp11]| ![][notyet]             |
 | **Smart pointer adaptors**            |          |                         |
 |out_ptr_t                              |![][cpp23]| ![][notyet]             |
 |inout_ptr_t                            |![][cpp23]| ![][notyet]             |
@@ -88,15 +88,15 @@
 |get_deleter                                                                                                    |![][legcy]                                 | ![][notyet]                |
 |operator==<br/> ~~operator!=~~<br/> ~~operator<~~<br/> ~~operator<=~~<br/> ~~operator>~~<br/> ~~operator>=~~<br/> operator<=><br/> |![][cpp11]<br/> ![][cpp20] | (`shared_ptr`)![][notyet]  |
 |operator<<                                                                                                     |![][legcy]                                 | ![][cpp11]                 |
-|ss::swap(ss::unique_ptr)                                                                                       |![][legcy]                                 | ![][notyet]                |
-|ss::swap(ss::weak_ptr)                                                                                         |![][legcy]                                 | ![][notyet]                |
+|lsd::swap(lsd::unique_ptr)                                                                                       |![][legcy]                                 | ![][notyet]                |
+|lsd::swap(lsd::weak_ptr)                                                                                         |![][legcy]                                 | ![][notyet]                |
 | **Smart pointer adaptor creation**       |          |                                 |
-|ss::swap(ss::shared_ptr)                  |![][cpp11]| ![][notyet]                     |
+|lsd::swap(lsd::shared_ptr)                  |![][cpp11]| ![][notyet]                     |
 |out_ptr                                   |![][cpp23]| ![][notyet]                     |
 |inout_ptr                                 |![][cpp23]| ![][notyet]                     |
-|~~ss::atomic_...(ss::shared_ptr)~~        |![][cpp11]| Deprecated in C++20             |
+|~~lsd::atomic_...(lsd::shared_ptr)~~        |![][cpp11]| Deprecated in C++20             |
 |                                          |          |                                 |
-| **FUnction-like entities**               |          | Defined in namespace ss::ranges |
+| **FUnction-like entities**               |          | Defined in namespace lsd::ranges |
 | **Uninitialized storage**                |          |                                 |
 |ranges::uninitialized_copy                |![][cpp20]| ![][notyet]                     |
 |ranges::uninitialized_copy_n              |![][cpp20]| ![][notyet]                     |

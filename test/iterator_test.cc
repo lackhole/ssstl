@@ -2,9 +2,9 @@
 #include <utility>
 #include <string>
 
-#include "ss/iterator.h"
+#include "lsd/iterator.h"
 
-#include "ss_test.h"
+#include "lsd_test.h"
 
 #ifdef NDEBUG
 #define NDEBUG_DEFINED 1
@@ -15,9 +15,9 @@
 
 
 int main() {
-  SS_INIT_TEST("iterator")
+  LSD_INIT_TEST("iterator")
   std::cerr << "__cplusplus: " << __cplusplus << '\n';
   std::cerr << "NDEBUG: " << NDEBUG_DEFINED << '\n';
 
-  SS_TEST_RETURN
+  LSD_TEST_RETURN
 }

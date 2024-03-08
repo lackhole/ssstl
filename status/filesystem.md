@@ -1,7 +1,7 @@
 ## Header `<filesystem>` implementation status
 
 [Reference](https://en.cppreference.com/w/cpp/header/filesystem)  
-[Implementation](../ss/include/ss/filesystem.h)
+[Implementation](../include/lsd/filesystem.h)
 
 * ![](https://img.shields.io/badge/C%2B%2B-N-red): Cannot implement with language itself. Need compiler support. Used C++ N STL
 * ![](https://img.shields.io/badge/C%2B%2B-N-blue): Partially implemented with C++ N
@@ -27,7 +27,7 @@
 | copy_options                                 | ![][cpp17]           | ![][notyet]                       |
 | directory_options                            | ![][cpp17]           | ![][notyet]                       |
 | file_time_type                               | ![][cpp17]           | ![][notyet]                       |
-| ss::hash\<ss::filesystem::path>              | ![][cpp17]           | ![][notyet]                       |
+| lsd::hash\<lsd::filesystem::path>              | ![][cpp17]           | ![][notyet]                       |
 | **Forward declarations**                     |                      |                                   |
 | hash                                         | ![][cpp11]           | ![][notyet]                       |
 |                                              |                      |                                   |

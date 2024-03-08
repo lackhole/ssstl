@@ -1,7 +1,7 @@
 ## Header `<compare>` implementation status
 
 [Reference](https://en.cppreference.com/w/cpp/header/compare)  
-[Implementation](../ss/include/ss/compare.h)
+[Implementation](../include/lsd/compare.h)
 
 * ![](https://img.shields.io/badge/C%2B%2B-N-red): Cannot implement with language itself. Need compiler support. Used C++ N STL
 * ![](https://img.shields.io/badge/C%2B%2B-N-blue): Partially implemented with C++ N

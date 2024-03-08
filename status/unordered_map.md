@@ -1,7 +1,7 @@
 ## Header `<unordered_map>` implementation status
 
 [Reference](https://en.cppreference.com/w/cpp/header/unordered_map)  
-[Implementation](../ss/include/ss/unordered_map.h)
+[Implementation](../include/lsd/unordered_map.h)
 
 * ![](https://img.shields.io/badge/C%2B%2B-N-red): Cannot implement with language itself. Need compiler support. Used C++ N STL
 * ![](https://img.shields.io/badge/C%2B%2B-N-blue): Partially implemented with C++ N
@@ -20,11 +20,11 @@
 |                                              |                      |                                   |
 | **Functions**                                |                      |                                   |
 | operator== <br/>~~operator!=~~               | ![][legacy] <br/>![][legacy] | ![][notyet]                       |
-| ss::swap(ss::unordered_map)                  | ![][cpp11]           | ![][notyet]                       |
-| erase_if(ss::unordered_map)                  | ![][cpp20]           | ![][notyet]                       |
+| lsd::swap(lsd::unordered_map)                  | ![][cpp11]           | ![][notyet]                       |
+| erase_if(lsd::unordered_map)                  | ![][cpp20]           | ![][notyet]                       |
 | operator== <br/>~~operator!=~~               | ![][legacy] <br/>![][legacy] | ![][notyet]                       |
-| ss::swap(ss::unordered_multimap)             | ![][cpp11]           | ![][notyet]                       |
-| erase_if(ss::unordered_multimap)             | ![][cpp20]           | ![][notyet]                       |
+| lsd::swap(lsd::unordered_multimap)             | ![][cpp11]           | ![][notyet]                       |
+| erase_if(lsd::unordered_multimap)             | ![][cpp20]           | ![][notyet]                       |
 | **Range access**                             |                      |                                   |
 | begin <br/>cbegin                            | ![][cpp11] <br/>![][cpp14] | ![][notyet]                       |
 | end <br/>cend                                | ![][cpp11] <br/>![][cpp14] | ![][notyet]                       |

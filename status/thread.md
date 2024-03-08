@@ -1,7 +1,7 @@
 ## Header `<thread>` implementation status
 
 [Reference](https://en.cppreference.com/w/cpp/header/thread)  
-[Implementation](../ss/include/ss/thread.h)
+[Implementation](../include/lsd/thread.h)
 
 * ![](https://img.shields.io/badge/C%2B%2B-N-red): Cannot implement with language itself. Need compiler support. Used C++ N STL
 * ![](https://img.shields.io/badge/C%2B%2B-N-blue): Partially implemented with C++ N
@@ -16,10 +16,10 @@
 | **Classes**                                  |                      |                                   |
 | thread                                       | ![][cpp11]           | ![][notyet]                       |
 | jthread                                      | ![][cpp20]           | ![][notyet]                       |
-| ss::hash\<ss::thread::id>                    | ![][legacy]          | ![][notyet]                       |
+| lsd::hash\<lsd::thread::id>                    | ![][legacy]          | ![][notyet]                       |
 |                                              |                      |                                   |
 | **Functions**                                |                      |                                   |
-| ss::swap(ss::thread)                         | ![][cpp11]           | ![][notyet]                       |
+| lsd::swap(lsd::thread)                         | ![][cpp11]           | ![][notyet]                       |
 | operator== <br/>~~operator!=~~ <br/>~~operator\< ~~ <br/>~~ operator\<= ~~ <br/>~~ operator> ~~ <br/>~~ operator>= ~~ <br/> operator\<=> | ![][legacy] <br/>![][legacy] <br/>![][legacy] <br/>![][legacy] <br/>![][legacy] <br/>![][legacy] <br/>![][cpp20] | ![][notyet]                       |
 | operator\<\<                                 | ![][legacy]          | ![][notyet]                       |
 | yield                                        | ![][cpp11]           | ![][notyet]                       |

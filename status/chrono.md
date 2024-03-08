@@ -1,7 +1,7 @@
 ## Header `<chrono>` implementation status
 
 [Reference](https://en.cppreference.com/w/cpp/header/chrono)  
-[Implementation](../ss/include/ss/chrono.h)
+[Implementation](../include/lsd/chrono.h)
 
 * ![](https://img.shields.io/badge/C%2B%2B-N-red): Cannot implement with language itself. Need compiler support. Used C++ N STL
 * ![](https://img.shields.io/badge/C%2B%2B-N-blue): Partially implemented with C++ N
@@ -66,53 +66,53 @@
 | leap_second                                  | ![][cpp20]           | ![][notyet]                       |
 | leap_second_info                             | ![][cpp20]           | ![][notyet]                       |
 | **Specializations**                          |                      |                                   |
-| ss::common_type\<ss::chrono::duration>       | ![][cpp11]           | ![][notyet]                       |
-| ss::common_type\<ss::chrono::time_point>     | ![][cpp11]           | ![][notyet]                       |
-| ss::formatter\<ss::chrono::duration>         | ![][cpp20]           | ![][notyet]                       |
-| ss::formatter\<ss::chrono::sys_time>         | ![][cpp20]           | ![][notyet]                       |
-| ss::formatter\<ss::chrono::utc_time>         | ![][cpp20]           | ![][notyet]                       |
-| ss::formatter\<ss::chrono::tai_time>         | ![][cpp20]           | ![][notyet]                       |
-| ss::formatter\<ss::chrono::gps_time>         | ![][cpp20]           | ![][notyet]                       |
-| ss::formatter\<ss::chrono::file_time>        | ![][cpp20]           | ![][notyet]                       |
-| ss::formatter\<ss::chrono::local_time>       | ![][cpp20]           | ![][notyet]                       |
-| ss::formatter\<ss::chrono::day>              | ![][cpp20]           | ![][notyet]                       |
-| ss::formatter\<ss::chrono::month>            | ![][cpp20]           | ![][notyet]                       |
-| ss::formatter\<ss::chrono::year>             | ![][cpp20]           | ![][notyet]                       |
-| ss::formatter\<ss::chrono::weekday>          | ![][cpp20]           | ![][notyet]                       |
-| ss::formatter\<ss::chrono::weekday_indexed>  | ![][cpp20]           | ![][notyet]                       |
-| ss::formatter\<ss::chrono::weekday_last>     | ![][cpp20]           | ![][notyet]                       |
-| ss::formatter\<ss::chrono::month_day>        | ![][cpp20]           | ![][notyet]                       |
-| ss::formatter\<ss::chrono::month_day_last>   | ![][cpp20]           | ![][notyet]                       |
-| ss::formatter\<ss::chrono::month_weekday>    | ![][cpp20]           | ![][notyet]                       |
-| ss::formatter\<ss::chrono::month_weekday_last> | ![][cpp20]           | ![][notyet]                       |
-| ss::formatter\<ss::chrono::year_month>       | ![][cpp20]           | ![][notyet]                       |
-| ss::formatter\<ss::chrono::year_month_day>   | ![][cpp20]           | ![][notyet]                       |
-| ss::formatter\<ss::chrono::year_month_day_last> | ![][cpp20]           | ![][notyet]                       |
-| ss::formatter\<ss::chrono::year_month_weekday> | ![][cpp20]           | ![][notyet]                       |
-| ss::formatter\<ss::chrono::year_month_weekday_last> | ![][cpp20]           | ![][notyet]                       |
-| ss::formatter\<ss::chrono::hh_mm_ss>         | ![][cpp20]           | ![][notyet]                       |
-| ss::formatter\<ss::chrono::sys_info>         | ![][cpp20]           | ![][notyet]                       |
-| ss::formatter\<ss::chrono::local_info>       | ![][cpp20]           | ![][notyet]                       |
-| ss::formatter\<ss::chrono::zoned_time>       | ![][cpp20]           | ![][notyet]                       |
-| ss::hash\<ss::chrono::duration>              | ![][cpp26]           | ![][notyet]                       |
-| ss::hash\<ss::chrono::time_point>            | ![][cpp26]           | ![][notyet]                       |
-| ss::hash\<ss::chrono::day>                   | ![][cpp26]           | ![][notyet]                       |
-| ss::hash\<ss::chrono::month>                 | ![][cpp26]           | ![][notyet]                       |
-| ss::hash\<ss::chrono::year>                  | ![][cpp26]           | ![][notyet]                       |
-| ss::hash\<ss::chrono::weekday>               | ![][cpp26]           | ![][notyet]                       |
-| ss::hash\<ss::chrono::weekday_indexed>       | ![][cpp26]           | ![][notyet]                       |
-| ss::hash\<ss::chrono::weekday_last>          | ![][cpp26]           | ![][notyet]                       |
-| ss::hash\<ss::chrono::month_day>             | ![][cpp26]           | ![][notyet]                       |
-| ss::hash\<ss::chrono::month_day_last>        | ![][cpp26]           | ![][notyet]                       |
-| ss::hash\<ss::chrono::month_weekday>         | ![][cpp26]           | ![][notyet]                       |
-| ss::hash\<ss::chrono::month_weekday_last>    | ![][cpp26]           | ![][notyet]                       |
-| ss::hash\<ss::chrono::year_month>            | ![][cpp26]           | ![][notyet]                       |
-| ss::hash\<ss::chrono::year_month_day>        | ![][cpp26]           | ![][notyet]                       |
-| ss::hash\<ss::chrono::year_month_day_last>   | ![][cpp26]           | ![][notyet]                       |
-| ss::hash\<ss::chrono::year_month_weekday>    | ![][cpp26]           | ![][notyet]                       |
-| ss::hash\<ss::chrono::year_month_weekday_last> | ![][cpp26]           | ![][notyet]                       |
-| ss::hash\<ss::chrono::zoned_time>            | ![][cpp26]           | ![][notyet]                       |
-| ss::hash\<ss::chrono::leap_second>           | ![][cpp26]           | ![][notyet]                       |
+| lsd::common_type\<lsd::chrono::duration>       | ![][cpp11]           | ![][notyet]                       |
+| lsd::common_type\<lsd::chrono::time_point>     | ![][cpp11]           | ![][notyet]                       |
+| lsd::formatter\<lsd::chrono::duration>         | ![][cpp20]           | ![][notyet]                       |
+| lsd::formatter\<lsd::chrono::sys_time>         | ![][cpp20]           | ![][notyet]                       |
+| lsd::formatter\<lsd::chrono::utc_time>         | ![][cpp20]           | ![][notyet]                       |
+| lsd::formatter\<lsd::chrono::tai_time>         | ![][cpp20]           | ![][notyet]                       |
+| lsd::formatter\<lsd::chrono::gps_time>         | ![][cpp20]           | ![][notyet]                       |
+| lsd::formatter\<lsd::chrono::file_time>        | ![][cpp20]           | ![][notyet]                       |
+| lsd::formatter\<lsd::chrono::local_time>       | ![][cpp20]           | ![][notyet]                       |
+| lsd::formatter\<lsd::chrono::day>              | ![][cpp20]           | ![][notyet]                       |
+| lsd::formatter\<lsd::chrono::month>            | ![][cpp20]           | ![][notyet]                       |
+| lsd::formatter\<lsd::chrono::year>             | ![][cpp20]           | ![][notyet]                       |
+| lsd::formatter\<lsd::chrono::weekday>          | ![][cpp20]           | ![][notyet]                       |
+| lsd::formatter\<lsd::chrono::weekday_indexed>  | ![][cpp20]           | ![][notyet]                       |
+| lsd::formatter\<lsd::chrono::weekday_last>     | ![][cpp20]           | ![][notyet]                       |
+| lsd::formatter\<lsd::chrono::month_day>        | ![][cpp20]           | ![][notyet]                       |
+| lsd::formatter\<lsd::chrono::month_day_last>   | ![][cpp20]           | ![][notyet]                       |
+| lsd::formatter\<lsd::chrono::month_weekday>    | ![][cpp20]           | ![][notyet]                       |
+| lsd::formatter\<lsd::chrono::month_weekday_last> | ![][cpp20]           | ![][notyet]                       |
+| lsd::formatter\<lsd::chrono::year_month>       | ![][cpp20]           | ![][notyet]                       |
+| lsd::formatter\<lsd::chrono::year_month_day>   | ![][cpp20]           | ![][notyet]                       |
+| lsd::formatter\<lsd::chrono::year_month_day_last> | ![][cpp20]           | ![][notyet]                       |
+| lsd::formatter\<lsd::chrono::year_month_weekday> | ![][cpp20]           | ![][notyet]                       |
+| lsd::formatter\<lsd::chrono::year_month_weekday_last> | ![][cpp20]           | ![][notyet]                       |
+| lsd::formatter\<lsd::chrono::hh_mm_ss>         | ![][cpp20]           | ![][notyet]                       |
+| lsd::formatter\<lsd::chrono::sys_info>         | ![][cpp20]           | ![][notyet]                       |
+| lsd::formatter\<lsd::chrono::local_info>       | ![][cpp20]           | ![][notyet]                       |
+| lsd::formatter\<lsd::chrono::zoned_time>       | ![][cpp20]           | ![][notyet]                       |
+| lsd::hash\<lsd::chrono::duration>              | ![][cpp26]           | ![][notyet]                       |
+| lsd::hash\<lsd::chrono::time_point>            | ![][cpp26]           | ![][notyet]                       |
+| lsd::hash\<lsd::chrono::day>                   | ![][cpp26]           | ![][notyet]                       |
+| lsd::hash\<lsd::chrono::month>                 | ![][cpp26]           | ![][notyet]                       |
+| lsd::hash\<lsd::chrono::year>                  | ![][cpp26]           | ![][notyet]                       |
+| lsd::hash\<lsd::chrono::weekday>               | ![][cpp26]           | ![][notyet]                       |
+| lsd::hash\<lsd::chrono::weekday_indexed>       | ![][cpp26]           | ![][notyet]                       |
+| lsd::hash\<lsd::chrono::weekday_last>          | ![][cpp26]           | ![][notyet]                       |
+| lsd::hash\<lsd::chrono::month_day>             | ![][cpp26]           | ![][notyet]                       |
+| lsd::hash\<lsd::chrono::month_day_last>        | ![][cpp26]           | ![][notyet]                       |
+| lsd::hash\<lsd::chrono::month_weekday>         | ![][cpp26]           | ![][notyet]                       |
+| lsd::hash\<lsd::chrono::month_weekday_last>    | ![][cpp26]           | ![][notyet]                       |
+| lsd::hash\<lsd::chrono::year_month>            | ![][cpp26]           | ![][notyet]                       |
+| lsd::hash\<lsd::chrono::year_month_day>        | ![][cpp26]           | ![][notyet]                       |
+| lsd::hash\<lsd::chrono::year_month_day_last>   | ![][cpp26]           | ![][notyet]                       |
+| lsd::hash\<lsd::chrono::year_month_weekday>    | ![][cpp26]           | ![][notyet]                       |
+| lsd::hash\<lsd::chrono::year_month_weekday_last> | ![][cpp26]           | ![][notyet]                       |
+| lsd::hash\<lsd::chrono::zoned_time>            | ![][cpp26]           | ![][notyet]                       |
+| lsd::hash\<lsd::chrono::leap_second>           | ![][cpp26]           | ![][notyet]                       |
 | **Forward declarations**                     |                      |                                   |
 | hash                                         | ![][cpp11]           | ![][notyet]                       |
 |                                              |                      |                                   |
@@ -121,23 +121,23 @@
 | operator+ <br/>operator- <br/>operator* <br/>operator/ <br/>operator% | ![][cpp11]           | ![][notyet]                       |
 | operator== <br/>~~operator!=~~ <br/>operator\< <br/>operator\<= <br/>operator> <br/>operator>= <br/>operator\<=> | ![][cpp11] <br/>![][legacy] <br/>![][cpp11] <br/>![][cpp11] <br/>![][cpp11] <br/>![][cpp11] <br/>![][cpp20] | ![][notyet]                       |
 | duration_cast                                | ![][cpp11]           | ![][notyet]                       |
-| floor(ss::chrono::duration)                  | ![][cpp17]           | ![][notyet]                       |
-| ceil(ss::chrono::duration)                   | ![][cpp17]           | ![][notyet]                       |
-| round(ss::chrono::duration)                  | ![][cpp17]           | ![][notyet]                       |
-| abs(ss::chrono::duration)                    | ![][cpp17]           | ![][notyet]                       |
+| floor(lsd::chrono::duration)                  | ![][cpp17]           | ![][notyet]                       |
+| ceil(lsd::chrono::duration)                   | ![][cpp17]           | ![][notyet]                       |
+| round(lsd::chrono::duration)                  | ![][cpp17]           | ![][notyet]                       |
+| abs(lsd::chrono::duration)                    | ![][cpp17]           | ![][notyet]                       |
 | **Time point**                               |                      |                                   |
 | operator+ <br/>operator-                     | ![][cpp11]           | ![][notyet]                       |
 | operator== <br/>~~operator!=~~ <br/>operator\< <br/>operator\<= <br/>operator> <br/>operator>= <br/>operator\<=> | ![][cpp11] <br/>![][legacy] <br/>![][cpp11] <br/>![][cpp11] <br/>![][cpp11] <br/>![][cpp11] <br/>![][cpp20] | ![][notyet]                       |
 | time_point_cast                              | ![][cpp11]           | ![][notyet]                       |
-| floor(ss::chrono::time_point)                | ![][cpp17]           | ![][notyet]                       |
-| ceil(ss::chrono::time_point)                 | ![][cpp17]           | ![][notyet]                       |
-| round(ss::chrono::time_point)                | ![][cpp17]           | ![][notyet]                       |
-| from_stream(ss::chrono::sys_time)            | ![][cpp20]           | ![][notyet]                       |
-| from_stream(ss::chrono::utc_time)            | ![][cpp20]           | ![][notyet]                       |
-| from_stream(ss::chrono::tai_time)            | ![][cpp20]           | ![][notyet]                       |
-| from_stream(ss::chrono::gps_time)            | ![][cpp20]           | ![][notyet]                       |
-| from_stream(ss::chrono::file_time)           | ![][cpp20]           | ![][notyet]                       |
-| from_stream(ss::chrono::local_time)          | ![][cpp20]           | ![][notyet]                       |
+| floor(lsd::chrono::time_point)                | ![][cpp17]           | ![][notyet]                       |
+| ceil(lsd::chrono::time_point)                 | ![][cpp17]           | ![][notyet]                       |
+| round(lsd::chrono::time_point)                | ![][cpp17]           | ![][notyet]                       |
+| from_stream(lsd::chrono::sys_time)            | ![][cpp20]           | ![][notyet]                       |
+| from_stream(lsd::chrono::utc_time)            | ![][cpp20]           | ![][notyet]                       |
+| from_stream(lsd::chrono::tai_time)            | ![][cpp20]           | ![][notyet]                       |
+| from_stream(lsd::chrono::gps_time)            | ![][cpp20]           | ![][notyet]                       |
+| from_stream(lsd::chrono::file_time)           | ![][cpp20]           | ![][notyet]                       |
+| from_stream(lsd::chrono::local_time)          | ![][cpp20]           | ![][notyet]                       |
 | clock_cast                                   | ![][cpp20]           | ![][notyet]                       |
 | **Calendar**                                 |                      |                                   |
 | operator== <br/>operator\<=>                 | ![][cpp20]           | ![][notyet]                       |
@@ -178,11 +178,11 @@
 | operator== <br/>operator\< <br/>operator\<= <br/>operator> <br/>operator>= <br/>operator\<=> | ![][cpp20]           | ![][notyet]                       |
 | **I/O**                                      |                      |                                   |
 | operator\<\<                                 | ![][cpp20]           | ![][notyet]                       |
-| operator\<\<(ss::chrono::sys_time)           | ![][cpp20]           | ![][notyet]                       |
-| operator\<\<(ss::chrono::utc_time)           | ![][cpp20]           | ![][notyet]                       |
-| operator\<\<(ss::chrono::tai_time)           | ![][cpp20]           | ![][notyet]                       |
-| operator\<\<(ss::chrono::gps_time)           | ![][cpp20]           | ![][notyet]                       |
-| operator\<\<(ss::chrono::file_time)          | ![][cpp20]           | ![][notyet]                       |
+| operator\<\<(lsd::chrono::sys_time)           | ![][cpp20]           | ![][notyet]                       |
+| operator\<\<(lsd::chrono::utc_time)           | ![][cpp20]           | ![][notyet]                       |
+| operator\<\<(lsd::chrono::tai_time)           | ![][cpp20]           | ![][notyet]                       |
+| operator\<\<(lsd::chrono::gps_time)           | ![][cpp20]           | ![][notyet]                       |
+| operator\<\<(lsd::chrono::file_time)          | ![][cpp20]           | ![][notyet]                       |
 | operator\<\<                                 | ![][cpp20]           | ![][notyet]                       |
 | operator\<\<                                 | ![][cpp20]           | ![][notyet]                       |
 | operator\<\<                                 | ![][cpp20]           | ![][notyet]                       |

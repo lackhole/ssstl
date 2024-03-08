@@ -1,7 +1,7 @@
 ## Header `<system_error>` implementation status
 
 [Reference](https://en.cppreference.com/w/cpp/header/system_error)  
-[Implementation](../ss/include/ss/system_error.h)
+[Implementation](../include/lsd/system_error.h)
 
 * ![](https://img.shields.io/badge/C%2B%2B-N-red): Cannot implement with language itself. Need compiler support. Used C++ N STL
 * ![](https://img.shields.io/badge/C%2B%2B-N-blue): Partially implemented with C++ N
@@ -21,7 +21,7 @@
 | system_error                                 | ![][cpp11]           | ![][notyet]                       |
 | is_error_code_enum                           | ![][cpp11]           | ![][notyet]                       |
 | is_error_condition_enum                      | ![][cpp11]           | ![][notyet]                       |
-| ss::hash\<ss::error_code>                    | ![][cpp11]           | ![][notyet]                       |
+| lsd::hash\<lsd::error_code>                    | ![][cpp11]           | ![][notyet]                       |
 | **Forward declarations**                     |                      |                                   |
 | hash                                         | ![][cpp11]           | ![][notyet]                       |
 |                                              |                      |                                   |
@@ -30,9 +30,9 @@
 | system_category                              | ![][cpp11]           | ![][notyet]                       |
 | operator== <br/>~~operator!=~~ <br/>~~operator\<~~ <br/>operator\<=> | ![][legacy] <br/>![][legacy] <br/>![][legacy] <br/>![][cpp20] | ![][notyet]                       |
 | operator\<\<                                 | ![][legacy]          | ![][notyet]                       |
-| make_error_code(ss::errc)                    | ![][cpp11]           | ![][notyet]                       |
+| make_error_code(lsd::errc)                    | ![][cpp11]           | ![][notyet]                       |
 | operator== <br/>~~operator!=~~ <br/>~~operator\<~~ <br/>operator\<=> | ![][legacy] <br/>![][legacy] <br/>![][legacy] <br/>![][cpp20] | ![][notyet]                       |
-| make_error_condition(ss::errc)               | ![][cpp11]           | ![][notyet]                       |
+| make_error_condition(lsd::errc)               | ![][cpp11]           | ![][notyet]                       |
 
 
 <!--

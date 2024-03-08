@@ -20,8 +20,8 @@ jobs:
           cmake -B ${{ github.workspace }}/build
           -DCMAKE_BUILD_TYPE=${{ matrix.BUILD_TYPE }}
           -DCMAKE_CXX_STANDARD=${{ matrix.CXX_STD }}
-          -DSS_TEST=ON
-          -DSS_TEST_MATRIX=ON
+          -DLSD_TEST=ON
+          -DLSD_TEST_MATRIX=ON
 
       - name: Build Test
         run: cmake --build ${{ github.workspace }}/build --config ${{ matrix.BUILD_TYPE }}

@@ -1,7 +1,7 @@
 ## Header `<print>` implementation status
 
 [Reference](https://en.cppreference.com/w/cpp/header/print)  
-[Implementation](../ss/include/ss/print.h)
+[Implementation](../include/lsd/print.h)
 
 * ![](https://img.shields.io/badge/C%2B%2B-N-red): Cannot implement with language itself. Need compiler support. Used C++ N STL
 * ![](https://img.shields.io/badge/C%2B%2B-N-blue): Partially implemented with C++ N

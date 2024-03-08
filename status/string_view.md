@@ -1,7 +1,7 @@
 ## Header `<string_view>` implementation status
 
 [Reference](https://en.cppreference.com/w/cpp/header/string_view)  
-[Implementation](../ss/include/ss/string_view.h)
+[Implementation](../include/lsd/string_view.h)
 
 * ![](https://img.shields.io/badge/C%2B%2B-N-red): Cannot implement with language itself. Need compiler support. Used C++ N STL
 * ![](https://img.shields.io/badge/C%2B%2B-N-blue): Partially implemented with C++ N
@@ -15,7 +15,7 @@
 |                                              |                      |                                   |
 | **Classes**                                  |                      |                                   |
 | basic_string_view                            | ![][cpp17]           | ![][notyet]                       |
-| ss::hash\<ss::string_view> <br/>ss::hash\<ss::wstring_view> <br/>ss::hash\<ss::u8string_view> <br/>ss::hash\<ss::u16string_view> <br/>ss::hash\<ss::u32string_view> | ![][cpp17] <br/>![][cpp17] <br/>![][cpp20] <br/>![][cpp17] <br/>![][cpp17] | ![][notyet]                       |
+| lsd::hash\<lsd::string_view> <br/>lsd::hash\<lsd::wstring_view> <br/>lsd::hash\<lsd::u8string_view> <br/>lsd::hash\<lsd::u16string_view> <br/>lsd::hash\<lsd::u32string_view> | ![][cpp17] <br/>![][cpp17] <br/>![][cpp20] <br/>![][cpp17] <br/>![][cpp17] | ![][notyet]                       |
 | **Forward declarations**                     |                      |                                   |
 | hash                                         | ![][cpp11]           | ![][notyet]                       |
 |                                              |                      |                                   |

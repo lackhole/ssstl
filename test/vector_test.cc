@@ -3,9 +3,9 @@
 #include <vector>
 #include <array>
 
-#include "ss/vector.h"
+#include "lsd/vector.h"
 
-#include "ss_test.h"
+#include "lsd_test.h"
 
 #ifdef NDEBUG
 #define NDEBUG_DEFINED 1
@@ -17,22 +17,22 @@
 struct incomplete;
 
 template<>
-struct ss::allocator_traits<ss::allocator<incomplete>> : public ss::allocator_traits<ss::allocator<int>> {};
+struct lsd::allocator_traits<lsd::allocator<incomplete>> : public lsd::allocator_traits<lsd::allocator<int>> {};
 
 int main() {
-  SS_INIT_TEST("vector")
+  LSD_INIT_TEST("vector")
   std::cerr << "__cplusplus: " << __cplusplus << '\n';
   std::cerr << "NDEBUG: " << NDEBUG_DEFINED << '\n';
 
   
-  ss::vector<int> vv;
+  lsd::vector<int> vv;
 
   {
-    SS_TESTC(!ss::detail::is_complete<incomplete>::value)
-    ss::vector<incomplete> ee;
+    LSD_TESTC(!lsd::detail::is_complete<incomplete>::value)
+    lsd::vector<incomplete> ee;
   }
   
 
 
-  SS_TEST_RETURN
+  LSD_TEST_RETURN
 }

@@ -1,7 +1,7 @@
 ## Header `<sstream>` implementation status
 
 [Reference](https://en.cppreference.com/w/cpp/header/sstream)  
-[Implementation](../ss/include/ss/sstream.h)
+[Implementation](../include/lsd/sstream.h)
 
 * ![](https://img.shields.io/badge/C%2B%2B-N-red): Cannot implement with language itself. Need compiler support. Used C++ N STL
 * ![](https://img.shields.io/badge/C%2B%2B-N-blue): Partially implemented with C++ N
@@ -17,10 +17,10 @@
 | basic_stringstream                           | ![][legacy]          | ![][notyet]                       |
 |                                              |                      |                                   |
 | **Functions**                                |                      |                                   |
-| ss::swap(ss::basic_stringbuf)                | ![][cpp11]           | ![][notyet]                       |
-| ss::swap(ss::basic_istringstream)            | ![][cpp11]           | ![][notyet]                       |
-| ss::swap(ss::basic_ostringstream)            | ![][cpp11]           | ![][notyet]                       |
-| ss::swap(ss::basic_stringstream)             | ![][cpp11]           | ![][notyet]                       |
+| lsd::swap(lsd::basic_stringbuf)                | ![][cpp11]           | ![][notyet]                       |
+| lsd::swap(lsd::basic_istringstream)            | ![][cpp11]           | ![][notyet]                       |
+| lsd::swap(lsd::basic_ostringstream)            | ![][cpp11]           | ![][notyet]                       |
+| lsd::swap(lsd::basic_stringstream)             | ![][cpp11]           | ![][notyet]                       |
 
 
 <!--

@@ -1,7 +1,7 @@
 ## Header `<functional>` implementation status
 
 [Reference](https://en.cppreference.com/w/cpp/header/functional)  
-[Implementation](../ss/include/ss/functional.h)
+[Implementation](../include/lsd/functional.h)
 
 * ![](https://img.shields.io/badge/C%2B%2B-N-red): Cannot implement with language itself. Need compiler support. Used C++ N STL
 * ![](https://img.shields.io/badge/C%2B%2B-N-blue): Partially implemented with C++ N
@@ -47,9 +47,9 @@
 |bit_xor                           | ![][cpp11]              |
 | **Hashing**                      |                         |
 |hash                              | ![][cpp11]             |
-|ss::hash<*Arithmetic*> <br/> ss::hash< ss::nullptr_t> </br> ss::hash<T*> | ![][cpp11] |
+|lsd::hash<*Arithmetic*> <br/> lsd::hash< lsd::nullptr_t> </br> lsd::hash<T*> | ![][cpp11] |
 |                                  |                         |
-| **Constants**                    | defined in namespace ss::placeholders |
+| **Constants**                    | defined in namespace lsd::placeholders |
 |_1, _2, _3, _4, ...               | ![][notyet]             |
 |                                  |                         |
 | **Functions**                    |                         |

@@ -1,7 +1,7 @@
 ## Header `<flat_set>` implementation status
 
 [Reference](https://en.cppreference.com/w/cpp/header/flat_set)  
-[Implementation](../ss/include/ss/flat_set.h)
+[Implementation](../include/lsd/flat_set.h)
 
 * ![](https://img.shields.io/badge/C%2B%2B-N-red): Cannot implement with language itself. Need compiler support. Used C++ N STL
 * ![](https://img.shields.io/badge/C%2B%2B-N-blue): Partially implemented with C++ N
@@ -18,12 +18,12 @@
 | flat_multiset                                | ![][cpp23]           | ![][notyet]                       |
 | sorted_unique_t                              | ![][cpp23]           | ![][notyet]                       |
 | sorted_equivalent_t                          | ![][cpp23]           | ![][notyet]                       |
-| ss::uses_allocator\<ss::flat_set>            | ![][cpp23]           | ![][notyet]                       |
-| ss::uses_allocator\<ss::flat_multiset>       | ![][cpp23]           | ![][notyet]                       |
+| lsd::uses_allocator\<lsd::flat_set>            | ![][cpp23]           | ![][notyet]                       |
+| lsd::uses_allocator\<lsd::flat_multiset>       | ![][cpp23]           | ![][notyet]                       |
 |                                              |                      |                                   |
 | **Functions**                                |                      |                                   |
-| erase_if(ss::flat_set)                       | ![][cpp23]           | ![][notyet]                       |
-| erase_if(ss::flat_multiset)                  | ![][cpp23]           | ![][notyet]                       |
+| erase_if(lsd::flat_set)                       | ![][cpp23]           | ![][notyet]                       |
+| erase_if(lsd::flat_multiset)                  | ![][cpp23]           | ![][notyet]                       |
 |                                              |                      |                                   |
 | **Constants**                                |                      |                                   |
 | sorted_unique                                | ![][cpp23]           | ![][notyet]                       |

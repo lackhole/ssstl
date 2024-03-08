@@ -1,7 +1,7 @@
 ## Header `<forward_list>` implementation status
 
 [Reference](https://en.cppreference.com/w/cpp/header/forward_list)  
-[Implementation](../ss/include/ss/forward_list.h)
+[Implementation](../include/lsd/forward_list.h)
 
 * ![](https://img.shields.io/badge/C%2B%2B-N-red): Cannot implement with language itself. Need compiler support. Used C++ N STL
 * ![](https://img.shields.io/badge/C%2B%2B-N-blue): Partially implemented with C++ N
@@ -19,8 +19,8 @@
 |                                              |                      |                                   |
 | **Functions**                                |                      |                                   |
 | operator== <br/>~~operator!=~~ <br/>~~operator\<~~ <br/>~~operator\<=~~ <br/>~~operator>~~ <br/>~~operator>=~~ <br/>operator\<=> | ![][legacy] <br/>![][legacy] <br/>![][legacy] <br/>![][legacy] <br/>![][legacy] <br/>![][legacy] <br/>![][cpp20] | ![][notyet]                       |
-| ss::swap(ss::forward_list)                   | ![][cpp11]           | ![][notyet]                       |
-| erase(ss::forward_list) <br/>erase_if(ss::forward_list) | ![][cpp20]           | ![][notyet]                       |
+| lsd::swap(lsd::forward_list)                   | ![][cpp11]           | ![][notyet]                       |
+| erase(lsd::forward_list) <br/>erase_if(lsd::forward_list) | ![][cpp20]           | ![][notyet]                       |
 | **Range access**                             |                      |                                   |
 | begin <br/>cbegin                            | ![][cpp11] <br/>![][cpp14] | ![][notyet]                       |
 | end <br/>cend                                | ![][cpp11] <br/>![][cpp14] | ![][notyet]                       |

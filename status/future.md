@@ -1,7 +1,7 @@
 ## Header `<future>` implementation status
 
 [Reference](https://en.cppreference.com/w/cpp/header/future)  
-[Implementation](../ss/include/ss/future.h)
+[Implementation](../include/lsd/future.h)
 
 * ![](https://img.shields.io/badge/C%2B%2B-N-red): Cannot implement with language itself. Need compiler support. Used C++ N STL
 * ![](https://img.shields.io/badge/C%2B%2B-N-blue): Partially implemented with C++ N
@@ -19,14 +19,14 @@
 | future_status                                | ![][cpp11]           | ![][notyet]                       |
 | future_error                                 | ![][cpp11]           | ![][notyet]                       |
 | future_errc                                  | ![][cpp11]           | ![][notyet]                       |
-| ss::uses_allocator\<ss::promise>             | ![][cpp11]           | ![][notyet]                       |
-| ~~ss::uses_allocator\<ss::packaged_task>~~ <br/>~~ (until C++17)~~ | ![][legacy]          | Removed in C++17                  |
+| lsd::uses_allocator\<lsd::promise>             | ![][cpp11]           | ![][notyet]                       |
+| ~~lsd::uses_allocator\<lsd::packaged_task>~~ <br/>~~ (until C++17)~~ | ![][legacy]          | Removed in C++17                  |
 |                                              |                      |                                   |
 | **Functions**                                |                      |                                   |
 | async                                        | ![][cpp11]           | ![][notyet]                       |
 | future_category                              | ![][cpp11]           | ![][notyet]                       |
-| ss::swap(ss::promise)                        | ![][cpp11]           | ![][notyet]                       |
-| ss::swap(ss::packaged_task)                  | ![][cpp11]           | ![][notyet]                       |
+| lsd::swap(lsd::promise)                        | ![][cpp11]           | ![][notyet]                       |
+| lsd::swap(lsd::packaged_task)                  | ![][cpp11]           | ![][notyet]                       |
 
 
 <!--

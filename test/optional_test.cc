@@ -1,9 +1,9 @@
 #include <iostream>
 
-#include "ss/optional.h"
+#include "lsd/optional.h"
 
 
-# if SS_CXX_VER >= 17
+# if LSD_CXX_VER >= 17
 #include <optional>
 # endif
 
@@ -28,18 +28,18 @@ int main() {
 
   {
     struct foo {};
-    ss::optional<foo> o;
+    lsd::optional<foo> o;
     o.emplace();
 
-# if SS_CXX_VER >= 17
+# if LSD_CXX_VER >= 17
     std::optional<foo> op;
     op.emplace();
 # endif
   }
 
   {
-    ss::optional<bar> o1 = 1;
-    ss::optional<bar> o3(ss::move(o1));
+    lsd::optional<bar> o1 = 1;
+    lsd::optional<bar> o3(lsd::move(o1));
 //    o3 = o1;
 
 //    std::optional<bar> o2;
@@ -56,8 +56,8 @@ int main() {
       NoMove& operator=(const NoMove&) = default;
     };
 
-    ss::optional<NoMove> op1{ss::in_place};
-    ss::optional<NoMove> op2;
+    lsd::optional<NoMove> op1{lsd::in_place};
+    lsd::optional<NoMove> op2;
     std::swap(op1, op2); // copy is selected for non-movable object
   }
 

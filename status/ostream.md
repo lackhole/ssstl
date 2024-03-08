@@ -1,7 +1,7 @@
 ## Header `<ostream>` implementation status
 
 [Reference](https://en.cppreference.com/w/cpp/header/ostream)  
-[Implementation](../ss/include/ss/ostream.h)
+[Implementation](../include/lsd/ostream.h)
 
 * ![](https://img.shields.io/badge/C%2B%2B-N-red): Cannot implement with language itself. Need compiler support. Used C++ N STL
 * ![](https://img.shields.io/badge/C%2B%2B-N-blue): Partially implemented with C++ N
@@ -14,11 +14,11 @@
 | basic_ostream                                | ![][legacy]          | ![][notyet]                       |
 |                                              |                      |                                   |
 | **Functions**                                |                      |                                   |
-| operator\<\<(ss::basic_ostream)              | ![][legacy]          | ![][notyet]                       |
-| print(ss::ostream)                           | ![][cpp23]           | ![][notyet]                       |
-| println(ss::ostream)                         | ![][cpp23]           | ![][notyet]                       |
-| vprint_unicode(ss::ostream)                  | ![][cpp23]           | ![][notyet]                       |
-| vprint_nonunicode(ss::ostream)               | ![][cpp23]           | ![][notyet]                       |
+| operator\<\<(lsd::basic_ostream)              | ![][legacy]          | ![][notyet]                       |
+| print(lsd::ostream)                           | ![][cpp23]           | ![][notyet]                       |
+| println(lsd::ostream)                         | ![][cpp23]           | ![][notyet]                       |
+| vprint_unicode(lsd::ostream)                  | ![][cpp23]           | ![][notyet]                       |
+| vprint_nonunicode(lsd::ostream)               | ![][cpp23]           | ![][notyet]                       |
 | **Manipulators**                             |                      |                                   |
 | endl                                         | ![][legacy]          | ![][notyet]                       |
 | ends                                         | ![][legacy]          | ![][notyet]                       |

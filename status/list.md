@@ -1,7 +1,7 @@
 ## Header `<list>` implementation status
 
 [Reference](https://en.cppreference.com/w/cpp/header/list)  
-[Implementation](../ss/include/ss/list.h)
+[Implementation](../include/lsd/list.h)
 
 * ![](https://img.shields.io/badge/C%2B%2B-N-red): Cannot implement with language itself. Need compiler support. Used C++ N STL
 * ![](https://img.shields.io/badge/C%2B%2B-N-blue): Partially implemented with C++ N
@@ -19,8 +19,8 @@
 |                                              |                      |                                   |
 | **Functions**                                |                      |                                   |
 | operator== <br/>~~operator!=~~ <br/>~~operator\<~~ <br/>~~operator\<=~~ <br/>~~operator>~~ <br/>~~operator>=~~ <br/>operator\<=> | ![][legacy] <br/>![][legacy] <br/>![][legacy] <br/>![][legacy] <br/>![][legacy] <br/>![][legacy] <br/>![][cpp20] | ![][notyet]                       |
-| ss::swap(ss::list)                           | ![][legacy]          | ![][notyet]                       |
-| erase(ss::list) <br/>erase_if(ss::list)      | ![][cpp20]           | ![][notyet]                       |
+| lsd::swap(lsd::list)                           | ![][legacy]          | ![][notyet]                       |
+| erase(lsd::list) <br/>erase_if(lsd::list)      | ![][cpp20]           | ![][notyet]                       |
 | **Range access**                             |                      |                                   |
 | begin <br/>cbegin                            | ![][cpp11] <br/>![][cpp14] | ![][notyet]                       |
 | end <br/>cend                                | ![][cpp11] <br/>![][cpp14] | ![][notyet]                       |

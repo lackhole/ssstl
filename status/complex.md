@@ -1,7 +1,7 @@
 ## Header `<complex>` implementation status
 
 [Reference](https://en.cppreference.com/w/cpp/header/complex)  
-[Implementation](../ss/include/ss/complex.h)
+[Implementation](../include/lsd/complex.h)
 
 * ![](https://img.shields.io/badge/C%2B%2B-N-red): Cannot implement with language itself. Need compiler support. Used C++ N STL
 * ![](https://img.shields.io/badge/C%2B%2B-N-blue): Partially implemented with C++ N
@@ -18,7 +18,7 @@
 | operator\<\< <br/>operator>>                 | ![][legacy]          | ![][notyet]                       |
 | real                                         | ![][legacy]          | ![][notyet]                       |
 | imag                                         | ![][legacy]          | ![][notyet]                       |
-| abs(ss::complex)                             | ![][legacy]          | ![][notyet]                       |
+| abs(lsd::complex)                             | ![][legacy]          | ![][notyet]                       |
 | arg                                          | ![][legacy]          | ![][notyet]                       |
 | norm                                         | ![][legacy]          | ![][notyet]                       |
 | conj                                         | ![][legacy]          | ![][notyet]                       |
@@ -26,29 +26,29 @@
 | polar                                        | ![][legacy]          | ![][notyet]                       |
 |                                              |                      |                                   |
 | **Exponential functions**                    |                      |                                   |
-| exp(ss::complex)                             | ![][legacy]          | ![][notyet]                       |
-| log(ss::complex)                             | ![][legacy]          | ![][notyet]                       |
-| log10(ss::complex)                           | ![][legacy]          | ![][notyet]                       |
+| exp(lsd::complex)                             | ![][legacy]          | ![][notyet]                       |
+| log(lsd::complex)                             | ![][legacy]          | ![][notyet]                       |
+| log10(lsd::complex)                           | ![][legacy]          | ![][notyet]                       |
 |                                              |                      |                                   |
 | **Power functions**                          |                      |                                   |
-| pow(ss::complex)                             | ![][legacy]          | ![][notyet]                       |
-| sqrt(ss::complex)                            | ![][legacy]          | ![][notyet]                       |
+| pow(lsd::complex)                             | ![][legacy]          | ![][notyet]                       |
+| sqrt(lsd::complex)                            | ![][legacy]          | ![][notyet]                       |
 |                                              |                      |                                   |
 | **Trigonometric functions**                  |                      |                                   |
-| sin(ss::complex)                             | ![][legacy]          | ![][notyet]                       |
-| cos(ss::complex)                             | ![][legacy]          | ![][notyet]                       |
-| tan(ss::complex)                             | ![][legacy]          | ![][notyet]                       |
-| asin(ss::complex)                            | ![][cpp11]           | ![][notyet]                       |
-| acos(ss::complex)                            | ![][cpp11]           | ![][notyet]                       |
-| atan(ss::complex)                            | ![][cpp11]           | ![][notyet]                       |
+| sin(lsd::complex)                             | ![][legacy]          | ![][notyet]                       |
+| cos(lsd::complex)                             | ![][legacy]          | ![][notyet]                       |
+| tan(lsd::complex)                             | ![][legacy]          | ![][notyet]                       |
+| asin(lsd::complex)                            | ![][cpp11]           | ![][notyet]                       |
+| acos(lsd::complex)                            | ![][cpp11]           | ![][notyet]                       |
+| atan(lsd::complex)                            | ![][cpp11]           | ![][notyet]                       |
 |                                              |                      |                                   |
 | **Hyperbolic functions**                     |                      |                                   |
-| sinh(ss::complex)                            | ![][legacy]          | ![][notyet]                       |
-| cosh(ss::complex)                            | ![][legacy]          | ![][notyet]                       |
-| tanh(ss::complex)                            | ![][legacy]          | ![][notyet]                       |
-| asinh(ss::complex)                           | ![][cpp11]           | ![][notyet]                       |
-| acosh(ss::complex)                           | ![][cpp11]           | ![][notyet]                       |
-| atanh(ss::complex)                           | ![][cpp11]           | ![][notyet]                       |
+| sinh(lsd::complex)                            | ![][legacy]          | ![][notyet]                       |
+| cosh(lsd::complex)                            | ![][legacy]          | ![][notyet]                       |
+| tanh(lsd::complex)                            | ![][legacy]          | ![][notyet]                       |
+| asinh(lsd::complex)                           | ![][cpp11]           | ![][notyet]                       |
+| acosh(lsd::complex)                           | ![][cpp11]           | ![][notyet]                       |
+| atanh(lsd::complex)                           | ![][cpp11]           | ![][notyet]                       |
 |                                              |                      |                                   |
 | **Literals**                                 |                      |                                   |
 | operator""if <br/>operator""i <br/>operator""il | ![][cpp14]           | ![][notyet]                       |

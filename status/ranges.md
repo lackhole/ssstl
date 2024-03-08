@@ -1,7 +1,7 @@
 ## Header `<ranges>` implementation status
 
 [Reference](https://en.cppreference.com/w/cpp/header/ranges)  
-[Implementation](../ss/include/ss/ranges.h)
+[Implementation](../include/lsd/ranges.h)
 
 * ![](https://img.shields.io/badge/C%2B%2B-N-red): Cannot implement with language itself. Need compiler support. Used C++ N STL
 * ![](https://img.shields.io/badge/C%2B%2B-N-blue): Partially implemented with C++ N
@@ -105,9 +105,9 @@
 | ranges::subrange_kind                        | ![][cpp20]           | ![][notyet]                       |
 |                                              |                      |                                   |
 | **Helpers**                                  |                      |                                   |
-| ss::tuple_size\<ss::ranges::subrange>        | ![][cpp20]           | ![][notyet]                       |
-| ss::tuple_element\<ss::ranges::subrange>     | ![][cpp20]           | ![][notyet]                       |
-| get(ss::ranges::subrange)                    | ![][cpp20]           | ![][notyet]                       |
+| lsd::tuple_size\<lsd::ranges::subrange>        | ![][cpp20]           | ![][notyet]                       |
+| lsd::tuple_element\<lsd::ranges::subrange>     | ![][cpp20]           | ![][notyet]                       |
+| get(lsd::ranges::subrange)                    | ![][cpp20]           | ![][notyet]                       |
 | from_range_t <br/>from_range                 | ![][cpp23]           | ![][notyet]                       |
 
 

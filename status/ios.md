@@ -1,7 +1,7 @@
 ## Header `<ios>` implementation status
 
 [Reference](https://en.cppreference.com/w/cpp/header/ios)  
-[Implementation](../ss/include/ss/ios.h)
+[Implementation](../include/lsd/ios.h)
 
 * ![](https://img.shields.io/badge/C%2B%2B-N-red): Cannot implement with language itself. Need compiler support. Used C++ N STL
 * ![](https://img.shields.io/badge/C%2B%2B-N-blue): Partially implemented with C++ N
@@ -18,14 +18,14 @@
 | basic_ios                                    | ![][legacy]          | ![][notyet]                       |
 | fpos                                         | ![][legacy]          | ![][notyet]                       |
 | io_errc                                      | ![][cpp11]           | ![][notyet]                       |
-| is_error_code_enum\<ss::io_errc>             | ![][cpp11]           | ![][notyet]                       |
+| is_error_code_enum\<lsd::io_errc>             | ![][cpp11]           | ![][notyet]                       |
 | streamoff                                    | ![][legacy]          | ![][notyet]                       |
 | streamsize                                   | ![][legacy]          | ![][notyet]                       |
 |                                              |                      |                                   |
 | **Functions**                                |                      |                                   |
 | iostream_category                            | ![][cpp11]           | ![][notyet]                       |
-| make_error_code(ss::io_errc)                 | ![][cpp11]           | ![][notyet]                       |
-| make_error_condition(ss::io_errc)            | ![][cpp11]           | ![][notyet]                       |
+| make_error_code(lsd::io_errc)                 | ![][cpp11]           | ![][notyet]                       |
+| make_error_condition(lsd::io_errc)            | ![][cpp11]           | ![][notyet]                       |
 | boolalpha <br/>noboolalpha                   | ![][legacy]          | ![][notyet]                       |
 | showbase <br/>noshowbase                     | ![][legacy]          | ![][notyet]                       |
 | showpoint <br/>noshowpoint                   | ![][legacy]          | ![][notyet]                       |

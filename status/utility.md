@@ -1,7 +1,7 @@
 ## Header `<utility>` implementation status
 
 [Reference](https://en.cppreference.com/w/cpp/header/utility)  
-[Implementation](../ss/include/ss/utility.h)
+[Implementation](../include/lsd/utility.h)
 
 * ![](https://img.shields.io/badge/C%2B%2B-N-red): Cannot implement with language itself. Need compiler support. Used C++ N STL
 * ![](https://img.shields.io/badge/C%2B%2B-N-blue): Partially implemented with C++ N
@@ -23,15 +23,15 @@
 |declval                           | ![][cpp11]              |
 |make_pair                         | ![][cpp11]             |
 |operator== <br/> operator!= <br/> operator< <br/> operator<= <br/> operator> <br/> ~~operator<=>~~| ![][cpp11] |
-|ss::swap(ss::pair)                | ![][cpp11]             |
-|ss:get(ss::pair)                  | ![][cpp11]             |
+|lsd::swap(lsd::pair)                | ![][cpp11]             |
+|ss:get(lsd::pair)                  | ![][cpp11]             |
 |                                  |                         |
 | **Classes**                      |                         |
 |pair                              | ![][cpp11]             |
 |tuple_size                        | ![][cpp11]             |
 |tuple_element                     | ![][cpp11]             |
-|ss::tuple_size\<ss::pair>         | ![][cpp11]             |
-|ss::tuple_element\<ss::pair>      | ![][cpp11]             |
+|lsd::tuple_size\<lsd::pair>         | ![][cpp11]             |
+|lsd::tuple_element\<lsd::pair>      | ![][cpp11]             |
 | **Forward declarations**         |                         |
 |tuple                             | ![][cpp11]             |
 |                                  |                         |

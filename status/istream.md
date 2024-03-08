@@ -1,7 +1,7 @@
 ## Header `<istream>` implementation status
 
 [Reference](https://en.cppreference.com/w/cpp/header/istream)  
-[Implementation](../ss/include/ss/istream.h)
+[Implementation](../include/lsd/istream.h)
 
 * ![](https://img.shields.io/badge/C%2B%2B-N-red): Cannot implement with language itself. Need compiler support. Used C++ N STL
 * ![](https://img.shields.io/badge/C%2B%2B-N-blue): Partially implemented with C++ N
@@ -15,7 +15,7 @@
 | basic_iostream                               | ![][legacy]          | ![][notyet]                       |
 |                                              |                      |                                   |
 | **Functions**                                |                      |                                   |
-| operator>>(ss::basic_istream)                | ![][legacy]          | ![][notyet]                       |
+| operator>>(lsd::basic_istream)                | ![][legacy]          | ![][notyet]                       |
 | **Manipulators**                             |                      |                                   |
 | ws                                           | ![][legacy]          | ![][notyet]                       |
 

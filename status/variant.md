@@ -1,7 +1,7 @@
 ## Header `<variant>` implementation status
 
 [Reference](https://en.cppreference.com/w/cpp/header/variant)  
-[Implementation](../ss/include/ss/variant.h)
+[Implementation](../include/lsd/variant.h)
 
 * ![](https://img.shields.io/badge/C%2B%2B-N-red): Cannot implement with language itself. Need compiler support. Used C++ N STL
 * ![](https://img.shields.io/badge/C%2B%2B-N-blue): Partially implemented with C++ N
@@ -19,7 +19,7 @@
 | bad_variant_access                           | ![][cpp17]           | ![][notyet]                       |
 | variant_size <br/>variant_size_v             | ![][cpp17]           | ![][notyet]                       |
 | variant_alternative <br/>variant_alternative_t | ![][cpp17]           | ![][notyet]                       |
-| ss::hash\<ss::variant>                       | ![][cpp17]           | ![][notyet]                       |
+| lsd::hash\<lsd::variant>                       | ![][cpp17]           | ![][notyet]                       |
 |                                              |                      |                                   |
 | **Constants**                                |                      |                                   |
 | variant_npos                                 | ![][cpp17]           | ![][notyet]                       |
@@ -27,10 +27,10 @@
 | **Functions**                                |                      |                                   |
 | visit                                        | ![][cpp17]           | ![][notyet]                       |
 | holds_alternative                            | ![][cpp17]           | ![][notyet]                       |
-| ss::get(ss::variant)                         | ![][cpp17]           | ![][notyet]                       |
+| lsd::get(lsd::variant)                         | ![][cpp17]           | ![][notyet]                       |
 | get_if                                       | ![][cpp17]           | ![][notyet]                       |
 | operator== <br/>operator!= <br/>operator\< <br/>operator\<= <br/>operator> <br/>operator>= <br/>operator\<=> | ![][cpp17] <br/>![][cpp17] <br/>![][cpp17] <br/>![][cpp17] <br/>![][cpp17] <br/>![][cpp17] <br/>![][cpp20] | ![][notyet]                       |
-| ss::swap(ss::variant)                        | ![][cpp17]           | ![][notyet]                       |
+| lsd::swap(lsd::variant)                        | ![][cpp17]           | ![][notyet]                       |
 
 
 <!--

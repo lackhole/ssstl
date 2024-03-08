@@ -1,7 +1,7 @@
 ## Header `<stack>` implementation status
 
 [Reference](https://en.cppreference.com/w/cpp/header/stack)  
-[Implementation](../ss/include/ss/stack.h)
+[Implementation](../include/lsd/stack.h)
 
 * ![](https://img.shields.io/badge/C%2B%2B-N-red): Cannot implement with language itself. Need compiler support. Used C++ N STL
 * ![](https://img.shields.io/badge/C%2B%2B-N-blue): Partially implemented with C++ N
@@ -16,11 +16,11 @@
 |                                              |                      |                                   |
 | **Classes**                                  |                      |                                   |
 | stack                                        | ![][legacy]          | ![][notyet]                       |
-| ss::uses_allocator\<ss::stack>               | ![][cpp11]           | ![][notyet]                       |
+| lsd::uses_allocator\<lsd::stack>               | ![][cpp11]           | ![][notyet]                       |
 |                                              |                      |                                   |
 | **Functions**                                |                      |                                   |
 | operator== <br/>operator!= <br/>operator\< <br/>operator\<= <br/>operator> <br/>operator>= <br/>operator\<=> | ![][legacy] <br/>![][legacy] <br/>![][legacy] <br/>![][legacy] <br/>![][legacy] <br/>![][legacy] <br/>![][cpp20] | ![][notyet]                       |
-| ss::swap(ss::stack)                          | ![][cpp11]           | ![][notyet]                       |
+| lsd::swap(lsd::stack)                          | ![][cpp11]           | ![][notyet]                       |
 
 
 <!--
