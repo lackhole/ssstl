@@ -2,7 +2,7 @@
   
 # LSD - Latest STL for Dummies  
 - Provides latest STL features for unlucky programmers who cannot use latest C++
-(i.e. You can use `lsd::ranges::to` in C++11)  
+(i.e. You can use `lsd::ranges::to` in C++14)  
 
 - Compatible with existing STL
 
@@ -12,17 +12,19 @@
 [![MSVC](https://github.com/lackhole/ssstl/actions/workflows/msvc.yml/badge.svg)](https://github.com/lackhole/ssstl/actions/workflows/msvc.yml)
 [![Emscripten](https://github.com/lackhole/ssstl/actions/workflows/emscripten.yml/badge.svg)](https://github.com/lackhole/ssstl/actions/workflows/emscripten.yml)
 
+# Documentation
+Update in progress
+
+<!---
 
 # Code Coverage
 
-<!--- 
 100%      : brightgreen
 75% ~ 100%: green
 50% ~ 75% : yellowgreen
 25% ~ 50% : yellow
 0% ~ 25%  : orange
 0%        : red
---->
 
 * ![](https://img.shields.io/badge/not_possible-grey): Impossible to implement with language itself.
 * ![](https://img.shields.io/badge/C++X-100%25-brightgreen): Implemented features of `C++ X` using `C++ Y`(`Y <= X`).
@@ -33,13 +35,13 @@
   ![](https://img.shields.io/badge/C++N-X%25-red): 
   Implementation in progress.
 
-| Concepts library                              | Feature status      | Notes            |
-|-----------------------------------------------|---------------------|------------------|
-| [concepts](status/concepts.md)                | ![][cpp20]![][p007] |                  |
+| Concepts library               | Feature status      | Notes |
+|--------------------------------|---------------------|-------|
+| [concepts](status/concepts.md) | ![][cpp20]![][p100] |       |
 
-| Coroutines library                            | Feature status                                                        | Notes            |
-|-----------------------------------------------|-----------------------------------------------------------------------|------------------|
-| coroutine                                     | ![][cpp20]![][p000]                                                         |                  |
+| Coroutines library | Feature status      | Notes |
+|--------------------|---------------------|-------|
+| coroutine          | ![][cpp20]![][p000] |       |
 
 | Utilities library                              | Feature status                                                                                      | Notes |
 |------------------------------------------------|-----------------------------------------------------------------------------------------------------|-------|
@@ -62,12 +64,12 @@
 | [stacktrace](status/stacktrace.md)             | ![][impossib]                                                                                       |       |
 
 
-| Dynamic memory management                      | Feature status                                                        | Notes            |
-|------------------------------------------------|-----------------------------------------------------------------------|------------------|
-| [new](status/new.md)                           | ![][unknown_]                                                         |                  |
-| [memory](status/memory.md)                     | ![][cpp11024] ![][cpp14]![][p100] ![][cpp17]![][p000] ![][cpp20]![][p000] ![][cpp23033] |                  |
-| [scoped_allocator](status/scoped_allocator.md) | ![][unknown_]                                                         |                  |
-| [memory_resource](status/memory_resource.md)   | ![][unknown_]                                                         |                  |
+| Dynamic memory management                      | Feature status                                                                          | Notes |
+|------------------------------------------------|-----------------------------------------------------------------------------------------|-------|
+| [new](status/new.md)                           | ![][unknown_]                                                                           |       |
+| [memory](status/memory.md)                     | ![][cpp11024] ![][cpp14]![][p100] ![][cpp17]![][p000] ![][cpp20]![][p000] ![][cpp23033] |       |
+| [scoped_allocator](status/scoped_allocator.md) | ![][unknown_]                                                                           |       |
+| [memory_resource](status/memory_resource.md)   | ![][unknown_]                                                                           |       |
 
 
 | Numeric limits             | Feature status                                                        | Notes            |
@@ -107,9 +109,9 @@
 |--------------------------------|---------------------------------------------------------------------------------|-------|
 | [iterator](status/iterator.md) | ![][cpp11]![][p038] ![][cpp14]![][p100] ![][cpp17]![][p100] ![][cpp20]![][p006] |       |
 
-| Ranges library                                | Feature status                                                        | Notes            |
-|-----------------------------------------------|-----------------------------------------------------------------------|------------------|
-| [ranges](status/ranges.md)                    | ![][cpp20]![][p000]                                                         |                  |
+| Ranges library             | Feature status      | Notes |
+|----------------------------|---------------------|-------|
+| [ranges](status/ranges.md) | ![][cpp20]![][p000] |       |
 
 | Algorithms library               | Feature status                                              | Notes |
 |----------------------------------|-------------------------------------------------------------|-------|
@@ -284,3 +286,5 @@
 [p098]: https://img.shields.io/badge/98%25-green
 [p099]: https://img.shields.io/badge/99%25-green
 [p100]: https://img.shields.io/badge/100%25-brightgreen
+
+--->

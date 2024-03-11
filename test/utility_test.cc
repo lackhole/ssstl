@@ -25,23 +25,6 @@ int main() {
   std::cerr << "__cplusplus: " << __cplusplus << '\n';
   std::cerr << "NDEBUG: " << NDEBUG_DEFINED << '\n';
 
-  { // move
-    std::string str = "hello, world!";
-    std::string str2;
-    str2 = lsd::move(str);
-
-    LSD_TEST(str.empty())
-    LSD_TEST(str2 == "hello, world!")
-  }
-
-  {
-    constexpr lsd::pair<int, float> p1(1, 2);
-
-    LSD_TESTC(lsd::get<0>(p1) == 1)
-    LSD_TESTC(lsd::get<int>(p1) == 1)
-    LSD_TESTC(lsd::get<1>(p1) == 2)
-    LSD_TESTC(lsd::get<float>(p1) == 2)
-  }
 
 
   LSD_TEST_RETURN

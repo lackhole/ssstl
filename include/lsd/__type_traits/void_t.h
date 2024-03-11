@@ -1,9 +1,11 @@
-//
-// Created by cosge on 2023-10-29.
-//
-
-#ifndef LSD___TYPE_TRAITS_VOID_T_H_
-#define LSD___TYPE_TRAITS_VOID_T_H_
+# /*
+#  * Created by YongGyu Lee on 2020/12/08.
+#  */
+#
+# ifndef LSD_TYPE_TRAITS_VOID_T_HPP
+# define LSD_TYPE_TRAITS_VOID_T_HPP
+#
+# include <type_traits>
 
 namespace lsd {
 
@@ -12,4 +14,4 @@ using void_t = void;
 
 } // namespace lsd
 
-#endif // LSD___TYPE_TRAITS_VOID_T_H_
+# endif // LSD_TYPE_TRAITS_VOID_T_HPP

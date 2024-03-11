@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 2020/12/23.
 //
 
-#ifndef CURLPP_HPP_
-#define CURLPP_HPP_
+#ifndef CURLPP_H_
+#define CURLPP_H_
 
 #include <cstdint>
 
@@ -25,4 +25,4 @@ class Curlpp {
   Impl* pImpl;
 };
 
-#endif // CURLPP_HPP_
+#endif // CURLPP_H_

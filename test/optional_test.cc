@@ -39,7 +39,7 @@ int main() {
 
   {
     lsd::optional<bar> o1 = 1;
-    lsd::optional<bar> o3(lsd::move(o1));
+    lsd::optional<bar> o3(std::move(o1));
 //    o3 = o1;
 
 //    std::optional<bar> o2;

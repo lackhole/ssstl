@@ -12,7 +12,6 @@ endfunction()
 _GetCXXStandardCompilerFlagPrefix(_flag_prefix)
 set(__LSD_STD_CXX_COMPILER_FLAG_PREFIX "${_flag_prefix}" CACHE STRING "Prefix compiler flag for C++ standard")
 
-check_cxx_compiler_flag("${__LSD_STD_CXX_COMPILER_FLAG_PREFIX}11" __LSD_COMPILE_TEST_STD_CXX_11)
 check_cxx_compiler_flag("${__LSD_STD_CXX_COMPILER_FLAG_PREFIX}14" __LSD_COMPILE_TEST_STD_CXX_14)
 check_cxx_compiler_flag("${__LSD_STD_CXX_COMPILER_FLAG_PREFIX}17" __LSD_COMPILE_TEST_STD_CXX_17)
 check_cxx_compiler_flag("${__LSD_STD_CXX_COMPILER_FLAG_PREFIX}20" __LSD_COMPILE_TEST_STD_CXX_20)

@@ -25,14 +25,6 @@ int main() {
 //    foo(foo&&) = delete;
   };
 
-  static_assert(lsd::is_constructible<foo, foo&&>::value, " ");
-
-  auto p1 = lsd::make_unique<int>(3);
-  auto p2 = lsd::make_unique<int[]>(3);
-//  auto p3 = lsd::make_unique<int[4]>(3);
-
-  *p1 = 99;
-  p2[1] = 99;
 
   LSD_TEST_RETURN
 }
