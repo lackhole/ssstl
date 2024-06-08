@@ -52,11 +52,12 @@ struct next_niebloid {
 
 } // namespace detail
 
-inline namespace niebloid {
+namespace niebloid {
 
 LSD_INLINE_OR_STATIC constexpr detail::next_niebloid next{};
 
-} // inline namespace niebloid
+} // namespace niebloid
+using namespace niebloid;
 
 } // namespace ranges
 } // namespace lsd

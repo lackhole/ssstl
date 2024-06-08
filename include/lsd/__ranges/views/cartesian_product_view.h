@@ -21,7 +21,7 @@
 #include "lsd/__ranges/begin.h"
 #include "lsd/__ranges/bidirectional_range.h"
 #include "lsd/__ranges/common_range.h"
-#include "lsd/__ranges/detail/simple_view.h"
+#include "lsd/__ranges/simple_view.h"
 #include "lsd/__ranges/distance.h"
 #include "lsd/__ranges/end.h"
 #include "lsd/__ranges/forward_range.h"
@@ -32,6 +32,7 @@
 #include "lsd/__ranges/sized_range.h"
 #include "lsd/__ranges/view.h"
 #include "lsd/__ranges/view_interface.h"
+#include "lsd/__tuple/tuple_transform.h"
 #include "lsd/__type_traits/bool_constant.h"
 #include "lsd/__type_traits/conjunction.h"
 #include "lsd/__type_traits/disjunction.h"
@@ -376,33 +377,27 @@ class cartesian_product_view : public view_interface<cartesian_product_view<Firs
       return -(i - s);
     }
 
-    // TODO: Solve "redefinition of 'iter_move' as different kind of symbol" in Android NDK 21.1.6352462
-    // friend constexpr auto iter_move(const iterator& i)
-    //     noexcept(
-    //         noexcept(detail::cartesian_tuple_transform(ranges::iter_move, i.current_)) &&
-    //         conjunction<
-    //             std::is_nothrow_move_constructible<range_rvalue_reference_t< maybe_const<Const, First> >>,
-    //             std::is_nothrow_move_constructible<range_rvalue_reference_t< maybe_const<Const, Vs>    >>...
-    //         >::value
-    //     )
-    // {
-    //   return detail::cartesian_tuple_transform(ranges::iter_move, i.current_);
-    // }
+     friend constexpr auto iter_move(const iterator& i)
+         noexcept(
+             noexcept(lsd::tuple_transform(i.current_, ranges::iter_move)) &&
+             conjunction<
+                 std::is_nothrow_move_constructible<range_rvalue_reference_t< maybe_const<Const, First> >>,
+                 std::is_nothrow_move_constructible<range_rvalue_reference_t< maybe_const<Const, Vs>    >>...
+             >::value
+         )
+     {
+       return lsd::tuple_transform(i.current_, ranges::iter_move);
+     }
 
-    // TODO: Solve "redefinition of 'iter_swap' as different kind of symbol"
-#if __cplusplus >= 202002L
+    template<typename Dummy = void, std::enable_if_t<conjunction<std::is_void<Dummy>,
+        indirectly_swappable< iterator_t<maybe_const<Const, First>> >,
+        indirectly_swappable< iterator_t<maybe_const<Const, Vs>> >...
+    >::value, int> = 0>
     friend constexpr void iter_swap(const iterator& x, const iterator& y)
-      noexcept(noexcept(x.iter_swap_impl(y)))
-      requires(
-          conjunction<
-              indirectly_swappable< iterator_t<maybe_const<Const, First>> >,
-              indirectly_swappable< iterator_t<maybe_const<Const, Vs>> >...
-          >::value
-      )
+        noexcept(noexcept(x.iter_swap_impl(y)))
     {
       x.iter_swap_impl(y);
     }
-#endif
 
    private:
     template<typename It>
@@ -495,8 +490,8 @@ class cartesian_product_view : public view_interface<cartesian_product_view<Firs
       : bases_(std::move(first), std::move(bases)...) {}
 
   template<typename First2 = First, std::enable_if_t<disjunction<
-      negation< detail::simple_view<First2> >,
-      negation< detail::simple_view<Vs> >...
+      negation< simple_view<First2> >,
+      negation< simple_view<Vs> >...
   >::value, int> = 0>
   constexpr iterator<false> begin() {
     return iterator<false>(
@@ -514,8 +509,8 @@ class cartesian_product_view : public view_interface<cartesian_product_view<Firs
 
   template<typename First2 = First, std::enable_if_t<conjunction<
       disjunction<
-          negation< detail::simple_view<First2> >,
-          negation< detail::simple_view<Vs> >...>,
+          negation< simple_view<First2> >,
+          negation< simple_view<Vs> >...>,
       detail::cartesian_product_is_common<First, Vs...>
   >::value, int> = 0>
   constexpr iterator<false> end() {

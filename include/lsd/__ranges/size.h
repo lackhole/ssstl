@@ -42,7 +42,7 @@ struct size_member_check : std::false_type {
 };
 template<typename T>
 struct size_member_check<T, false, void_t<decltype( std::declval<T>().size() )>> : is_integer_like<decltype(std::declval<T>().size())> {
-  using category = return_category<2, decltype( vccc_decay_copy(std::declval<T>().size()) )>;
+  using category = return_category<2, decltype( lsd_decay_copy(std::declval<T>().size()) )>;
 };
 
 template<typename T, bool = disabled_sized_range<std::remove_cv_t<T>>::value, typename = void>
@@ -51,7 +51,7 @@ struct size_adl_check : std::false_type {
 };
 template<typename T>
 struct size_adl_check<T, false, void_t<decltype( size(std::declval<T>()) )>> : is_integer_like<decltype(size(std::declval<T>()))> {
-  using category = return_category<3, decltype( vccc_decay_copy( size(std::declval<T>()) ) )>;
+  using category = return_category<3, decltype( lsd_decay_copy( size(std::declval<T>()) ) )>;
 };
 
 template<
@@ -109,12 +109,12 @@ constexpr R size_impl(T&&, return_category<1, R>) {
 
 template<typename T, typename R>
 constexpr R size_impl(T&& t, return_category<2, R>) {
-  return vccc_decay_copy(t.size());
+  return lsd_decay_copy(t.size());
 }
 
 template<typename T, typename R>
 constexpr R size_impl(T&& t, return_category<3, R>) {
-  return vccc_decay_copy(size(t));
+  return lsd_decay_copy(size(t));
 }
 
 template<typename T, typename R>
@@ -132,11 +132,12 @@ struct size_niebloid {
 
 } // namespace detail
 
-inline namespace niebloid {
+namespace niebloid {
 
 LSD_INLINE_OR_STATIC constexpr detail::size_niebloid size{};
 
-} // inline namespace niebloid
+} // namespace niebloid
+using namespace niebloid;
 
 } // namespace ranges
 } // namespace lsd

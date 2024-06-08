@@ -67,11 +67,12 @@ class all_adaptor_closure : public range_adaptor_closure<all_adaptor_closure> {
 
 } // namespace detail
 
-inline namespace niebloid {
+namespace niebloid {
 
 LSD_INLINE_OR_STATIC constexpr detail::all_adaptor_closure all{};
 
-} // inline namespace niebloid
+} // namespace niebloid
+using namespace niebloid;
 
 namespace detail {
 

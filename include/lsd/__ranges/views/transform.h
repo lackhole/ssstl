@@ -12,8 +12,7 @@
 #include "lsd/__concepts/copy_constructible.h"
 #include "lsd/__concepts/invocable.h"
 #include "lsd/__ranges/input_range.h"
-#include "lsd/__ranges/movable_box.h"
-#include "lsd/__ranges/range_adaptor_closure.h"
+#include "lsd/__ranges/range_adaptor.h"
 #include "lsd/__ranges/viewable_range.h"
 #include "lsd/__ranges/views/all.h"
 #include "lsd/__ranges/views/transform_view.h"
@@ -23,21 +22,6 @@ namespace lsd {
 namespace ranges {
 namespace views {
 namespace detail {
-
-template<typename F>
-class transform_adaptor_closure : public range_adaptor_closure<transform_adaptor_closure<F>> {
- public:
-  explicit transform_adaptor_closure(F func) : func_(func) {}
-
-  template<typename R, std::enable_if_t<ranges::range<R>::value, int> = 0>
-  constexpr transform_view<views::all_t<R>, F>
-  operator()(R&& r) const {
-    return transform_view<views::all_t<R>, F>(std::forward<R>(r), *func_);
-  }
-
- private:
-  movable_box<F> func_;
-};
 
 struct transform_niebloid {
  private:
@@ -64,9 +48,8 @@ struct transform_niebloid {
       copy_constructible<std::decay_t<F>>,
       std::is_object<std::decay_t<F>>
   >::value, int> = 0>
-  constexpr transform_adaptor_closure<std::decay_t<F>>
-  operator()(F&& fun) const {
-    return transform_adaptor_closure<std::decay_t<F>>(std::forward<F>(fun));
+  constexpr auto operator()(F&& fun) const {
+    return range_adaptor<transform_niebloid, std::decay_t<F>>(std::forward<F>(fun));
   }
 };
 

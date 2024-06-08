@@ -15,11 +15,13 @@
 #include "lsd/__concepts/equality_comparable.h"
 #include "lsd/__iterator/iterator_tag.h"
 #include "lsd/__iterator/iterator_traits/cxx20_iterator_traits.h"
+#include "lsd/__iterator/iter_move.h"
+#include "lsd/__iterator/iter_swap.h"
 #include "lsd/__memory/addressof.h"
 #include "lsd/__ranges/begin.h"
 #include "lsd/__ranges/bidirectional_range.h"
 #include "lsd/__ranges/common_range.h"
-#include "lsd/__ranges/detail/simple_view.h"
+#include "lsd/__ranges/simple_view.h"
 #include "lsd/__ranges/end.h"
 #include "lsd/__ranges/forward_range.h"
 #include "lsd/__ranges/input_range.h"
@@ -27,6 +29,7 @@
 #include "lsd/__ranges/non_propagating_cache.h"
 #include "lsd/__ranges/range_difference_t.h"
 #include "lsd/__ranges/range_reference_t.h"
+#include "lsd/__ranges/range_rvalue_reference_t.h"
 #include "lsd/__ranges/range_value_t.h"
 #include "lsd/__ranges/sentinel_t.h"
 #include "lsd/__ranges/view.h"
@@ -67,48 +70,57 @@ class join_with_view_base : public view_interface<Derived> {
 };
 
 template<typename V, typename Pattern, typename Derived>
-class join_with_view_base<V, Pattern, Derived, false> : public view_interface<Derived> {
+class join_with_view_base<V, Pattern, Derived, false> : public join_with_view_base<V, Pattern, Derived, true> {
  protected:
-  non_propagating_cache<std::remove_cv_t<range_reference_t<V>>> inner_base_{};
   non_propagating_cache<iterator_t<V>> outer_it_{};
 };
 
 
 template<typename Base, typename InnerBase, typename PatternBase>
-using join_with_view_iterator_concept =
-    std::conditional_t<
-        conjunction<
-            std::is_reference<range_reference_t<Base>>,
-            bidirectional_range<Base>,
-            bidirectional_range<InnerBase>,
-            bidirectional_range<PatternBase>,
-            common_range<InnerBase>,
-            common_range<PatternBase>
-        >::value, bidirectional_iterator_tag,
-    std::conditional_t<
-        conjunction<
-            std::is_reference<range_reference_t<Base>>,
-            forward_range<InnerBase>,
-            forward_range<PatternBase>
-        >::value, forward_iterator_tag,
-        input_iterator_tag
-    >>;
+struct join_with_view_iterator_concept {
+  using iterator_concept =
+      std::conditional_t<
+          conjunction<
+              has_typename_type<range_reference<Base>>,
+              std::is_reference<range_reference_t<Base>>,
+              bidirectional_range<Base>,
+              bidirectional_range<InnerBase>,
+              bidirectional_range<PatternBase>,
+              common_range<InnerBase>,
+              common_range<PatternBase>
+          >::value, bidirectional_iterator_tag,
+      std::conditional_t<
+          conjunction<
+              has_typename_type<range_reference<Base>>,
+              std::is_reference<range_reference_t<Base>>,
+              forward_range<InnerBase>,
+              forward_range<PatternBase>
+          >::value, forward_iterator_tag,
+          input_iterator_tag
+      >>;
+};
 
 template<typename Base, typename InnerBase, typename PatternBase,
-         typename OuterC = typename cxx20_iterator_traits<iterator_t<Base>>::iterator_category,
-         typename InnerC = typename cxx20_iterator_traits<iterator_t<InnerBase>>::iterator_category,
-         typename PatternC = typename cxx20_iterator_traits<iterator_t<PatternBase>>::iterator_category,
          typename IterConcept = join_with_view_iterator_concept<Base, InnerBase, PatternBase>>
-struct join_with_view_iterator_category {
-  using iterator_concept = IterConcept;
+struct join_with_view_iterator_category
+    : join_with_view_iterator_concept<Base, InnerBase, PatternBase>
+{
+  // iterator_category is defined iif IterConcept denotes forward_iterator_tag
 #if __cplusplus < 202002L
   using iterator_category = iterator_ignore;
 #endif
 };
 
-template<typename Base, typename InnerBase, typename PatternBase, typename OuterC, typename InnerC, typename PatternC>
-struct join_with_view_iterator_category<Base, InnerBase, PatternBase, OuterC, InnerC, PatternC, forward_iterator_tag> {
-  using iterator_concept = forward_iterator_tag;
+template<typename Base, typename InnerBase, typename PatternBase>
+struct join_with_view_iterator_category<Base, InnerBase, PatternBase, forward_iterator_tag>
+    : join_with_view_iterator_concept<Base, InnerBase, PatternBase>
+{
+ private:
+  using OuterC = typename cxx20_iterator_traits<iterator_t<Base>>::iterator_category;
+  using InnerC = typename cxx20_iterator_traits<iterator_t<InnerBase>>::iterator_category;
+  using PatternC = typename cxx20_iterator_traits<iterator_t<PatternBase>>::iterator_category;
+
+ public:
   using iterator_category =
       std::conditional_t<
           negation<std::is_reference<
@@ -119,7 +131,9 @@ struct join_with_view_iterator_category<Base, InnerBase, PatternBase, OuterC, In
           conjunction<
               derived_from<OuterC, bidirectional_iterator_tag>,
               derived_from<InnerC, bidirectional_iterator_tag>,
-              derived_from<PatternC, bidirectional_iterator_tag>
+              derived_from<PatternC, bidirectional_iterator_tag>,
+              common_range<range_reference_t<Base>>,
+              common_range<PatternBase>
           >::value,
           bidirectional_iterator_tag,
       std::conditional_t<
@@ -151,7 +165,7 @@ class join_with_view_iterator_base<Base, InnerBase, PatternBase, true>
 
 } // namespace detail
 
-// Implementation taken from MSVC
+// Part of implementations are taken from MSVC
 template<typename V, typename Pattern>
 class join_with_view : public detail::join_with_view_base<V, Pattern, join_with_view<V, Pattern>> {
  public:
@@ -336,6 +350,18 @@ class join_with_view : public detail::join_with_view_base<V, Pattern, join_with_
         return !(x == y);
       }
 
+      friend constexpr decltype(auto) iter_move(const iterator& i) {
+        using R = common_reference_t<range_rvalue_reference_t<InnerBase>, range_rvalue_reference_t<PatternBase>>;
+        return i.inner_it_.visit([](auto&& i) -> R {
+          return ranges::iter_move(std::forward<decltype(i)>(i));
+        });
+      }
+
+      template<typename IS = indirectly_swappable<iterator_t<InnerBase>, iterator_t<PatternBase>>, std::enable_if_t<IS::value, int> = 0>
+      friend constexpr void iter_swap(const iterator& x, const iterator& y) {
+        lsd::visit(ranges::iter_swap, x.inner_it_, y.inner_it_);
+      }
+
      private:
       template<typename B = Base, std::enable_if_t<forward_range<B>::value, int> = 0>
       constexpr iterator(Parent& parent, iterator_t<Base> outer_it)
@@ -380,22 +406,22 @@ class join_with_view : public detail::join_with_view_base<V, Pattern, join_with_
       }
 
       template<typename IB = InnerBase, std::enable_if_t<std::is_reference<IB>::value, int> = 0>
-      constexpr auto& update_inner() {
+      constexpr decltype(auto) update_inner() {
         return *get_outer();
       }
 
       template<typename IB = InnerBase, std::enable_if_t<std::is_reference<IB>::value == false, int> = 0>
-      constexpr auto& update_inner() {
+      constexpr decltype(auto) update_inner() {
         return parent_->inner_base_.emplace_deref(get_outer()).val;
       }
 
       template<typename IB = InnerBase, std::enable_if_t<std::is_reference<IB>::value, int> = 0>
-      constexpr auto& get_inner() noexcept {
+      constexpr decltype(auto) get_inner() noexcept {
         return *get_outer();
       }
 
       template<typename IB = InnerBase, std::enable_if_t<std::is_reference<IB>::value == false, int> = 0>
-      constexpr auto& get_inner() noexcept {
+      constexpr decltype(auto) get_inner() noexcept {
         return *parent_->inner_base_.val;
       }
 
@@ -475,7 +501,7 @@ class join_with_view : public detail::join_with_view_base<V, Pattern, join_with_
     constexpr explicit sentinel(Parent& parent)
         : end_(ranges::end(parent.base_)) {}
 
-    constexpr bool equal(const iterator<Const>& x) {
+    constexpr bool equal(const iterator<Const>& x) const {
       using namespace lsd::rel_ops;
       return x.get_outer() == end_;
     }
@@ -508,8 +534,8 @@ class join_with_view : public detail::join_with_view_base<V, Pattern, join_with_
   template<typename V2 = V, std::enable_if_t<forward_range<V2>::value, int> = 0>
   constexpr auto begin() {
     using Const = conjunction<
-      detail::simple_view<V2>,
-      detail::simple_view<Pattern>,
+      simple_view<V2>,
+      simple_view<Pattern>,
       std::is_reference<range_reference_t<V2>>
     >;
     return iterator<Const::value>{*this, ranges::begin(base_)};
@@ -524,7 +550,7 @@ class join_with_view : public detail::join_with_view_base<V, Pattern, join_with_
   template<typename V2 = V, std::enable_if_t<conjunction<
       forward_range<const V2>,
       forward_range<const Pattern>,
-      std::is_reference<range_reference_t<const V>>
+      std::is_reference<range_reference_t<const V2>>
   >::value, int> = 0>
   constexpr iterator<true> begin() const {
     return iterator<true>{*this, ranges::begin(base_)};
@@ -532,32 +558,32 @@ class join_with_view : public detail::join_with_view_base<V, Pattern, join_with_
 
   template<typename V2 = V, std::enable_if_t<conjunction<
     forward_range<V2>,
-    std::is_reference<range_reference_t<V>>,
-    forward_range<range_reference_t<V>>,
-    common_range<V>,
-    common_range<range_reference_t<V>>
+    std::is_reference<range_reference_t<V2>>,
+    forward_range<range_reference_t<V2>>,
+    common_range<V2>,
+    common_range<range_reference_t<V2>>
   >::value, int> = 0>
   constexpr auto end() {
-    using simple = conjunction<detail::simple_view<V>, detail::simple_view<Pattern>>;
+    using simple = conjunction<simple_view<V>, simple_view<Pattern>>;
     return iterator<simple::value>{*this, ranges::end(base_)};
   }
 
   template<typename V2 = V, std::enable_if_t<conjunction<
     forward_range<V2>,
-    std::is_reference<range_reference_t<V>>,
-    forward_range<range_reference_t<V>>,
-    common_range<V>,
-    common_range<range_reference_t<V>>
+    std::is_reference<range_reference_t<V2>>,
+    forward_range<range_reference_t<V2>>,
+    common_range<V2>,
+    common_range<range_reference_t<V2>>
   >::value == false, int> = 0>
   constexpr auto end() {
-    using simple = conjunction<detail::simple_view<V>, detail::simple_view<Pattern>>;
+    using simple = conjunction<simple_view<V>, simple_view<Pattern>>;
     return sentinel<simple::value>{*this};
   }
 
   template<typename V2 = V, std::enable_if_t<conjunction<
       forward_range<const V2>,
       forward_range<const Pattern>,
-      std::is_reference<range_reference_t<const V>>
+      std::is_reference<range_reference_t<const V2>>
   >::value, int> = 0>
   constexpr auto end() const {
     return end_impl(conjunction<

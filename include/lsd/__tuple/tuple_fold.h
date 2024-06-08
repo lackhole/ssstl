@@ -26,7 +26,7 @@ constexpr auto tuple_fold_left_impl(Tuple&& tuple, T&& x, F&& f, std::integral_c
     );
 }
 
-template<std::size_t N, typename Tuple, typename T, typename F, std::size_t I>
+template<std::size_t N, typename Tuple, typename T, typename F, std::size_t I, std::enable_if_t<(I + 1) != N, int> = 0>
 constexpr auto tuple_fold_left_impl(Tuple&& tuple, T&& x, F&& f, std::integral_constant<std::size_t, I>) {
   return tuple_fold_left_impl<N>(
       std::forward<Tuple>(tuple),

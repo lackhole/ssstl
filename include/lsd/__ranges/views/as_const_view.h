@@ -9,7 +9,7 @@
 
 #include "lsd/__concepts/copy_constructible.h"
 #include "lsd/__ranges/cbegin.h"
-#include "lsd/__ranges/detail/simple_view.h"
+#include "lsd/__ranges/simple_view.h"
 #include "lsd/__ranges/enable_borrowed_range.h"
 #include "lsd/__ranges/input_range.h"
 #include "lsd/__ranges/range.h"
@@ -39,7 +39,7 @@ class as_const_view : public view_interface<as_const_view<V>> {
     return std::move(base_);
   }
 
-  template<typename V2 = V, std::enable_if_t<detail::simple_view<V2>::value == false, int> = 0>
+  template<typename V2 = V, std::enable_if_t<simple_view<V2>::value == false, int> = 0>
   constexpr auto begin() {
     return lsd::ranges::cbegin(base_);
   }
@@ -49,7 +49,7 @@ class as_const_view : public view_interface<as_const_view<V>> {
     return lsd::ranges::cbegin(base_);
   }
 
-  template<typename V2 = V, std::enable_if_t<detail::simple_view<V2>::value == false, int> = 0>
+  template<typename V2 = V, std::enable_if_t<simple_view<V2>::value == false, int> = 0>
   constexpr auto end() {
     return lsd::ranges::cend(base_);
   }

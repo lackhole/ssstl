@@ -16,6 +16,7 @@
 #include "lsd/__ranges/range.h"
 #include "lsd/__ranges/range_difference_t.h"
 #include "lsd/__ranges/size.h"
+#include "lsd/__ranges/sized_range.h"
 #include "lsd/__type_traits/conjunction.h"
 #include "lsd/__type_traits/negation.h"
 #include "lsd/__type_traits/remove_cvref.h"
@@ -63,11 +64,12 @@ struct distance_niebloid {
 
 } // namespace detail
 
-inline namespace niebloid {
+namespace niebloid {
 
 LSD_INLINE_OR_STATIC constexpr detail::distance_niebloid distance{};
 
-} // inline namespace niebloid
+} // namespace niebloid
+using namespace niebloid;
 
 } // namespace ranges
 } // namespace lsd

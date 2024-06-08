@@ -5,6 +5,8 @@
 # ifndef LSD_FUNCTIONAL_FUNCTIONAL_HPP
 # define LSD_FUNCTIONAL_FUNCTIONAL_HPP
 #
+# include "lsd/__functional/bind_back.h"
+# include "lsd/__functional/bind_front.h"
 # include "lsd/__functional/equal_to.h"
 # include "lsd/__functional/greater.h"
 # include "lsd/__functional/greater_equal.h"

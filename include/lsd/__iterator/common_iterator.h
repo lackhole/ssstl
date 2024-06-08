@@ -21,7 +21,11 @@
 #include "lsd/__iterator/forward_iterator.h"
 #include "lsd/__iterator/incrementable_traits.h"
 #include "lsd/__iterator/indirectly_readable.h"
+#include "lsd/__iterator/indirectly_swappable.h"
+#include "lsd/__iterator/input_iterator.h"
 #include "lsd/__iterator/input_or_output_iterator.h"
+#include "lsd/__iterator/iter_move.h"
+#include "lsd/__iterator/iter_swap.h"
 #include "lsd/__iterator/iterator_tag.h"
 #include "lsd/__iterator/iterator_traits/cxx20_iterator_traits.h"
 #include "lsd/__iterator/sentinel_for.h"
@@ -275,6 +279,24 @@ class common_iterator {
       default:
         return 0;
     }
+  }
+
+  template<typename Dummy = void, std::enable_if_t<conjunction<std::is_void<Dummy>,
+      input_iterator<I>
+  >::value, int> = 0>
+  friend constexpr decltype(auto) iter_move(const common_iterator& i)
+      noexcept(noexcept(ranges::iter_move(std::declval<const I&>())))
+  {
+    return lsd::ranges::iter_move(i.iterator());
+  }
+
+  template<typename I2, typename S2, std::enable_if_t<
+      indirectly_swappable<I2, I>
+  ::value, int> = 0>
+  friend constexpr void iter_swap(const common_iterator& x, const common_iterator<I2, S2>& y)
+      noexcept(noexcept(ranges::iter_swap(std::declval<const I&>(), std::declval<const I2&>())))
+  {
+    ranges::iter_swap(x.iterator(), y.iterator());
   }
 
  private:

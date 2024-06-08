@@ -38,9 +38,9 @@ struct begin_member_check : std::false_type {
   using category = return_category<0>;
 };
 template<typename T>
-struct begin_member_check<T, void_t<decltype(vccc_decay_copy(std::declval<T>().begin()))>>
-    : input_or_output_iterator<decltype(vccc_decay_copy(std::declval<T>().begin()))> {
-  using category = return_category<2, decltype(vccc_decay_copy(std::declval<T>().begin()))>;
+struct begin_member_check<T, void_t<decltype(lsd_decay_copy(std::declval<T>().begin()))>>
+    : input_or_output_iterator<decltype(lsd_decay_copy(std::declval<T>().begin()))> {
+  using category = return_category<2, decltype(lsd_decay_copy(std::declval<T>().begin()))>;
 };
 
 template<typename T, typename = void>
@@ -48,9 +48,9 @@ struct begin_global_check : std::false_type {
   using category = return_category<0>;
 };
 template<typename T>
-struct begin_global_check<T, void_t<decltype(vccc_decay_copy(begin(std::declval<T>())))>>
-    : input_or_output_iterator<decltype(vccc_decay_copy(begin(std::declval<T>())))> {
-  using category = return_category<3, decltype(vccc_decay_copy(begin(std::declval<T>())))>;
+struct begin_global_check<T, void_t<decltype(lsd_decay_copy(begin(std::declval<T>())))>>
+    : input_or_output_iterator<decltype(lsd_decay_copy(begin(std::declval<T>())))> {
+  using category = return_category<3, decltype(lsd_decay_copy(begin(std::declval<T>())))>;
 };
 
 template<typename T, bool = begin_member_check<T>::value /* false */>
@@ -82,12 +82,12 @@ constexpr R ranges_begin(T&& t, return_category<1, R>) {
 
 template<typename T, typename R>
 constexpr R ranges_begin(T&& t, return_category<2, R>) {
-  return vccc_decay_copy(t.begin());
+  return lsd_decay_copy(t.begin());
 }
 
 template<typename T, typename R>
 constexpr R ranges_begin(T&& t, return_category<3, R>) {
-  return vccc_decay_copy(begin(t));
+  return lsd_decay_copy(begin(t));
 }
 
 struct begin_niebloid {
@@ -100,11 +100,12 @@ struct begin_niebloid {
 
 } // namespace detail
 
-inline namespace niebloid {
+namespace niebloid {
 
 LSD_INLINE_OR_STATIC constexpr detail::begin_niebloid begin{};
 
-} // inline namespace niebloid
+} // namespace niebloid
+using namespace niebloid;
 
 } // namespace ranges
 } // namespace lsd

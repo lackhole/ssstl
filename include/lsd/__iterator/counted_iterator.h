@@ -20,11 +20,13 @@
 #include "lsd/__iterator/default_sentinel_t.h"
 #include "lsd/__iterator/forward_iterator.h"
 #include "lsd/__iterator/indirectly_readable.h"
+#include "lsd/__iterator/indirectly_swappable.h"
 #include "lsd/__iterator/input_iterator.h"
 #include "lsd/__iterator/input_or_output_iterator.h"
 #include "lsd/__iterator/iter_difference_t.h"
 #include "lsd/__iterator/iter_move.h"
 #include "lsd/__iterator/iter_rvalue_reference_t.h"
+#include "lsd/__iterator/iter_swap.h"
 #include "lsd/__iterator/iter_value_t.h"
 #include "lsd/__iterator/random_access_iterator.h"
 #include "lsd/__memory/to_address.h"
@@ -213,7 +215,13 @@ class counted_iterator
   friend constexpr bool operator==(const counted_iterator& x, default_sentinel_t) {
     return x.count() == 0;
   }
+  friend constexpr bool operator==(default_sentinel_t, const counted_iterator& x) {
+    return x.count() == 0;
+  }
   friend constexpr bool operator!=(const counted_iterator& x, default_sentinel_t) {
+    return x.count() != 0;
+  }
+  friend constexpr bool operator!=(default_sentinel_t, const counted_iterator& x) {
     return x.count() != 0;
   }
 
@@ -246,7 +254,12 @@ class counted_iterator
     return ranges::iter_move(i.base());
   }
 
-  // TODO: implement iter_swap
+  template<typename I2, std::enable_if_t<indirectly_swappable<I2, I>::value, int> = 0>
+  friend constexpr void iter_swap(const counted_iterator& x, const counted_iterator<I2>& y)
+      noexcept(noexcept(ranges::iter_swap(x.base(), y.base())))
+  {
+    ranges::iter_swap(x.base(), y.base());
+  }
 
  private:
   iterator_type current_;

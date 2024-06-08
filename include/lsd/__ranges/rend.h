@@ -32,13 +32,12 @@ using lsd::detail::tag_3;
 
 struct rend_niebloid {
  private:
-
   template<typename T, bool = is_invocable<rbegin_niebloid, T&&>::value, typename = void>
   struct rend_member_check : std::false_type {};
   template<typename T>
   struct rend_member_check<T,
-        true, void_t<decltype(vccc_decay_copy( std::declval<T>().rend() ))>>
-      : sentinel_for<decltype(vccc_decay_copy( std::declval<T>().rend() )),
+        true, void_t<decltype(lsd_decay_copy( std::declval<T>().rend() ))>>
+      : sentinel_for<decltype(lsd_decay_copy( std::declval<T>().rend() )),
                      decltype( ranges::rbegin(std::declval<T>()) )> {};
 
   template<typename T, bool = conjunction<
@@ -47,8 +46,8 @@ struct rend_niebloid {
   struct rend_global_check : std::false_type {};
   template<typename T>
   struct rend_global_check<T,
-        true, void_t<decltype(vccc_decay_copy( rend(std::declval<T>()) ))>>
-      : sentinel_for<decltype(vccc_decay_copy( rend(std::declval<T>()) )),
+        true, void_t<decltype(lsd_decay_copy( rend(std::declval<T>()) ))>>
+      : sentinel_for<decltype(lsd_decay_copy( rend(std::declval<T>()) )),
                      decltype( ranges::rbegin(std::declval<T>()) )> {};
 
   template<typename T, bool = common_range<T>::value>
@@ -61,12 +60,12 @@ struct rend_niebloid {
 
   template<typename T>
   constexpr auto run(T&& t, tag_1) const {
-    return vccc_decay_copy(t.rend());
+    return lsd_decay_copy(t.rend());
   }
 
   template<typename T>
   constexpr auto run(T&& t, tag_2) const {
-    return vccc_decay_copy(rend(t));
+    return lsd_decay_copy(rend(t));
   }
 
   template<typename T>
@@ -90,11 +89,12 @@ struct rend_niebloid {
 
 } // namespace detail
 
-inline namespace niebloid {
+namespace niebloid {
 
 LSD_INLINE_OR_STATIC constexpr detail::rend_niebloid rend{};
 
-} // inline namespace niebloid
+} // namespace niebloid
+using namespace niebloid;
 
 } // namespace ranges
 } // namespace lsd

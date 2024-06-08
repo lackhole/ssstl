@@ -324,7 +324,12 @@ class iota_view : public view_interface<iota_view<W, Bound>> {
       return *x == y.bound_;
     }
     friend constexpr bool operator!=(const iterator& x, const sentinel& y) {
-      using namespace lsd::rel_ops;
+      return !(x == y);
+    }
+    friend constexpr bool operator==(const sentinel& y, const iterator& x) {
+      return x == y;
+    }
+    friend constexpr bool operator!=(const sentinel& y, const iterator& x) {
       return !(x == y);
     }
 

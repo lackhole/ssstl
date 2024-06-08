@@ -36,8 +36,8 @@ struct data_member_check : std::false_type {
   using category = return_category<0>;
 };
 template<typename T>
-struct data_member_check<T, void_t<decltype( vccc_decay_copy(std::declval<T>().data()) )>>
-    : data_member_check_2<decltype( vccc_decay_copy(std::declval<T>().data()) )> {};
+struct data_member_check<T, void_t<decltype( lsd_decay_copy(std::declval<T>().data()) )>>
+    : data_member_check_2<decltype( lsd_decay_copy(std::declval<T>().data()) )> {};
 
 
 template<typename T, typename = void>
@@ -73,7 +73,7 @@ struct data_niebloid {
  private:
   template<typename T, typename R>
   constexpr R operator()(T&& t, return_category<1, R>) const {
-    return vccc_decay_copy(t.data());
+    return lsd_decay_copy(t.data());
   }
 
   template<typename T, typename R>
@@ -84,11 +84,12 @@ struct data_niebloid {
 
 } // namespace detail
 
-inline namespace niebloid {
+namespace niebloid {
 
 LSD_INLINE_OR_STATIC constexpr detail::data_niebloid data{};
 
-} // inline namespace niebloid
+} // namespace niebloid
+using namespace niebloid;
 
 } // namespace ranges
 } // namespace lsd

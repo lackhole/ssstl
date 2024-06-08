@@ -56,7 +56,6 @@ struct swap_niebloid {
       swappable_array<T(&)[N], U(&)[N]>
   >::value, int> = 0>
   constexpr void operator()(T(&t)[N], U(&u)[N]) const noexcept(noexcept((*this)(*t, *u))) {
-    // TODO: Use swap_ranges
     for (std::size_t i = 0; i < N; ++i) {
       (*this)(t[i], u[i]);
     }
@@ -78,12 +77,12 @@ struct swap_niebloid {
 
 } // namespace detail_ranges_swap
 
-// Niebloids
-inline namespace niebloid {
+namespace niebloid {
 
 LSD_INLINE_OR_STATIC constexpr detail_ranges_swap::swap_niebloid swap{};
 
 } // namespace niebloid
+using namespace niebloid;
 
 namespace detail_ranges_swap {
 
@@ -91,7 +90,7 @@ template<typename T, typename U, std::size_t N>
 struct swappable_array<T(&)[N], U(&)[N], void_t<decltype(ranges::swap(*std::declval<T(&)[N]>(), *std::declval<U(&)[N]>()))>>
     : std::true_type {};
 
-} // namespace detail
+} // namespace detail_ranges_swap
 
 } // namespace ranges
 } // namespace lsd

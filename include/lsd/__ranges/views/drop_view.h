@@ -12,7 +12,7 @@
 #include "lsd/__concepts/copy_constructible.h"
 #include "lsd/__iterator/next.h"
 #include "lsd/optional.h"
-#include "lsd/__ranges/detail/simple_view.h"
+#include "lsd/__ranges/simple_view.h"
 #include "lsd/__ranges/begin.h"
 #include "lsd/__ranges/enable_borrowed_range.h"
 #include "lsd/__ranges/iterator_t.h"
@@ -82,7 +82,7 @@ class drop_view
   }
 
   template<typename V2 = V, std::enable_if_t<conjunction<
-      detail::simple_view<V2>,
+      simple_view<V2>,
       sized_range<const V2>,
       random_access_range<const V2>
   >::value == false, int> = 0>
@@ -98,7 +98,7 @@ class drop_view
     return begin_base::begin(base_, count_);
   }
 
-  template<typename V2 = V, std::enable_if_t<detail::simple_view<V2>::value == false, int> = 0>
+  template<typename V2 = V, std::enable_if_t<simple_view<V2>::value == false, int> = 0>
   constexpr auto end() {
     return ranges::end(base_);
   }

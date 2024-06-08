@@ -90,7 +90,7 @@ struct fold_left_niebloid {
           accum = lsd::invoke(f, std::move(accum), *first);
     }
 
-    return std::move(accum);
+    return accum;
   }
 
   template<typename R, typename T, typename F, std::enable_if_t<check_range<R, T, F>::value, int> = 0>

@@ -31,24 +31,6 @@ namespace ranges {
 namespace views {
 namespace detail {
 
-template<typename D>
-struct drop_adaptor_closure : range_adaptor_closure<drop_adaptor_closure<D>> {
-  template<typename U, std::enable_if_t<conjunction<
-    different_from<U, drop_adaptor_closure>,
-    std::is_constructible<D, U&&>
-  >::value, int> = 0>
-  constexpr explicit drop_adaptor_closure(U&& count) : count_(std::forward<U>(count)) {}
-
-  template<typename R, std::enable_if_t<range<R>::value, int> = 0>
-  constexpr drop_view<all_t<R>>
-  operator()(R&& r) const {
-    return drop_view<all_t<R>>(std::forward<R>(r), count_);
-  }
-
- private:
-  D count_;
-};
-
 using lsd::detail::return_category;
 
 struct drop_niebloid {
@@ -56,7 +38,7 @@ struct drop_niebloid {
   // empty_view - 1
   template<typename R, typename T, typename D, bool = is_specialization<T, empty_view>::value /* true */>
   struct return_category_empty_view : std::true_type {
-    using category = return_category<1, decltype(vccc_decay_copy(std::declval<R>()))>;
+    using category = return_category<1, decltype(lsd_decay_copy(std::declval<R>()))>;
   };
   template<typename R, typename T, typename D>
   struct return_category_empty_view<R, T, D, false> : std::false_type {
@@ -144,7 +126,7 @@ struct drop_niebloid {
   }
   template<typename R, typename D>
   constexpr auto operator()(R&& e, D, return_category<4>, std::false_type /* sized_range */) const {
-    return vccc_decay_copy(e);
+    return lsd_decay_copy(e);
   }
   template<typename R, typename D>
   constexpr auto operator()(R&& e, D f, return_category<4>) const {
@@ -183,9 +165,8 @@ struct drop_niebloid {
   }
 
   template<typename DifferenceType>
-  constexpr drop_adaptor_closure<std::remove_reference_t<DifferenceType>>
-  operator()(DifferenceType&& count) const {
-    return drop_adaptor_closure<std::remove_reference_t<DifferenceType>>(std::forward<DifferenceType>(count));
+  constexpr auto operator()(DifferenceType&& count) const {
+    return range_adaptor<drop_niebloid, std::remove_reference_t<DifferenceType>>(std::forward<DifferenceType>(count));
   }
 };
 

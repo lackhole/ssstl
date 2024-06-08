@@ -19,7 +19,7 @@ template<typename I1, typename I2, typename = void>
 struct indirectly_swappable_test_iter_swap : std::false_type {};
 template<typename I1, typename I2>
 struct indirectly_swappable_test_iter_swap<
-    I1, I2, void_t<decltype(ranges::iter_swap(std::declval<const I1&>(), std::declval<const I2&>()))>>  : std::false_type {};
+    I1, I2, void_t<decltype(ranges::iter_swap(std::declval<const I1&>(), std::declval<const I2&>()))>> : std::true_type {};
 
 template<
     typename I1,

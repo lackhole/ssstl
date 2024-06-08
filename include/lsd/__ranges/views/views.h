@@ -42,8 +42,14 @@
 #include "lsd/__ranges/views/split_view.h"
 #include "lsd/__ranges/views/take.h"
 #include "lsd/__ranges/views/take_view.h"
+#include "lsd/__ranges/views/take_while.h"
+#include "lsd/__ranges/views/take_while_view.h"
 #include "lsd/__ranges/views/transform.h"
 #include "lsd/__ranges/views/transform_view.h"
 #include "lsd/__ranges/views/values_view.h"
+#include "lsd/__ranges/views/zip_view.h"
+#include "lsd/__ranges/views/zip.h"
+#include "lsd/__ranges/views/zip_transform_view.h"
+#include "lsd/__ranges/views/zip_transform.h"
 
 #endif // LSD_RANGES_VIEWS_VIEWS_HPP_

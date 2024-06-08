@@ -30,11 +30,11 @@
 #include "lsd/__ranges/sentinel_t.h"
 #include "lsd/__ranges/view.h"
 #include "lsd/__ranges/view_interface.h"
-#include "lsd/__ranges/views/all.h"
 #include "lsd/__iterator/iterator_traits/cxx20_iterator_traits.h"
 #include "lsd/__type_traits/bool_constant.h"
 #include "lsd/__type_traits/conjunction.h"
 #include "lsd/__type_traits/is_invocable.h"
+#include "lsd/__type_traits/maybe_const.h"
 #include "lsd/__type_traits/remove_cvref.h"
 #include "lsd/__utility/cxx20_rel_ops.h"
 
@@ -82,12 +82,17 @@ class transform_view : public view_interface<transform_view<V, F>> {
 
  public:
   template<bool Const> class iterator;
+  template<bool Const> friend class iterator;
+
   template<bool Const> class sentinel;
 
   template<bool Const>
   class iterator : public transform_view_iterator_category<std::conditional_t<Const, const V, V>> {
-    using Parent = std::conditional_t<Const, const transform_view, transform_view>;
-    using Base = std::conditional_t<Const, const V, V>;
+    using Parent = maybe_const<Const, transform_view>;
+    using Base = maybe_const<Const, V>;
+
+    template<bool B> friend class sentinel;
+    friend class transform_view;
    public:
     using iterator_concept =
       std::conditional_t<
@@ -221,16 +226,21 @@ class transform_view : public view_interface<transform_view<V, F>> {
       return x.current_ - y.current_;
     }
 
-    // TODO: Solve "redefinition of 'iter_move' as different kind of symbol" in Android NDK 21.1.6352462
-    // friend constexpr decltype(auto) iter_move(const iterator& i)
-    //     noexcept(noexcept(*i)) {
-    //   return std::is_lvalue_reference<decltype(*i)>::value ? std::move(*i) : *i;
-    // }
+    friend constexpr decltype(auto) iter_move(const iterator& i)
+        noexcept(noexcept(lsd::invoke(std::declval<const F&>(), *i.current_)))
+    {
+      return iter_move_ref(*i);
+    }
 
    private:
-    template<bool B>
-    friend class sentinel;
-    friend class transform_view;
+    template<typename T, std::enable_if_t<std::is_rvalue_reference<T&&>::value, int> = 0>
+    static constexpr decltype(auto) iter_move_ref(T&& ref) {
+      return std::forward<T>(ref);
+    }
+    template<typename T>
+    static constexpr decltype(auto) iter_move_ref(T& ref) {
+      return std::move(ref);
+    }
 
     iterator_t<Base> current_;
     Parent* parent_ = nullptr;
@@ -238,8 +248,8 @@ class transform_view : public view_interface<transform_view<V, F>> {
 
   template<bool Const>
   class sentinel {
-    using Parent = std::conditional_t<Const, const transform_view, transform_view>;
-    using Base = std::conditional_t<Const, const V, V>;
+    using Parent = maybe_const<Const, transform_view>;
+    using Base = maybe_const<Const, V>;
 
    public:
     sentinel() = default;
@@ -263,7 +273,15 @@ class transform_view : public view_interface<transform_view<V, F>> {
       return x.current_ == y.end_;
     }
 
+    friend constexpr bool operator==(const sentinel& y, const transform_view::iterator<Const>& x) {
+      return x == y;
+    }
+
     friend constexpr bool operator!=(const transform_view::iterator<Const>& x, const sentinel& y) {
+      return !(x == y);
+    }
+
+    friend constexpr bool operator!=(const sentinel& y, const transform_view::iterator<Const>& x) {
       return !(x == y);
     }
 

@@ -12,11 +12,12 @@
 #include "lsd/__concepts/convertible_to.h"
 #include "lsd/__concepts/move_constructible.h"
 #include "lsd/__iterator/iterator_tag.h"
+#include "lsd/__iterator/iter_move.h"
 #include "lsd/__iterator/sized_sentinel_for.h"
 #include "lsd/__ranges/begin.h"
 #include "lsd/__ranges/bidirectional_range.h"
 #include "lsd/__ranges/common_range.h"
-#include "lsd/__ranges/detail/simple_view.h"
+#include "lsd/__ranges/simple_view.h"
 #include "lsd/__ranges/distance.h"
 #include "lsd/__ranges/enable_borrowed_range.h"
 #include "lsd/__ranges/end.h"
@@ -216,16 +217,15 @@ class enumerate_view : public view_interface<enumerate_view<V>> {
       return i.pos_ - j.pos_;
     }
 
-    // TODO: Solve "redefinition of 'iter_move' as different kind of symbol" in Android NDK 21.1.6352462
-    // friend constexpr auto iter_move(const iterator& i)
-    //     noexcept(
-    //         noexcept(ranges::iter_move(i.current_)) &&
-    //         std::is_nothrow_move_constructible<
-    //             range_rvalue_reference_t<Base>>::value
-    //     )
-    // {
-    //   return std::tuple<difference_type, range_rvalue_reference_t<Base>>(i.pos_, ranges::iter_move(i.current_));
-    // }
+     friend constexpr auto iter_move(const iterator& i)
+         noexcept(
+             noexcept(ranges::iter_move(i.current_)) &&
+             std::is_nothrow_move_constructible<
+                 range_rvalue_reference_t<Base>>::value
+         )
+     {
+       return std::tuple<difference_type, range_rvalue_reference_t<Base>>(i.pos_, ranges::iter_move(i.current_));
+     }
 
    private:
     iterator_t<Base> current_;
@@ -234,7 +234,7 @@ class enumerate_view : public view_interface<enumerate_view<V>> {
 
   template<bool Const>
   class sentinel {
-    using Base = std::conditional_t<Const, const V, V>;\
+    using Base = maybe_const<Const, V>;
     friend class enumerate_view;
 
    public:
@@ -314,7 +314,7 @@ class enumerate_view : public view_interface<enumerate_view<V>> {
     return std::move(base_);
   }
 
-  template<typename V2 = V, std::enable_if_t<detail::simple_view<V2>::valule == false, int> = 0>
+  template<typename V2 = V, std::enable_if_t<simple_view<V2>::valule == false, int> = 0>
   constexpr iterator<false> begin() {
     return iterator<false>(ranges::begin(base_), 0);
   }
@@ -325,7 +325,7 @@ class enumerate_view : public view_interface<enumerate_view<V>> {
     return iterator<true>(ranges::begin(base_), 0);
   }
 
-  template<typename V2 = V, std::enable_if_t<detail::simple_view<V2>::value == false, int> = 0>
+  template<typename V2 = V, std::enable_if_t<simple_view<V2>::value == false, int> = 0>
   constexpr auto end() {
     return end_nonconst(conjunction<common_range<V2>, sized_range<V2>>{});
   }

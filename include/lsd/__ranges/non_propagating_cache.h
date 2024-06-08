@@ -46,7 +46,8 @@ class non_propagating_cache : private optional<T> {
 
   non_propagating_cache() = default;
 
-  constexpr non_propagating_cache(const non_propagating_cache&) noexcept {}
+  constexpr non_propagating_cache(const non_propagating_cache&) noexcept
+      : base() {}
   constexpr non_propagating_cache(non_propagating_cache&& other) noexcept {
     other.reset();
   }

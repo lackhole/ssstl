@@ -6,6 +6,9 @@
 #define LSD_MEMORY_HPP_
 
 #include "lsd/__memory/addressof.h"
+#include "lsd/__memory/construct_at.h"
+#include "lsd/__memory/destroy.h"
+#include "lsd/__memory/destroy_at.h"
 #include "lsd/__memory/pointer_traits.h"
 #include "lsd/__memory/to_address.h"
 

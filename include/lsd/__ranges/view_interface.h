@@ -67,7 +67,7 @@ class view_interface {
                 "Constraints not satisfied");
 
 
-  using _$vccc_derived = Derived;
+  using _$lsd_derived = Derived;
 
   template<typename D = Derived, std::enable_if_t<
       sized_range<D>::value,

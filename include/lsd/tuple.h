@@ -8,6 +8,7 @@
 # include "lsd/__tuple/apply.h"
 # include "lsd/__tuple/make_from_tuple.h"
 # include "lsd/__tuple/tuple_fold.h"
+# include "lsd/__tuple/tuple_for_each.h"
 # include "lsd/__tuple/tuple_like.h"
 # include "lsd/__tuple/tuple_transform.h"
 

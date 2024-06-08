@@ -37,6 +37,8 @@ struct has_operator_less_2<
 
 } // namespace detail
 
+#if __cplusplus < 202002L
+
 // synthesized from `U == T`
 template<typename T, typename U, std::enable_if_t<conjunction<
     negation<std::is_same<T, U>>,
@@ -45,6 +47,8 @@ template<typename T, typename U, std::enable_if_t<conjunction<
 constexpr bool operator==(const T& a, const U& b) noexcept(noexcept(b == a)) {
   return b == a;
 }
+
+#endif // __cplusplus < 202002L
 
 namespace detail {
 

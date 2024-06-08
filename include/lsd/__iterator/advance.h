@@ -147,11 +147,12 @@ struct advance_niebloid {
 };
 } // namespace detail
 
-inline namespace niebloid {
+namespace niebloid {
 
 LSD_INLINE_OR_STATIC constexpr detail::advance_niebloid advance{};
 
-} // inline namespace niebloid
+} // namespace niebloid
+using namespace niebloid;
 
 namespace detail {
 

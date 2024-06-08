@@ -73,19 +73,19 @@ class filter_view_cache<V, false> {
   }
 };
 
-template<
-    typename V,
-    typename C = typename cxx20_iterator_traits<iterator_t<V>>::iterator_category,
-    bool = forward_range<V>::value /* false */
->
+template<typename V, bool = forward_range<V>::value /* false */>
 struct filter_view_iterator_category {
 #if __cplusplus < 202002L
   using iterator_category = iterator_ignore;
 #endif
 };
 
-template<typename V, typename C>
-struct filter_view_iterator_category<V, C, true> {
+template<typename V>
+struct filter_view_iterator_category<V, true> {
+ private:
+  using C = typename cxx20_iterator_traits<iterator_t<V>>::iterator_category;
+
+ public:
   using iterator_category =
      std::conditional_t<
          derived_from<C, bidirectional_iterator_tag>::value, bidirectional_iterator_tag,
@@ -108,9 +108,9 @@ struct has_arrow<I, true>
 
 template<typename V, typename Pred>
 class filter_view : public view_interface<filter_view<V, Pred>>, detail::filter_view_cache<V> {
-    V base_;
-    movable_box<Pred> pred_;
-    using cache_base = detail::filter_view_cache<V>;
+  V base_;
+  movable_box<Pred> pred_;
+  using cache_base = detail::filter_view_cache<V>;
 
  public:
   static_assert(input_range<V>::value, "Constraints not satisfied");
@@ -202,22 +202,18 @@ class filter_view : public view_interface<filter_view<V, Pred>>, detail::filter_
       return !(x == y);
     }
 
-    // TODO: Solve "redefinition of 'iter_move' as different kind of symbol" in Android NDK 21.1.6352462
-    // friend constexpr range_rvalue_reference_t<V>
-    // iter_move(const iterator& i) noexcept(noexcept( ranges::iter_move(i.current_) )) {
-    //   return ranges::iter_move(i.current_);
-    // }
+    friend constexpr range_rvalue_reference_t<V>
+    iter_move(const iterator& i) noexcept(noexcept( ranges::iter_move(i.current_) )) {
+      return ranges::iter_move(i.current_);
+    }
 
-    // TODO: Solve "redefinition of 'iter_swap' as different kind of symbol"
     // TODO: Solve "const_cast from rvalue to reference type" in AppleClang 14.0.3.14030022
-#if __cplusplus >= 202002L
-    // friend constexpr void iter_swap(const iterator& x, const iterator& y)
-    //     noexcept(noexcept(ranges::iter_swap(x.current_, y.current_)))
-    //     requires(indirectly_swappable<iterator_t<V>>::value)
-    // {
-    //   ranges::iter_swap(x.current_, y.current_);
-    // }
-#endif
+    template<typename V2 = V, std::enable_if_t<indirectly_swappable<iterator_t<V2>>::value, int> = 0>
+    friend constexpr void iter_swap(const iterator& x, const iterator& y)
+        noexcept(noexcept(ranges::iter_swap(x.current_, y.current_)))
+    {
+      ranges::iter_swap(x.current_, y.current_);
+    }
 
    private:
     iterator_t<V> current_;
@@ -261,7 +257,7 @@ class filter_view : public view_interface<filter_view<V, Pred>>, detail::filter_
   constexpr explicit filter_view(V base, Pred pred)
       : base_(std::move(base)), pred_(std::move(pred)) {}
 
-  template<typename V2 = V, std::enable_if_t<copy_constructible<V>::value, int> = 0>
+  template<typename V2 = V, std::enable_if_t<copy_constructible<V2>::value, int> = 0>
   constexpr V base() const & {
     return base_;
   }

@@ -13,7 +13,7 @@
 #include "lsd/__core/inline_or_static.h"
 #include "lsd/__iterator/next.h"
 #include "lsd/__ranges/common_range.h"
-#include "lsd/__ranges/detail/simple_view.h"
+#include "lsd/__ranges/simple_view.h"
 #include "lsd/__ranges/distance.h"
 #include "lsd/__ranges/end.h"
 #include "lsd/__ranges/range_difference_t.h"
@@ -385,7 +385,7 @@ struct concat_with_view : view_interface<concat_with_view<Pattern, Rngs...>> {
       : bases_{std::move(rngs)...} {}
 
   constexpr auto begin() {
-    using Const = conjunction<detail::simple_view<Rngs>...>;
+    using Const = conjunction<simple_view<Rngs>...>;
     return iterator<Const::value>{this, in_place_index<0>, ranges::begin(std::get<0>(bases_))};
   }
 
@@ -402,7 +402,7 @@ struct concat_with_view : view_interface<concat_with_view<Pattern, Rngs...>> {
       common_range<Rngs>...
   >::value, int> = 0>
   constexpr auto end() {
-    using Const = conjunction<detail::simple_view<Rngs>...>;
+    using Const = conjunction<simple_view<Rngs>...>;
     return iterator<Const::value>{this, in_place_index<cranges - 1>, ranges::end(std::get<cranges - 1>(bases_))};
   }
 
@@ -411,7 +411,7 @@ struct concat_with_view : view_interface<concat_with_view<Pattern, Rngs...>> {
       negation<common_range<Rngs>>...
   >::value, int> = 0>
   constexpr auto end() {
-    using Const = conjunction<detail::simple_view<Rngs>...>;
+    using Const = conjunction<simple_view<Rngs>...>;
     return sentinel<Const::value>{*this};
   }
 

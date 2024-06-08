@@ -45,12 +45,22 @@ class split_adapter_closure : public range_adaptor_closure<split_adapter_closure
       : pattern_(std::forward<T>(pattern)) {}
 
   template<typename R, std::enable_if_t<range<R>::value, int> = 0>
+  constexpr auto operator()(R&& r) & {
+    return split_view<all_t<R>, pattern_type<R>>(std::forward<R>(r), *pattern_);
+  }
+
+  template<typename R, std::enable_if_t<range<R>::value, int> = 0>
   constexpr auto operator()(R&& r) const& {
     return split_view<all_t<R>, pattern_type<R>>(std::forward<R>(r), *pattern_);
   }
 
   template<typename R, std::enable_if_t<range<R>::value, int> = 0>
   constexpr auto operator()(R&& r) && {
+    return split_view<all_t<R>, pattern_type<R>>(std::forward<R>(r), std::move(*pattern_));
+  }
+
+  template<typename R, std::enable_if_t<range<R>::value, int> = 0>
+  constexpr auto operator()(R&& r) const && {
     return split_view<all_t<R>, pattern_type<R>>(std::forward<R>(r), std::move(*pattern_));
   }
 };

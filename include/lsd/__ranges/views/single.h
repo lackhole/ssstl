@@ -78,11 +78,13 @@ struct single_niebloid {
 
 } // namespace detail
 
-inline namespace niebloid {
+namespace niebloid {
 
 LSD_INLINE_OR_STATIC constexpr detail::single_niebloid single{};
 
-} // inline namespace niebloid
+} // namespace niebloid
+using namespace niebloid;
+
 } // namespace lsd
 } // namespace ranges
 } // namespace views

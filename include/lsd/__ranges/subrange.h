@@ -13,6 +13,7 @@
 #include "lsd/__core/nodiscard.h"
 #include "lsd/__concepts/convertible_to.h"
 #include "lsd/__concepts/copyable.h"
+#include "lsd/__concepts/different_from.h"
 #include "lsd/__concepts/same_as.h"
 #include "lsd/__iterator/advance.h"
 #include "lsd/__iterator/bidirectional_iterator.h"
@@ -58,9 +59,6 @@ struct convertible_to_non_slicing
               std::is_convertible<std::remove_pointer_t<From>(*)[], std::remove_pointer_t<To>(*)[]>
           >
       > {};
-
-template<typename T, typename U>
-struct different_from : negation<same_as<std::decay_t<T>, std::decay_t<U>>> {};
 
 template<typename T, bool = is_integer_like<T>::value /* false */>
 struct make_unsigned_like {};
@@ -167,10 +165,10 @@ class subrange
       bool_constant< K == subrange_kind::sized >
   >::value, int> = 0>
   constexpr subrange(I2 i, S s, detail::make_unsigned_like_t<iter_difference_t<I>> n)
-      : iterator_(std::move(i)), sentinel_(std::move(s)), size_base(in_place, n) {}
+      : size_base(in_place, n), iterator_(std::move(i)), sentinel_(std::move(s)) {}
 
   template<typename R, std::enable_if_t<conjunction<
-      detail::different_from<subrange, R>,
+      different_from<subrange, R>,
       detail::subrange_ctor_range<I, S, R>,
       disjunction<
           negation<store_size>,

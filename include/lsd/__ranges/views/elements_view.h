@@ -19,7 +19,7 @@
 #include "lsd/__ranges/begin.h"
 #include "lsd/__ranges/bidirectional_range.h"
 #include "lsd/__ranges/common_range.h"
-#include "lsd/__ranges/detail/simple_view.h"
+#include "lsd/__ranges/simple_view.h"
 #include "lsd/__ranges/enable_borrowed_range.h"
 #include "lsd/__ranges/end.h"
 #include "lsd/__ranges/forward_range.h"
@@ -61,20 +61,20 @@ template<typename T, std::size_t N>
 struct returnable_element<T, N, false, true>
     : move_constructible<std::tuple_element_t<N, T>> {};
 
-template<
-    typename Base,
-    std::size_t N,
-    typename C = typename cxx20_iterator_traits<iterator_t<Base>>::iterator_category,
-    bool = forward_range<Base>::value /* false */
->
+// Not defined, if Base does not model forward_range
+template<typename Base, std::size_t N, bool = forward_range<Base>::value /* false */>
 struct elements_view_iterator_category {
 #if __cplusplus < 202002L
   using iterator_category = iterator_ignore;
 #endif
 };
 
-template<typename Base, std::size_t N, typename C>
-struct elements_view_iterator_category<Base, N, C, true> {
+template<typename Base, std::size_t N>
+struct elements_view_iterator_category<Base, N, true> {
+ private:
+  using C = typename cxx20_iterator_traits<iterator_t<Base>>::iterator_category;
+
+ public:
   using iterator_category =
       std::conditional_t<
           std::is_rvalue_reference<decltype(std::get<N>(*std::declval<iterator_t<Base>&>()))>::value, input_iterator_tag,
@@ -100,7 +100,7 @@ class elements_view : public view_interface<elements_view<V, N>> {
 
   template<bool Const>
   class iterator : public detail::elements_view_iterator_category<std::conditional_t<Const, const V, V>, N> {
-    using Base = std::conditional_t<Const, const V, V>;
+    using Base = maybe_const<Const, V>;
     template<bool> friend class sentinel;
 
     template<typename Ref, bool = std::is_reference<Ref>::value /* true */>
@@ -267,7 +267,7 @@ class elements_view : public view_interface<elements_view<V, N>> {
 
   template<bool Const>
   class sentinel {
-    using Base = std::conditional_t<Const, const V, V>;
+    using Base = maybe_const<Const, V>;
 
    public:
     sentinel() = default;
@@ -362,7 +362,7 @@ class elements_view : public view_interface<elements_view<V, N>> {
     return std::move(base_);
   }
 
-  template<typename V2 = V, std::enable_if_t<detail::simple_view<V2>::value == false, int> = 0>
+  template<typename V2 = V, std::enable_if_t<simple_view<V2>::value == false, int> = 0>
   constexpr auto begin() {
     return iterator<false>{ranges::begin(base_)};
   }
@@ -373,7 +373,7 @@ class elements_view : public view_interface<elements_view<V, N>> {
   }
 
   template<typename V2 = V, std::enable_if_t<conjunction<
-      negation< detail::simple_view<V2> >,
+      negation< simple_view<V2> >,
       negation< common_range<V2> >
   >::value, int> = 0>
   constexpr auto end() {
@@ -381,7 +381,7 @@ class elements_view : public view_interface<elements_view<V, N>> {
   }
 
   template<typename V2 = V, std::enable_if_t<conjunction<
-      negation< detail::simple_view<V2> >,
+      negation< simple_view<V2> >,
       common_range<V2>
   >::value, int> = 0>
   constexpr auto end() {

@@ -42,9 +42,9 @@ struct end_niebloid {
     using category = return_category<0>;
   };
   template<typename T>
-  struct end_member_check<T, void_t<decltype(vccc_decay_copy(std::declval<T>().end()))>>
-      : sentinel_for<decltype(vccc_decay_copy(std::declval<T>().end())), iterator_t<T>> {
-    using category = return_category<2, decltype(vccc_decay_copy(std::declval<T>().end()))>;
+  struct end_member_check<T, void_t<decltype(lsd_decay_copy(std::declval<T>().end()))>>
+      : sentinel_for<decltype(lsd_decay_copy(std::declval<T>().end())), iterator_t<T>> {
+    using category = return_category<2, decltype(lsd_decay_copy(std::declval<T>().end()))>;
   };
 
   template<typename T, typename = void>
@@ -52,9 +52,9 @@ struct end_niebloid {
     using category = return_category<0>;
   };
   template<typename T>
-  struct end_global_check<T, void_t<decltype(vccc_decay_copy(end(std::declval<T>())))>>
-      : sentinel_for<decltype(vccc_decay_copy(end(std::declval<T>()))), iterator_t<T>> {
-    using category = return_category<3, decltype(vccc_decay_copy(end(std::declval<T>())))>;
+  struct end_global_check<T, void_t<decltype(lsd_decay_copy(end(std::declval<T>())))>>
+      : sentinel_for<decltype(lsd_decay_copy(end(std::declval<T>()))), iterator_t<T>> {
+    using category = return_category<3, decltype(lsd_decay_copy(end(std::declval<T>())))>;
   };
 
   template<typename T, bool = end_member_check<T>::value /* false */>
@@ -86,12 +86,12 @@ struct end_niebloid {
 
   template<typename T, typename R>
   constexpr R operator()(T&& t, return_category<2, R>) const {
-    return vccc_decay_copy(t.end());
+    return lsd_decay_copy(t.end());
   }
 
   template<typename T, typename R>
   constexpr R operator()(T&& t, return_category<3, R>) const {
-    return vccc_decay_copy(end(t));
+    return lsd_decay_copy(end(t));
   }
 
  public:
@@ -104,11 +104,12 @@ struct end_niebloid {
 
 } // namespace detail
 
-inline namespace niebloid {
+namespace niebloid {
 
 LSD_INLINE_OR_STATIC constexpr detail::end_niebloid end{};
 
-} // inline namespace niebloid
+} // namespace niebloid
+using namespace niebloid;
 
 } // namespace ranges
 } // namespace lsd

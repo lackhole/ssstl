@@ -9,7 +9,6 @@
 
 #include "lsd/__type_traits/detail/test_ternary.h"
 #include "lsd/__type_traits/conjunction.h"
-#include "lsd/__type_traits/copy_cvref.h"
 #include "lsd/__type_traits/has_typename_type.h"
 #include "lsd/__type_traits/type_identity.h"
 

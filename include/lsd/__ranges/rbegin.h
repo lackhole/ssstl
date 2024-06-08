@@ -37,14 +37,14 @@ struct rbegin_niebloid {
   template<typename T, typename = void>
   struct rbegin_member_check : std::false_type {};
   template<typename T>
-  struct rbegin_member_check<T, void_t<decltype(vccc_decay_copy( std::declval<T>().rbegin() )) >>
-            : input_or_output_iterator<decltype(vccc_decay_copy( std::declval<T>().rbegin() )) > {};
+  struct rbegin_member_check<T, void_t<decltype(lsd_decay_copy( std::declval<T>().rbegin() )) >>
+            : input_or_output_iterator<decltype(lsd_decay_copy( std::declval<T>().rbegin() )) > {};
 
   template<typename T, bool = is_class_or_enum<remove_cvref_t<T>>::value, typename = void>
   struct rbegin_global_check : std::false_type {};
   template<typename T>
-  struct rbegin_global_check<T, true, void_t<decltype(vccc_decay_copy( rbegin(std::declval<T>()) ))>>
-            : input_or_output_iterator<decltype(vccc_decay_copy( rbegin(std::declval<T>()) ))> {};
+  struct rbegin_global_check<T, true, void_t<decltype(lsd_decay_copy( rbegin(std::declval<T>()) ))>>
+            : input_or_output_iterator<decltype(lsd_decay_copy( rbegin(std::declval<T>()) ))> {};
 
   template<typename T, bool = common_range<T>::value>
   struct common_bidi_check : std::false_type {};
@@ -56,12 +56,12 @@ struct rbegin_niebloid {
 
   template<typename T>
   constexpr auto run(T&& t, tag_1) const {
-    return vccc_decay_copy(t.rbegin());
+    return lsd_decay_copy(t.rbegin());
   }
 
   template<typename T>
   constexpr auto run(T&& t, tag_2) const {
-    return vccc_decay_copy(rbegin(t));
+    return lsd_decay_copy(rbegin(t));
   }
 
   template<typename T>
@@ -85,11 +85,12 @@ struct rbegin_niebloid {
 
 } // namespace detail
 
-inline namespace niebloid {
+namespace niebloid {
 
 LSD_INLINE_OR_STATIC constexpr detail::rbegin_niebloid rbegin{};
 
-} // inline namespace niebloid
+} // namespace niebloid
+using namespace niebloid;
 
 } // namespace ranges
 } // namespace lsd

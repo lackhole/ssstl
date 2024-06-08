@@ -10,11 +10,10 @@
 
 #include "lsd/__core/inline_or_static.h"
 #include "lsd/__concepts/swappable_with.h"
+#include "lsd/__iterator/detail/iter_exchange_move.h"
 #include "lsd/__iterator/indirectly_movable_storable.h"
 #include "lsd/__iterator/indirectly_readable.h"
-#include "lsd/__iterator/iter_move.h"
 #include "lsd/__iterator/iter_reference_t.h"
-#include "lsd/__iterator/iter_value_t.h"
 #include "lsd/__type_traits/conjunction.h"
 #include "lsd/__type_traits/disjunction.h"
 #include "lsd/__type_traits/negation.h"
@@ -37,22 +36,19 @@ constexpr auto test_iter_swap(...) -> std::false_type;
 template<typename T, typename U, bool = disjunction<
     is_class_or_enum<remove_cvref_t<T>>,
     is_class_or_enum<remove_cvref_t<U>>
-  >::value>
-struct unqual_iter_swap : decltype(test_iter_swap<T, U>(0)) {};
+  >::value /* false */>
+struct unqualified_iter_swappable : std::false_type {};
 
 template<typename T, typename U>
-struct unqual_iter_swap<T, U, true> : decltype(test_iter_swap<T, U>(0)) {};
+struct unqualified_iter_swappable<T, U, true> : decltype(test_iter_swap<T, U>(0)) {};
 
+template<typename I1, typename I2, bool = conjunction<indirectly_readable<I1>, indirectly_readable<I2>>::value /* false */>
+struct iter_deref_swappable : std::false_type{};
 template<typename I1, typename I2>
-struct read_iter_swap_2 : swappable_with<iter_reference_t<I1>, iter_reference_t<I2>> {};
-
-template<typename I1, typename I2, bool = conjunction<indirectly_readable<I1>, indirectly_readable<I2>>::value /* true */>
-struct read_iter_swap : read_iter_swap_2<I1, I2> {};
-template<typename I1, typename I2>
-struct read_iter_swap<I1, I2, false> : std::false_type {};
+struct iter_deref_swappable<I1, I2, true> : swappable_with<iter_reference_t<I1>, iter_reference_t<I2>> {};
 
 struct iter_swap_niebloid {
-  template<typename I1, typename I2, std::enable_if_t<unqual_iter_swap<I1, I2>::value, int> = 0>
+  template<typename I1, typename I2, std::enable_if_t<unqualified_iter_swappable<I1, I2>::value, int> = 0>
   constexpr void operator()(I1&& i1, I2&& i2) const
       noexcept(noexcept(iter_swap(std::forward<I1>(i1), std::forward<I2>(i2))))
   {
@@ -60,8 +56,8 @@ struct iter_swap_niebloid {
   }
 
   template<typename I1, typename I2, std::enable_if_t<conjunction<
-      negation< unqual_iter_swap<I1, I2> >,
-      read_iter_swap<I1, I2>
+      negation< unqualified_iter_swappable<I1, I2> >,
+      iter_deref_swappable<I1, I2>
   >::value, int> = 0>
   constexpr void operator()(I1&& i1, I2&& i2) const
       noexcept(noexcept(ranges::swap(*i1, *i2)))
@@ -70,29 +66,26 @@ struct iter_swap_niebloid {
   }
 
   template<typename I1, typename I2, std::enable_if_t<conjunction<
-      negation< unqual_iter_swap<I1, I2> >,
-      negation< read_iter_swap<I1, I2> >,
+      negation< unqualified_iter_swappable<I1, I2> >,
+      negation< iter_deref_swappable<I1, I2> >,
       indirectly_movable_storable<I1, I2>,
       indirectly_movable_storable<I2, I1>
   >::value, int> = 0>
-  constexpr void operator()(I1&& x, I2&& y) const
-    noexcept(noexcept( iter_value_t<I1>(ranges::iter_move(x)) ) &&
-             noexcept( *x = ranges::iter_move(y) ) &&
-             noexcept( *std::forward<I2>(y) = std::declval<iter_value_t<I1>>() ))
+  constexpr void operator()(I1&& i1, I2&& i2) const
+    noexcept(noexcept( *i1 = lsd::detail::iter_exchange_move(std::forward<I2>(i2), std::forward<I1>(i1)) ))
   {
-    iter_value_t<I1> old(ranges::iter_move(x));
-    *x = ranges::iter_move(y);
-    *std::forward<I2>(y) = std::move(old);
+    (void)(*i1 = lsd::detail::iter_exchange_move(std::forward<I2>(i2), std::forward<I1>(i1)));
   }
 };
 
 } // namespace detail_iter_swap
 
-inline namespace niebloid {
+namespace niebloid {
 
 LSD_INLINE_OR_STATIC constexpr detail_iter_swap::iter_swap_niebloid iter_swap{};
 
-} // inline namespace niebloid
+} // namespace niebloid
+using namespace niebloid;
 
 } // namespace ranges
 } // namespace lsd

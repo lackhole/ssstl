@@ -13,7 +13,7 @@ template<typename R> struct borrowed_range;
 template<typename R> struct sized_range;
 template<typename R> struct view;
 template<typename R> struct input_range;
-template<typename R> struct output_range;
+template<typename R, typename T> struct output_range;
 template<typename R> struct forward_range;
 template<typename R> struct bidirectional_range;
 template<typename R> struct random_access_range;
