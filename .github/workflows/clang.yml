@@ -8,7 +8,7 @@ jobs:
 
     strategy:
       matrix:
-        CXX_STD: [ 11, 14, 17, 20 ]
+        CXX_STD: [ 14, 17, 20 ]
         BUILD_TYPE: [ Debug, Release ]
       fail-fast: false
 
