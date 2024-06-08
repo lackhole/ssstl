@@ -23,7 +23,7 @@ namespace detail {
 
 struct zip_niebloid {
   constexpr auto operator()() const {
-    return vccc_decay_copy(views::empty<std::tuple<>>);
+    return lsd_decay_copy(views::empty<std::tuple<>>);
   }
 
   template<typename... Rs, std::enable_if_t<conjunction<
