@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 3/14/24.
 //
 
-#ifndef LSD_EXPECTED_UNEXPECTED_HPP_
-#define LSD_EXPECTED_UNEXPECTED_HPP_
+#ifndef LSD_EXPECTED_UNEXPECTED_H_
+#define LSD_EXPECTED_UNEXPECTED_H_
 
 #include <type_traits>
 #include <utility>
@@ -97,4 +97,4 @@ unexpected(E) -> unexpected<E>;
 
 } // namespace lsd
 
-#endif // LSD_EXPECTED_UNEXPECTED_HPP_
+#endif // LSD_EXPECTED_UNEXPECTED_H_

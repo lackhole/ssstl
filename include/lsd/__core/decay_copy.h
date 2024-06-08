@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/24.
 //
 
-#ifndef LSD_CORE_DECAY_COPY_HPP
-#define LSD_CORE_DECAY_COPY_HPP
+#ifndef LSD_CORE_DECAY_COPY_H_
+#define LSD_CORE_DECAY_COPY_H_
 
 #include <type_traits>
 
@@ -12,4 +12,4 @@
 #define lsd_decay_copy(x) std::decay_t<decltype(x)>(x)
 
 
-#endif // LSD_CORE_DECAY_COPY_HPP
+#endif // LSD_CORE_DECAY_COPY_H_

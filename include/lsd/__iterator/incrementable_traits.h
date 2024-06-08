@@ -2,8 +2,8 @@
 // Created by cosge on 2023-12-03.
 //
 
-#ifndef LSD_ITERATOR_INCREMENTABLE_TRAITS_HPP_
-#define LSD_ITERATOR_INCREMENTABLE_TRAITS_HPP_
+#ifndef LSD_ITERATOR_INCREMENTABLE_TRAITS_H_
+#define LSD_ITERATOR_INCREMENTABLE_TRAITS_H_
 
 #include <cstddef>
 #include <iterator>
@@ -102,4 +102,4 @@ struct incrementable_traits<const T> : incrementable_traits<T> {};
 
 } // namespace lsd
 
-#endif // LSD_ITERATOR_INCREMENTABLE_TRAITS_HPP_
+#endif // LSD_ITERATOR_INCREMENTABLE_TRAITS_H_

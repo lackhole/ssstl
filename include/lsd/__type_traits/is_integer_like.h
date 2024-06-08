@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/24.
 //
 
-#ifndef LSD_TYPE_TRAITS_IS_INTEGER_LIKE_HPP_
-#define LSD_TYPE_TRAITS_IS_INTEGER_LIKE_HPP_
+#ifndef LSD_TYPE_TRAITS_IS_INTEGER_LIKE_H_
+#define LSD_TYPE_TRAITS_IS_INTEGER_LIKE_H_
 
 #include <limits>
 #include <type_traits>
@@ -54,4 +54,4 @@ struct is_unsigned_integer_like
 
 } // namespace lsd
 
-#endif // LSD_TYPE_TRAITS_IS_INTEGER_LIKE_HPP_
+#endif // LSD_TYPE_TRAITS_IS_INTEGER_LIKE_H_

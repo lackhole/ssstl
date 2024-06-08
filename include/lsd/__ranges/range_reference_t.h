@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/30.
 //
 
-#ifndef LSD_RANGES_RANGE_REFERENCE_T_HPP
-#define LSD_RANGES_RANGE_REFERENCE_T_HPP
+#ifndef LSD_RANGES_RANGE_REFERENCE_T_H_
+#define LSD_RANGES_RANGE_REFERENCE_T_H_
 
 #include "lsd/__iterator/iter_reference_t.h"
 #include "lsd/__ranges/iterator_t.h"
@@ -36,4 +36,4 @@ using range_reference_t = typename range_reference<R>::type;
 } // namespace lsd
 } // namespace ranges
 
-#endif // LSD_RANGES_RANGE_REFERENCE_T_HPP
+#endif // LSD_RANGES_RANGE_REFERENCE_T_H_

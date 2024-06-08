@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 2024/02/04.
 //
 
-#ifndef LSD_FUNCTIONAL_GREATER_HPP
-#define LSD_FUNCTIONAL_GREATER_HPP
+#ifndef LSD_FUNCTIONAL_GREATER_H_
+#define LSD_FUNCTIONAL_GREATER_H_
 
 #include <type_traits>
 #include <utility>
@@ -28,4 +28,4 @@ struct greater {
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_FUNCTIONAL_GREATER_HPP
+#endif // LSD_FUNCTIONAL_GREATER_H_

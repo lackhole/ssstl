@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/24.
 //
 
-#ifndef LSD_CONCEPTS_COPY_CONSTRUCTIBLE_HPP_
-#define LSD_CONCEPTS_COPY_CONSTRUCTIBLE_HPP_
+#ifndef LSD_CONCEPTS_COPY_CONSTRUCTIBLE_H_
+#define LSD_CONCEPTS_COPY_CONSTRUCTIBLE_H_
 
 #include "lsd/__concepts/move_constructible.h"
 #include "lsd/__concepts/constructible_from.h"
@@ -33,4 +33,4 @@ struct copy_constructible : detail::copy_constructible_impl<T> {};
 
 } // namespace lsd
 
-#endif // LSD_CONCEPTS_COPY_CONSTRUCTIBLE_HPP_
+#endif // LSD_CONCEPTS_COPY_CONSTRUCTIBLE_H_

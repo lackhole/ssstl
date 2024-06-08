@@ -2,8 +2,8 @@
 // Created by cosge on 2023-12-02.
 //
 
-#ifndef LSD_CONCEPTS_DEREFERENCEABLE_HPP_
-#define LSD_CONCEPTS_DEREFERENCEABLE_HPP_
+#ifndef LSD_CONCEPTS_DEREFERENCEABLE_H_
+#define LSD_CONCEPTS_DEREFERENCEABLE_H_
 
 #include <type_traits>
 
@@ -41,4 +41,4 @@ struct dereferenceable : detail::dereferenceable_impl_1<T> {};
 
 } // namespace lsd
 
-#endif // LSD_CONCEPTS_DEREFERENCEABLE_HPP_
+#endif // LSD_CONCEPTS_DEREFERENCEABLE_H_

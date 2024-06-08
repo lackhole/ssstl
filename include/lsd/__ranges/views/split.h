@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2/3/24.
 //
 
-#ifndef LSD_RANGES_VIEWS_SPLIT_HPP
-#define LSD_RANGES_VIEWS_SPLIT_HPP
+#ifndef LSD_RANGES_VIEWS_SPLIT_H_
+#define LSD_RANGES_VIEWS_SPLIT_H_
 
 #include <type_traits>
 #include <utility>
@@ -85,4 +85,4 @@ LSD_INLINE_OR_STATIC constexpr detail::split_niebloid split{};
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_RANGES_VIEWS_SPLIT_HPP
+#endif // LSD_RANGES_VIEWS_SPLIT_H_

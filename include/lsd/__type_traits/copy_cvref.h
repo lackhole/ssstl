@@ -2,8 +2,8 @@
 // Created by cosge on 2023-12-03.
 //
 
-#ifndef LSD_TYPE_TRAITS_COPY_CVREF_HPP_
-#define LSD_TYPE_TRAITS_COPY_CVREF_HPP_
+#ifndef LSD_TYPE_TRAITS_COPY_CVREF_H_
+#define LSD_TYPE_TRAITS_COPY_CVREF_H_
 
 #include <type_traits>
 
@@ -71,4 +71,4 @@ using copy_cvref_t = typename copy_cvref<From, To>::type;
 
 } // namespace lsd
 
-#endif // LSD_TYPE_TRAITS_COPY_CVREF_HPP_
+#endif // LSD_TYPE_TRAITS_COPY_CVREF_H_

@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 01/08/24.
 //
 
-#ifndef LSD_ALGORITHM_RANGES_MAX_ELEMENT_HPP
-#define LSD_ALGORITHM_RANGES_MAX_ELEMENT_HPP
+#ifndef LSD_ALGORITHM_RANGES_MAX_ELEMENT_H_
+#define LSD_ALGORITHM_RANGES_MAX_ELEMENT_H_
 
 #include <functional>
 #include <type_traits>
@@ -60,4 +60,4 @@ LSD_INLINE_OR_STATIC constexpr detail::max_element_niebloid max_element{};
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_ALGORITHM_RANGES_MAX_ELEMENT_HPP
+#endif // LSD_ALGORITHM_RANGES_MAX_ELEMENT_H_

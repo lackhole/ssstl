@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 4/15/24.
 //
 
-#ifndef LSD_ITERATOR_DETAIL_ITER_EXCHANGE_MOVE_HPP_
-#define LSD_ITERATOR_DETAIL_ITER_EXCHANGE_MOVE_HPP_
+#ifndef LSD_ITERATOR_DETAIL_ITER_EXCHANGE_MOVE_H_
+#define LSD_ITERATOR_DETAIL_ITER_EXCHANGE_MOVE_H_
 
 #include <type_traits>
 
@@ -25,4 +25,4 @@ constexpr iter_value_t<std::remove_reference_t<T>> iter_exchange_move(T&& x, U&&
 } // namespace detail
 } // namespace lsd
 
-#endif // LSD_ITERATOR_DETAIL_ITER_EXCHANGE_MOVE_HPP_
+#endif // LSD_ITERATOR_DETAIL_ITER_EXCHANGE_MOVE_H_

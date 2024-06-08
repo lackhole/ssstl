@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 5/8/24.
 //
 
-#ifndef LSD_UTILITY_CMP_HPP_
-#define LSD_UTILITY_CMP_HPP_
+#ifndef LSD_UTILITY_CMP_H_
+#define LSD_UTILITY_CMP_H_
 
 #include <type_traits>
 
@@ -91,4 +91,4 @@ constexpr bool cmp_greater_equal(T t, U u) noexcept {
 
 } // namespace lsd
 
-#endif // LSD_UTILITY_CMP_HPP_
+#endif // LSD_UTILITY_CMP_H_

@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/30.
 //
 
-#ifndef LSD_RANGES_SSIZE_HPP
-#define LSD_RANGES_SSIZE_HPP
+#ifndef LSD_RANGES_SSIZE_H_
+#define LSD_RANGES_SSIZE_H_
 
 #include <type_traits>
 #include <utility>
@@ -52,4 +52,4 @@ using namespace niebloid;
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_RANGES_SSIZE_HPP
+#endif // LSD_RANGES_SSIZE_H_

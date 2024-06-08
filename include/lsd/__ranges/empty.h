@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/24.
 //
 
-#ifndef LSD_RANGES_EMPTY_HPP_
-#define LSD_RANGES_EMPTY_HPP_
+#ifndef LSD_RANGES_EMPTY_H_
+#define LSD_RANGES_EMPTY_H_
 
 #include <type_traits>
 
@@ -112,4 +112,4 @@ using namespace niebloid;
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_RANGES_EMPTY_HPP_
+#endif // LSD_RANGES_EMPTY_H_

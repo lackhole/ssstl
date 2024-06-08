@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2024/01/03.
 //
 
-#ifndef LSD_RANGES_DISTANCE_HPP
-#define LSD_RANGES_DISTANCE_HPP
+#ifndef LSD_RANGES_DISTANCE_H_
+#define LSD_RANGES_DISTANCE_H_
 
 #include <type_traits>
 
@@ -74,4 +74,4 @@ using namespace niebloid;
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_RANGES_DISTANCE_HPP
+#endif // LSD_RANGES_DISTANCE_H_

@@ -2,8 +2,8 @@
 // Created by cosge on 2023-12-03.
 //
 
-#ifndef LSD_ALGORITHM_RANGES_SWAP_RANGES_HPP
-#define LSD_ALGORITHM_RANGES_SWAP_RANGES_HPP
+#ifndef LSD_ALGORITHM_RANGES_SWAP_RANGES_H_
+#define LSD_ALGORITHM_RANGES_SWAP_RANGES_H_
 
 #include <type_traits>
 #include <utility>
@@ -53,4 +53,4 @@ LSD_INLINE_OR_STATIC constexpr detail::swap_ranges_niebloid swap_ranges{};
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_ALGORITHM_RANGES_SWAP_RANGES_HPP
+#endif // LSD_ALGORITHM_RANGES_SWAP_RANGES_H_

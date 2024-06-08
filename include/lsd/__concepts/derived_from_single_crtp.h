@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2024/01/01.
 //
 
-#ifndef LSD_TYPE_TRAITS_IS_DERIVED_FROM_SINGLE_CRTP_HPP
-#define LSD_TYPE_TRAITS_IS_DERIVED_FROM_SINGLE_CRTP_HPP
+#ifndef LSD_TYPE_TRAITS_IS_DERIVED_FROM_SINGLE_CRTP_H_
+#define LSD_TYPE_TRAITS_IS_DERIVED_FROM_SINGLE_CRTP_H_
 
 #include "lsd/__concepts/same_as.h"
 #include "lsd/__type_traits/is_invocable.h"
@@ -47,4 +47,4 @@ struct derived_from_single_crtp : detail::derived_from_single_crtp_impl<Derived,
 
 } // namespace lsd
 
-#endif // LSD_TYPE_TRAITS_IS_DERIVED_FROM_SINGLE_CRTP_HPP
+#endif // LSD_TYPE_TRAITS_IS_DERIVED_FROM_SINGLE_CRTP_H_

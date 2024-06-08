@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/24.
 //
 
-#ifndef LSD_ITERATOR_UNREACHABLE_SENTINEL_HPP_
-#define LSD_ITERATOR_UNREACHABLE_SENTINEL_HPP_
+#ifndef LSD_ITERATOR_UNREACHABLE_SENTINEL_H_
+#define LSD_ITERATOR_UNREACHABLE_SENTINEL_H_
 
 #include "lsd/__core/inline_or_static.h"
 #include "lsd/__iterator/weakly_incrementable.h"
@@ -22,4 +22,4 @@ LSD_INLINE_OR_STATIC constexpr unreachable_sentinel_t unreachable_sentinel{};
 
 } // namespace lsd
 
-#endif // LSD_ITERATOR_UNREACHABLE_SENTINEL_HPP_
+#endif // LSD_ITERATOR_UNREACHABLE_SENTINEL_H_

@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 4/15/24.
 //
 
-#ifndef LSD_ITERATOR_MOVE_ITERATOR_HPP_
-#define LSD_ITERATOR_MOVE_ITERATOR_HPP_
+#ifndef LSD_ITERATOR_MOVE_ITERATOR_H_
+#define LSD_ITERATOR_MOVE_ITERATOR_H_
 
 #include <iterator>
 #include <type_traits>
@@ -100,4 +100,4 @@ constexpr void iter_swap(const move_iterator<Iter>& x, const move_iterator<Iter2
 
 #endif
 
-#endif // LSD_ITERATOR_MOVE_ITERATOR_HPP_
+#endif // LSD_ITERATOR_MOVE_ITERATOR_H_

@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/25.
 //
 
-#ifndef LSD_ITERATOR_DETAIL_ITER_CONCEPT_HPP_
-#define LSD_ITERATOR_DETAIL_ITER_CONCEPT_HPP_
+#ifndef LSD_ITERATOR_DETAIL_ITER_CONCEPT_H_
+#define LSD_ITERATOR_DETAIL_ITER_CONCEPT_H_
 
 #include "lsd/__iterator/iterator_traits/cxx20_iterator_traits.h"
 #include "lsd/__iterator/iterator_tag.h"
@@ -53,4 +53,4 @@ using ITER_CONCEPT = typename ITER_CONCEPT_T<I>::type;
 } // namespace detail
 } // namespace lsd
 
-#endif // LSD_ITERATOR_DETAIL_ITER_CONCEPT_HPP_
+#endif // LSD_ITERATOR_DETAIL_ITER_CONCEPT_H_

@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2024/01/03.
 //
 
-#ifndef LSD_RANGES_SIMPLE_VIEW_HPP
-#define LSD_RANGES_SIMPLE_VIEW_HPP
+#ifndef LSD_RANGES_SIMPLE_VIEW_H_
+#define LSD_RANGES_SIMPLE_VIEW_H_
 
 #include <type_traits>
 
@@ -30,4 +30,4 @@ struct simple_view<R, false> : std::false_type {};
 } // namespace lsd
 } // namespace ranges
 
-#endif // LSD_RANGES_SIMPLE_VIEW_HPP
+#endif // LSD_RANGES_SIMPLE_VIEW_H_

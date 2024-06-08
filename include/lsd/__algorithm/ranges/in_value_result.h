@@ -2,8 +2,8 @@
 // Created by yonggyulee on 1/25/24.
 //
 
-#ifndef LSD_ALGORITHM_RANGES_IN_VALUE_RESULT_HPP
-#define LSD_ALGORITHM_RANGES_IN_VALUE_RESULT_HPP
+#ifndef LSD_ALGORITHM_RANGES_IN_VALUE_RESULT_H_
+#define LSD_ALGORITHM_RANGES_IN_VALUE_RESULT_H_
 
 #include <type_traits>
 #include <utility>
@@ -40,4 +40,4 @@ struct in_value_result {
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_ALGORITHM_RANGES_IN_VALUE_RESULT_HPP
+#endif // LSD_ALGORITHM_RANGES_IN_VALUE_RESULT_H_

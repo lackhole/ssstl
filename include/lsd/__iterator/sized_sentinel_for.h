@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/24.
 //
 
-#ifndef LSD_ITERATOR_SIZED_SENTINEL_FOR_HPP_
-#define LSD_ITERATOR_SIZED_SENTINEL_FOR_HPP_
+#ifndef LSD_ITERATOR_SIZED_SENTINEL_FOR_H_
+#define LSD_ITERATOR_SIZED_SENTINEL_FOR_H_
 
 #include <type_traits>
 
@@ -60,4 +60,4 @@ struct sized_sentinel_for : detail::sized_sentinel_for_impl<S, I> {};
 
 } // namespace lsd
 
-#endif // LSD_ITERATOR_SIZED_SENTINEL_FOR_HPP_
+#endif // LSD_ITERATOR_SIZED_SENTINEL_FOR_H_

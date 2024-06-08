@@ -2,8 +2,8 @@
 // Created by cosge on 2023-12-02.
 //
 
-#ifndef LSD_CONCEPTS_HPP_
-#define LSD_CONCEPTS_HPP_
+#ifndef LSD_CONCEPTS_H_
+#define LSD_CONCEPTS_H_
 
 #include "lsd/__concepts/assignable_from.h"
 #include "lsd/__concepts/boolean_testable.h"
@@ -44,4 +44,4 @@
 #include "lsd/__concepts/value_swappable.h"
 #include "lsd/__concepts/weakly_equality_comparable_with.h"
 
-#endif // LSD_CONCEPTS_HPP_
+#endif // LSD_CONCEPTS_H_

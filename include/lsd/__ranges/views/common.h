@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 2/8/24.
 //
 
-#ifndef LSD_RANGES_VIEWS_COMMON_HPP
-#define LSD_RANGES_VIEWS_COMMON_HPP
+#ifndef LSD_RANGES_VIEWS_COMMON_H_
+#define LSD_RANGES_VIEWS_COMMON_H_
 
 #include <type_traits>
 
@@ -47,4 +47,4 @@ LSD_INLINE_OR_STATIC constexpr detail::common_adaptor_object common{};
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_RANGES_VIEWS_COMMON_HPP
+#endif // LSD_RANGES_VIEWS_COMMON_H_

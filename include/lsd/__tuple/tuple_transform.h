@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 2/20/24.
 //
 
-#ifndef LSD_TUPLE_TUPLE_TRANSFORM_HPP
-#define LSD_TUPLE_TUPLE_TRANSFORM_HPP
+#ifndef LSD_TUPLE_TUPLE_TRANSFORM_H_
+#define LSD_TUPLE_TUPLE_TRANSFORM_H_
 
 #include <tuple>
 #include <utility>
@@ -45,4 +45,4 @@ constexpr auto tuple_transform(Tuple&& t, F&& f)
 
 } // namespace lsd
 
-#endif // LSD_TUPLE_TUPLE_TRANSFORM_HPP
+#endif // LSD_TUPLE_TUPLE_TRANSFORM_H_

@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/25.
 //
 
-#ifndef LSD_ITERATOR_ITERATOR_TAG_HPP_
-#define LSD_ITERATOR_ITERATOR_TAG_HPP_
+#ifndef LSD_ITERATOR_ITERATOR_TAG_H_
+#define LSD_ITERATOR_ITERATOR_TAG_H_
 
 #include <iterator>
 
@@ -26,4 +26,4 @@ struct iterator_ignore : input_iterator_tag {};
 
 } // namespace lsd
 
-#endif // LSD_ITERATOR_ITERATOR_TAG_HPP_
+#endif // LSD_ITERATOR_ITERATOR_TAG_H_

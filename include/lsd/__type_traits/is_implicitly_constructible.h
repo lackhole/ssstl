@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 11/13/23.
 //
 
-#ifndef LSD_TYPE_TRAITS_IS_IMPLICITLY_CONSTRUCTIBLE_HPP
-#define LSD_TYPE_TRAITS_IS_IMPLICITLY_CONSTRUCTIBLE_HPP
+#ifndef LSD_TYPE_TRAITS_IS_IMPLICITLY_CONSTRUCTIBLE_H_
+#define LSD_TYPE_TRAITS_IS_IMPLICITLY_CONSTRUCTIBLE_H_
 
 #include <type_traits>
 
@@ -24,4 +24,4 @@ using is_implicitly_constructible_t = typename is_implicitly_constructible<T, Ar
 
 } // namespace lsd
 
-#endif // LSD_TYPE_TRAITS_IS_IMPLICITLY_CONSTRUCTIBLE_HPP
+#endif // LSD_TYPE_TRAITS_IS_IMPLICITLY_CONSTRUCTIBLE_H_

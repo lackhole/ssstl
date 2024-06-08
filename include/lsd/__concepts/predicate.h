@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/27.
 //
 
-#ifndef LSD_CONCEPTS_PREDICATE_HPP
-#define LSD_CONCEPTS_PREDICATE_HPP
+#ifndef LSD_CONCEPTS_PREDICATE_H_
+#define LSD_CONCEPTS_PREDICATE_H_
 
 #include "lsd/__concepts/boolean_testable.h"
 #include "lsd/__concepts/invocable.h"
@@ -25,4 +25,4 @@ struct predicate : detail::predicate_impl<regular_invocable<F, Args...>::value, 
 
 } // namespace lsd
 
-#endif // LSD_CONCEPTS_PREDICATE_HPP
+#endif // LSD_CONCEPTS_PREDICATE_H_

@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 4/11/24.
 //
 
-#ifndef LSD_ALGORITHM_RANGES_FIND_LAST_HPP_
-#define LSD_ALGORITHM_RANGES_FIND_LAST_HPP_
+#ifndef LSD_ALGORITHM_RANGES_FIND_LAST_H_
+#define LSD_ALGORITHM_RANGES_FIND_LAST_H_
 
 #include <functional>
 #include <type_traits>
@@ -133,4 +133,4 @@ LSD_INLINE_OR_STATIC constexpr detail::find_last_if_not_niebloid find_last_if_no
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_ALGORITHM_RANGES_FIND_LAST_HPP_
+#endif // LSD_ALGORITHM_RANGES_FIND_LAST_H_

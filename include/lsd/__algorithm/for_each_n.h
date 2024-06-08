@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 1/25/24.
 //
 
-#ifndef LSD_ALGORITHM_FOR_EACH_N_HPP
-#define LSD_ALGORITHM_FOR_EACH_N_HPP
+#ifndef LSD_ALGORITHM_FOR_EACH_N_H_
+#define LSD_ALGORITHM_FOR_EACH_N_H_
 
 #include <type_traits>
 
@@ -25,4 +25,4 @@ constexpr InputIt for_each_n(InputIt first, Size n, UnaryFunction f) {
 
 } // namespace lsd
 
-#endif // LSD_ALGORITHM_FOR_EACH_N_HPP
+#endif // LSD_ALGORITHM_FOR_EACH_N_H_

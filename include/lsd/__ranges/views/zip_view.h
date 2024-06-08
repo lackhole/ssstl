@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 4/8/24.
 //
 
-#ifndef LSD_RANGES_VIEWS_ZIP_VIEW_HPP_
-#define LSD_RANGES_VIEWS_ZIP_VIEW_HPP_
+#ifndef LSD_RANGES_VIEWS_ZIP_VIEW_H_
+#define LSD_RANGES_VIEWS_ZIP_VIEW_H_
 
 #include <algorithm>
 #include <tuple>
@@ -550,4 +550,4 @@ zip_view(Rs&&...) -> zip_view<views::all_t<Rs>...>;
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_RANGES_VIEWS_ZIP_VIEW_HPP_
+#endif // LSD_RANGES_VIEWS_ZIP_VIEW_H_

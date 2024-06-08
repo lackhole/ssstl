@@ -2,8 +2,8 @@
 // Created by cosge on 2023-12-02.
 //
 
-#ifndef LSD_CONCEPTS_CONSTRUCTIBLE_FROM_HPP_
-#define LSD_CONCEPTS_CONSTRUCTIBLE_FROM_HPP_
+#ifndef LSD_CONCEPTS_CONSTRUCTIBLE_FROM_H_
+#define LSD_CONCEPTS_CONSTRUCTIBLE_FROM_H_
 
 #include "lsd/__concepts/destructible.h"
 #include "lsd/__type_traits/conjunction.h"
@@ -17,4 +17,4 @@ struct constructible_from : conjunction<
 
 } // namespace lsd
 
-#endif // LSD_CONCEPTS_CONSTRUCTIBLE_FROM_HPP_
+#endif // LSD_CONCEPTS_CONSTRUCTIBLE_FROM_H_

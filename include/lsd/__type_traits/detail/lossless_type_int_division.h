@@ -2,8 +2,8 @@
 #  * Created by YongGyu Lee on 2020/12/08.
 #  */
 #
-# ifndef LSD_TYPE_TRAITS_DETAIL_LOSSLESS_TYPE_INT_DIVISION_HPP
-# define LSD_TYPE_TRAITS_DETAIL_LOSSLESS_TYPE_INT_DIVISION_HPP
+# ifndef LSD_TYPE_TRAITS_DETAIL_LOSSLESS_TYPE_INT_DIVISION_H_
+# define LSD_TYPE_TRAITS_DETAIL_LOSSLESS_TYPE_INT_DIVISION_H_
 #
 # include <type_traits>
 # include <algorithm>
@@ -27,4 +27,4 @@ using lossless_type_int_division_t = typename lossless_type_int_division<T1, T2>
 
 } // namespace lsd
 
-# endif // LSD_TYPE_TRAITS_DETAIL_LOSSLESS_TYPE_INT_DIVISION_HPP
+# endif // LSD_TYPE_TRAITS_DETAIL_LOSSLESS_TYPE_INT_DIVISION_H_

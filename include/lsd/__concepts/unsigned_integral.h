@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/27.
 //
 
-#ifndef LSD_CONCEPTS_UNSIGNED_INTEGRAL_HPP
-#define LSD_CONCEPTS_UNSIGNED_INTEGRAL_HPP
+#ifndef LSD_CONCEPTS_UNSIGNED_INTEGRAL_H_
+#define LSD_CONCEPTS_UNSIGNED_INTEGRAL_H_
 
 #include <type_traits>
 
@@ -17,4 +17,4 @@ struct unsigned_integral : conjunction<std::is_integral<T>, negation<std::is_sig
 
 } // namespace lsd
 
-#endif // LSD_CONCEPTS_UNSIGNED_INTEGRAL_HPP
+#endif // LSD_CONCEPTS_UNSIGNED_INTEGRAL_H_

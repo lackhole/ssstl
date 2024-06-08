@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 11/27/23.
 //
 
-#ifndef LSD_STRING_VIEW_HPP_
-#define LSD_STRING_VIEW_HPP_
+#ifndef LSD_STRING_VIEW_H_
+#define LSD_STRING_VIEW_H_
 
 #include <algorithm>
 #include <cstddef>
@@ -687,4 +687,4 @@ struct hash<lsd::u32string_view> {
 
 } // namespace std
 
-#endif // LSD_STRING_VIEW_HPP_
+#endif // LSD_STRING_VIEW_H_

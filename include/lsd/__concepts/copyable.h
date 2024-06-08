@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/24.
 //
 
-#ifndef LSD_CONCEPTS_COPYABLE_HPP_
-#define LSD_CONCEPTS_COPYABLE_HPP_
+#ifndef LSD_CONCEPTS_COPYABLE_H_
+#define LSD_CONCEPTS_COPYABLE_H_
 
 #include <type_traits>
 
@@ -36,4 +36,4 @@ struct copyable : detail::copyable_impl<T> {};
 
 } // namespace lsd
 
-#endif // LSD_CONCEPTS_COPYABLE_HPP_
+#endif // LSD_CONCEPTS_COPYABLE_H_

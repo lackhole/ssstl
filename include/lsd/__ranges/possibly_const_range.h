@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 3/27/24.
 //
 
-#ifndef LSD_RANGES_POSSIBLY_CONST_RANGE_HPP_
-#define LSD_RANGES_POSSIBLY_CONST_RANGE_HPP_
+#ifndef LSD_RANGES_POSSIBLY_CONST_RANGE_H_
+#define LSD_RANGES_POSSIBLY_CONST_RANGE_H_
 
 #include <type_traits>
 
@@ -36,4 +36,4 @@ constexpr auto& possibly_const_range(R& r) noexcept {
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_RANGES_POSSIBLY_CONST_RANGE_HPP_
+#endif // LSD_RANGES_POSSIBLY_CONST_RANGE_H_

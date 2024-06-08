@@ -2,8 +2,8 @@
 // Created by cosge on 2023-12-02.
 //
 
-#ifndef LSD_CONCEPTS_DERIVED_FROM_HPP_
-#define LSD_CONCEPTS_DERIVED_FROM_HPP_
+#ifndef LSD_CONCEPTS_DERIVED_FROM_H_
+#define LSD_CONCEPTS_DERIVED_FROM_H_
 
 #include <type_traits>
 
@@ -20,4 +20,4 @@ struct derived_from
 
 } // namespace lsd
 
-#endif // LSD_CONCEPTS_DERIVED_FROM_HPP_
+#endif // LSD_CONCEPTS_DERIVED_FROM_H_

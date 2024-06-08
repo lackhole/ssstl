@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 4/15/24.
 //
 
-#ifndef LSD_ALGORITHM_RANGES_CONTAINS_SUBRANGE_HPP_
-#define LSD_ALGORITHM_RANGES_CONTAINS_SUBRANGE_HPP_
+#ifndef LSD_ALGORITHM_RANGES_CONTAINS_SUBRANGE_H_
+#define LSD_ALGORITHM_RANGES_CONTAINS_SUBRANGE_H_
 
 #include <type_traits>
 #include <utility>
@@ -65,4 +65,4 @@ LSD_INLINE_OR_STATIC constexpr detail::contains_subrange_niebloid contains_subra
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_ALGORITHM_RANGES_CONTAINS_SUBRANGE_HPP_
+#endif // LSD_ALGORITHM_RANGES_CONTAINS_SUBRANGE_H_

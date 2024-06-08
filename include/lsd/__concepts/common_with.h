@@ -2,8 +2,8 @@
 // Created by cosge on 2023-12-02.
 //
 
-#ifndef LSD_CONCEPTS_COMMON_WITH_HPP_
-#define LSD_CONCEPTS_COMMON_WITH_HPP_
+#ifndef LSD_CONCEPTS_COMMON_WITH_H_
+#define LSD_CONCEPTS_COMMON_WITH_H_
 
 #include <type_traits>
 
@@ -66,4 +66,4 @@ struct common_with : detail::common_with_impl_1<T, U> {};
 
 } // namespace lsd
 
-#endif // LSD_CONCEPTS_COMMON_REFERENCE_WITH_HPP_
+#endif // LSD_CONCEPTS_COMMON_REFERENCE_WITH_H_

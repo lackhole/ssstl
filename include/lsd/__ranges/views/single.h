@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2024/01/02.
 //
 
-#ifndef LSD_RANGES_VIEWS_SINGLE_HPP
-#define LSD_RANGES_VIEWS_SINGLE_HPP
+#ifndef LSD_RANGES_VIEWS_SINGLE_H_
+#define LSD_RANGES_VIEWS_SINGLE_H_
 
 #include <type_traits>
 #include <utility>
@@ -89,4 +89,4 @@ using namespace niebloid;
 } // namespace ranges
 } // namespace views
 
-#endif // LSD_RANGES_VIEWS_SINGLE_HPP
+#endif // LSD_RANGES_VIEWS_SINGLE_H_

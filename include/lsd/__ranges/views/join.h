@@ -2,8 +2,8 @@
 // Created by yonggyulee on 1/31/24.
 //
 
-#ifndef LSD_RANGES_VIEWS_JOIN_HPP_
-#define LSD_RANGES_VIEWS_JOIN_HPP_
+#ifndef LSD_RANGES_VIEWS_JOIN_H_
+#define LSD_RANGES_VIEWS_JOIN_H_
 
 #include <type_traits>
 #include <utility>
@@ -34,4 +34,4 @@ LSD_INLINE_OR_STATIC constexpr detail::join_adaptor_object join{};
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_RANGES_VIEWS_JOIN_HPP_
+#endif // LSD_RANGES_VIEWS_JOIN_H_

@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2024/01/06.
 //
 
-#ifndef LSD_RANGES_FROM_RANGE_HPP_
-#define LSD_RANGES_FROM_RANGE_HPP_
+#ifndef LSD_RANGES_FROM_RANGE_H_
+#define LSD_RANGES_FROM_RANGE_H_
 
 #if __cplusplus >= 202302L
 #include <ranges>
@@ -28,4 +28,4 @@ LSD_INLINE_OR_STATIC constexpr from_range_t from_range{};
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_RANGES_FROM_RANGE_HPP_
+#endif // LSD_RANGES_FROM_RANGE_H_

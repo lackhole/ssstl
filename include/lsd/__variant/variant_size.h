@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 02/01/24.
 //
 
-#ifndef LSD_VARIANT_VARIANT_SIZE_HPP
-#define LSD_VARIANT_VARIANT_SIZE_HPP
+#ifndef LSD_VARIANT_VARIANT_SIZE_H_
+#define LSD_VARIANT_VARIANT_SIZE_H_
 
 #include <type_traits>
 
@@ -28,4 +28,4 @@ LSD_INLINE_OR_STATIC constexpr std::size_t variant_size_v = variant_size<T>::val
 
 } // namespace lsd
 
-#endif // LSD_VARIANT_VARIANT_SIZE_HPP
+#endif // LSD_VARIANT_VARIANT_SIZE_H_

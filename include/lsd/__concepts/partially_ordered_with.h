@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/25.
 //
 
-#ifndef LSD_CONCEPTS_PARTIALLY_ORDERED_WITH_HPP_
-#define LSD_CONCEPTS_PARTIALLY_ORDERED_WITH_HPP_
+#ifndef LSD_CONCEPTS_PARTIALLY_ORDERED_WITH_H_
+#define LSD_CONCEPTS_PARTIALLY_ORDERED_WITH_H_
 
 #include <type_traits>
 
@@ -38,4 +38,4 @@ struct partially_ordered_with : detail::partially_ordered_with_impl<T, U> {};
 
 } // namespace lsd
 
-#endif // LSD_CONCEPTS_PARTIALLY_ORDERED_WITH_HPP_
+#endif // LSD_CONCEPTS_PARTIALLY_ORDERED_WITH_H_

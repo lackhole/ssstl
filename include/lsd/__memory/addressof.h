@@ -2,8 +2,8 @@
 // Created by yonggyulee on 1/28/24.
 //
 
-#ifndef LSD_MEMORY_ADDRESSOF_HPP_
-#define LSD_MEMORY_ADDRESSOF_HPP_
+#ifndef LSD_MEMORY_ADDRESSOF_H_
+#define LSD_MEMORY_ADDRESSOF_H_
 
 #include <memory>
 #include <type_traits>
@@ -45,4 +45,4 @@ constexpr const T* addressof(T&&) = delete;
 
 } // namespace lsd
 
-#endif // LSD_MEMORY_ADDRESSOF_HPP_
+#endif // LSD_MEMORY_ADDRESSOF_H_

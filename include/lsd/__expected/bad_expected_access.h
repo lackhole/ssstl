@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 3/20/24.
 //
 
-#ifndef LSD_EXPECTED_BAD_EXPECTED_ACCESS_HPP_
-#define LSD_EXPECTED_BAD_EXPECTED_ACCESS_HPP_
+#ifndef LSD_EXPECTED_BAD_EXPECTED_ACCESS_H_
+#define LSD_EXPECTED_BAD_EXPECTED_ACCESS_H_
 
 #include <exception>
 #include <utility>
@@ -45,4 +45,4 @@ class bad_expected_access : public bad_expected_access<void> {
 
 } // namespace lsd
 
-#endif // LSD_EXPECTED_BAD_EXPECTED_ACCESS_HPP_
+#endif // LSD_EXPECTED_BAD_EXPECTED_ACCESS_H_

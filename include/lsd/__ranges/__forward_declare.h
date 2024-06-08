@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/30.
 //
 
-#ifndef LSD_RANGES___FORWARD_DECLARE_HPP
-#define LSD_RANGES___FORWARD_DECLARE_HPP
+#ifndef LSD_RANGES___FORWARD_DECLARE_H_
+#define LSD_RANGES___FORWARD_DECLARE_H_
 
 namespace lsd {
 namespace ranges {
@@ -35,4 +35,4 @@ namespace views = ranges::views;
 
 } // namespace lsd
 
-#endif // LSD_RANGES___FORWARD_DECLARE_HPP
+#endif // LSD_RANGES___FORWARD_DECLARE_H_

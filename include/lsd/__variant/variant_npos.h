@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 11/3/23.
 //
 
-#ifndef LSD_VARIANT_VARIANT_NPOS_HPP
-#define LSD_VARIANT_VARIANT_NPOS_HPP
+#ifndef LSD_VARIANT_VARIANT_NPOS_H_
+#define LSD_VARIANT_VARIANT_NPOS_H_
 
 #include <cstddef>
 
@@ -15,4 +15,4 @@ LSD_INLINE_OR_STATIC constexpr std::size_t variant_npos = -1;
 
 } // namespace lsd
 
-#endif // LSD_VARIANT_VARIANT_NPOS_HPP
+#endif // LSD_VARIANT_VARIANT_NPOS_H_

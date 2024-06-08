@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2024/01/03.
 //
 
-#ifndef LSD_CORE_CONSTEXPR_HPP
-#define LSD_CORE_CONSTEXPR_HPP
+#ifndef LSD_CORE_CONSTEXPR_H_
+#define LSD_CORE_CONSTEXPR_H_
 
 // TODO: Use CheckCXXSybolExists
 #define LSD_CONSTEXPR constexpr
@@ -32,4 +32,4 @@
 #define LSD_CONSTEXPR_AFTER_CXX23
 #endif
 
-#endif // LSD_CORE_CONSTEXPR_HPP
+#endif // LSD_CORE_CONSTEXPR_H_

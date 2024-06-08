@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/27.
 //
 
-#ifndef LSD_CONCEPTS_STRICT_WEAK_ORDER_HPP
-#define LSD_CONCEPTS_STRICT_WEAK_ORDER_HPP
+#ifndef LSD_CONCEPTS_STRICT_WEAK_ORDER_H_
+#define LSD_CONCEPTS_STRICT_WEAK_ORDER_H_
 
 #include "lsd/__concepts/relation.h"
 
@@ -14,4 +14,4 @@ struct strict_weak_order : relation<R, T, U> {};
 
 } // namespace lsd
 
-#endif // LSD_CONCEPTS_STRICT_WEAK_ORDER_HPP
+#endif // LSD_CONCEPTS_STRICT_WEAK_ORDER_H_

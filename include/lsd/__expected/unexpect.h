@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 3/14/24.
 //
 
-#ifndef LSD_EXPECTED_UNEXPECT_HPP_
-#define LSD_EXPECTED_UNEXPECT_HPP_
+#ifndef LSD_EXPECTED_UNEXPECT_H_
+#define LSD_EXPECTED_UNEXPECT_H_
 
 #if __cplusplus >= 202302L
 
@@ -34,4 +34,4 @@ LSD_INLINE_OR_STATIC constexpr unexpect_t unexpect{};
 
 } // namespace lsd
 
-#endif // LSD_EXPECTED_UNEXPECT_HPP_
+#endif // LSD_EXPECTED_UNEXPECT_H_

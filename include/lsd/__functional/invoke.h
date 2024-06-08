@@ -2,8 +2,8 @@
 #  * Created by YongGyu Lee on 2020/12/08.
 #  */
 #
-#ifndef LSD_FUNCTIONAL_INVOKE_HPP
-#define LSD_FUNCTIONAL_INVOKE_HPP
+#ifndef LSD_FUNCTIONAL_INVOKE_H_
+#define LSD_FUNCTIONAL_INVOKE_H_
 #
 # include <type_traits>
 # include <utility>
@@ -53,4 +53,4 @@ constexpr R invoke_r_impl(std::false_type /* is_void */, F&& f, Args&&... args) 
 } // namespace detail
 } // namespace lsd
 
-#endif // LSD_FUNCTIONAL_INVOKE_HPP
+#endif // LSD_FUNCTIONAL_INVOKE_H_

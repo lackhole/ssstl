@@ -2,8 +2,8 @@
 #  * Created by YongGyu Lee on 2020/12/08.
 #  */
 #
-# ifndef LSD_UTILITY_HPP
-# define LSD_UTILITY_HPP
+# ifndef LSD_UTILITY_H_
+# define LSD_UTILITY_H_
 #
 # include "lsd/__utility/as_const.h"
 # include "lsd/__utility/cmp.h"
@@ -17,4 +17,4 @@
 # include "lsd/__utility/to_underlying.h"
 # include "lsd/__utility/type_sequence.h"
 #
-# endif // LSD_UTILITY_HPP
+# endif // LSD_UTILITY_H_

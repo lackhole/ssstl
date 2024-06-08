@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/30.
 //
 
-#ifndef LSD_CORE_BYTE_HPP
-#define LSD_CORE_BYTE_HPP
+#ifndef LSD_CORE_BYTE_H_
+#define LSD_CORE_BYTE_H_
 
 #include <cassert>
 #include <cstddef>
@@ -140,4 +140,4 @@ to_integer(byte b) noexcept {
 
 } // namespace lsd
 
-#endif // LSD_CORE_BYTE_HPP
+#endif // LSD_CORE_BYTE_H_

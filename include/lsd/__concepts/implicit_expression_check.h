@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/21.
 //
 
-#ifndef LSD_CONCEPTS_IMPLICIT_EXPRESSION_CHECK_HPP_
-#define LSD_CONCEPTS_IMPLICIT_EXPRESSION_CHECK_HPP_
+#ifndef LSD_CONCEPTS_IMPLICIT_EXPRESSION_CHECK_H_
+#define LSD_CONCEPTS_IMPLICIT_EXPRESSION_CHECK_H_
 
 #include "lsd/__type_traits/conjunction.h"
 
@@ -53,4 +53,4 @@ struct implicit_expression_check<Check, const Operand&> : conjunction<
 
 } // namespace lsd
 
-#endif // LSD_CONCEPTS_IMPLICIT_EXPRESSION_CHECK_HPP_
+#endif // LSD_CONCEPTS_IMPLICIT_EXPRESSION_CHECK_H_

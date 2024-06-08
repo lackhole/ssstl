@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 11/3/23.
 //
 
-#ifndef LSD_VARIANT_BAD_VARIANT_ACCESS_HPP
-#define LSD_VARIANT_BAD_VARIANT_ACCESS_HPP
+#ifndef LSD_VARIANT_BAD_VARIANT_ACCESS_H_
+#define LSD_VARIANT_BAD_VARIANT_ACCESS_H_
 
 #include <exception>
 
@@ -21,4 +21,4 @@ class bad_variant_access : public std::exception {
 
 } // namespace lsd
 
-#endif // LSD_VARIANT_BAD_VARIANT_ACCESS_HPP
+#endif // LSD_VARIANT_BAD_VARIANT_ACCESS_H_

@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/30.
 //
 
-#ifndef LSD_RANGES_CONTIGUOUS_RANGE_HPP
-#define LSD_RANGES_CONTIGUOUS_RANGE_HPP
+#ifndef LSD_RANGES_CONTIGUOUS_RANGE_H_
+#define LSD_RANGES_CONTIGUOUS_RANGE_H_
 
 #include <type_traits>
 
@@ -58,4 +58,4 @@ struct contiguous_range : detail::contiguous_range_impl_1<T> {};
 } // namespace lsd
 } // namespace ranges
 
-#endif // LSD_RANGES_CONTIGUOUS_RANGE_HPP
+#endif // LSD_RANGES_CONTIGUOUS_RANGE_H_

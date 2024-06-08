@@ -2,8 +2,8 @@
 #  * Created by YongGyu Lee on 2020/12/08.
 #  */
 #
-# ifndef LSD_TYPE_TRAITS_IS_SPECIALIZATION_HPP
-# define LSD_TYPE_TRAITS_IS_SPECIALIZATION_HPP
+# ifndef LSD_TYPE_TRAITS_IS_SPECIALIZATION_H_
+# define LSD_TYPE_TRAITS_IS_SPECIALIZATION_H_
 #
 # include <type_traits>
 
@@ -17,4 +17,4 @@ struct is_specialization<Ref<Args...>, Ref> : std::true_type {};
 
 } // namespace lsd
 
-# endif // LSD_TYPE_TRAITS_IS_SPECIALIZATION_HPP
+# endif // LSD_TYPE_TRAITS_IS_SPECIALIZATION_H_

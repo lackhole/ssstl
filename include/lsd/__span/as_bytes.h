@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/30.
 //
 
-#ifndef LSD_SPAN_AS_BYTES_HPP
-#define LSD_SPAN_AS_BYTES_HPP
+#ifndef LSD_SPAN_AS_BYTES_H_
+#define LSD_SPAN_AS_BYTES_H_
 
 #include <cstddef>
 
@@ -41,4 +41,4 @@ as_writable_bytes(span<T, N> s) noexcept {
 
 } // namespace lsd
 
-#endif // LSD_SPAN_AS_BYTES_HPP
+#endif // LSD_SPAN_AS_BYTES_H_

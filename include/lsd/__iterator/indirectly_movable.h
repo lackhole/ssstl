@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2024/01/10.
 //
 
-#ifndef LSD_ITERATOR_INDIRECTLY_MOVABLE_HPP
-#define LSD_ITERATOR_INDIRECTLY_MOVABLE_HPP
+#ifndef LSD_ITERATOR_INDIRECTLY_MOVABLE_H_
+#define LSD_ITERATOR_INDIRECTLY_MOVABLE_H_
 
 #include <type_traits>
 
@@ -28,4 +28,4 @@ struct indirectly_movable : detail::indirectly_movable_impl<In, Out> {};
 
 } // namespace lsd
 
-#endif // LSD_ITERATOR_INDIRECTLY_MOVABLE_HPP
+#endif // LSD_ITERATOR_INDIRECTLY_MOVABLE_H_

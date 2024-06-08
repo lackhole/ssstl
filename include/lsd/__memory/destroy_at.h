@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 3/20/24.
 //
 
-#ifndef LSD_MEMORY_DESTROY_AT_HPP_
-#define LSD_MEMORY_DESTROY_AT_HPP_
+#ifndef LSD_MEMORY_DESTROY_AT_H_
+#define LSD_MEMORY_DESTROY_AT_H_
 
 #include <type_traits>
 
@@ -29,4 +29,4 @@ LSD_CONSTEXPR_AFTER_CXX20 void destroy_at(T* p) {
 
 } // namespace lsd
 
-#endif // LSD_MEMORY_DESTROY_AT_HPP_
+#endif // LSD_MEMORY_DESTROY_AT_H_

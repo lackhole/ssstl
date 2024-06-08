@@ -2,8 +2,8 @@
 // Created by yonggyulee on 1/28/24.
 //
 
-#ifndef LSD_ALGORITHM_RANGES_DETAIL_INPUT_RANGE_CHECK_HPP_
-#define LSD_ALGORITHM_RANGES_DETAIL_INPUT_RANGE_CHECK_HPP_
+#ifndef LSD_ALGORITHM_RANGES_DETAIL_INPUT_RANGE_CHECK_H_
+#define LSD_ALGORITHM_RANGES_DETAIL_INPUT_RANGE_CHECK_H_
 
 #include "lsd/__iterator/forward_iterator.h"
 #include "lsd/__iterator/indirect_binary_predicate.h"
@@ -159,4 +159,4 @@ struct algo_check_binary_input_range : algo_check_binary_range<Test, input_range
 } // namespace ranges
 } // namespace detail
 
-#endif // LSD_ALGORITHM_RANGES_DETAIL_INPUT_RANGE_CHECK_HPP_
+#endif // LSD_ALGORITHM_RANGES_DETAIL_INPUT_RANGE_CHECK_H_

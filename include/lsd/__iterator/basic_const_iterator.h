@@ -2,8 +2,8 @@
 // Created by yonggyulee on 1/15/24.
 //
 
-#ifndef LSD_ITERATOR_BASIC_CONST_ITERATOR_HPP
-#define LSD_ITERATOR_BASIC_CONST_ITERATOR_HPP
+#ifndef LSD_ITERATOR_BASIC_CONST_ITERATOR_H_
+#define LSD_ITERATOR_BASIC_CONST_ITERATOR_H_
 
 #include <memory>
 #include <type_traits>
@@ -419,4 +419,4 @@ struct common_type<basic_const_iterator<T>, basic_const_iterator<U>>
 
 } // namespace lsd
 
-#endif // LSD_ITERATOR_BASIC_CONST_ITERATOR_HPP
+#endif // LSD_ITERATOR_BASIC_CONST_ITERATOR_H_

@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2024/01/02.
 //
 
-#ifndef LSD_RANGES_OWINING_VIEW_HPP
-#define LSD_RANGES_OWINING_VIEW_HPP
+#ifndef LSD_RANGES_OWINING_VIEW_H_
+#define LSD_RANGES_OWINING_VIEW_H_
 
 #include <utility>
 
@@ -118,4 +118,4 @@ struct enable_borrowed_range<owning_view<T>> : enable_borrowed_range<T> {};
 } // namespace ranges
 } // namespace namespace lsd
 
-#endif // LSD_RANGES_OWINING_VIEW_HPP
+#endif // LSD_RANGES_OWINING_VIEW_H_

@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/09/29.
 //
 
-#ifndef LSD_TYPE_TRAITS_IS_SWAPPABLE_HPP
-#define LSD_TYPE_TRAITS_IS_SWAPPABLE_HPP
+#ifndef LSD_TYPE_TRAITS_IS_SWAPPABLE_H_
+#define LSD_TYPE_TRAITS_IS_SWAPPABLE_H_
 
 #include <utility>
 #include <type_traits>
@@ -130,4 +130,4 @@ struct is_nothrow_swappable : is_nothrow_swappable_with<T&, T&> {};
 
 # endif
 
-#endif // LSD_TYPE_TRAITS_IS_SWAPPABLE_HPP
+#endif // LSD_TYPE_TRAITS_IS_SWAPPABLE_H_

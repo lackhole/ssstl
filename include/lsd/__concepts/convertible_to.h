@@ -2,8 +2,8 @@
 // Created by cosge on 2023-12-02.
 //
 
-#ifndef LSD_CONCEPTS_CONVERTIBLE_TO_HPP_
-#define LSD_CONCEPTS_CONVERTIBLE_TO_HPP_
+#ifndef LSD_CONCEPTS_CONVERTIBLE_TO_H_
+#define LSD_CONCEPTS_CONVERTIBLE_TO_H_
 
 #include <type_traits>
 
@@ -21,4 +21,4 @@ struct convertible_to :
 
 } // namespace lsd
 
-#endif // LSD_CONCEPTS_CONVERTIBLE_TO_HPP_
+#endif // LSD_CONCEPTS_CONVERTIBLE_TO_H_

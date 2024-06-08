@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 12/28/23.
 //
 
-#ifndef LSD_ALGORITHM_RANGES_MIN_HPP
-#define LSD_ALGORITHM_RANGES_MIN_HPP
+#ifndef LSD_ALGORITHM_RANGES_MIN_H_
+#define LSD_ALGORITHM_RANGES_MIN_H_
 
 #include <functional>
 #include <initializer_list>
@@ -89,4 +89,4 @@ LSD_INLINE_OR_STATIC constexpr detail::min_niebloid min{};
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_ALGORITHM_RANGES_MIN_HPP
+#endif // LSD_ALGORITHM_RANGES_MIN_H_

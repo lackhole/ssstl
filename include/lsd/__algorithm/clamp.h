@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 1/26/24.
 //
 
-#ifndef LSD_ALGORITHM_CLAMP_HPP
-#define LSD_ALGORITHM_CLAMP_HPP
+#ifndef LSD_ALGORITHM_CLAMP_H_
+#define LSD_ALGORITHM_CLAMP_H_
 
 #include <functional>
 
@@ -21,4 +21,4 @@ constexpr const T& clamp(const T& v, const T& lo, const T& hi) {
 
 } // namespace lsd
 
-#endif // LSD_ALGORITHM_CLAMP_HPP
+#endif // LSD_ALGORITHM_CLAMP_H_

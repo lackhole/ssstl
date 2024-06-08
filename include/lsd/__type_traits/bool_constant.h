@@ -2,8 +2,8 @@
 #  * Created by YongGyu Lee on 2021/09/03.
 #  */
 #
-# ifndef LSD_TYPE_TRAITS_BOOL_CONSTANT_HPP
-# define LSD_TYPE_TRAITS_BOOL_CONSTANT_HPP
+# ifndef LSD_TYPE_TRAITS_BOOL_CONSTANT_H_
+# define LSD_TYPE_TRAITS_BOOL_CONSTANT_H_
 # 
 # include <type_traits>
 
@@ -17,4 +17,4 @@ template<typename ...> struct always_true : std::true_type {};
 
 } // namespace lsd
 
-# endif // LSD_TYPE_TRAITS_BOOL_CONSTANT_HPP
+# endif // LSD_TYPE_TRAITS_BOOL_CONSTANT_H_

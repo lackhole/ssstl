@@ -2,8 +2,8 @@
 // Created by yonggyulee on 1/24/24.
 //
 
-#ifndef LSD_RANGES_NON_PROPAGATING_CACHE_HPP
-#define LSD_RANGES_NON_PROPAGATING_CACHE_HPP
+#ifndef LSD_RANGES_NON_PROPAGATING_CACHE_H_
+#define LSD_RANGES_NON_PROPAGATING_CACHE_H_
 
 #include <memory>
 #include <type_traits>
@@ -74,4 +74,4 @@ class non_propagating_cache : private optional<T> {
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_RANGES_NON_PROPAGATING_CACHE_HPP
+#endif // LSD_RANGES_NON_PROPAGATING_CACHE_H_

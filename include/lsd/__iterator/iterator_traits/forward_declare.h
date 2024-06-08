@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/25.
 //
 
-#ifndef LSD_ITERATOR_ITERATOR_TRAITS_FORWARD_DECLARE_HPP_
-#define LSD_ITERATOR_ITERATOR_TRAITS_FORWARD_DECLARE_HPP_
+#ifndef LSD_ITERATOR_ITERATOR_TRAITS_FORWARD_DECLARE_H_
+#define LSD_ITERATOR_ITERATOR_TRAITS_FORWARD_DECLARE_H_
 
 #if __cplusplus >= 202002L
 #include <iterator>
@@ -50,4 +50,4 @@ struct is_primary_iterator_traits<cxx20_iterator_traits< std::common_iterator<I,
 
 } // namespace lsd
 
-#endif // LSD_ITERATOR_ITERATOR_TRAITS_FORWARD_DECLARE_HPP_
+#endif // LSD_ITERATOR_ITERATOR_TRAITS_FORWARD_DECLARE_H_

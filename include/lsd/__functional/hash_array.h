@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 12/1/23.
 //
 
-#ifndef LSD_FUNCTIONAL_HASH_ARRAY_HPP_
-#define LSD_FUNCTIONAL_HASH_ARRAY_HPP_
+#ifndef LSD_FUNCTIONAL_HASH_ARRAY_H_
+#define LSD_FUNCTIONAL_HASH_ARRAY_H_
 
 #include <climits>
 #include <cstddef>
@@ -83,4 +83,4 @@ std::size_t hash_array(const T(&bytes)[N]) {
 
 } // namespace lsd
 
-#endif // LSD_FUNCTIONAL_HASH_ARRAY_HPP_
+#endif // LSD_FUNCTIONAL_HASH_ARRAY_H_

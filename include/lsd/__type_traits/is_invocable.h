@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/29.
 //
 
-#ifndef LSD_TYPE_TRAITS_IS_INVOCABLE_HPP
-#define LSD_TYPE_TRAITS_IS_INVOCABLE_HPP
+#ifndef LSD_TYPE_TRAITS_IS_INVOCABLE_H_
+#define LSD_TYPE_TRAITS_IS_INVOCABLE_H_
 
 #include <type_traits>
 
@@ -72,4 +72,4 @@ struct is_nothrow_invocable_r : detail::is_invocable_r_impl<R, F, Args...>::noth
 
 } // namespace lsd
 
-#endif // LSD_TYPE_TRAITS_IS_INVOCABLE_HPP
+#endif // LSD_TYPE_TRAITS_IS_INVOCABLE_H_

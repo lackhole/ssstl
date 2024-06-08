@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 2/13/24.
 //
 
-#ifndef LSD_RANGES_VIEWS_DROP_WHILE_VIEW_HPP_
-#define LSD_RANGES_VIEWS_DROP_WHILE_VIEW_HPP_
+#ifndef LSD_RANGES_VIEWS_DROP_WHILE_VIEW_H_
+#define LSD_RANGES_VIEWS_DROP_WHILE_VIEW_H_
 
 #include <functional>
 #include <type_traits>
@@ -91,4 +91,4 @@ struct enable_borrowed_range<drop_while_view<T, Pred>> : enable_borrowed_range<T
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_RANGES_VIEWS_DROP_WHILE_VIEW_HPP_
+#endif // LSD_RANGES_VIEWS_DROP_WHILE_VIEW_H_

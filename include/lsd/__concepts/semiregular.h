@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/24.
 //
 
-#ifndef LSD_CONCEPTS_SEMIREGULAR_HPP_
-#define LSD_CONCEPTS_SEMIREGULAR_HPP_
+#ifndef LSD_CONCEPTS_SEMIREGULAR_H_
+#define LSD_CONCEPTS_SEMIREGULAR_H_
 
 #include "lsd/__concepts/copyable.h"
 #include "lsd/__concepts/default_initializable.h"
@@ -20,4 +20,4 @@ struct semiregular
 
 } // namespace lsd
 
-#endif // LSD_CONCEPTS_SEMIREGULAR_HPP_
+#endif // LSD_CONCEPTS_SEMIREGULAR_H_

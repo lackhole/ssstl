@@ -2,8 +2,8 @@
 // Created by yonggyulee on 1/26/24.
 //
 
-#ifndef LSD_ITERATOR_PERMUTABLE_HPP
-#define LSD_ITERATOR_PERMUTABLE_HPP
+#ifndef LSD_ITERATOR_PERMUTABLE_H_
+#define LSD_ITERATOR_PERMUTABLE_H_
 
 #include "lsd/__iterator/forward_iterator.h"
 #include "lsd/__iterator/indirectly_movable_storable.h"
@@ -22,4 +22,4 @@ struct permutable
 
 } // namespace lsd
 
-#endif // LSD_ITERATOR_PERMUTABLE_HPP
+#endif // LSD_ITERATOR_PERMUTABLE_H_

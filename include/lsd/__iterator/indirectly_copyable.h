@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2024/01/08.
 //
 
-#ifndef LSD_ITERATOR_INDIRECTLY_COPYABLE_HPP
-#define LSD_ITERATOR_INDIRECTLY_COPYABLE_HPP
+#ifndef LSD_ITERATOR_INDIRECTLY_COPYABLE_H_
+#define LSD_ITERATOR_INDIRECTLY_COPYABLE_H_
 
 #include <type_traits>
 
@@ -28,4 +28,4 @@ struct indirectly_copyable : detail::indirectly_copyable_impl<In, Out> {};
 
 } // namespace lsd
 
-#endif // LSD_ITERATOR_INDIRECTLY_COPYABLE_HPP
+#endif // LSD_ITERATOR_INDIRECTLY_COPYABLE_H_

@@ -2,8 +2,8 @@
 // Created by yonggyulee on 1/12/24.
 //
 
-#ifndef LSD_TYPE_TRAITS_TEMPLATE_ARITY_HPP
-#define LSD_TYPE_TRAITS_TEMPLATE_ARITY_HPP
+#ifndef LSD_TYPE_TRAITS_TEMPLATE_ARITY_H_
+#define LSD_TYPE_TRAITS_TEMPLATE_ARITY_H_
 
 #include <cstddef>
 #include <type_traits>
@@ -64,4 +64,4 @@ struct default_template_arity
 
 } // namespace lsd
 
-#endif // LSD_TYPE_TRAITS_TEMPLATE_ARITY_HPP
+#endif // LSD_TYPE_TRAITS_TEMPLATE_ARITY_H_

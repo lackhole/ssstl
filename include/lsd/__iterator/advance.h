@@ -2,8 +2,8 @@
 // Created by cosge on 2023-12-25.
 //
 
-#ifndef LSD_ITERATOR_ADVANCE_HPP_
-#define LSD_ITERATOR_ADVANCE_HPP_
+#ifndef LSD_ITERATOR_ADVANCE_H_
+#define LSD_ITERATOR_ADVANCE_H_
 
 #include <type_traits>
 
@@ -178,4 +178,4 @@ advance_mixed(I& i, iter_difference_t<I> n, S bound, tag_1 /* sized_sentinel_for
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_ITERATOR_ADVANCE_HPP_
+#endif // LSD_ITERATOR_ADVANCE_H_

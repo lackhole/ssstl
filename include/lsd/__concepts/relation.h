@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/27.
 //
 
-#ifndef LSD_CONCEPTS_RELATION_HPP
-#define LSD_CONCEPTS_RELATION_HPP
+#ifndef LSD_CONCEPTS_RELATION_H_
+#define LSD_CONCEPTS_RELATION_H_
 
 #include "lsd/__concepts/predicate.h"
 #include "lsd/__type_traits/conjunction.h"
@@ -21,4 +21,4 @@ struct relation
 
 } // namespace lsd
 
-#endif // LSD_CONCEPTS_RELATION_HPP
+#endif // LSD_CONCEPTS_RELATION_H_

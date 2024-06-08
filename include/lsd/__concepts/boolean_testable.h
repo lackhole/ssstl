@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/25.
 //
 
-#ifndef LSD_CONCEPTS_BOOLEAN_TESTABLE_HPP_
-#define LSD_CONCEPTS_BOOLEAN_TESTABLE_HPP_
+#ifndef LSD_CONCEPTS_BOOLEAN_TESTABLE_H_
+#define LSD_CONCEPTS_BOOLEAN_TESTABLE_H_
 
 #include <type_traits>
 
@@ -55,4 +55,4 @@ struct boolean_testable : detail::boolean_testable_stage_1<B> {};
 
 } // namespace lsd
 
-#endif // LSD_CONCEPTS_BOOLEAN_TESTABLE_HPP_
+#endif // LSD_CONCEPTS_BOOLEAN_TESTABLE_H_

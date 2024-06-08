@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 11/3/23.
 //
 
-#ifndef LSD_VARIANT_MONOSTATE_HPP
-#define LSD_VARIANT_MONOSTATE_HPP
+#ifndef LSD_VARIANT_MONOSTATE_H_
+#define LSD_VARIANT_MONOSTATE_H_
 
 #include <functional>
 
@@ -28,4 +28,4 @@ struct std::hash<::lsd::monostate> {
   }
 };
 
-#endif // LSD_VARIANT_MONOSTATE_HPP
+#endif // LSD_VARIANT_MONOSTATE_H_

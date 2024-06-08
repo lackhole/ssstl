@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 3/27/24.
 //
 
-#ifndef LSD_RANGES_CDATA_HPP_
-#define LSD_RANGES_CDATA_HPP_
+#ifndef LSD_RANGES_CDATA_H_
+#define LSD_RANGES_CDATA_H_
 
 #include <type_traits>
 
@@ -42,4 +42,4 @@ using namespace niebloid;
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_RANGES_CDATA_HPP_
+#endif // LSD_RANGES_CDATA_H_

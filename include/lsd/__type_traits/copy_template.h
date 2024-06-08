@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 5/16/24.
 //
 
-#ifndef LSD_TYPE_TRAITS_COPY_TEMPLATE_HPP_
-#define LSD_TYPE_TRAITS_COPY_TEMPLATE_HPP_
+#ifndef LSD_TYPE_TRAITS_COPY_TEMPLATE_H_
+#define LSD_TYPE_TRAITS_COPY_TEMPLATE_H_
 
 #include "lsd/__type_traits/type_identity.h"
 
@@ -22,4 +22,4 @@ using copy_template_t = typename copy_template<From, To, Proj>::type;
 
 } // namespace lsd
 
-#endif // LSD_TYPE_TRAITS_COPY_TEMPLATE_HPP_
+#endif // LSD_TYPE_TRAITS_COPY_TEMPLATE_H_

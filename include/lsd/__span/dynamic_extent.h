@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/30.
 //
 
-#ifndef LSD_SPAN_DYNAMIC_EXTENT_HPP
-#define LSD_SPAN_DYNAMIC_EXTENT_HPP
+#ifndef LSD_SPAN_DYNAMIC_EXTENT_H_
+#define LSD_SPAN_DYNAMIC_EXTENT_H_
 
 #include <cstddef>
 #include <limits>
@@ -16,4 +16,4 @@ LSD_INLINE_OR_STATIC constexpr std::size_t dynamic_extent = (std::numeric_limits
 
 } // namespace lsd
 
-#endif // LSD_SPAN_DYNAMIC_EXTENT_HPP
+#endif // LSD_SPAN_DYNAMIC_EXTENT_H_

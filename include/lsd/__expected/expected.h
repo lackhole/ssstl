@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 3/14/24.
 //
 
-#ifndef LSD_EXPECTED_EXPECTED_HPP_
-#define LSD_EXPECTED_EXPECTED_HPP_
+#ifndef LSD_EXPECTED_EXPECTED_H_
+#define LSD_EXPECTED_EXPECTED_H_
 
 #include <new>
 #include <type_traits>
@@ -1094,4 +1094,4 @@ class expected : private detail::expected_control_smf<detail::void_placdholder_o
 
 } // namespace lsd
 
-#endif // LSD_EXPECTED_EXPECTED_HPP_
+#endif // LSD_EXPECTED_EXPECTED_H_

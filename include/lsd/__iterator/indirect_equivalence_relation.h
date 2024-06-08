@@ -2,8 +2,8 @@
 // Created by yonggyulee on 1/26/24.
 //
 
-#ifndef LSD_ITERATOR_INDIRECT_EQUIVALENCE_RELATION_HPP
-#define LSD_ITERATOR_INDIRECT_EQUIVALENCE_RELATION_HPP
+#ifndef LSD_ITERATOR_INDIRECT_EQUIVALENCE_RELATION_H_
+#define LSD_ITERATOR_INDIRECT_EQUIVALENCE_RELATION_H_
 
 #include <type_traits>
 
@@ -44,4 +44,4 @@ struct indirect_equivalence_relation : detail::indirect_equivalence_relation_imp
 
 } // namespace lsd
 
-#endif // LSD_ITERATOR_INDIRECT_EQUIVALENCE_RELATION_HPP
+#endif // LSD_ITERATOR_INDIRECT_EQUIVALENCE_RELATION_H_

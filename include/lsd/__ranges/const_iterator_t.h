@@ -2,8 +2,8 @@
 // Created by cosge on 2024-01-27.
 //
 
-#ifndef LSD_RANGES_CONST_ITERATOR_T_HPP_
-#define LSD_RANGES_CONST_ITERATOR_T_HPP_
+#ifndef LSD_RANGES_CONST_ITERATOR_T_H_
+#define LSD_RANGES_CONST_ITERATOR_T_H_
 
 #include <type_traits>
 
@@ -34,4 +34,4 @@ using const_iterator_t = typename const_iterator<T>::type;
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_RANGES_CONST_ITERATOR_T_HPP_
+#endif // LSD_RANGES_CONST_ITERATOR_T_H_

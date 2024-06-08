@@ -2,8 +2,8 @@
 // Created by cosge on 2023-12-03.
 //
 
-#ifndef LSD_ITERATOR_BIDIRECTIONAL_ITERATOR_HPP_
-#define LSD_ITERATOR_BIDIRECTIONAL_ITERATOR_HPP_
+#ifndef LSD_ITERATOR_BIDIRECTIONAL_ITERATOR_H_
+#define LSD_ITERATOR_BIDIRECTIONAL_ITERATOR_H_
 
 #include <type_traits>
 
@@ -41,4 +41,4 @@ struct bidirectional_iterator : detail::bidirectional_iterator_impl<I> {};
 
 } // namespace lsd
 
-#endif // LSD_ITERATOR_BIDIRECTIONAL_ITERATOR_HPP_
+#endif // LSD_ITERATOR_BIDIRECTIONAL_ITERATOR_H_

@@ -1,5 +1,5 @@
-#ifndef LSD_FUNCTIONAL_BIND_FRONT_HPP_
-#define LSD_FUNCTIONAL_BIND_FRONT_HPP_
+#ifndef LSD_FUNCTIONAL_BIND_FRONT_H_
+#define LSD_FUNCTIONAL_BIND_FRONT_H_
 
 #include <type_traits>
 #include <utility>
@@ -58,4 +58,4 @@ constexpr auto bind_front(F&& f, Args&&... args) {
 
 } // namespace lsd
 
-#endif // LSD_FUNCTIONAL_BIND_FRONT_HPP_
+#endif // LSD_FUNCTIONAL_BIND_FRONT_H_

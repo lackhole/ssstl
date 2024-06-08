@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2024/01/13.
 //
 
-#ifndef LSD_RANGES_RANGE_MAPPED_T_HPP
-#define LSD_RANGES_RANGE_MAPPED_T_HPP
+#ifndef LSD_RANGES_RANGE_MAPPED_T_H_
+#define LSD_RANGES_RANGE_MAPPED_T_H_
 
 #include <tuple>
 #include <type_traits>
@@ -53,4 +53,4 @@ using range_mapped_t = typename range_mapped<R>::type;
 } // namespace lsd
 } // namespace ranges
 
-#endif // LSD_RANGES_RANGE_MAPPED_T_HPP
+#endif // LSD_RANGES_RANGE_MAPPED_T_H_

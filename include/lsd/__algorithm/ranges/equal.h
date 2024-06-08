@@ -2,8 +2,8 @@
 // Created by yonggyulee on 1/12/24.
 //
 
-#ifndef LSD_ALGORITHM_RANGES_EQUAL_HPP
-#define LSD_ALGORITHM_RANGES_EQUAL_HPP
+#ifndef LSD_ALGORITHM_RANGES_EQUAL_H_
+#define LSD_ALGORITHM_RANGES_EQUAL_H_
 
 #include <functional>
 #include <initializer_list>
@@ -131,4 +131,4 @@ LSD_INLINE_OR_STATIC constexpr detail::equal_niebloid equal{};
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_ALGORITHM_RANGES_EQUAL_HPP
+#endif // LSD_ALGORITHM_RANGES_EQUAL_H_

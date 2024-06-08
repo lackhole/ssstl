@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/26.
 //
 
-#ifndef LSD_TYPE_TRAITS_DETAIL_TAG_HPP_
-#define LSD_TYPE_TRAITS_DETAIL_TAG_HPP_
+#ifndef LSD_TYPE_TRAITS_DETAIL_TAG_H_
+#define LSD_TYPE_TRAITS_DETAIL_TAG_H_
 
 #include <type_traits>
 
@@ -38,4 +38,4 @@ struct conditional_tag : conditional_tag_impl<1, If, ElseIf...> {};
 } // namespace detail
 } // namespace lsd
 
-#endif // LSD_TYPE_TRAITS_DETAIL_TAG_HPP_
+#endif // LSD_TYPE_TRAITS_DETAIL_TAG_H_

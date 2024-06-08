@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/24.
 //
 
-#ifndef LSD_RANGES_ENABLE_BORROWED_RANGE_HPP_
-#define LSD_RANGES_ENABLE_BORROWED_RANGE_HPP_
+#ifndef LSD_RANGES_ENABLE_BORROWED_RANGE_H_
+#define LSD_RANGES_ENABLE_BORROWED_RANGE_H_
 
 #include <type_traits>
 
@@ -16,4 +16,4 @@ struct enable_borrowed_range : std::false_type {};
 } // namespace lsd
 } // namespace ranges
 
-#endif // LSD_RANGES_ENABLE_BORROWED_RANGE_HPP_
+#endif // LSD_RANGES_ENABLE_BORROWED_RANGE_H_

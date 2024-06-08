@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 2/24/24.
 //
 
-#ifndef LSD_ALGORITHM_RANGES_LEXICOGRAPHICAL_COMPARE_HPP
-#define LSD_ALGORITHM_RANGES_LEXICOGRAPHICAL_COMPARE_HPP
+#ifndef LSD_ALGORITHM_RANGES_LEXICOGRAPHICAL_COMPARE_H_
+#define LSD_ALGORITHM_RANGES_LEXICOGRAPHICAL_COMPARE_H_
 
 #include <functional>
 #include <type_traits>
@@ -78,4 +78,4 @@ LSD_INLINE_OR_STATIC constexpr detail::lexicographical_compare_niebloid lexicogr
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_ALGORITHM_RANGES_LEXICOGRAPHICAL_COMPARE_HPP
+#endif // LSD_ALGORITHM_RANGES_LEXICOGRAPHICAL_COMPARE_H_

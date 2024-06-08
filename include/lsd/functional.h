@@ -2,8 +2,8 @@
 #  * Created by YongGyu Lee on 2020/12/08.
 #  */
 #
-# ifndef LSD_FUNCTIONAL_FUNCTIONAL_HPP
-# define LSD_FUNCTIONAL_FUNCTIONAL_HPP
+# ifndef LSD_FUNCTIONAL_FUNCTIONAL_H_
+# define LSD_FUNCTIONAL_FUNCTIONAL_H_
 #
 # include "lsd/__functional/bind_back.h"
 # include "lsd/__functional/bind_front.h"
@@ -17,4 +17,4 @@
 # include "lsd/__functional/less_equal.h"
 # include "lsd/__functional/not_equal_to.h"
 
-# endif // LSD_FUNCTIONAL_FUNCTIONAL_HPP
+# endif // LSD_FUNCTIONAL_FUNCTIONAL_H_

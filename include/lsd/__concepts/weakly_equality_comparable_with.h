@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/24.
 //
 
-#ifndef LSD_CONCEPTS_WEAKLY_EQUALITY_COMPARABLE_WITH_HPP_
-#define LSD_CONCEPTS_WEAKLY_EQUALITY_COMPARABLE_WITH_HPP_
+#ifndef LSD_CONCEPTS_WEAKLY_EQUALITY_COMPARABLE_WITH_H_
+#define LSD_CONCEPTS_WEAKLY_EQUALITY_COMPARABLE_WITH_H_
 
 #include <type_traits>
 
@@ -41,4 +41,4 @@ struct weakly_equality_comparable_with : detail::weakly_equality_comparable_with
 
 } // namespace lsd
 
-#endif // LSD_CONCEPTS_WEAKLY_EQUALITY_COMPARABLE_WITH_HPP_
+#endif // LSD_CONCEPTS_WEAKLY_EQUALITY_COMPARABLE_WITH_H_

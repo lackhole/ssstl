@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/24.
 //
 
-#ifndef LSD_CONCEPTS_DEFAULT_INITIALIZABLE_HPP_
-#define LSD_CONCEPTS_DEFAULT_INITIALIZABLE_HPP_
+#ifndef LSD_CONCEPTS_DEFAULT_INITIALIZABLE_H_
+#define LSD_CONCEPTS_DEFAULT_INITIALIZABLE_H_
 
 #include "lsd/__concepts/constructible_from.h"
 #include "lsd/__type_traits/conjunction.h"
@@ -34,4 +34,4 @@ struct default_initializable
 
 } // namespace lsd
 
-#endif // LSD_CONCEPTS_DEFAULT_INITIALIZABLE_HPP_
+#endif // LSD_CONCEPTS_DEFAULT_INITIALIZABLE_H_

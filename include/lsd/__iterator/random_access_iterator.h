@@ -2,8 +2,8 @@
 // Created by cosge on 2023-12-03.
 //
 
-#ifndef LSD_ITERATOR_RANDOM_ACCESS_ITERATOR_HPP_
-#define LSD_ITERATOR_RANDOM_ACCESS_ITERATOR_HPP_
+#ifndef LSD_ITERATOR_RANDOM_ACCESS_ITERATOR_H_
+#define LSD_ITERATOR_RANDOM_ACCESS_ITERATOR_H_
 
 #include <type_traits>
 
@@ -102,4 +102,4 @@ struct random_access_iterator : detail::random_access_iterator_impl<I> {};
 #pragma warning( pop )
 #endif
 
-#endif // LSD_ITERATOR_RANDOM_ACCESS_ITERATOR_HPP_
+#endif // LSD_ITERATOR_RANDOM_ACCESS_ITERATOR_H_

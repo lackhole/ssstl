@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 4/15/24.
 //
 
-#ifndef LSD_ITERATOR_REVERSE_ITERATOR_HPP_
-#define LSD_ITERATOR_REVERSE_ITERATOR_HPP_
+#ifndef LSD_ITERATOR_REVERSE_ITERATOR_H_
+#define LSD_ITERATOR_REVERSE_ITERATOR_H_
 
 
 #include <iterator>
@@ -94,4 +94,4 @@ constexpr void iter_swap(const reverse_iterator<Iter>& x, const reverse_iterator
 
 #endif // __cplusplus < 202002L
 
-#endif // LSD_ITERATOR_REVERSE_ITERATOR_HPP_
+#endif // LSD_ITERATOR_REVERSE_ITERATOR_H_

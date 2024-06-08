@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/09/29.
 //
 
-#ifndef LSD_TYPE_TRAITS_IS_BOUNDED_ARRAY_HPP
-#define LSD_TYPE_TRAITS_IS_BOUNDED_ARRAY_HPP
+#ifndef LSD_TYPE_TRAITS_IS_BOUNDED_ARRAY_H_
+#define LSD_TYPE_TRAITS_IS_BOUNDED_ARRAY_H_
 
 #include <cstddef>
 #include <type_traits>
@@ -18,4 +18,4 @@ struct is_bounded_array<T[N]> : std::true_type {};
 
 } // namespace lsd
 
-#endif // LSD_TYPE_TRAITS_IS_BOUNDED_ARRAY_HPP
+#endif // LSD_TYPE_TRAITS_IS_BOUNDED_ARRAY_H_

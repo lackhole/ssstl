@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/27.
 //
 
-#ifndef LSD_ITERATOR_INDIRECTLY_SWAPPABLE_HPP
-#define LSD_ITERATOR_INDIRECTLY_SWAPPABLE_HPP
+#ifndef LSD_ITERATOR_INDIRECTLY_SWAPPABLE_H_
+#define LSD_ITERATOR_INDIRECTLY_SWAPPABLE_H_
 
 #include <type_traits>
 
@@ -44,4 +44,4 @@ struct indirectly_swappable : detail::indirectly_swappable_impl<I1, I2> {};
 
 } // namespace lsd
 
-#endif // LSD_ITERATOR_INDIRECTLY_SWAPPABLE_HPP
+#endif // LSD_ITERATOR_INDIRECTLY_SWAPPABLE_H_

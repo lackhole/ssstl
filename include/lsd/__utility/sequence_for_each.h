@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 2024. 5. 17.
 //
 
-#ifndef LSD_UTILITY_SEQUENCE_FOR_EACH_HPP_
-#define LSD_UTILITY_SEQUENCE_FOR_EACH_HPP_
+#ifndef LSD_UTILITY_SEQUENCE_FOR_EACH_H_
+#define LSD_UTILITY_SEQUENCE_FOR_EACH_H_
 
 #include <cstddef>
 #include <type_traits>
@@ -55,4 +55,4 @@ sequence_for_each(F&& f) {
 
 } // namespace lsd
 
-#endif // LSD_UTILITY_SEQUENCE_FOR_EACH_HPP_
+#endif // LSD_UTILITY_SEQUENCE_FOR_EACH_H_

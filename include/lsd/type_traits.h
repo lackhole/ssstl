@@ -2,8 +2,8 @@
 #  * Created by YongGyu Lee on 2020/12/08.
 #  */
 #
-# ifndef LSD_TYPE_TRAITS_HPP
-# define LSD_TYPE_TRAITS_HPP
+# ifndef LSD_TYPE_TRAITS_H_
+# define LSD_TYPE_TRAITS_H_
 #
 # include "lsd/__type_traits/detail/control_special.h"
 # include "lsd/__type_traits/detail/size.h"
@@ -50,4 +50,4 @@
 # include "lsd/__type_traits/type_identity.h"
 # include "lsd/__type_traits/void_t.h"
 
-# endif // LSD_TYPE_TRAITS_HPP
+# endif // LSD_TYPE_TRAITS_H_

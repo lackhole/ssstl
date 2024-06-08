@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2024/01/08.
 //
 
-#ifndef LSD_RANGES_BORROWED_SUBRANGE_T_HPP_
-#define LSD_RANGES_BORROWED_SUBRANGE_T_HPP_
+#ifndef LSD_RANGES_BORROWED_SUBRANGE_T_H_
+#define LSD_RANGES_BORROWED_SUBRANGE_T_H_
 
 #include <type_traits>
 
@@ -36,4 +36,4 @@ using borrowed_subrange_t = typename borrowed_subrange<R>::type;
 } // namespace lsd
 } // namespace ranges
 
-#endif // LSD_RANGES_BORROWED_SUBRANGE_T_HPP_
+#endif // LSD_RANGES_BORROWED_SUBRANGE_T_H_

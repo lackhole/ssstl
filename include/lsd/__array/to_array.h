@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 4/11/24.
 //
 
-#ifndef LSD_ARRAY_TO_ARRAY_HPP_
-#define LSD_ARRAY_TO_ARRAY_HPP_
+#ifndef LSD_ARRAY_TO_ARRAY_H_
+#define LSD_ARRAY_TO_ARRAY_H_
 
 #include <array>
 #include <cstddef>
@@ -37,4 +37,4 @@ constexpr std::array<std::remove_cv_t<T>, N> to_array(T (&&a)[N]) {
 
 } // namespace lsd
 
-#endif // LSD_ARRAY_TO_ARRAY_HPP_
+#endif // LSD_ARRAY_TO_ARRAY_H_

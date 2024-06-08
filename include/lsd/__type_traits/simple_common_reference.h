@@ -2,8 +2,8 @@
 // Created by cosge on 2023-12-03.
 //
 
-#ifndef LSD_TYPE_TRAITS_SIMPLE_COMMON_REFERENCE_HPP_
-#define LSD_TYPE_TRAITS_SIMPLE_COMMON_REFERENCE_HPP_
+#ifndef LSD_TYPE_TRAITS_SIMPLE_COMMON_REFERENCE_H_
+#define LSD_TYPE_TRAITS_SIMPLE_COMMON_REFERENCE_H_
 
 #include <type_traits>
 
@@ -107,4 +107,4 @@ struct simple_common_reference<B&&, A&> : simple_common_reference<A&, B&&> {};
 
 } // namespace lsd
 
-#endif // LSD_TYPE_TRAITS_SIMPLE_COMMON_REFERENCE_HPP_
+#endif // LSD_TYPE_TRAITS_SIMPLE_COMMON_REFERENCE_H_

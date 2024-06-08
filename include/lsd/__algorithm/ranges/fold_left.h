@@ -2,8 +2,8 @@
 // Created by yonggyulee on 1/26/24.
 //
 
-#ifndef LSD_ALGORITHM_RANGES_FOLD_LEFT_HPP
-#define LSD_ALGORITHM_RANGES_FOLD_LEFT_HPP
+#ifndef LSD_ALGORITHM_RANGES_FOLD_LEFT_H_
+#define LSD_ALGORITHM_RANGES_FOLD_LEFT_H_
 
 #include <functional>
 #include <type_traits>
@@ -106,4 +106,4 @@ LSD_INLINE_OR_STATIC constexpr detail::fold_left_niebloid fold_left{};
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_ALGORITHM_RANGES_FOLD_LEFT_HPP
+#endif // LSD_ALGORITHM_RANGES_FOLD_LEFT_H_

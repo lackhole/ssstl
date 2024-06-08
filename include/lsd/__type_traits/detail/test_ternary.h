@@ -2,8 +2,8 @@
 // Created by cosge on 2023-12-03.
 //
 
-#ifndef LSD_TYPE_TRAITS_DETAIL_TEST_TERNARY_HPP_
-#define LSD_TYPE_TRAITS_DETAIL_TEST_TERNARY_HPP_
+#ifndef LSD_TYPE_TRAITS_DETAIL_TEST_TERNARY_H_
+#define LSD_TYPE_TRAITS_DETAIL_TEST_TERNARY_H_
 
 #include <type_traits>
 
@@ -29,4 +29,4 @@ using test_ternary_t = typename test_ternary<T1, T2>::type;
 } // namespace detail
 } // namespace lsd
 
-#endif // LSD_TYPE_TRAITS_DETAIL_TEST_TERNARY_HPP_
+#endif // LSD_TYPE_TRAITS_DETAIL_TEST_TERNARY_H_

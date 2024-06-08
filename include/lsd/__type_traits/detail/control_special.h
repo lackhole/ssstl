@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2/1/24.
 //
 
-#ifndef LSD_TYPE_TRAITS_CORE_CONTROL_SPECIAL_HPP
-#define LSD_TYPE_TRAITS_CORE_CONTROL_SPECIAL_HPP
+#ifndef LSD_TYPE_TRAITS_CORE_CONTROL_SPECIAL_H_
+#define LSD_TYPE_TRAITS_CORE_CONTROL_SPECIAL_H_
 
 #include <type_traits>
 
@@ -187,4 +187,4 @@ using control_special = control_move_assign<DtorBase, T...>;
 } // namespace detail
 } // namespace lsd
 
-#endif // LSD_TYPE_TRAITS_CORE_CONTROL_SPECIAL_HPP
+#endif // LSD_TYPE_TRAITS_CORE_CONTROL_SPECIAL_H_

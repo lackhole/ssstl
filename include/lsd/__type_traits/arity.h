@@ -2,8 +2,8 @@
 #  * Created by YongGyu Lee on 2020/12/08.
 #  */
 #
-# ifndef LSD_TYPE_TRAITS_ARITY_HPP
-# define LSD_TYPE_TRAITS_ARITY_HPP
+# ifndef LSD_TYPE_TRAITS_ARITY_H_
+# define LSD_TYPE_TRAITS_ARITY_H_
 #
 # include <type_traits>
 
@@ -30,4 +30,4 @@ using arity_t = typename arity<T>::type;
 
 } // namespace lsd
 
-#endif // LSD_TYPE_TRAITS_ARITY_HPP
+#endif // LSD_TYPE_TRAITS_ARITY_H_

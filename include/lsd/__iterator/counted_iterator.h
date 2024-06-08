@@ -2,8 +2,8 @@
 // Created by cosge on 2024-01-03.
 //
 
-#ifndef LSD_ITERATOR_COUNTED_ITERATOR_HPP
-#define LSD_ITERATOR_COUNTED_ITERATOR_HPP
+#ifndef LSD_ITERATOR_COUNTED_ITERATOR_H_
+#define LSD_ITERATOR_COUNTED_ITERATOR_H_
 
 #include <iterator>
 #include <type_traits>
@@ -314,4 +314,4 @@ struct iterator_traits<lsd::counted_iterator<I>> : iterator_traits<I> {
 
 #endif
 
-#endif // LSD_ITERATOR_COUNTED_ITERATOR_HPP
+#endif // LSD_ITERATOR_COUNTED_ITERATOR_H_

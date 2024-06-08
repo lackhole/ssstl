@@ -2,8 +2,8 @@
 #  * Created by YongGyu Lee on 2024/01/10.
 #  */
 #
-# ifndef LSD_TYPE_TRAITS_IS_EXPLICITLY_CONVERTIBLE_HPP
-# define LSD_TYPE_TRAITS_IS_EXPLICITLY_CONVERTIBLE_HPP
+# ifndef LSD_TYPE_TRAITS_IS_EXPLICITLY_CONVERTIBLE_H_
+# define LSD_TYPE_TRAITS_IS_EXPLICITLY_CONVERTIBLE_H_
 #
 # include <type_traits>
 #
@@ -19,4 +19,4 @@ struct is_explicitly_convertible<From, To, void_t<decltype(static_cast<To>(std::
 
 } // namespace lsd
 
-# endif // LSD_TYPE_TRAITS_IS_EXPLICITLY_CONVERTIBLE_HPP
+# endif // LSD_TYPE_TRAITS_IS_EXPLICITLY_CONVERTIBLE_H_

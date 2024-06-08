@@ -2,8 +2,8 @@
 // Created by yonggyulee on 1/12/24.
 //
 
-#ifndef LSD_UTILITY_TYPE_SEQUENCE_HPP
-#define LSD_UTILITY_TYPE_SEQUENCE_HPP
+#ifndef LSD_UTILITY_TYPE_SEQUENCE_H_
+#define LSD_UTILITY_TYPE_SEQUENCE_H_
 
 #include <cstddef>
 
@@ -122,4 +122,4 @@ struct type_sequence {
 
 } // namespace lsd
 
-#endif // LSD_UTILITY_TYPE_SEQUENCE_HPP
+#endif // LSD_UTILITY_TYPE_SEQUENCE_H_

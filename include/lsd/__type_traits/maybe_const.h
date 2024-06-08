@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 1/26/24.
 //
 
-#ifndef LSD_TYPE_TRAITS_MAYBE_CONST_HPP
-#define LSD_TYPE_TRAITS_MAYBE_CONST_HPP
+#ifndef LSD_TYPE_TRAITS_MAYBE_CONST_H_
+#define LSD_TYPE_TRAITS_MAYBE_CONST_H_
 
 #include <type_traits>
 
@@ -14,4 +14,4 @@ using maybe_const = std::conditional_t<Const, const V, V>;
 
 } // namespace lsd
 
-#endif // LSD_TYPE_TRAITS_MAYBE_CONST_HPP
+#endif // LSD_TYPE_TRAITS_MAYBE_CONST_H_

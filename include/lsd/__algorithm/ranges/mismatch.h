@@ -2,8 +2,8 @@
 // Created by yonggyulee on 1/26/24.
 //
 
-#ifndef LSD_ALGORITHM_RANGES_MISMATCH_HPP
-#define LSD_ALGORITHM_RANGES_MISMATCH_HPP
+#ifndef LSD_ALGORITHM_RANGES_MISMATCH_H_
+#define LSD_ALGORITHM_RANGES_MISMATCH_H_
 
 #include <type_traits>
 #include <functional>
@@ -69,4 +69,4 @@ LSD_INLINE_OR_STATIC constexpr detail::mismatch_niebloid mismatch{};
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_ALGORITHM_RANGES_MISMATCH_HPP
+#endif // LSD_ALGORITHM_RANGES_MISMATCH_H_

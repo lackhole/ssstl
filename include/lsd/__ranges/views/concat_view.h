@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 2/13/24.
 //
 
-#ifndef CONCAT_VIEW_HPP
-#define CONCAT_VIEW_HPP
+#ifndef CONCAT_VIEW_H_
+#define CONCAT_VIEW_H_
 
 #include <functional>
 #include <tuple>
@@ -485,4 +485,4 @@ constexpr LSD_INLINE_OR_STATIC detail::concat_niebloid concat{};
 } // namespace ranges
 } // namespace lsd
 
-#endif //CONCAT_VIEW_HPP
+#endif //CONCAT_VIEW_H_

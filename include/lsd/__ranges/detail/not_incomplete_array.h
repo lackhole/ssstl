@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 2/8/24.
 //
 
-#ifndef LSD_RANGES_DETAIL_NOT_INCOMPLETE_ARRAY_HPP_
-#define LSD_RANGES_DETAIL_NOT_INCOMPLETE_ARRAY_HPP_
+#ifndef LSD_RANGES_DETAIL_NOT_INCOMPLETE_ARRAY_H_
+#define LSD_RANGES_DETAIL_NOT_INCOMPLETE_ARRAY_H_
 
 #include <type_traits>
 
@@ -23,4 +23,4 @@ struct not_incomplete_array<T, true>
 } // namespace detail
 } // namespace lsd
 
-#endif // LSD_RANGES_DETAIL_NOT_INCOMPLETE_ARRAY_HPP_
+#endif // LSD_RANGES_DETAIL_NOT_INCOMPLETE_ARRAY_H_

@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 01/27/24.
 //
 
-#ifndef LSD_ALGORITHM_RANGES_MAX_HPP
-#define LSD_ALGORITHM_RANGES_MAX_HPP
+#ifndef LSD_ALGORITHM_RANGES_MAX_H_
+#define LSD_ALGORITHM_RANGES_MAX_H_
 
 #include <functional>
 #include <initializer_list>
@@ -94,4 +94,4 @@ LSD_INLINE_OR_STATIC constexpr detail::max_niebloid max{};
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_ALGORITHM_RANGES_MAX_HPP
+#endif // LSD_ALGORITHM_RANGES_MAX_H_

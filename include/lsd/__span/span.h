@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/30.
 //
 
-#ifndef LSD_SPAN_SPAN_HPP
-#define LSD_SPAN_SPAN_HPP
+#ifndef LSD_SPAN_SPAN_H_
+#define LSD_SPAN_SPAN_H_
 
 #include <array>
 #include <cassert>
@@ -348,4 +348,4 @@ span(R&&) -> span<std::remove_reference_t<ranges::range_reference_t<R>>>;
 
 } // namespace lsd
 
-#endif // LSD_SPAN_SPAN_HPP
+#endif // LSD_SPAN_SPAN_H_

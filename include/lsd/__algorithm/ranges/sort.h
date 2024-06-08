@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 4/15/24.
 //
 
-#ifndef LSD_ALGORITHM_RANGES_SORT_HPP_
-#define LSD_ALGORITHM_RANGES_SORT_HPP_
+#ifndef LSD_ALGORITHM_RANGES_SORT_H_
+#define LSD_ALGORITHM_RANGES_SORT_H_
 
 #include <algorithm>
 #include <functional>
@@ -64,4 +64,4 @@ LSD_INLINE_OR_STATIC constexpr detail::sort_niebloid sort{};
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_ALGORITHM_RANGES_SORT_HPP_
+#endif // LSD_ALGORITHM_RANGES_SORT_H_

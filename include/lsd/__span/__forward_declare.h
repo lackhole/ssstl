@@ -2,8 +2,8 @@
 // Created by yonggyulee on 1/23/24.
 //
 
-#ifndef LSD_SPAN___FORWARD_DECLARE_HPP
-#define LSD_SPAN___FORWARD_DECLARE_HPP
+#ifndef LSD_SPAN___FORWARD_DECLARE_H_
+#define LSD_SPAN___FORWARD_DECLARE_H_
 
 #include <cstddef>
 
@@ -16,4 +16,4 @@ class span;
 
 } // namespace lsd
 
-#endif // LSD_SPAN___FORWARD_DECLARE_HPP
+#endif // LSD_SPAN___FORWARD_DECLARE_H_

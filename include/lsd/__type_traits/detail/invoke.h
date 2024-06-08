@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/29.
 //
 
-#ifndef LSD_TYPE_TRAITS_CORE_INVOKE_HPP
-#define LSD_TYPE_TRAITS_CORE_INVOKE_HPP
+#ifndef LSD_TYPE_TRAITS_CORE_INVOKE_H_
+#define LSD_TYPE_TRAITS_CORE_INVOKE_H_
 
 #include <functional>
 #include <type_traits>
@@ -144,4 +144,4 @@ constexpr auto INVOKE(F&& f, Args&&... args)
 } // namespace detail
 } // namespace lsd
 
-#endif // LSD_TYPE_TRAITS_CORE_INVOKE_HPP
+#endif // LSD_TYPE_TRAITS_CORE_INVOKE_H_

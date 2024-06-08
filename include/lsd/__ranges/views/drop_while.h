@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2024/02/20.
 //
 
-#ifndef LSD_RANGES_VIEWS_DROP_WHILE_HPP
-#define LSD_RANGES_VIEWS_DROP_WHILE_HPP
+#ifndef LSD_RANGES_VIEWS_DROP_WHILE_H_
+#define LSD_RANGES_VIEWS_DROP_WHILE_H_
 
 #include <algorithm>
 #include <cstddef>
@@ -40,4 +40,4 @@ LSD_INLINE_OR_STATIC constexpr detail::drop_while_niebloid drop_while{};
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_RANGES_VIEWS_DROP_WHILE_HPP
+#endif // LSD_RANGES_VIEWS_DROP_WHILE_H_

@@ -2,8 +2,8 @@
 // Created by yonggyulee on 1/24/24.
 //
 
-#ifndef LSD_RANGES_VIEWS_FILTER_VIEW_HPP
-#define LSD_RANGES_VIEWS_FILTER_VIEW_HPP
+#ifndef LSD_RANGES_VIEWS_FILTER_VIEW_H_
+#define LSD_RANGES_VIEWS_FILTER_VIEW_H_
 
 #include <cassert>
 #include <functional>
@@ -299,4 +299,4 @@ filter_view(R&&, Pred) -> filter_view<views::all_t<R>, Pred>;
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_RANGES_VIEWS_FILTER_VIEW_HPP
+#endif // LSD_RANGES_VIEWS_FILTER_VIEW_H_

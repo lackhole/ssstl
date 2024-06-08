@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/24.
 //
 
-#ifndef LSD_ITERATOR_INDIRECT_STRICT_WEAK_ORDER_HPP
-#define LSD_ITERATOR_INDIRECT_STRICT_WEAK_ORDER_HPP
+#ifndef LSD_ITERATOR_INDIRECT_STRICT_WEAK_ORDER_H_
+#define LSD_ITERATOR_INDIRECT_STRICT_WEAK_ORDER_H_
 
 #include <type_traits>
 
@@ -51,4 +51,4 @@ struct indirect_strict_weak_order : detail::indirect_strict_weak_order_impl_1<F,
 
 } // namespace lsd
 
-#endif // LSD_ITERATOR_INDIRECT_STRICT_WEAK_ORDER_HPP
+#endif // LSD_ITERATOR_INDIRECT_STRICT_WEAK_ORDER_H_

@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 3/7/24.
 //
 
-#ifndef LSD_MEMORY_POINTER_TRAITS_HPP
-#define LSD_MEMORY_POINTER_TRAITS_HPP
+#ifndef LSD_MEMORY_POINTER_TRAITS_H_
+#define LSD_MEMORY_POINTER_TRAITS_H_
 
 #include <cstddef>
 
@@ -97,4 +97,4 @@ struct pointer_traits<T*> {
 
 } // namespace lsd
 
-#endif // LSD_MEMORY_POINTER_TRAITS_HPP
+#endif // LSD_MEMORY_POINTER_TRAITS_H_

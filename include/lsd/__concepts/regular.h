@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/24.
 //
 
-#ifndef LSD_CONCEPTS_REGULAR_HPP_
-#define LSD_CONCEPTS_REGULAR_HPP_
+#ifndef LSD_CONCEPTS_REGULAR_H_
+#define LSD_CONCEPTS_REGULAR_H_
 
 #include "lsd/__concepts/semiregular.h"
 #include "lsd/__concepts/equality_comparable.h"
@@ -20,4 +20,4 @@ struct regular
 
 } // namespace lsd
 
-#endif // LSD_CONCEPTS_REGULAR_HPP_
+#endif // LSD_CONCEPTS_REGULAR_H_

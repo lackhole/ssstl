@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/25.
 //
 
-#ifndef LSD_CONCEPTS_TOTALLY_ORDERED_HPP_
-#define LSD_CONCEPTS_TOTALLY_ORDERED_HPP_
+#ifndef LSD_CONCEPTS_TOTALLY_ORDERED_H_
+#define LSD_CONCEPTS_TOTALLY_ORDERED_H_
 
 #include <type_traits>
 
@@ -51,4 +51,4 @@ struct totally_ordered_with : detail::totally_ordered_with_impl<T, U> {};
 
 } // namespace lsd
 
-#endif // LSD_CONCEPTS_TOTALLY_ORDERED_HPP_
+#endif // LSD_CONCEPTS_TOTALLY_ORDERED_H_

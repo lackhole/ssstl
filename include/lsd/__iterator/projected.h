@@ -2,8 +2,8 @@
 // Created by cosge on 2023-12-29.
 //
 
-#ifndef LSD_ITERATOR_PROJECTED_HPP
-#define LSD_ITERATOR_PROJECTED_HPP
+#ifndef LSD_ITERATOR_PROJECTED_H_
+#define LSD_ITERATOR_PROJECTED_H_
 
 #include "lsd/__iterator/indirect_result_t.h"
 #include "lsd/__iterator/indirectly_readable.h"
@@ -54,4 +54,4 @@ using projectable = has_typename_type<detail::projected_impl<I, Proj>>;
 
 } // namespace lsd
 
-#endif // LSD_ITERATOR_PROJECTED_HPP
+#endif // LSD_ITERATOR_PROJECTED_H_

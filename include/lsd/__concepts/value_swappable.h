@@ -2,8 +2,8 @@
 // Created by yonggyulee on 1/25/24.
 //
 
-#ifndef LSD_CONCEPTS_VALUE_SWAPPABLE_HPP
-#define LSD_CONCEPTS_VALUE_SWAPPABLE_HPP
+#ifndef LSD_CONCEPTS_VALUE_SWAPPABLE_H_
+#define LSD_CONCEPTS_VALUE_SWAPPABLE_H_
 
 #include <type_traits>
 
@@ -27,4 +27,4 @@ struct ValueSwappable : detail::ValueSwappableImpl<I1, I2> {};
 
 } // namespace lsd
 
-#endif // LSD_CONCEPTS_VALUE_SWAPPABLE_HPP
+#endif // LSD_CONCEPTS_VALUE_SWAPPABLE_H_

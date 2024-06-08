@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2024/02/08.
 //
 
-#ifndef LSD_RANGES_RBEGIN_HPP_
-#define LSD_RANGES_RBEGIN_HPP_
+#ifndef LSD_RANGES_RBEGIN_H_
+#define LSD_RANGES_RBEGIN_H_
 
 #include <iterator>
 #include <type_traits>
@@ -95,4 +95,4 @@ using namespace niebloid;
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_RANGES_RBEGIN_HPP_
+#endif // LSD_RANGES_RBEGIN_H_

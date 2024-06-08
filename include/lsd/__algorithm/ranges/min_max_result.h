@@ -2,8 +2,8 @@
 // Created by yonggyulee on 1/25/24.
 //
 
-#ifndef LSD_ALGORITHM_RANGES_MIN_MAX_RESULT_HPP
-#define LSD_ALGORITHM_RANGES_MIN_MAX_RESULT_HPP
+#ifndef LSD_ALGORITHM_RANGES_MIN_MAX_RESULT_H_
+#define LSD_ALGORITHM_RANGES_MIN_MAX_RESULT_H_
 
 #include <type_traits>
 #include <utility>
@@ -35,4 +35,4 @@ struct min_max_result {
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_ALGORITHM_RANGES_MIN_MAX_RESULT_HPP
+#endif // LSD_ALGORITHM_RANGES_MIN_MAX_RESULT_H_

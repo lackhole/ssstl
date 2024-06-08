@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 11/3/23.
 //
 
-#ifndef LSD_VARIANT_VARIANT_ALTERNATIVE_HPP
-#define LSD_VARIANT_VARIANT_ALTERNATIVE_HPP
+#ifndef LSD_VARIANT_VARIANT_ALTERNATIVE_H_
+#define LSD_VARIANT_VARIANT_ALTERNATIVE_H_
 
 #include <cstddef>
 #include <type_traits>
@@ -32,4 +32,4 @@ struct variant_alternative<I, variant<Types...>>
 
 } // namespace lsd
 
-#endif // LSD_VARIANT_VARIANT_ALTERNATIVE_HPP
+#endif // LSD_VARIANT_VARIANT_ALTERNATIVE_H_

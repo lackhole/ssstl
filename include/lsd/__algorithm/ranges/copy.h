@@ -2,8 +2,8 @@
 // Created by yonggyulee on 1/12/24.
 //
 
-#ifndef LSD_ALGORITHM_RANGES_COPY_HPP
-#define LSD_ALGORITHM_RANGES_COPY_HPP
+#ifndef LSD_ALGORITHM_RANGES_COPY_H_
+#define LSD_ALGORITHM_RANGES_COPY_H_
 
 #include <type_traits>
 #include <utility>
@@ -68,4 +68,4 @@ LSD_INLINE_OR_STATIC constexpr detail::copy_niebloid copy{};
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_ALGORITHM_RANGES_COPY_HPP
+#endif // LSD_ALGORITHM_RANGES_COPY_H_

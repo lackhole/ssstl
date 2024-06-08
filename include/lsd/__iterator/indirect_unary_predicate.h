@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2024/01/12.
 //
 
-#ifndef LSD_ITERATOR_INDIRECT_UNARY_PREDICATE_HPP
-#define LSD_ITERATOR_INDIRECT_UNARY_PREDICATE_HPP
+#ifndef LSD_ITERATOR_INDIRECT_UNARY_PREDICATE_H_
+#define LSD_ITERATOR_INDIRECT_UNARY_PREDICATE_H_
 
 #include <type_traits>
 
@@ -36,4 +36,4 @@ struct indirect_unary_predicate : detail::indirect_unary_predicate_impl<F, I> {}
 
 } // namespace lsd
 
-#endif // LSD_ITERATOR_INDIRECT_UNARY_PREDICATE_HPP
+#endif // LSD_ITERATOR_INDIRECT_UNARY_PREDICATE_H_

@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2024/01/02.
 //
 
-#ifndef LSD_UTILITY_NONTYPE_HPP
-#define LSD_UTILITY_NONTYPE_HPP
+#ifndef LSD_UTILITY_NONTYPE_H_
+#define LSD_UTILITY_NONTYPE_H_
 
 #include <type_traits>
 
@@ -21,4 +21,4 @@ LSD_INLINE_OR_STATIC constexpr nontype_t<T> nontype{};
 
 } // namespace lsd
 
-#endif // LSD_UTILITY_NONTYPE_HPP
+#endif // LSD_UTILITY_NONTYPE_H_

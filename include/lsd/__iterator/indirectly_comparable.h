@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/29.
 //
 
-#ifndef LSD_ITERATOR_INDIRECTLY_COMPARABLE_HPP
-#define LSD_ITERATOR_INDIRECTLY_COMPARABLE_HPP
+#ifndef LSD_ITERATOR_INDIRECTLY_COMPARABLE_H_
+#define LSD_ITERATOR_INDIRECTLY_COMPARABLE_H_
 
 #include <type_traits>
 
@@ -38,4 +38,4 @@ struct indirectly_comparable : detail::indirectly_comparable_impl<I1, I2, Comp, 
 
 } // namespace lsd
 
-#endif // LSD_ITERATOR_INDIRECTLY_COMPARABLE_HPP
+#endif // LSD_ITERATOR_INDIRECTLY_COMPARABLE_H_

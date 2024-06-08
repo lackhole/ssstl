@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2024/01/02.
 //
 
-#ifndef LSD_RANGES_VIEWS_EMPTY_VIEW_HPP
-#define LSD_RANGES_VIEWS_EMPTY_VIEW_HPP
+#ifndef LSD_RANGES_VIEWS_EMPTY_VIEW_H_
+#define LSD_RANGES_VIEWS_EMPTY_VIEW_H_
 
 #include <cstddef>
 #include <type_traits>
@@ -44,4 +44,4 @@ LSD_INLINE_OR_STATIC constexpr empty_view<T> empty{};
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_RANGES_VIEWS_EMPTY_VIEW_HPP
+#endif // LSD_RANGES_VIEWS_EMPTY_VIEW_H_

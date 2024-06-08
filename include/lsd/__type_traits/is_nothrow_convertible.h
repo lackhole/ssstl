@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2024/01/15.
 //
 
-#ifndef LSD_TYPE_TRAITS_IS_NOTHROW_CONVERTIBLE_HPP
-#define LSD_TYPE_TRAITS_IS_NOTHROW_CONVERTIBLE_HPP
+#ifndef LSD_TYPE_TRAITS_IS_NOTHROW_CONVERTIBLE_H_
+#define LSD_TYPE_TRAITS_IS_NOTHROW_CONVERTIBLE_H_
 
 #include <type_traits>
 
@@ -30,4 +30,4 @@ struct is_nothrow_convertible : detail::is_nothrow_convertible_impl<From, To> {}
 
 } // namespace lsd
 
-#endif // LSD_TYPE_TRAITS_IS_NOTHROW_CONVERTIBLE_HPP
+#endif // LSD_TYPE_TRAITS_IS_NOTHROW_CONVERTIBLE_H_

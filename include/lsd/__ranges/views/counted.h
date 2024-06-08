@@ -2,8 +2,8 @@
 // Created by yonggyulee on 1/27/24.
 //
 
-#ifndef LSD_RANGES_VIEWS_COUNTED_HPP_
-#define LSD_RANGES_VIEWS_COUNTED_HPP_
+#ifndef LSD_RANGES_VIEWS_COUNTED_H_
+#define LSD_RANGES_VIEWS_COUNTED_H_
 
 #include <cstddef>
 #include <type_traits>
@@ -89,4 +89,4 @@ LSD_INLINE_OR_STATIC constexpr detail::counted_niebloid counted{};
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_RANGES_VIEWS_COUNTED_HPP_
+#endif // LSD_RANGES_VIEWS_COUNTED_H_

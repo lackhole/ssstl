@@ -2,8 +2,8 @@
 // Created by cosge on 2023-12-02.
 //
 
-#ifndef LSD_CONCEPTS_ASSIGNABLE_FROM_HPP_
-#define LSD_CONCEPTS_ASSIGNABLE_FROM_HPP_
+#ifndef LSD_CONCEPTS_ASSIGNABLE_FROM_H_
+#define LSD_CONCEPTS_ASSIGNABLE_FROM_H_
 
 #include <type_traits>
 
@@ -57,4 +57,4 @@ struct assignable_from
 #pragma warning( pop )
 #endif
 
-#endif // LSD_CONCEPTS_ASSIGNABLE_FROM_HPP_
+#endif // LSD_CONCEPTS_ASSIGNABLE_FROM_H_

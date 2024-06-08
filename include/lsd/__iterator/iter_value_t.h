@@ -2,8 +2,8 @@
 // Created by cosge on 2023-12-24.
 //
 
-#ifndef LSD_ITERATOR_ITER_VALUE_T_HPP_
-#define LSD_ITERATOR_ITER_VALUE_T_HPP_
+#ifndef LSD_ITERATOR_ITER_VALUE_T_H_
+#define LSD_ITERATOR_ITER_VALUE_T_H_
 
 #include "lsd/__iterator/iterator_traits/cxx20_iterator_traits.h"
 #include "lsd/__iterator/indirectly_readable_traits.h"
@@ -40,4 +40,4 @@ using iter_value_t = typename iter_value<T>::type;
 
 } // namespace lsd
 
-#endif // LSD_ITERATOR_ITER_VALUE_T_HPP_
+#endif // LSD_ITERATOR_ITER_VALUE_T_H_

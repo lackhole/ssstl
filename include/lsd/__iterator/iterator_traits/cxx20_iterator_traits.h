@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/25.
 //
 
-#ifndef LSD_ITERATOR_ITERATOR_TRAITS_CXX20_ITERATOR_TRAITS_HPP_
-#define LSD_ITERATOR_ITERATOR_TRAITS_CXX20_ITERATOR_TRAITS_HPP_
+#ifndef LSD_ITERATOR_ITERATOR_TRAITS_CXX20_ITERATOR_TRAITS_H_
+#define LSD_ITERATOR_ITERATOR_TRAITS_CXX20_ITERATOR_TRAITS_H_
 
 #include <cstddef>
 #include <type_traits>
@@ -192,4 +192,4 @@ struct cxx20_iterator_traits<T*> : detail::cxx20_iterator_traits_object_pointer<
 
 } // namespace lsd
 
-#endif // LSD_ITERATOR_ITERATOR_TRAITS_CXX20_ITERATOR_TRAITS_HPP_
+#endif // LSD_ITERATOR_ITERATOR_TRAITS_CXX20_ITERATOR_TRAITS_H_

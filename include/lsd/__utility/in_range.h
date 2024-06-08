@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 5/8/24.
 //
 
-#ifndef LSD_UTILITY_IN_RANGE_HPP_
-#define LSD_UTILITY_IN_RANGE_HPP_
+#ifndef LSD_UTILITY_IN_RANGE_H_
+#define LSD_UTILITY_IN_RANGE_H_
 
 #include <limits>
 
@@ -19,4 +19,4 @@ constexpr bool in_range(T t) noexcept {
 
 } // namespace lsd
 
-#endif // LSD_UTILITY_IN_RANGE_HPP_
+#endif // LSD_UTILITY_IN_RANGE_H_

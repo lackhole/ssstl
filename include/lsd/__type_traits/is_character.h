@@ -1,5 +1,5 @@
-#ifndef LSD_TYPE_TRAITS_IS_CHARACTER_HPP_
-#define LSD_TYPE_TRAITS_IS_CHARACTER_HPP_
+#ifndef LSD_TYPE_TRAITS_IS_CHARACTER_H_
+#define LSD_TYPE_TRAITS_IS_CHARACTER_H_
 
 #include <type_traits>
 
@@ -21,4 +21,4 @@ template<> struct is_character<char8_t> : std::true_type {};
 
 } // namespace lsd
 
-#endif // LSD_TYPE_TRAITS_IS_CHARACTER_HPP_
+#endif // LSD_TYPE_TRAITS_IS_CHARACTER_H_

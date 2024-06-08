@@ -2,8 +2,8 @@
 // Created by cosge on 2024-01-13.
 //
 
-#ifndef LSD_ITERATOR_ITER_MAPPED_T_HPP_
-#define LSD_ITERATOR_ITER_MAPPED_T_HPP_
+#ifndef LSD_ITERATOR_ITER_MAPPED_T_H_
+#define LSD_ITERATOR_ITER_MAPPED_T_H_
 
 #include <tuple>
 #include <type_traits>
@@ -37,4 +37,4 @@ using iter_mapped_t = typename iter_mapped<T>::type;
 
 } // namespace lsd
 
-#endif // LSD_ITERATOR_ITER_MAPPED_T_HPP_
+#endif // LSD_ITERATOR_ITER_MAPPED_T_H_

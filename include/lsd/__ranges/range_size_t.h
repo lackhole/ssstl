@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2024/01/06.
 //
 
-#ifndef LSD_RANGES_RANGE_SIZE_T_HPP
-#define LSD_RANGES_RANGE_SIZE_T_HPP
+#ifndef LSD_RANGES_RANGE_SIZE_T_H_
+#define LSD_RANGES_RANGE_SIZE_T_H_
 
 #include <type_traits>
 
@@ -33,4 +33,4 @@ using range_size_t = typename range_size<R>::type;
 } // namespace lsd
 } // namespace ranges
 
-#endif // LSD_RANGES_RANGE_SIZE_T_HPP
+#endif // LSD_RANGES_RANGE_SIZE_T_H_

@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/24.
 //
 
-#ifndef LSD_TYPE_TRAITS_CORE_SIZE_HPP_
-#define LSD_TYPE_TRAITS_CORE_SIZE_HPP_
+#ifndef LSD_TYPE_TRAITS_CORE_SIZE_H_
+#define LSD_TYPE_TRAITS_CORE_SIZE_H_
 
 #include <cstddef>
 #include <type_traits>
@@ -40,4 +40,4 @@ constexpr inline std::ptrdiff_t ssize(const T (&array)[N]) noexcept
 
 } // namespace lsd
 
-#endif // LSD_TYPE_TRAITS_CORE_SIZE_HPP_
+#endif // LSD_TYPE_TRAITS_CORE_SIZE_H_

@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 2024/02/04.
 //
 
-#ifndef LSD_FUNCTIONAL_NOT_EQUAL_TO_HPP
-#define LSD_FUNCTIONAL_NOT_EQUAL_TO_HPP
+#ifndef LSD_FUNCTIONAL_NOT_EQUAL_TO_H_
+#define LSD_FUNCTIONAL_NOT_EQUAL_TO_H_
 
 #include <type_traits>
 #include <utility>
@@ -28,4 +28,4 @@ struct not_equal_to {
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_FUNCTIONAL_NOT_EQUAL_TO_HPP
+#endif // LSD_FUNCTIONAL_NOT_EQUAL_TO_H_

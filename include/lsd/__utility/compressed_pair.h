@@ -2,8 +2,8 @@
 #  * Created by YongGyu Lee on 2021/11/14.
 #  */
 #
-# ifndef LSD_UTILITY_COMPRESSED_PAIR_HPP
-# define LSD_UTILITY_COMPRESSED_PAIR_HPP
+# ifndef LSD_UTILITY_COMPRESSED_PAIR_H_
+# define LSD_UTILITY_COMPRESSED_PAIR_H_
 #
 # include <cstddef>
 # include <type_traits>
@@ -168,4 +168,4 @@ template<typename T, typename U> constexpr const T&& get(const lsd::compressed_p
 
 } // namespace std
 
-#endif // LSD_UTILITY_COMPRESSED_PAIR_HPP
+#endif // LSD_UTILITY_COMPRESSED_PAIR_H_

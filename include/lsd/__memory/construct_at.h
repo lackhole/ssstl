@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 3/20/24.
 //
 
-#ifndef LSD_MEMORY_CONSTRUCT_AT_HPP_
-#define LSD_MEMORY_CONSTRUCT_AT_HPP_
+#ifndef LSD_MEMORY_CONSTRUCT_AT_H_
+#define LSD_MEMORY_CONSTRUCT_AT_H_
 
 #include <new>
 #include <type_traits>
@@ -36,4 +36,4 @@ constexpr T* construct_at(T* p, Args&&... args) noexcept(std::is_nothrow_constru
 
 } // namespace lsd
 
-#endif // LSD_MEMORY_CONSTRUCT_AT_HPP_
+#endif // LSD_MEMORY_CONSTRUCT_AT_H_

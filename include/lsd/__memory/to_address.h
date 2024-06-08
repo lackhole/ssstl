@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/07.
 //
 
-#ifndef LSD_MEMORY_TO_ADDRESS_HPP_
-#define LSD_MEMORY_TO_ADDRESS_HPP_
+#ifndef LSD_MEMORY_TO_ADDRESS_H_
+#define LSD_MEMORY_TO_ADDRESS_H_
 
 #include <memory>
 #include <type_traits>
@@ -52,4 +52,4 @@ constexpr auto to_address_fancy(const T& p, std::false_type /* has_to_address */
 
 } // namespace lsd
 
-#endif // LSD_MEMORY_TO_ADDRESS_HPP_
+#endif // LSD_MEMORY_TO_ADDRESS_H_

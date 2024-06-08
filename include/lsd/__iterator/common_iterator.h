@@ -2,8 +2,8 @@
 // Created by cosge on 2024-01-26.
 //
 
-#ifndef LSD_ITERATOR_COMMON_ITERATOR_HPP_
-#define LSD_ITERATOR_COMMON_ITERATOR_HPP_
+#ifndef LSD_ITERATOR_COMMON_ITERATOR_H_
+#define LSD_ITERATOR_COMMON_ITERATOR_H_
 
 #include <new>
 #include <type_traits>
@@ -400,4 +400,4 @@ template<typename I, typename S>
 struct std::iterator_traits<::lsd::common_iterator<I, S>>
     : ::lsd::cxx20_iterator_traits<::lsd::common_iterator<I, S>> {};
 
-#endif // LSD_ITERATOR_COMMON_ITERATOR_HPP_
+#endif // LSD_ITERATOR_COMMON_ITERATOR_H_

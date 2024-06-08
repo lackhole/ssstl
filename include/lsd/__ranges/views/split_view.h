@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2/3/24.
 //
 
-#ifndef LSD_RANGES_VIEWS_SPLIT_VIEW_HPP
-#define LSD_RANGES_VIEWS_SPLIT_VIEW_HPP
+#ifndef LSD_RANGES_VIEWS_SPLIT_VIEW_H_
+#define LSD_RANGES_VIEWS_SPLIT_VIEW_H_
 
 #include <type_traits>
 #include <utility>
@@ -252,4 +252,4 @@ split_view(R&&, P&&)
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_RANGES_VIEWS_SPLIT_VIEW_HPP
+#endif // LSD_RANGES_VIEWS_SPLIT_VIEW_H_

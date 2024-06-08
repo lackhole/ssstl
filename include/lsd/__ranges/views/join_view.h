@@ -2,8 +2,8 @@
 // Created by yonggyulee on 1/31/24.
 //
 
-#ifndef LSD_RANGES_VIEWS_JOIN_VIEW_HPP_
-#define LSD_RANGES_VIEWS_JOIN_VIEW_HPP_
+#ifndef LSD_RANGES_VIEWS_JOIN_VIEW_H_
+#define LSD_RANGES_VIEWS_JOIN_VIEW_H_
 
 #include <type_traits>
 #include <utility>
@@ -439,4 +439,4 @@ explicit join_view(R&&) -> join_view<views::all_t<R>>;
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_RANGES_VIEWS_JOIN_VIEW_HPP_
+#endif // LSD_RANGES_VIEWS_JOIN_VIEW_H_

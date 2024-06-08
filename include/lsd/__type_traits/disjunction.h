@@ -2,8 +2,8 @@
 #  * Created by YongGyu Lee on 2021/09/03.
 #  */
 #
-# ifndef LSD_TYPE_TRAITS_DISJUNCTION_HPP
-# define LSD_TYPE_TRAITS_DISJUNCTION_HPP
+# ifndef LSD_TYPE_TRAITS_DISJUNCTION_H_
+# define LSD_TYPE_TRAITS_DISJUNCTION_H_
 #
 # include <type_traits>
 
@@ -23,4 +23,4 @@ struct disjunction<B1, BN...> : std::conditional_t<bool(B1::value), B1, disjunct
 
 } // namespace lsd
 
-# endif // LSD_TYPE_TRAITS_DISJUNCTION_HPP
+# endif // LSD_TYPE_TRAITS_DISJUNCTION_H_

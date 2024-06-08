@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 1/18/24.
 //
 
-#ifndef LSD_CONCEPTS_DIFFERENT_FROM_HPP
-#define LSD_CONCEPTS_DIFFERENT_FROM_HPP
+#ifndef LSD_CONCEPTS_DIFFERENT_FROM_H_
+#define LSD_CONCEPTS_DIFFERENT_FROM_H_
 
 #include "lsd/__concepts/same_as.h"
 #include "lsd/__type_traits/negation.h"
@@ -22,4 +22,4 @@ struct different_from_variadic<Test, T> : different_from<Test, T> {};
 
 } // namespace lsd
 
-#endif // LSD_CONCEPTS_DIFFERENT_FROM_HPP
+#endif // LSD_CONCEPTS_DIFFERENT_FROM_H_

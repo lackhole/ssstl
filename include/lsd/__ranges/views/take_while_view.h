@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 3/27/24.
 //
 
-#ifndef LSD_RANGES_VIEWS_TAKE_WHILE_VIEW_HPP_
-#define LSD_RANGES_VIEWS_TAKE_WHILE_VIEW_HPP_
+#ifndef LSD_RANGES_VIEWS_TAKE_WHILE_VIEW_H_
+#define LSD_RANGES_VIEWS_TAKE_WHILE_VIEW_H_
 
 #include <memory>
 #include <type_traits>
@@ -151,4 +151,4 @@ take_while_view(R&&, Pred) -> take_while_view<views::all_t<R>, Pred>;
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_RANGES_VIEWS_TAKE_WHILE_VIEW_HPP_
+#endif // LSD_RANGES_VIEWS_TAKE_WHILE_VIEW_H_

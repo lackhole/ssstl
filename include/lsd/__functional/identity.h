@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 12/28/23.
 //
 
-#ifndef LSD_FUNCTIONAL_IDENTITY_HPP
-#define LSD_FUNCTIONAL_IDENTITY_HPP
+#ifndef LSD_FUNCTIONAL_IDENTITY_H_
+#define LSD_FUNCTIONAL_IDENTITY_H_
 
 #include <type_traits>
 #include <utility>
@@ -21,4 +21,4 @@ struct identity {
 
 } // namespace lsd
 
-#endif // LSD_FUNCTIONAL_IDENTITY_HPP
+#endif // LSD_FUNCTIONAL_IDENTITY_H_

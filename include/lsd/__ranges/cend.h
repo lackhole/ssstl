@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2024/01/16.
 //
 
-#ifndef LSD_RANGES_CEND_HPP_
-#define LSD_RANGES_CEND_HPP_
+#ifndef LSD_RANGES_CEND_H_
+#define LSD_RANGES_CEND_H_
 
 #include <type_traits>
 
@@ -40,4 +40,4 @@ using namespace niebloid;
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_RANGES_CEND_HPP_
+#endif // LSD_RANGES_CEND_H_

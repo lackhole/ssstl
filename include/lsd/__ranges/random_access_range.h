@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/26.
 //
 
-#ifndef LSD_RANGES_RANDOM_ACCESS_RANGE_HPP_
-#define LSD_RANGES_RANDOM_ACCESS_RANGE_HPP_
+#ifndef LSD_RANGES_RANDOM_ACCESS_RANGE_H_
+#define LSD_RANGES_RANDOM_ACCESS_RANGE_H_
 
 #include <type_traits>
 
@@ -38,4 +38,4 @@ struct random_access_range : detail::random_access_range_impl<T> {};
 } // namespace lsd
 } // namespace ranges
 
-#endif // LSD_RANGES_RANDOM_ACCESS_RANGE_HPP_
+#endif // LSD_RANGES_RANDOM_ACCESS_RANGE_H_

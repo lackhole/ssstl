@@ -2,8 +2,8 @@
 // Created by cosge on 2023-12-31.
 //
 
-#ifndef LSD_ITERATOR_OUTPUT_ITERATOR_HPP
-#define LSD_ITERATOR_OUTPUT_ITERATOR_HPP
+#ifndef LSD_ITERATOR_OUTPUT_ITERATOR_H_
+#define LSD_ITERATOR_OUTPUT_ITERATOR_H_
 
 #include <type_traits>
 
@@ -38,4 +38,4 @@ struct output_iterator : detail::output_iterator_impl<I, T> {};
 
 } // namespace lsd
 
-#endif // LSD_ITERATOR_OUTPUT_ITERATOR_HPP
+#endif // LSD_ITERATOR_OUTPUT_ITERATOR_H_

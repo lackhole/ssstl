@@ -2,8 +2,8 @@
 // Created by cosge on 2023-12-03.
 //
 
-#ifndef LSD_ITERATOR_ITER_DIFFERENCE_T_HPP_
-#define LSD_ITERATOR_ITER_DIFFERENCE_T_HPP_
+#ifndef LSD_ITERATOR_ITER_DIFFERENCE_T_H_
+#define LSD_ITERATOR_ITER_DIFFERENCE_T_H_
 
 #include "lsd/__iterator/incrementable_traits.h"
 #include "lsd/__iterator/iterator_traits/forward_declare.h"
@@ -40,4 +40,4 @@ using iter_difference_t = typename iter_difference<T>::type;
 
 } // namespace lsd
 
-#endif // LSD_ITERATOR_ITER_DIFFERENCE_T_HPP_
+#endif // LSD_ITERATOR_ITER_DIFFERENCE_T_H_

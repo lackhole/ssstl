@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2024/01/08.
 //
 
-#ifndef LSD_RANGES_BORROWED_ITERATOR_T_HPP_
-#define LSD_RANGES_BORROWED_ITERATOR_T_HPP_
+#ifndef LSD_RANGES_BORROWED_ITERATOR_T_H_
+#define LSD_RANGES_BORROWED_ITERATOR_T_H_
 
 #include <type_traits>
 
@@ -35,4 +35,4 @@ using borrowed_iterator_t = typename borrowed_iterator<R>::type;
 } // namespace lsd
 } // namespace ranges
 
-#endif // LSD_RANGES_BORROWED_ITERATOR_T_HPP_
+#endif // LSD_RANGES_BORROWED_ITERATOR_T_H_

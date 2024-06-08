@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/01/01.
 //
 
-#ifndef LSD_RANGES_RANGE_ADAPTOR_CLOSURE_HPP
-#define LSD_RANGES_RANGE_ADAPTOR_CLOSURE_HPP
+#ifndef LSD_RANGES_RANGE_ADAPTOR_CLOSURE_H_
+#define LSD_RANGES_RANGE_ADAPTOR_CLOSURE_H_
 
 #include <cstddef>
 #include <type_traits>
@@ -112,4 +112,4 @@ struct range_adaptor_closure {
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_RANGES_RANGE_ADAPTOR_CLOSURE_HPP
+#endif // LSD_RANGES_RANGE_ADAPTOR_CLOSURE_H_

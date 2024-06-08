@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 1/25/24.
 //
 
-#ifndef LSD_ALGORITHM_SHIFT_HPP
-#define LSD_ALGORITHM_SHIFT_HPP
+#ifndef LSD_ALGORITHM_SHIFT_H_
+#define LSD_ALGORITHM_SHIFT_H_
 
 #include <algorithm>
 #include <type_traits>
@@ -150,4 +150,4 @@ constexpr ForwardIt shift_right(
 
 } // namespace lsd
 
-#endif // LSD_ALGORITHM_SHIFT_HPP
+#endif // LSD_ALGORITHM_SHIFT_H_

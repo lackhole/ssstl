@@ -2,8 +2,8 @@
 // Created by yonggyulee on 1/26/24.
 //
 
-#ifndef LSD_ITERATOR_MOVE_SENTINEL_HPP
-#define LSD_ITERATOR_MOVE_SENTINEL_HPP
+#ifndef LSD_ITERATOR_MOVE_SENTINEL_H_
+#define LSD_ITERATOR_MOVE_SENTINEL_H_
 
 #include <iterator>
 #include <type_traits>
@@ -76,4 +76,4 @@ class move_sentinel {
 
 } // namespace lsd
 
-#endif // LSD_ITERATOR_MOVE_SENTINEL_HPP
+#endif // LSD_ITERATOR_MOVE_SENTINEL_H_

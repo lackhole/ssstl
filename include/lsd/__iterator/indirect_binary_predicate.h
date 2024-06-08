@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/29.
 //
 
-#ifndef LSD_ITERATOR_INDIRECT_BINARY_PREDICATE_HPP
-#define LSD_ITERATOR_INDIRECT_BINARY_PREDICATE_HPP
+#ifndef LSD_ITERATOR_INDIRECT_BINARY_PREDICATE_H_
+#define LSD_ITERATOR_INDIRECT_BINARY_PREDICATE_H_
 
 #include <type_traits>
 
@@ -62,4 +62,4 @@ struct indirect_binary_predicate : detail::indirect_binary_predicate_impl_1<F, I
 
 } // namespace lsd
 
-#endif // LSD_ITERATOR_INDIRECT_BINARY_PREDICATE_HPP
+#endif // LSD_ITERATOR_INDIRECT_BINARY_PREDICATE_H_

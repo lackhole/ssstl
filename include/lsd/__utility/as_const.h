@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2024/01/02.
 //
 
-#ifndef LSD_UTILITY_AS_CONST_HPP
-#define LSD_UTILITY_AS_CONST_HPP
+#ifndef LSD_UTILITY_AS_CONST_H_
+#define LSD_UTILITY_AS_CONST_H_
 
 #include <type_traits>
 
@@ -19,4 +19,4 @@ void as_const(T&&) = delete;
 
 } // namespace lsd
 
-#endif // LSD_UTILITY_AS_CONST_HPP
+#endif // LSD_UTILITY_AS_CONST_H_

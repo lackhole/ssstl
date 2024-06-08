@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2/3/24.
 //
 
-#ifndef LSD_ALGORITHM_SEARCH_HPP
-#define LSD_ALGORITHM_SEARCH_HPP
+#ifndef LSD_ALGORITHM_SEARCH_H_
+#define LSD_ALGORITHM_SEARCH_H_
 
 #include <type_traits>
 #include <utility>
@@ -86,4 +86,4 @@ LSD_INLINE_OR_STATIC constexpr detail::search_niebloid search{};
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_ALGORITHM_SEARCH_HPP
+#endif // LSD_ALGORITHM_SEARCH_H_

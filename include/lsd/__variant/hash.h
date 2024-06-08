@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 02/01/24.
 //
 
-#ifndef LSD_VARIANT_HASH_HPP
-#define LSD_VARIANT_HASH_HPP
+#ifndef LSD_VARIANT_HASH_H_
+#define LSD_VARIANT_HASH_H_
 
 #include <functional>
 
@@ -49,4 +49,4 @@ struct std::hash<lsd::variant<Ts...>>
         lsd::conjunction<lsd::is_invocable<std::hash<Ts>, const lsd::remove_cvref_t<Ts>&>...>::value
       > {};
 
-#endif // LSD_VARIANT_HASH_HPP
+#endif // LSD_VARIANT_HASH_H_

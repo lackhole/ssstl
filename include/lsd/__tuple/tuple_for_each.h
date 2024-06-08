@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 4/9/24.
 //
 
-#ifndef LSD_TUPLE_TUPLE_FOR_EACH_HPP_
-#define LSD_TUPLE_TUPLE_FOR_EACH_HPP_
+#ifndef LSD_TUPLE_TUPLE_FOR_EACH_H_
+#define LSD_TUPLE_TUPLE_FOR_EACH_H_
 
 #include <cstddef>
 #include <tuple>
@@ -91,4 +91,4 @@ tuple_for_each_index(Tuple&& t, F&& f) {
 
 } // namespace lsd
 
-#endif // LSD_TUPLE_TUPLE_FOR_EACH_HPP_
+#endif // LSD_TUPLE_TUPLE_FOR_EACH_H_

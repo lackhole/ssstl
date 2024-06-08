@@ -2,8 +2,8 @@
 // Created by cosge on 2023-12-31.
 //
 
-#ifndef LSD_ITERATOR_ITER_CONST_REFERENCE_T_HPP
-#define LSD_ITERATOR_ITER_CONST_REFERENCE_T_HPP
+#ifndef LSD_ITERATOR_ITER_CONST_REFERENCE_T_H_
+#define LSD_ITERATOR_ITER_CONST_REFERENCE_T_H_
 
 #include "lsd/__iterator/indirectly_readable.h"
 #include "lsd/__iterator/iter_reference_t.h"
@@ -45,4 +45,4 @@ using iter_const_reference_t = typename iter_const_reference<T>::type;
 
 } // namespace lsd
 
-#endif // LSD_ITERATOR_ITER_CONST_REFERENCE_T_HPP
+#endif // LSD_ITERATOR_ITER_CONST_REFERENCE_T_H_

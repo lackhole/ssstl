@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 10/27/23.
 //
 
-#ifndef LSD_VARIANT_VARIANT_HPP
-#define LSD_VARIANT_VARIANT_HPP
+#ifndef LSD_VARIANT_VARIANT_H_
+#define LSD_VARIANT_VARIANT_H_
 
 #include <cassert>
 #include <new>
@@ -915,4 +915,4 @@ using ::lsd::get_if;
 
 } // namespace std
 
-#endif // LSD_VARIANT_VARIANT_HPP
+#endif // LSD_VARIANT_VARIANT_H_

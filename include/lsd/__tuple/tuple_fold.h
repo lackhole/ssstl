@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 2/13/24.
 //
 
-#ifndef LSD_TUPLE_TUPLE_FOLD_HPP_
-#define LSD_TUPLE_TUPLE_FOLD_HPP_
+#ifndef LSD_TUPLE_TUPLE_FOLD_H_
+#define LSD_TUPLE_TUPLE_FOLD_H_
 
 #include <cstddef>
 #include <tuple>
@@ -56,4 +56,4 @@ constexpr auto tuple_fold_left(Tuple&& tuple, T&& init, F&& f) {
 
 } // namespace lsd
 
-#endif // LSD_TUPLE_TUPLE_FOLD_HPP_
+#endif // LSD_TUPLE_TUPLE_FOLD_H_

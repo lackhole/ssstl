@@ -2,8 +2,8 @@
 // Created by cosge on 2023-12-02.
 //
 
-#ifndef LSD_ITERATOR_INPUT_OR_OUTPUT_ITERATOR_HPP_
-#define LSD_ITERATOR_INPUT_OR_OUTPUT_ITERATOR_HPP_
+#ifndef LSD_ITERATOR_INPUT_OR_OUTPUT_ITERATOR_H_
+#define LSD_ITERATOR_INPUT_OR_OUTPUT_ITERATOR_H_
 
 #include "lsd/__concepts/dereferenceable.h"
 #include "lsd/__iterator/weakly_incrementable.h"
@@ -20,4 +20,4 @@ struct input_or_output_iterator
 
 } // namespace lsd
 
-#endif // LSD_ITERATOR_INPUT_OR_OUTPUT_ITERATOR_HPP_
+#endif // LSD_ITERATOR_INPUT_OR_OUTPUT_ITERATOR_H_

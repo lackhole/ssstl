@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 5/8/24.
 //
 
-#ifndef LSD_ALGORITHM_RANGES_CLAMP_HPP_
-#define LSD_ALGORITHM_RANGES_CLAMP_HPP_
+#ifndef LSD_ALGORITHM_RANGES_CLAMP_H_
+#define LSD_ALGORITHM_RANGES_CLAMP_H_
 
 #include <utility>
 
@@ -44,4 +44,4 @@ LSD_INLINE_OR_STATIC constexpr detail::clamp_niebloid clamp{};
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_ALGORITHM_RANGES_CLAMP_HPP_
+#endif // LSD_ALGORITHM_RANGES_CLAMP_H_

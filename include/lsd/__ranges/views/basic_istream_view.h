@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2/3/24.
 //
 
-#ifndef LSD_RANGES_VIEWS_BASIC_ISTREAM_VIEW_HPP
-#define LSD_RANGES_VIEWS_BASIC_ISTREAM_VIEW_HPP
+#ifndef LSD_RANGES_VIEWS_BASIC_ISTREAM_VIEW_H_
+#define LSD_RANGES_VIEWS_BASIC_ISTREAM_VIEW_H_
 
 #include <cstddef>
 #include <istream>
@@ -132,4 +132,4 @@ template<typename Val> using wistream_view = basic_istream_view<Val, wchar_t>;
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_RANGES_VIEWS_BASIC_ISTREAM_VIEW_HPP
+#endif // LSD_RANGES_VIEWS_BASIC_ISTREAM_VIEW_H_

@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 01/08/24.
 //
 
-#ifndef LSD_ALGORITHM_RANGES_MIN_ELEMENT_HPP
-#define LSD_ALGORITHM_RANGES_MIN_ELEMENT_HPP
+#ifndef LSD_ALGORITHM_RANGES_MIN_ELEMENT_H_
+#define LSD_ALGORITHM_RANGES_MIN_ELEMENT_H_
 
 #include "lsd/__algorithm/ranges/detail/check_input.h"
 #include "lsd/__core/inline_or_static.h"
@@ -51,4 +51,4 @@ LSD_INLINE_OR_STATIC constexpr detail::min_element_niebloid min_element{};
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_ALGORITHM_RANGES_MIN_ELEMENT_HPP
+#endif // LSD_ALGORITHM_RANGES_MIN_ELEMENT_H_

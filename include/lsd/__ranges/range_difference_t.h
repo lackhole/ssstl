@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/24.
 //
 
-#ifndef LSD_RANGES_RANGE_DIFFERENCE_T_HPP_
-#define LSD_RANGES_RANGE_DIFFERENCE_T_HPP_
+#ifndef LSD_RANGES_RANGE_DIFFERENCE_T_H_
+#define LSD_RANGES_RANGE_DIFFERENCE_T_H_
 
 #include "lsd/__iterator/iter_difference_t.h"
 #include "lsd/__ranges/iterator_t.h"
@@ -36,4 +36,4 @@ using range_difference_t = typename range_difference<R>::type;
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_RANGES_RANGE_DIFFERENCE_T_HPP_
+#endif // LSD_RANGES_RANGE_DIFFERENCE_T_H_

@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 12/27/23.
 //
 
-#ifndef LSD_ALGORITHM_HPP
-#define LSD_ALGORITHM_HPP
+#ifndef LSD_ALGORITHM_H_
+#define LSD_ALGORITHM_H_
 
 #include "lsd/__algorithm/clamp.h"
 #include "lsd/__algorithm/for_each_n.h"
@@ -50,4 +50,4 @@
 #include "lsd/__algorithm/ranges/sort_heap.h"
 #include "lsd/__algorithm/ranges/swap_ranges.h"
 
-#endif // LSD_ALGORITHM_HPP
+#endif // LSD_ALGORITHM_H_

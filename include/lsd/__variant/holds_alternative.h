@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2/4/24.
 //
 
-#ifndef LSD_VARIANTS_HOLDS_ALTERNATIVE_HPP
-#define LSD_VARIANTS_HOLDS_ALTERNATIVE_HPP
+#ifndef LSD_VARIANTS_HOLDS_ALTERNATIVE_H_
+#define LSD_VARIANTS_HOLDS_ALTERNATIVE_H_
 
 #include <type_traits>
 
@@ -32,4 +32,4 @@ constexpr bool holds_alternative(const variant<Types...>& v) noexcept {
 
 } // namespace lsd
 
-#endif // LSD_VARIANTS_HOLDS_ALTERNATIVE_HPP
+#endif // LSD_VARIANTS_HOLDS_ALTERNATIVE_H_

@@ -2,8 +2,8 @@
 // Created by cosge on 2024-01-13.
 //
 
-#ifndef LSD_ITERATOR_NEXT_HPP_
-#define LSD_ITERATOR_NEXT_HPP_
+#ifndef LSD_ITERATOR_NEXT_H_
+#define LSD_ITERATOR_NEXT_H_
 
 #include <type_traits>
 
@@ -62,4 +62,4 @@ using namespace niebloid;
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_ITERATOR_NEXT_HPP_
+#endif // LSD_ITERATOR_NEXT_H_

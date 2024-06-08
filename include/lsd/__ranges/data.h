@@ -2,8 +2,8 @@
 // Created by cosge on 2023-12-02.
 //
 
-#ifndef LSD_RANGES_DATA_HPP
-#define LSD_RANGES_DATA_HPP
+#ifndef LSD_RANGES_DATA_H_
+#define LSD_RANGES_DATA_H_
 
 #include <type_traits>
 
@@ -94,4 +94,4 @@ using namespace niebloid;
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_RANGES_DATA_HPP
+#endif // LSD_RANGES_DATA_H_

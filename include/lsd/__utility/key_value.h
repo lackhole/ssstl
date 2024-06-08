@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 2/22/24.
 //
 
-#ifndef LSD_UTILITY_KEY_VALUE_HPP
-#define LSD_UTILITY_KEY_VALUE_HPP
+#ifndef LSD_UTILITY_KEY_VALUE_H_
+#define LSD_UTILITY_KEY_VALUE_H_
 
 #include <cstddef>
 #include <tuple>
@@ -41,4 +41,4 @@ LSD_INLINE_OR_STATIC constexpr detail::element_niebloid<I> element;
 } // namespace lsd
 
 
-#endif // LSD_UTILITY_KEY_VALUE_HPP
+#endif // LSD_UTILITY_KEY_VALUE_H_

@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/10/27.
 //
 
-#ifndef LSD_TUPLE_MAKE_FROM_TUPLE_HPP
-#define LSD_TUPLE_MAKE_FROM_TUPLE_HPP
+#ifndef LSD_TUPLE_MAKE_FROM_TUPLE_H_
+#define LSD_TUPLE_MAKE_FROM_TUPLE_H_
 
 #include <cstddef>
 #include <type_traits>
@@ -48,4 +48,4 @@ constexpr T make_from_tuple(Tuple&& t) {
 
 } // namespace lsd
 
-#endif // LSD_TUPLE_MAKE_FROM_TUPLE_HPP
+#endif // LSD_TUPLE_MAKE_FROM_TUPLE_H_

@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 11/3/23.
 //
 
-#ifndef LSD_TYPE_TRAITS_IS_LIST_INITIALIZABLE_HPP
-#define LSD_TYPE_TRAITS_IS_LIST_INITIALIZABLE_HPP
+#ifndef LSD_TYPE_TRAITS_IS_LIST_INITIALIZABLE_H_
+#define LSD_TYPE_TRAITS_IS_LIST_INITIALIZABLE_H_
 
 #include <type_traits>
 
@@ -35,4 +35,4 @@ using is_copy_list_initializable_t = typename is_copy_list_initializable<To, Fro
 
 } // namespace lsd
 
-#endif // LSD_TYPE_TRAITS_IS_LIST_INITIALIZABLE_HPP
+#endif // LSD_TYPE_TRAITS_IS_LIST_INITIALIZABLE_H_

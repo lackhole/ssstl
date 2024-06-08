@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2024/01/30.
 //
 
-#ifndef LSD_RANGES_VIEWS_REPEAT_HPP
-#define LSD_RANGES_VIEWS_REPEAT_HPP
+#ifndef LSD_RANGES_VIEWS_REPEAT_H_
+#define LSD_RANGES_VIEWS_REPEAT_H_
 
 #include <type_traits>
 
@@ -55,4 +55,4 @@ LSD_INLINE_OR_STATIC constexpr detail::repeat_niebloid repeat{};
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_RANGES_VIEWS_REPEAT_HPP
+#endif // LSD_RANGES_VIEWS_REPEAT_H_

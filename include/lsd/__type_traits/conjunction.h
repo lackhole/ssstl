@@ -2,8 +2,8 @@
 // Created by cosge on 2023-10-14.
 //
 
-#ifndef LSD_TYPE_TRAITS_CONJUNCTION_HPP
-#define LSD_TYPE_TRAITS_CONJUNCTION_HPP
+#ifndef LSD_TYPE_TRAITS_CONJUNCTION_H_
+#define LSD_TYPE_TRAITS_CONJUNCTION_H_
 
 #include <type_traits>
 
@@ -23,4 +23,4 @@ struct conjunction<B1, BN...> : std::conditional_t<bool(B1::value), conjunction<
 
 } // namespace lsd
 
-#endif // LSD_TYPE_TRAITS_CONJUNCTION_HPP
+#endif // LSD_TYPE_TRAITS_CONJUNCTION_H_

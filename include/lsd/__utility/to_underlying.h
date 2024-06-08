@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2024/01/02.
 //
 
-#ifndef LSD_UTILITY_TO_UNDERLYING_HPP
-#define LSD_UTILITY_TO_UNDERLYING_HPP
+#ifndef LSD_UTILITY_TO_UNDERLYING_H_
+#define LSD_UTILITY_TO_UNDERLYING_H_
 
 #include <type_traits>
 
@@ -16,4 +16,4 @@ constexpr std::underlying_type_t<Enum>& to_underlying(Enum e) noexcept {
 
 } // namespace lsd
 
-#endif // LSD_UTILITY_TO_UNDERLYING_HPP
+#endif // LSD_UTILITY_TO_UNDERLYING_H_

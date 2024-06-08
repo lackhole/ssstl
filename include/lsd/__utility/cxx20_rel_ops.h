@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/26.
 //
 
-#ifndef LSD_UTILITY_CXX20_REL_OPS_HPP_
-#define LSD_UTILITY_CXX20_REL_OPS_HPP_
+#ifndef LSD_UTILITY_CXX20_REL_OPS_H_
+#define LSD_UTILITY_CXX20_REL_OPS_H_
 
 #include <type_traits>
 
@@ -183,4 +183,4 @@ struct is_greater_equal_than_comparable : detail::is_greater_equal_than_comparab
 } // namespace rel_ops
 } // namespace lsd
 
-#endif // LSD_UTILITY_CXX20_REL_OPS_HPP_
+#endif // LSD_UTILITY_CXX20_REL_OPS_H_

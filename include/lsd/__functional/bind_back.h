@@ -1,5 +1,5 @@
-#ifndef LSD_FUNCTIONAL_BIND_BACK_HPP_
-#define LSD_FUNCTIONAL_BIND_BACK_HPP_
+#ifndef LSD_FUNCTIONAL_BIND_BACK_H_
+#define LSD_FUNCTIONAL_BIND_BACK_H_
 
 #include <cstddef>
 #include <type_traits>
@@ -60,4 +60,4 @@ constexpr auto bind_back(F&& f, Args&&... args) {
 
 } // namespace lsd
 
-#endif // LSD_FUNCTIONAL_BIND_BACK_HPP_
+#endif // LSD_FUNCTIONAL_BIND_BACK_H_

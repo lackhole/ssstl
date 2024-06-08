@@ -2,8 +2,8 @@
 // Created by yonggyulee on 1/26/24.
 //
 
-#ifndef LSD_ALGORITHM_RANGES_ALL_OF_HPP
-#define LSD_ALGORITHM_RANGES_ALL_OF_HPP
+#ifndef LSD_ALGORITHM_RANGES_ALL_OF_H_
+#define LSD_ALGORITHM_RANGES_ALL_OF_H_
 
 #include <functional>
 #include <type_traits>
@@ -43,4 +43,4 @@ LSD_INLINE_OR_STATIC constexpr detail::all_of_niebloid all_of{};
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_ALGORITHM_RANGES_ALL_OF_HPP
+#endif // LSD_ALGORITHM_RANGES_ALL_OF_H_

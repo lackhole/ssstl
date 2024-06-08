@@ -2,8 +2,8 @@
 // Created by cosge on 2023-12-29.
 //
 
-#ifndef LSD_TYPE_TRAITS_IS_INITIALIZER_LIST_HPP
-#define LSD_TYPE_TRAITS_IS_INITIALIZER_LIST_HPP
+#ifndef LSD_TYPE_TRAITS_IS_INITIALIZER_LIST_H_
+#define LSD_TYPE_TRAITS_IS_INITIALIZER_LIST_H_
 
 #include <initializer_list>
 #include <type_traits>
@@ -18,4 +18,4 @@ struct is_initializer_list : is_specialization<remove_cvref_t<T>, std::initializ
 
 } // namespace lsd
 
-#endif // LSD_TYPE_TRAITS_IS_INITIALIZER_LIST_HPP
+#endif // LSD_TYPE_TRAITS_IS_INITIALIZER_LIST_H_

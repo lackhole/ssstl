@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/30.
 //
 
-#ifndef LSD_RANGES_CONSTANT_RANGE_HPP
-#define LSD_RANGES_CONSTANT_RANGE_HPP
+#ifndef LSD_RANGES_CONSTANT_RANGE_H_
+#define LSD_RANGES_CONSTANT_RANGE_H_
 
 #include <type_traits>
 
@@ -43,4 +43,4 @@ struct constant_range : detail::constant_range_impl<T> {};
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_RANGES_CONSTANT_RANGE_HPP
+#endif // LSD_RANGES_CONSTANT_RANGE_H_

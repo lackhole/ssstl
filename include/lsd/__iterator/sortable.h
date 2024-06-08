@@ -2,8 +2,8 @@
 // Created by yonggyulee on 1/26/24.
 //
 
-#ifndef LSD_ITERATOR_SORTABLE_HPP
-#define LSD_ITERATOR_SORTABLE_HPP
+#ifndef LSD_ITERATOR_SORTABLE_H_
+#define LSD_ITERATOR_SORTABLE_H_
 
 #include <type_traits>
 
@@ -35,4 +35,4 @@ struct sortable : detail::sortable_impl<I, Comp, Proj> {};
 
 } // namespace lsd
 
-#endif // LSD_ITERATOR_SORTABLE_HPP
+#endif // LSD_ITERATOR_SORTABLE_H_

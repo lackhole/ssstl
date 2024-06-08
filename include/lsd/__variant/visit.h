@@ -2,8 +2,8 @@
 // Created by yonggyulee on 1/31/24.
 //
 
-#ifndef LSD_VARIANT_VISIT_HPP
-#define LSD_VARIANT_VISIT_HPP
+#ifndef LSD_VARIANT_VISIT_H_
+#define LSD_VARIANT_VISIT_H_
 
 #include <tuple>
 #include <type_traits>
@@ -121,4 +121,4 @@ constexpr R visit_single(Visitor&& vis, Variant&& var) {
 
 } // namespace lsd
 
-#endif // LSD_VARIANT_VISIT_HPP
+#endif // LSD_VARIANT_VISIT_H_

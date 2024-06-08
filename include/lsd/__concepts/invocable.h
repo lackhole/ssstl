@@ -2,8 +2,8 @@
 // Created by cosge on 2023-12-27.
 //
 
-#ifndef LSD_CONCEPTS_INVOCABLE_HPP
-#define LSD_CONCEPTS_INVOCABLE_HPP
+#ifndef LSD_CONCEPTS_INVOCABLE_H_
+#define LSD_CONCEPTS_INVOCABLE_H_
 
 #include <cstddef>
 #include <type_traits>
@@ -45,4 +45,4 @@ struct regular_invocable : invocable<F, Args...> {};
 
 } // namespace lsd
 
-#endif // LSD_CONCEPTS_INVOCABLE_HPP
+#endif // LSD_CONCEPTS_INVOCABLE_H_

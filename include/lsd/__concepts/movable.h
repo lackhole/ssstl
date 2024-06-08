@@ -2,8 +2,8 @@
 // Created by cosge on 2023-12-02.
 //
 
-#ifndef LSD_CONCEPTS_MOVABLE_HPP_
-#define LSD_CONCEPTS_MOVABLE_HPP_
+#ifndef LSD_CONCEPTS_MOVABLE_H_
+#define LSD_CONCEPTS_MOVABLE_H_
 
 #include <type_traits>
 
@@ -36,4 +36,4 @@ struct movable : detail::movable_impl<T> {};
 
 } // namespace lsd
 
-#endif // LSD_CONCEPTS_MOVABLE_HPP_
+#endif // LSD_CONCEPTS_MOVABLE_H_

@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 3/25/24.
 //
 
-#ifndef LSD_RANGES_RANGE_ADAPTOR_HPP_
-#define LSD_RANGES_RANGE_ADAPTOR_HPP_
+#ifndef LSD_RANGES_RANGE_ADAPTOR_H_
+#define LSD_RANGES_RANGE_ADAPTOR_H_
 
 #include <tuple>
 #include <type_traits>
@@ -64,4 +64,4 @@ class range_adaptor : public range_adaptor_closure<range_adaptor<Niebloid, Args.
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_RANGES_RANGE_ADAPTOR_HPP_
+#endif // LSD_RANGES_RANGE_ADAPTOR_H_

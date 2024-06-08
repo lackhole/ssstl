@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/24.
 //
 
-#ifndef LSD_ITERATOR_SENTINEL_FOR_HPP_
-#define LSD_ITERATOR_SENTINEL_FOR_HPP_
+#ifndef LSD_ITERATOR_SENTINEL_FOR_H_
+#define LSD_ITERATOR_SENTINEL_FOR_H_
 
 #include "lsd/__concepts/semiregular.h"
 #include "lsd/__concepts/weakly_equality_comparable_with.h"
@@ -22,4 +22,4 @@ struct sentinel_for
 
 } // namespace lsd
 
-#endif // LSD_ITERATOR_SENTINEL_FOR_HPP_
+#endif // LSD_ITERATOR_SENTINEL_FOR_H_

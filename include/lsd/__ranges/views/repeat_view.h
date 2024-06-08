@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2024/01/28.
 //
 
-#ifndef LSD_RANGES_VIEWS_REPEAT_VIEW_HPP
-#define LSD_RANGES_VIEWS_REPEAT_VIEW_HPP
+#ifndef LSD_RANGES_VIEWS_REPEAT_VIEW_H_
+#define LSD_RANGES_VIEWS_REPEAT_VIEW_H_
 
 #include <cassert>
 #include <cstdint>
@@ -212,4 +212,4 @@ repeat_view(W, Bound) -> repeat_view<W, Bound>;
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_RANGES_VIEWS_REPEAT_VIEW_HPP
+#endif // LSD_RANGES_VIEWS_REPEAT_VIEW_H_

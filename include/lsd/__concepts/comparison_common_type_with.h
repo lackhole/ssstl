@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/27.
 //
 
-#ifndef LSD_CONCEPTS_COMPARISON_COMMON_TYPE_WITH_HPP
-#define LSD_CONCEPTS_COMPARISON_COMMON_TYPE_WITH_HPP
+#ifndef LSD_CONCEPTS_COMPARISON_COMMON_TYPE_WITH_H_
+#define LSD_CONCEPTS_COMPARISON_COMMON_TYPE_WITH_H_
 
 #include "lsd/__concepts/convertible_to.h"
 #include "lsd/__concepts/same_as.h"
@@ -52,4 +52,4 @@ struct comparison_common_type_with
 
 } // namespace lsd
 
-#endif // LSD_CONCEPTS_COMPARISON_COMMON_TYPE_WITH_HPP
+#endif // LSD_CONCEPTS_COMPARISON_COMMON_TYPE_WITH_H_

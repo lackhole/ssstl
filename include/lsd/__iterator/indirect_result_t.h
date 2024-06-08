@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/29.
 //
 
-#ifndef LSD_ITERATOR_INDIRECT_RESULT_T_HPP
-#define LSD_ITERATOR_INDIRECT_RESULT_T_HPP
+#ifndef LSD_ITERATOR_INDIRECT_RESULT_T_H_
+#define LSD_ITERATOR_INDIRECT_RESULT_T_H_
 
 #include "lsd/__concepts/invocable.h"
 #include "lsd/__functional/invoke.h"
@@ -52,4 +52,4 @@ using indirect_result_t = typename indirect_result<F, Is...>::type;
 
 } // namespace lsd
 
-#endif // LSD_ITERATOR_INDIRECT_RESULT_T_HPP
+#endif // LSD_ITERATOR_INDIRECT_RESULT_T_H_

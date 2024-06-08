@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/25.
 //
 
-#ifndef LSD_CORE_HPP_
-#define LSD_CORE_HPP_
+#ifndef LSD_CORE_H_
+#define LSD_CORE_H_
 
 #include "lsd/__core/byte.h"
 #include "lsd/__core/constexpr.h"
@@ -12,4 +12,4 @@
 #include "lsd/__core/no_unique_address.h"
 #include "lsd/__core/nodiscard.h"
 
-#endif // LSD_CORE_HPP_
+#endif // LSD_CORE_H_

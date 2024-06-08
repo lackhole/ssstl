@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2024/01/02.
 //
 
-#ifndef LSD_RANGES_MOVABLE_BOX_HPP
-#define LSD_RANGES_MOVABLE_BOX_HPP
+#ifndef LSD_RANGES_MOVABLE_BOX_H_
+#define LSD_RANGES_MOVABLE_BOX_H_
 
 #include <initializer_list>
 #include <type_traits>
@@ -223,4 +223,4 @@ class movable_box : public detail::movable_box_storage_move_assign<T> {
 
 } // namespace lsd
 
-#endif // LSD_RANGES_MOVABLE_BOX_HPP
+#endif // LSD_RANGES_MOVABLE_BOX_H_

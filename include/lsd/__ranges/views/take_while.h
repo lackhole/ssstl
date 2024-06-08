@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 3/27/24.
 //
 
-#ifndef LSD_RANGES_VIEWS_TAKE_WHILE_HPP_
-#define LSD_RANGES_VIEWS_TAKE_WHILE_HPP_
+#ifndef LSD_RANGES_VIEWS_TAKE_WHILE_H_
+#define LSD_RANGES_VIEWS_TAKE_WHILE_H_
 
 #include <type_traits>
 
@@ -51,4 +51,4 @@ LSD_INLINE_OR_STATIC constexpr detail::take_while_niebloid take_while{};
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_RANGES_VIEWS_TAKE_WHILE_HPP_
+#endif // LSD_RANGES_VIEWS_TAKE_WHILE_H_

@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 4/15/24.
 //
 
-#ifndef LSD_ALGORITHM_RANGES_POP_HEAP_HPP_
-#define LSD_ALGORITHM_RANGES_POP_HEAP_HPP_
+#ifndef LSD_ALGORITHM_RANGES_POP_HEAP_H_
+#define LSD_ALGORITHM_RANGES_POP_HEAP_H_
 
 #include <algorithm>
 #include <type_traits>
@@ -63,4 +63,4 @@ LSD_INLINE_OR_STATIC constexpr detail::pop_heap_niebloid pop_heap{};
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_ALGORITHM_RANGES_POP_HEAP_HPP_
+#endif // LSD_ALGORITHM_RANGES_POP_HEAP_H_

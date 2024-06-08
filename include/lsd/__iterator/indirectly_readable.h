@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/24.
 //
 
-#ifndef LSD_ITERATOR_INDIRECTLY_READABLE_HPP_
-#define LSD_ITERATOR_INDIRECTLY_READABLE_HPP_
+#ifndef LSD_ITERATOR_INDIRECTLY_READABLE_H_
+#define LSD_ITERATOR_INDIRECTLY_READABLE_H_
 
 #include <type_traits>
 
@@ -57,4 +57,4 @@ struct indirectly_readable : detail::indirectly_readable_requires<remove_cvref_t
 
 } // namespace lsd
 
-#endif // LSD_ITERATOR_INDIRECTLY_READABLE_HPP_
+#endif // LSD_ITERATOR_INDIRECTLY_READABLE_H_

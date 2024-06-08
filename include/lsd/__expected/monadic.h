@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 3/28/24.
 //
 
-#ifndef LSD_EXPECTED_MONADIC_HPP_
-#define LSD_EXPECTED_MONADIC_HPP_
+#ifndef LSD_EXPECTED_MONADIC_H_
+#define LSD_EXPECTED_MONADIC_H_
 
 #include <type_traits>
 #include <utility>
@@ -227,4 +227,4 @@ class expected_transform_error_t<Expected<T, E>> {
 } // namespace detail
 } // namespace lsd
 
-#endif // LSD_EXPECTED_MONADIC_HPP_
+#endif // LSD_EXPECTED_MONADIC_H_

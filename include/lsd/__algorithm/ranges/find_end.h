@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 4/12/24.
 //
 
-#ifndef LSD_ALGORITHM_RANGES_FIND_END_HPP_
-#define LSD_ALGORITHM_RANGES_FIND_END_HPP_
+#ifndef LSD_ALGORITHM_RANGES_FIND_END_H_
+#define LSD_ALGORITHM_RANGES_FIND_END_H_
 
 #include <iterator>
 #include <type_traits>
@@ -74,4 +74,4 @@ LSD_INLINE_OR_STATIC constexpr detail::find_end_niebloid find_end{};
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_ALGORITHM_RANGES_FIND_END_HPP_
+#endif // LSD_ALGORITHM_RANGES_FIND_END_H_

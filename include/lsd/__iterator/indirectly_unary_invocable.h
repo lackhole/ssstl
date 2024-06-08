@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/29.
 //
 
-#ifndef LSD_ITERATOR_INDIRECT_UNARY_INVOCABLE_HPP
-#define LSD_ITERATOR_INDIRECT_UNARY_INVOCABLE_HPP
+#ifndef LSD_ITERATOR_INDIRECT_UNARY_INVOCABLE_H_
+#define LSD_ITERATOR_INDIRECT_UNARY_INVOCABLE_H_
 
 #include <type_traits>
 
@@ -60,4 +60,4 @@ struct indirectly_unary_invocable : detail::indirectly_unary_invocable_impl_1<F,
 
 } // namespace lsd
 
-#endif // LSD_ITERATOR_INDIRECT_UNARY_INVOCABLE_HPP
+#endif // LSD_ITERATOR_INDIRECT_UNARY_INVOCABLE_H_

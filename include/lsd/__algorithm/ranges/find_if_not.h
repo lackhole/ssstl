@@ -2,8 +2,8 @@
 // Created by yonggyulee on 1/18/24.
 //
 
-#ifndef LSD_ALGORITHM_RANGES_FIND_IF_NOT_HPP
-#define LSD_ALGORITHM_RANGES_FIND_IF_NOT_HPP
+#ifndef LSD_ALGORITHM_RANGES_FIND_IF_NOT_H_
+#define LSD_ALGORITHM_RANGES_FIND_IF_NOT_H_
 
 #include <functional>
 #include <type_traits>
@@ -50,4 +50,4 @@ LSD_INLINE_OR_STATIC constexpr detail::find_if_not_niebloid find_if_not{};
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_ALGORITHM_RANGES_FIND_IF_NOT_HPP
+#endif // LSD_ALGORITHM_RANGES_FIND_IF_NOT_H_

@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 2024/01/03.
 //
 
-#ifndef LSD_FUNCTIONAL_LESS_HPP
-#define LSD_FUNCTIONAL_LESS_HPP
+#ifndef LSD_FUNCTIONAL_LESS_H_
+#define LSD_FUNCTIONAL_LESS_H_
 
 #include <type_traits>
 #include <utility>
@@ -29,4 +29,4 @@ struct less {
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_FUNCTIONAL_LESS_HPP
+#endif // LSD_FUNCTIONAL_LESS_H_

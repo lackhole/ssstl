@@ -1,5 +1,5 @@
-#ifndef LSD_FUNCTIONAL_DETAIL_BIND_BASE_HPP_
-#define LSD_FUNCTIONAL_DETAIL_BIND_BASE_HPP_
+#ifndef LSD_FUNCTIONAL_DETAIL_BIND_BASE_H_
+#define LSD_FUNCTIONAL_DETAIL_BIND_BASE_H_
 
 #include <tuple>
 #include <utility>
@@ -73,4 +73,4 @@ class bind_object_base {
 } // namespace detail
 } // namespace lsd
 
-#endif // LSD_FUNCTIONAL_DETAIL_BIND_BASE_HPP_
+#endif // LSD_FUNCTIONAL_DETAIL_BIND_BASE_H_

@@ -2,8 +2,8 @@
 // Created by cosge on 2023-12-03.
 //
 
-#ifndef LSD_CONCEPTS_SWAPPABLE_WITH_HPP_
-#define LSD_CONCEPTS_SWAPPABLE_WITH_HPP_
+#ifndef LSD_CONCEPTS_SWAPPABLE_WITH_H_
+#define LSD_CONCEPTS_SWAPPABLE_WITH_H_
 
 #include <type_traits>
 
@@ -40,4 +40,4 @@ struct swappable_with : detail::swappable_with_impl<T, U> {};
 
 } // namespace lsd
 
-#endif // LSD_CONCEPTS_SWAPPABLE_WITH_HPP_
+#endif // LSD_CONCEPTS_SWAPPABLE_WITH_H_

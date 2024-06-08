@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2/3/24.
 //
 
-#ifndef LSD_RANGES_VIEWS_BASIC_ISTREAM_HPP
-#define LSD_RANGES_VIEWS_BASIC_ISTREAM_HPP
+#ifndef LSD_RANGES_VIEWS_BASIC_ISTREAM_H_
+#define LSD_RANGES_VIEWS_BASIC_ISTREAM_H_
 
 #include <type_traits>
 
@@ -53,4 +53,4 @@ LSD_INLINE_OR_STATIC constexpr detail::basic_istream_niebloid<T> istream{};
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_RANGES_VIEWS_BASIC_ISTREAM_HPP
+#endif // LSD_RANGES_VIEWS_BASIC_ISTREAM_H_

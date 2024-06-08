@@ -2,8 +2,8 @@
 // Created by cosge on 2023-12-02.
 //
 
-#ifndef LSD_RANGES_SENTINEL_T_HPP_
-#define LSD_RANGES_SENTINEL_T_HPP_
+#ifndef LSD_RANGES_SENTINEL_T_H_
+#define LSD_RANGES_SENTINEL_T_H_
 
 #include <type_traits>
 
@@ -28,4 +28,4 @@ using sentinel_t = typename sentinel<R>::type;
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_RANGES_SENTINEL_T_HPP_
+#endif // LSD_RANGES_SENTINEL_T_H_

@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/24.
 //
 
-#ifndef LSD_RANGES_INPUT_RANGE_HPP_
-#define LSD_RANGES_INPUT_RANGE_HPP_
+#ifndef LSD_RANGES_INPUT_RANGE_H_
+#define LSD_RANGES_INPUT_RANGE_H_
 
 #include <type_traits>
 
@@ -35,4 +35,4 @@ struct input_range : detail::input_range_impl<T> {};
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_RANGES_INPUT_RANGE_HPP_
+#endif // LSD_RANGES_INPUT_RANGE_H_

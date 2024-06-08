@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/21.
 //
 
-#ifndef LSD_CONCEPTS_SUBTRACTABLE_HPP_
-#define LSD_CONCEPTS_SUBTRACTABLE_HPP_
+#ifndef LSD_CONCEPTS_SUBTRACTABLE_H_
+#define LSD_CONCEPTS_SUBTRACTABLE_H_
 
 #include <type_traits>
 
@@ -31,4 +31,4 @@ struct subtractable : is_subtractable_impl<T> {};
 
 } // namespace lsd
 
-#endif // LSD_CONCEPTS_SUBTRACTABLE_HPP_
+#endif // LSD_CONCEPTS_SUBTRACTABLE_H_

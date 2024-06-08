@@ -2,8 +2,8 @@
 // Created by yonggyulee on 1/24/24.
 //
 
-#ifndef LSD_TYPE_TRAITS_HAS_OPERATOR_ARROW_HPP
-#define LSD_TYPE_TRAITS_HAS_OPERATOR_ARROW_HPP
+#ifndef LSD_TYPE_TRAITS_HAS_OPERATOR_ARROW_H_
+#define LSD_TYPE_TRAITS_HAS_OPERATOR_ARROW_H_
 
 #include <type_traits>
 
@@ -19,4 +19,4 @@ struct has_operator_arrow<T, void_t<decltype(std::declval<T>().operator->())>> :
 
 } // namespace lsd
 
-#endif // LSD_TYPE_TRAITS_HAS_OPERATOR_ARROW_HPP
+#endif // LSD_TYPE_TRAITS_HAS_OPERATOR_ARROW_H_

@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/10/27.
 //
 
-#ifndef LSD_TUPLE_TUPLE_LIKE_HPP
-#define LSD_TUPLE_TUPLE_LIKE_HPP
+#ifndef LSD_TUPLE_TUPLE_LIKE_H_
+#define LSD_TUPLE_TUPLE_LIKE_H_
 
 #include <array>
 #include <cstddef>
@@ -74,4 +74,4 @@ using pair_like = sized_tuple_like<T, 2>;
 
 } // namespace lsd
 
-#endif // LSD_TUPLE_TUPLE_LIKE_HPP
+#endif // LSD_TUPLE_TUPLE_LIKE_H_

@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 3/19/24.
 //
 
-#ifndef LSD_ALGORITHM_RANGES_SET_INTERSECTION_HPP_
-#define LSD_ALGORITHM_RANGES_SET_INTERSECTION_HPP_
+#ifndef LSD_ALGORITHM_RANGES_SET_INTERSECTION_H_
+#define LSD_ALGORITHM_RANGES_SET_INTERSECTION_H_
 
 #include <utility>
 
@@ -101,4 +101,4 @@ LSD_INLINE_OR_STATIC constexpr detail::set_intersection_niebloid set_intersectio
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_ALGORITHM_RANGES_SET_INTERSECTION_HPP_
+#endif // LSD_ALGORITHM_RANGES_SET_INTERSECTION_H_

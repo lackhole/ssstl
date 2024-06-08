@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2024/01/03.
 //
 
-#ifndef LSD_RANGES_VIEWS_TAKE_HPP
-#define LSD_RANGES_VIEWS_TAKE_HPP
+#ifndef LSD_RANGES_VIEWS_TAKE_H_
+#define LSD_RANGES_VIEWS_TAKE_H_
 
 #include <algorithm>
 #include <cstddef>
@@ -177,4 +177,4 @@ LSD_INLINE_OR_STATIC constexpr detail::take_niebloid take{};
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_RANGES_VIEWS_TAKE_HPP
+#endif // LSD_RANGES_VIEWS_TAKE_H_

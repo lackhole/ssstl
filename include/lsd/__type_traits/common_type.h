@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/10/27.
 //
 
-#ifndef LSD_TYPE_TRAITS_COMMON_TYPE_HPP
-#define LSD_TYPE_TRAITS_COMMON_TYPE_HPP
+#ifndef LSD_TYPE_TRAITS_COMMON_TYPE_H_
+#define LSD_TYPE_TRAITS_COMMON_TYPE_H_
 
 #include <chrono>
 #include <type_traits>
@@ -172,4 +172,4 @@ struct common_type<std::chrono::time_point<Clock, Duration1>, std::chrono::time_
 
 } // namespace lsd
 
-#endif // LSD_TYPE_TRAITS_COMMON_TYPE_HPP
+#endif // LSD_TYPE_TRAITS_COMMON_TYPE_H_

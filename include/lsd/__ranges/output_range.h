@@ -2,8 +2,8 @@
 // Created by YongGyu Lee on 3/27/24.
 //
 
-#ifndef LSD_RANGES_OUTPUT_RANGE_HPP_
-#define LSD_RANGES_OUTPUT_RANGE_HPP_
+#ifndef LSD_RANGES_OUTPUT_RANGE_H_
+#define LSD_RANGES_OUTPUT_RANGE_H_
 
 #include "lsd/__ranges/iterator_t.h"
 #include "lsd/__iterator/output_iterator.h"
@@ -28,4 +28,4 @@ struct output_range : detail::output_range_impl<R, T> {};
 } // namespace ranges
 } // namespace lsd
 
-#endif // LSD_RANGES_OUTPUT_RANGE_HPP_
+#endif // LSD_RANGES_OUTPUT_RANGE_H_
