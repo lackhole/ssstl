@@ -8,7 +8,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__concepts/swappable_with.h"
 #include "lsd/__iterator/detail/iter_exchange_move.h"
 #include "lsd/__iterator/indirectly_movable_storable.h"
@@ -82,7 +82,7 @@ struct iter_swap_niebloid {
 
 namespace niebloid {
 
-LSD_INLINE_OR_STATIC constexpr detail_iter_swap::iter_swap_niebloid iter_swap{};
+LSD_INLINE_VARIABLE constexpr detail_iter_swap::iter_swap_niebloid iter_swap{};
 
 } // namespace niebloid
 using namespace niebloid;

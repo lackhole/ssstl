@@ -34,7 +34,7 @@ struct drop_while_niebloid {
 
 } // namespace detail
 
-LSD_INLINE_OR_STATIC constexpr detail::drop_while_niebloid drop_while{};
+LSD_INLINE_VARIABLE constexpr detail::drop_while_niebloid drop_while{};
 
 } // namespace views
 } // namespace ranges

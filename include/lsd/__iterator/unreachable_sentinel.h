@@ -5,7 +5,7 @@
 #ifndef LSD_ITERATOR_UNREACHABLE_SENTINEL_H_
 #define LSD_ITERATOR_UNREACHABLE_SENTINEL_H_
 
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__iterator/weakly_incrementable.h"
 
 namespace lsd {
@@ -18,7 +18,7 @@ struct unreachable_sentinel_t {
   }
 };
 
-LSD_INLINE_OR_STATIC constexpr unreachable_sentinel_t unreachable_sentinel{};
+LSD_INLINE_VARIABLE constexpr unreachable_sentinel_t unreachable_sentinel{};
 
 } // namespace lsd
 

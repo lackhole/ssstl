@@ -16,7 +16,7 @@ using keys_view = elements_view<R, 0>;
 
 namespace views {
 
-LSD_INLINE_OR_STATIC constexpr detail::elements_adaptor_object<0> keys{};
+LSD_INLINE_VARIABLE constexpr detail::elements_adaptor_object<0> keys{};
 
 } // namespace views
 

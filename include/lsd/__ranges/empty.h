@@ -7,7 +7,7 @@
 
 #include <type_traits>
 
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__iterator/forward_iterator.h"
 #include "lsd/__ranges/begin.h"
 #include "lsd/__ranges/end.h"
@@ -104,7 +104,7 @@ struct empty_niebloid {
 
 namespace niebloid {
 
-LSD_INLINE_OR_STATIC constexpr detail::empty_niebloid empty{};
+LSD_INLINE_VARIABLE constexpr detail::empty_niebloid empty{};
 
 } // namespace niebloid
 using namespace niebloid;

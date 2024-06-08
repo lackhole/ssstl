@@ -9,7 +9,7 @@
 #include <ranges>
 #endif
 
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 
 
 namespace lsd {
@@ -23,7 +23,7 @@ struct from_range_t {
 };
 #endif
 
-LSD_INLINE_OR_STATIC constexpr from_range_t from_range{};
+LSD_INLINE_VARIABLE constexpr from_range_t from_range{};
 
 } // namespace ranges
 } // namespace lsd

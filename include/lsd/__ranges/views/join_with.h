@@ -125,7 +125,7 @@ struct join_with_niebloid {
 
 } // namespace detail
 
-LSD_INLINE_OR_STATIC constexpr detail::join_with_niebloid join_with{};
+LSD_INLINE_VARIABLE constexpr detail::join_with_niebloid join_with{};
 
 } // namespace views
 } // namespace ranges

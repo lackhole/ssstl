@@ -10,7 +10,7 @@
 
 #include "lsd/__algorithm/ranges/detail/check_input.h"
 #include "lsd/__algorithm/ranges/find_if.h"
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__functional/identity.h"
 #include "lsd/__iterator/indirect_unary_predicate.h"
 #include "lsd/__ranges/begin.h"
@@ -38,7 +38,7 @@ struct none_of_niebloid {
 
 } // namespace detail
 
-LSD_INLINE_OR_STATIC constexpr detail::none_of_niebloid none_of{};
+LSD_INLINE_VARIABLE constexpr detail::none_of_niebloid none_of{};
 
 } // namespace ranges
 } // namespace lsd

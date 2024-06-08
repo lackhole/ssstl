@@ -9,7 +9,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__ranges/range_adaptor_closure.h"
 #include "lsd/__ranges/subrange.h"
 #include "lsd/__ranges/viewable_range.h"
@@ -68,7 +68,7 @@ class reverse_adaptor_object : public range_adaptor_closure<reverse_adaptor_obje
 
 } // namespace detail
 
-LSD_INLINE_OR_STATIC constexpr detail::reverse_adaptor_object reverse{};
+LSD_INLINE_VARIABLE constexpr detail::reverse_adaptor_object reverse{};
 
 } // namespace views
 } // namespace ranges

@@ -9,7 +9,7 @@
 #include <type_traits>
 
 #include "lsd/__algorithm/ranges/detail/check_input.h"
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__functional/equal_to.h"
 #include "lsd/__functional/identity.h"
 #include "lsd/__functional/invoke.h"
@@ -48,7 +48,7 @@ struct find_niebloid {
 
 } // namespace detail
 
-LSD_INLINE_OR_STATIC constexpr detail::find_niebloid find{};
+LSD_INLINE_VARIABLE constexpr detail::find_niebloid find{};
 
 } // namespace ranges
 } // namespace lsd

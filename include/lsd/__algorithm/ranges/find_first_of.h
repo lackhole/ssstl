@@ -8,7 +8,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__iterator/indirectly_comparable.h"
 #include "lsd/__iterator/input_iterator.h"
 #include "lsd/__iterator/sentinel_for.h"
@@ -63,7 +63,7 @@ struct find_first_of_niebloid {
 
 } // namespace detail
 
-LSD_INLINE_OR_STATIC constexpr detail::find_first_of_niebloid find_first_of{};
+LSD_INLINE_VARIABLE constexpr detail::find_first_of_niebloid find_first_of{};
 
 } // namespace ranges
 } // namespace lsd

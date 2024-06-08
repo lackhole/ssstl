@@ -8,7 +8,7 @@
 #include <tuple>
 #include <type_traits>
 
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__ranges/viewable_range.h"
 #include "lsd/__ranges/views/all.h"
 #include "lsd/__ranges/views/cartesian_product_view.h"
@@ -36,7 +36,7 @@ struct cartesian_product_niebloid {
 
 } // namespace detail
 
-LSD_INLINE_OR_STATIC constexpr detail::cartesian_product_niebloid cartesian_product{};
+LSD_INLINE_VARIABLE constexpr detail::cartesian_product_niebloid cartesian_product{};
 
 } // namespace views
 } // namespace ranges

@@ -28,7 +28,7 @@ class join_adaptor_object : public range_adaptor_closure<join_adaptor_object> {
 
 } // namespace detail
 
-LSD_INLINE_OR_STATIC constexpr detail::join_adaptor_object join{};
+LSD_INLINE_VARIABLE constexpr detail::join_adaptor_object join{};
 
 } // namespace views
 } // namespace ranges

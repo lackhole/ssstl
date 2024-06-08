@@ -8,7 +8,7 @@
 #include <functional>
 #include <initializer_list>
 
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__algorithm/ranges/max_element.h"
 #include "lsd/__concepts/copyable.h"
 #include "lsd/__functional/identity.h"
@@ -89,7 +89,7 @@ struct max_niebloid {
 };
 } // namespace detail
 
-LSD_INLINE_OR_STATIC constexpr detail::max_niebloid max{};
+LSD_INLINE_VARIABLE constexpr detail::max_niebloid max{};
 
 } // namespace ranges
 } // namespace lsd

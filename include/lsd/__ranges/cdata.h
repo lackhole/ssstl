@@ -7,7 +7,7 @@
 
 #include <type_traits>
 
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__iterator/basic_const_iterator.h"
 #include "lsd/__ranges/as_const_pointer.h"
 #include "lsd/__ranges/data.h"
@@ -34,7 +34,7 @@ struct cdata_niebloid {
 
 namespace niebloid {
 
-LSD_INLINE_OR_STATIC constexpr detail::cdata_niebloid cdata{};
+LSD_INLINE_VARIABLE constexpr detail::cdata_niebloid cdata{};
 
 } // namespace niebloid
 using namespace niebloid;

@@ -8,7 +8,7 @@
 #include <cstddef>
 #include <type_traits>
 
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__iterator/input_or_output_iterator.h"
 #include "lsd/__type_traits/detail/return_category.h"
 #include "lsd/__ranges/enable_borrowed_range.h"
@@ -102,7 +102,7 @@ struct begin_niebloid {
 
 namespace niebloid {
 
-LSD_INLINE_OR_STATIC constexpr detail::begin_niebloid begin{};
+LSD_INLINE_VARIABLE constexpr detail::begin_niebloid begin{};
 
 } // namespace niebloid
 using namespace niebloid;

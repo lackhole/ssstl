@@ -9,7 +9,7 @@
 #include <tuple>
 #include <utility>
 
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__tuple/tuple_like.h"
 #include "lsd/__type_traits/conjunction.h"
 #include "lsd/__type_traits/remove_cvref.h"
@@ -30,13 +30,13 @@ struct element_niebloid {
 
 } // namespace detail
 
-LSD_INLINE_OR_STATIC constexpr detail::element_niebloid<0> key;
-LSD_INLINE_OR_STATIC constexpr detail::element_niebloid<0> first;
-LSD_INLINE_OR_STATIC constexpr detail::element_niebloid<1> value;
-LSD_INLINE_OR_STATIC constexpr detail::element_niebloid<1> second;
+LSD_INLINE_VARIABLE constexpr detail::element_niebloid<0> key;
+LSD_INLINE_VARIABLE constexpr detail::element_niebloid<0> first;
+LSD_INLINE_VARIABLE constexpr detail::element_niebloid<1> value;
+LSD_INLINE_VARIABLE constexpr detail::element_niebloid<1> second;
 
 template<std::size_t I>
-LSD_INLINE_OR_STATIC constexpr detail::element_niebloid<I> element;
+LSD_INLINE_VARIABLE constexpr detail::element_niebloid<I> element;
 
 } // namespace lsd
 

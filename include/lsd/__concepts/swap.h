@@ -79,7 +79,7 @@ struct swap_niebloid {
 
 namespace niebloid {
 
-LSD_INLINE_OR_STATIC constexpr detail_ranges_swap::swap_niebloid swap{};
+LSD_INLINE_VARIABLE constexpr detail_ranges_swap::swap_niebloid swap{};
 
 } // namespace niebloid
 using namespace niebloid;

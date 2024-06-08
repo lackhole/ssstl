@@ -8,7 +8,7 @@
 #include <functional>
 #include <initializer_list>
 
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__algorithm/ranges/min_element.h"
 #include "lsd/__concepts/copyable.h"
 #include "lsd/__functional/identity.h"
@@ -84,7 +84,7 @@ struct min_niebloid {
 };
 } // namespace detail
 
-LSD_INLINE_OR_STATIC constexpr detail::min_niebloid min{};
+LSD_INLINE_VARIABLE constexpr detail::min_niebloid min{};
 
 } // namespace ranges
 } // namespace lsd

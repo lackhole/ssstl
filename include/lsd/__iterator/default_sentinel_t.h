@@ -7,13 +7,13 @@
 
 #include <type_traits>
 
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 
 namespace lsd {
 
 struct default_sentinel_t {};
 
-LSD_INLINE_OR_STATIC constexpr default_sentinel_t default_sentinel{};
+LSD_INLINE_VARIABLE constexpr default_sentinel_t default_sentinel{};
 
 } // namespace lsd
 

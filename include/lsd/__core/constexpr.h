@@ -5,7 +5,7 @@
 #ifndef LSD_CORE_CONSTEXPR_H_
 #define LSD_CORE_CONSTEXPR_H_
 
-// TODO: Use CheckCXXSybolExists
+// TODO: Use CheckCXXSymbolExists
 #define LSD_CONSTEXPR constexpr
 
 #if __cplusplus >= 201402L

@@ -9,7 +9,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__functional/invoke.h"
 #include "lsd/__type_traits/conjunction.h"
 #include "lsd/__type_traits/is_invocable.h"
@@ -69,7 +69,7 @@ struct as_variant_niebloid {
   constexpr const variant<Ts...>&& operator()(const variant<Ts...>&& var) const noexcept { return std::move(var); }
 };
 
-LSD_INLINE_OR_STATIC constexpr as_variant_niebloid as_variant{};
+LSD_INLINE_VARIABLE constexpr as_variant_niebloid as_variant{};
 
 template<typename Variant>
 using as_variant_t = invoke_result_t<as_variant_niebloid, Variant>;

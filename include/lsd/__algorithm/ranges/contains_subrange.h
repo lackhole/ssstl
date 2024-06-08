@@ -9,7 +9,7 @@
 #include <utility>
 
 #include "lsd/__algorithm/ranges/search.h"
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__functional/equal_to.h"
 #include "lsd/__functional/identity.h"
 #include "lsd/__iterator/forward_iterator.h"
@@ -60,7 +60,7 @@ struct contains_subrange_niebloid {
 
 } // namespace detail
 
-LSD_INLINE_OR_STATIC constexpr detail::contains_subrange_niebloid contains_subrange{};
+LSD_INLINE_VARIABLE constexpr detail::contains_subrange_niebloid contains_subrange{};
 
 } // namespace ranges
 } // namespace lsd

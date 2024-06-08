@@ -9,7 +9,7 @@
 # include <type_traits>
 # include <utility>
 #
-# include "lsd/__core/inline_or_static.h"
+# include "lsd/__core/inline_variable.h"
 # include "lsd/__type_traits/conjunction.h"
 # include "lsd/__type_traits/is_swappable.h"
 
@@ -49,7 +49,7 @@ struct compressed_slot<T, index, true> : public T {
 } // namespace detail
 
 struct compressed_pair_empty_t {};
-LSD_INLINE_OR_STATIC constexpr compressed_pair_empty_t compressed_pair_empty;
+LSD_INLINE_VARIABLE constexpr compressed_pair_empty_t compressed_pair_empty;
 
 
 // An size-optimized pair using empty base optimization

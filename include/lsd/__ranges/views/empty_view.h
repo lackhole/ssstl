@@ -8,7 +8,7 @@
 #include <cstddef>
 #include <type_traits>
 
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__ranges/enable_borrowed_range.h"
 #include "lsd/__ranges/view_interface.h"
 
@@ -37,7 +37,7 @@ struct enable_borrowed_range<empty_view<T>> : std::true_type {};
 namespace views {
 
 template<typename T>
-LSD_INLINE_OR_STATIC constexpr empty_view<T> empty{};
+LSD_INLINE_VARIABLE constexpr empty_view<T> empty{};
 
 } // namespace views
 

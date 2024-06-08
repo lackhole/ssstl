@@ -10,7 +10,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__iterator/next.h"
 #include "lsd/__ranges/common_range.h"
 #include "lsd/__ranges/simple_view.h"
@@ -478,7 +478,7 @@ struct concat_niebloid {
 
 } // namespace detail
 
-constexpr LSD_INLINE_OR_STATIC detail::concat_niebloid concat{};
+constexpr LSD_INLINE_VARIABLE detail::concat_niebloid concat{};
 
 } // namespace views
 

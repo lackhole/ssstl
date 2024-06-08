@@ -7,7 +7,7 @@
 
 #include <type_traits>
 
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__core/decay_copy.h"
 #include "lsd/__iterator/contiguous_iterator.h"
 #include "lsd/__memory/to_address.h"
@@ -86,7 +86,7 @@ struct data_niebloid {
 
 namespace niebloid {
 
-LSD_INLINE_OR_STATIC constexpr detail::data_niebloid data{};
+LSD_INLINE_VARIABLE constexpr detail::data_niebloid data{};
 
 } // namespace niebloid
 using namespace niebloid;

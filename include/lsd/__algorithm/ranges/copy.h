@@ -9,7 +9,7 @@
 #include <utility>
 
 #include "lsd/__algorithm/ranges/in_out_result.h"
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__functional/identity.h"
 #include "lsd/__iterator/indirectly_copyable.h"
 #include "lsd/__iterator/input_iterator.h"
@@ -63,7 +63,7 @@ struct copy_niebloid {
 
 } // namespace detail
 
-LSD_INLINE_OR_STATIC constexpr detail::copy_niebloid copy{};
+LSD_INLINE_VARIABLE constexpr detail::copy_niebloid copy{};
 
 } // namespace ranges
 } // namespace lsd

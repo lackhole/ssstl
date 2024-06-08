@@ -8,11 +8,11 @@
 #include <cstddef>
 #include <limits>
 
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 
 namespace lsd {
 
-LSD_INLINE_OR_STATIC constexpr std::size_t dynamic_extent = (std::numeric_limits<std::size_t>::max)();
+LSD_INLINE_VARIABLE constexpr std::size_t dynamic_extent = (std::numeric_limits<std::size_t>::max)();
 
 } // namespace lsd
 

@@ -8,7 +8,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__functional/equal_to.h"
 #include "lsd/__functional/identity.h"
 #include "lsd/__functional/invoke.h"
@@ -81,7 +81,7 @@ struct search_niebloid {
 
 } // namespace detail
 
-LSD_INLINE_OR_STATIC constexpr detail::search_niebloid search{};
+LSD_INLINE_VARIABLE constexpr detail::search_niebloid search{};
 
 } // namespace ranges
 } // namespace lsd

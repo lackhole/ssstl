@@ -8,7 +8,7 @@
 #include "lsd/__core/byte.h"
 #include "lsd/__core/constexpr.h"
 #include "lsd/__core/decay_copy.h"
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__core/no_unique_address.h"
 #include "lsd/__core/nodiscard.h"
 

@@ -14,7 +14,7 @@
 #include "lsd/__concepts/convertible_to.h"
 #include "lsd/__concepts/invocable.h"
 #include "lsd/__concepts/movable.h"
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__iterator/indirectly_readable.h"
 #include "lsd/__iterator/input_iterator.h"
 #include "lsd/__iterator/iter_reference_t.h"
@@ -101,7 +101,7 @@ struct fold_left_niebloid {
 
 } // namespace detail
 
-LSD_INLINE_OR_STATIC constexpr detail::fold_left_niebloid fold_left{};
+LSD_INLINE_VARIABLE constexpr detail::fold_left_niebloid fold_left{};
 
 } // namespace ranges
 } // namespace lsd

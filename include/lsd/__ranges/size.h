@@ -7,7 +7,7 @@
 
 #include <type_traits>
 
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__core/decay_copy.h"
 #include "lsd/__iterator/sized_sentinel_for.h"
 #include "lsd/__concepts/subtractable.h"
@@ -134,7 +134,7 @@ struct size_niebloid {
 
 namespace niebloid {
 
-LSD_INLINE_OR_STATIC constexpr detail::size_niebloid size{};
+LSD_INLINE_VARIABLE constexpr detail::size_niebloid size{};
 
 } // namespace niebloid
 using namespace niebloid;

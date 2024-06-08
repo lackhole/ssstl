@@ -8,7 +8,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__concepts/constructible_from.h"
 #include "lsd/__concepts/copy_constructible.h"
 #include "lsd/__ranges/movable_box.h"
@@ -80,7 +80,7 @@ struct single_niebloid {
 
 namespace niebloid {
 
-LSD_INLINE_OR_STATIC constexpr detail::single_niebloid single{};
+LSD_INLINE_VARIABLE constexpr detail::single_niebloid single{};
 
 } // namespace niebloid
 using namespace niebloid;

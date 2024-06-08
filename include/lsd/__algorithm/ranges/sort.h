@@ -12,7 +12,7 @@
 
 #include "lsd/__algorithm/ranges/make_heap.h"
 #include "lsd/__algorithm/ranges/sort_heap.h"
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__functional/identity.h"
 #include "lsd/__functional/invoke.h"
 #include "lsd/__functional/less.h"
@@ -59,7 +59,7 @@ struct sort_niebloid {
 
 } // namespace detail
 
-LSD_INLINE_OR_STATIC constexpr detail::sort_niebloid sort{};
+LSD_INLINE_VARIABLE constexpr detail::sort_niebloid sort{};
 
 } // namespace ranges
 } // namespace lsd

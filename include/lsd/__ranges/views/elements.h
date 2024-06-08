@@ -8,7 +8,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__ranges/range_adaptor_closure.h"
 #include "lsd/__ranges/viewable_range.h"
 #include "lsd/__ranges/views/all.h"
@@ -33,7 +33,7 @@ class elements_adaptor_object : public range_adaptor_closure<elements_adaptor_ob
 } // namespace detail
 
 template<std::size_t N>
-LSD_INLINE_OR_STATIC constexpr detail::elements_adaptor_object<N> elements{};
+LSD_INLINE_VARIABLE constexpr detail::elements_adaptor_object<N> elements{};
 
 } // namespace views
 } // namespace ranges

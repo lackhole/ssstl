@@ -171,7 +171,7 @@ struct take_niebloid {
 };
 } // namespace detail
 
-LSD_INLINE_OR_STATIC constexpr detail::take_niebloid take{};
+LSD_INLINE_VARIABLE constexpr detail::take_niebloid take{};
 
 } // namespace views
 } // namespace ranges

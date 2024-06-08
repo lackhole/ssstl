@@ -8,7 +8,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__ranges/constant_range.h"
 #include "lsd/__ranges/range_adaptor_closure.h"
 #include "lsd/__ranges/ref_view.h"
@@ -112,7 +112,7 @@ struct as_const_adaptor_closure : public range_adaptor_closure<as_const_adaptor_
 
 } // namespace detail
 
-LSD_INLINE_OR_STATIC constexpr detail::as_const_adaptor_closure as_const{};
+LSD_INLINE_VARIABLE constexpr detail::as_const_adaptor_closure as_const{};
 
 } // namespace views
 } // namespace ranges

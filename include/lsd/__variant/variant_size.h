@@ -7,7 +7,7 @@
 
 #include <type_traits>
 
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 
 namespace lsd {
 
@@ -24,7 +24,7 @@ template<typename T>
 struct variant_size<const T> : std::integral_constant<std::size_t, variant_size<T>::value> {};
 
 template<typename T>
-LSD_INLINE_OR_STATIC constexpr std::size_t variant_size_v = variant_size<T>::value;
+LSD_INLINE_VARIABLE constexpr std::size_t variant_size_v = variant_size<T>::value;
 
 } // namespace lsd
 

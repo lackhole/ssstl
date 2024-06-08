@@ -11,7 +11,7 @@
 
 #else
 
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 
 #endif
 
@@ -28,7 +28,7 @@ struct unexpect_t {
   explicit unexpect_t() = default;
 };
 
-LSD_INLINE_OR_STATIC constexpr unexpect_t unexpect{};
+LSD_INLINE_VARIABLE constexpr unexpect_t unexpect{};
 
 #endif
 

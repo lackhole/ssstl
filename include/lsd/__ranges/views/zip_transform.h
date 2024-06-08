@@ -10,7 +10,7 @@
 #include "lsd/__concepts/copy_constructible.h"
 #include "lsd/__concepts/invocable.h"
 #include "lsd/__core/decay_copy.h"
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__ranges/views/zip_transform_view.h"
 #include "lsd/__ranges/range_adaptor.h"
 #include "lsd/__ranges/range_adaptor_closure.h"
@@ -52,7 +52,7 @@ struct zip_transform_niebloid {
 
 } // namespace detail
 
-LSD_INLINE_OR_STATIC constexpr detail::zip_transform_niebloid zip_transform{};
+LSD_INLINE_VARIABLE constexpr detail::zip_transform_niebloid zip_transform{};
 
 } // namespace views
 } // namespace ranges

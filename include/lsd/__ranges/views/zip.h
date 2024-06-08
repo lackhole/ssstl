@@ -9,7 +9,7 @@
 #include <type_traits>
 
 #include "lsd/__core/decay_copy.h"
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__ranges/viewable_range.h"
 #include "lsd/__ranges/views/all.h"
 #include "lsd/__ranges/views/empty_view.h"
@@ -36,7 +36,7 @@ struct zip_niebloid {
 
 } // namespace detail
 
-LSD_INLINE_OR_STATIC constexpr detail::zip_niebloid zip{};
+LSD_INLINE_VARIABLE constexpr detail::zip_niebloid zip{};
 
 } // namespace views
 } // namespace ranges

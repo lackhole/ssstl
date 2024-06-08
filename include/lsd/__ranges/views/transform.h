@@ -8,7 +8,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__concepts/copy_constructible.h"
 #include "lsd/__concepts/invocable.h"
 #include "lsd/__ranges/input_range.h"
@@ -55,7 +55,7 @@ struct transform_niebloid {
 
 } // namespace detail
 
-LSD_INLINE_OR_STATIC constexpr detail::transform_niebloid transform{};
+LSD_INLINE_VARIABLE constexpr detail::transform_niebloid transform{};
 
 } // namespace views
 } // namespace ranges

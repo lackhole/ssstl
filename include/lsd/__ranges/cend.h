@@ -7,7 +7,7 @@
 
 #include <type_traits>
 
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__iterator/basic_const_iterator.h"
 #include "lsd/__ranges/enable_borrowed_range.h"
 #include "lsd/__ranges/end.h"
@@ -32,7 +32,7 @@ struct cend_niebloid {
 
 namespace niebloid {
 
-LSD_INLINE_OR_STATIC constexpr detail::cend_niebloid cend{};
+LSD_INLINE_VARIABLE constexpr detail::cend_niebloid cend{};
 
 } // namespace niebloid
 using namespace niebloid;

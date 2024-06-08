@@ -9,7 +9,7 @@
 #include <functional>
 
 #include "lsd/__algorithm/ranges/in_in_result.h"
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__functional/equal_to.h"
 #include "lsd/__functional/identity.h"
 #include "lsd/__functional/invoke.h"
@@ -64,7 +64,7 @@ struct mismatch_niebloid {
 
 } // namespace detail
 
-LSD_INLINE_OR_STATIC constexpr detail::mismatch_niebloid mismatch{};
+LSD_INLINE_VARIABLE constexpr detail::mismatch_niebloid mismatch{};
 
 } // namespace ranges
 } // namespace lsd

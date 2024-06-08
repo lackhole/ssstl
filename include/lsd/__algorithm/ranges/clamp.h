@@ -7,7 +7,7 @@
 
 #include <utility>
 
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__functional/identity.h"
 #include "lsd/__functional/invoke.h"
 #include "lsd/__functional/less.h"
@@ -39,7 +39,7 @@ struct clamp_niebloid {
 
 } // namespace detail
 
-LSD_INLINE_OR_STATIC constexpr detail::clamp_niebloid clamp{};
+LSD_INLINE_VARIABLE constexpr detail::clamp_niebloid clamp{};
 
 } // namespace ranges
 } // namespace lsd

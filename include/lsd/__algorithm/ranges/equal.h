@@ -9,7 +9,7 @@
 #include <initializer_list>
 #include <type_traits>
 
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__core/nodiscard.h"
 #include "lsd/__iterator/indirectly_comparable.h"
 #include "lsd/__iterator/input_iterator.h"
@@ -126,7 +126,7 @@ struct equal_niebloid {
 
 } // namespace detail
 
-LSD_INLINE_OR_STATIC constexpr detail::equal_niebloid equal{};
+LSD_INLINE_VARIABLE constexpr detail::equal_niebloid equal{};
 
 } // namespace ranges
 } // namespace lsd

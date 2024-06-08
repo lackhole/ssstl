@@ -7,7 +7,7 @@
 
 #include <type_traits>
 
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__ranges/range_adaptor.h"
 #include "lsd/__ranges/range_adaptor_closure.h"
 #include "lsd/__ranges/views/filter_view.h"
@@ -35,7 +35,7 @@ struct filter_niebloid {
 
 } // namespace detail
 
-LSD_INLINE_OR_STATIC constexpr detail::filter_niebloid filter{};
+LSD_INLINE_VARIABLE constexpr detail::filter_niebloid filter{};
 
 } // namespace views
 } // namespace ranges

@@ -7,7 +7,7 @@
 
 #include <type_traits>
 
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__ranges/common_range.h"
 #include "lsd/__ranges/range_adaptor_closure.h"
 #include "lsd/__ranges/viewable_range.h"
@@ -41,7 +41,7 @@ struct common_adaptor_object : range_adaptor_closure<common_adaptor_object> {
 
 } // namespace detail
 
-LSD_INLINE_OR_STATIC constexpr detail::common_adaptor_object common{};
+LSD_INLINE_VARIABLE constexpr detail::common_adaptor_object common{};
 
 } // namespace views
 } // namespace ranges

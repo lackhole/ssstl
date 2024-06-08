@@ -7,7 +7,7 @@
 
 #include <type_traits>
 
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 
 namespace lsd {
 
@@ -17,7 +17,7 @@ struct nontype_t {
 };
 
 template<typename T>
-LSD_INLINE_OR_STATIC constexpr nontype_t<T> nontype{};
+LSD_INLINE_VARIABLE constexpr nontype_t<T> nontype{};
 
 } // namespace lsd
 

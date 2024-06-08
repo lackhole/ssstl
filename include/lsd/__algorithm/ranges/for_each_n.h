@@ -9,7 +9,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__algorithm/ranges/in_fun_result.h"
 #include "lsd/__functional/identity.h"
 #include "lsd/__functional/invoke.h"
@@ -50,7 +50,7 @@ struct for_each_n_niebloid {
 
 } // namespace detail
 
-LSD_INLINE_OR_STATIC constexpr detail::for_each_n_niebloid for_each_n{};
+LSD_INLINE_VARIABLE constexpr detail::for_each_n_niebloid for_each_n{};
 
 } // namespace ranges
 } // namespace lsd

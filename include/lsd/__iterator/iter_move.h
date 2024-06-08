@@ -9,7 +9,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__concepts/dereferenceable.h"
 #include "lsd/__type_traits/detail/return_category.h"
 #include "lsd/__type_traits/is_class_or_enum.h"
@@ -79,7 +79,7 @@ struct iter_move_niebloid {
 
 namespace niebloid {
 
-LSD_INLINE_OR_STATIC constexpr detail_iter_move::iter_move_niebloid iter_move{};
+LSD_INLINE_VARIABLE constexpr detail_iter_move::iter_move_niebloid iter_move{};
 
 } // namespace niebloid
 using namespace niebloid;

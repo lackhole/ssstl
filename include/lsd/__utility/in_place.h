@@ -10,7 +10,7 @@
 # include <utility>
 #endif
 #
-# include "lsd/__core/inline_or_static.h"
+# include "lsd/__core/inline_variable.h"
 
 namespace lsd {
 #if __cplusplus < 201703L
@@ -37,13 +37,13 @@ template<std::size_t I> using in_place_index_t = std::in_place_index_t<I>;
 
 #endif
 
-LSD_INLINE_OR_STATIC constexpr in_place_t in_place{};
+LSD_INLINE_VARIABLE constexpr in_place_t in_place{};
 
 template<typename T>
-LSD_INLINE_OR_STATIC constexpr in_place_type_t<T> in_place_type{};
+LSD_INLINE_VARIABLE constexpr in_place_type_t<T> in_place_type{};
 
 template<std::size_t I>
-LSD_INLINE_OR_STATIC constexpr in_place_index_t<I> in_place_index{};
+LSD_INLINE_VARIABLE constexpr in_place_index_t<I> in_place_index{};
 
 } // namespace lsd
 

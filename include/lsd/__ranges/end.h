@@ -8,7 +8,7 @@
 #include <cstddef>
 #include <type_traits>
 
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__iterator/sentinel_for.h"
 #include "lsd/__type_traits/detail/return_category.h"
 #include "lsd/__core/decay_copy.h"
@@ -106,7 +106,7 @@ struct end_niebloid {
 
 namespace niebloid {
 
-LSD_INLINE_OR_STATIC constexpr detail::end_niebloid end{};
+LSD_INLINE_VARIABLE constexpr detail::end_niebloid end{};
 
 } // namespace niebloid
 using namespace niebloid;

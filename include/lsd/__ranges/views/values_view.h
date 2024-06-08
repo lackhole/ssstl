@@ -16,7 +16,7 @@ using values_view = elements_view<R, 1>;
 
 namespace views {
 
-LSD_INLINE_OR_STATIC constexpr detail::elements_adaptor_object<1> values{};
+LSD_INLINE_VARIABLE constexpr detail::elements_adaptor_object<1> values{};
 
 } // namespace views
 

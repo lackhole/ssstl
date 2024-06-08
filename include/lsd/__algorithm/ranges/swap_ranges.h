@@ -9,7 +9,7 @@
 #include <utility>
 
 #include "lsd/__algorithm/ranges/in_in_result.h"
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__iterator/indirectly_swappable.h"
 #include "lsd/__iterator/input_iterator.h"
 #include "lsd/__iterator/iter_swap.h"
@@ -48,7 +48,7 @@ struct swap_ranges_niebloid {
 
 } // namespace detail
 
-LSD_INLINE_OR_STATIC constexpr detail::swap_ranges_niebloid swap_ranges{};
+LSD_INLINE_VARIABLE constexpr detail::swap_ranges_niebloid swap_ranges{};
 
 } // namespace ranges
 } // namespace lsd

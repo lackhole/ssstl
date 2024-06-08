@@ -463,7 +463,7 @@ struct iota_niebloid {
 
 } // namespace detail
 
-LSD_INLINE_OR_STATIC constexpr detail::iota_niebloid iota{};
+LSD_INLINE_VARIABLE constexpr detail::iota_niebloid iota{};
 
 } // namespace views
 

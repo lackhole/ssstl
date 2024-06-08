@@ -8,7 +8,7 @@
 #include <utility>
 
 #include "lsd/__algorithm/ranges/in_in_out_result.h"
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__functional/less.h"
 #include "lsd/__functional/identity.h"
 #include "lsd/__functional/invoke.h"
@@ -96,7 +96,7 @@ struct set_intersection_niebloid {
 
 } // namespace detail
 
-LSD_INLINE_OR_STATIC constexpr detail::set_intersection_niebloid set_intersection{};
+LSD_INLINE_VARIABLE constexpr detail::set_intersection_niebloid set_intersection{};
 
 } // namespace ranges
 } // namespace lsd

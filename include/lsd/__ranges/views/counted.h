@@ -9,7 +9,7 @@
 #include <type_traits>
 
 #include "lsd/__concepts/convertible_to.h"
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__iterator/contiguous_iterator.h"
 #include "lsd/__iterator/counted_iterator.h"
 #include "lsd/__iterator/default_sentinel_t.h"
@@ -83,7 +83,7 @@ struct counted_niebloid {
 
 } // namespace detail
 
-LSD_INLINE_OR_STATIC constexpr detail::counted_niebloid counted{};
+LSD_INLINE_VARIABLE constexpr detail::counted_niebloid counted{};
 
 } // namespace views
 } // namespace ranges

@@ -10,7 +10,7 @@
 
 #include "split_view.h"
 #include "lsd/__concepts/different_from.h"
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__ranges/movable_box.h"
 #include "lsd/__ranges/range_adaptor_closure.h"
 #include "lsd/__ranges/range_value_t.h"
@@ -79,7 +79,7 @@ struct split_niebloid {
 
 } // namespace detail
 
-LSD_INLINE_OR_STATIC constexpr detail::split_niebloid split{};
+LSD_INLINE_VARIABLE constexpr detail::split_niebloid split{};
 
 } // namespace views
 } // namespace ranges

@@ -9,7 +9,7 @@
 #include <type_traits>
 
 #include "lsd/__core/decay_copy.h"
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__iterator/bidirectional_iterator.h"
 #include "lsd/__iterator/sentinel_for.h"
 #include "lsd/__ranges/common_range.h"
@@ -91,7 +91,7 @@ struct rend_niebloid {
 
 namespace niebloid {
 
-LSD_INLINE_OR_STATIC constexpr detail::rend_niebloid rend{};
+LSD_INLINE_VARIABLE constexpr detail::rend_niebloid rend{};
 
 } // namespace niebloid
 using namespace niebloid;

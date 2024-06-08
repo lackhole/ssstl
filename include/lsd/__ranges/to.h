@@ -11,7 +11,7 @@
 #include <utility>
 
 #include "lsd/__algorithm/ranges/copy.h"
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__concepts/constructible_from.h"
 #include "lsd/__concepts/derived_from.h"
 #include "lsd/__concepts/same_as.h"

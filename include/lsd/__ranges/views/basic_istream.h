@@ -8,7 +8,7 @@
 #include <type_traits>
 
 #include "lsd/__concepts/derived_from.h"
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__ranges/views/basic_istream_view.h"
 #include "lsd/__type_traits/void_t.h"
 
@@ -47,7 +47,7 @@ struct basic_istream_niebloid {
 } // namespace detail
 
 template<typename T>
-LSD_INLINE_OR_STATIC constexpr detail::basic_istream_niebloid<T> istream{};
+LSD_INLINE_VARIABLE constexpr detail::basic_istream_niebloid<T> istream{};
 
 } // namespace views
 } // namespace ranges

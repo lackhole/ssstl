@@ -8,7 +8,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__ranges/owning_view.h"
 #include "lsd/__ranges/range.h"
 #include "lsd/__ranges/range_adaptor_closure.h"
@@ -69,7 +69,7 @@ class all_adaptor_closure : public range_adaptor_closure<all_adaptor_closure> {
 
 namespace niebloid {
 
-LSD_INLINE_OR_STATIC constexpr detail::all_adaptor_closure all{};
+LSD_INLINE_VARIABLE constexpr detail::all_adaptor_closure all{};
 
 } // namespace niebloid
 using namespace niebloid;

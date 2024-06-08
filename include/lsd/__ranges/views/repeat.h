@@ -11,7 +11,7 @@
 #include "lsd/__concepts/move_constructible.h"
 #include "lsd/__concepts/same_as.h"
 #include "lsd/__concepts/semiregular.h"
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__ranges/views/repeat_view.h"
 #include "lsd/__type_traits/conjunction.h"
 #include "lsd/__type_traits/disjunction.h"
@@ -49,7 +49,7 @@ struct repeat_niebloid {
 
 } // namespace detail
 
-LSD_INLINE_OR_STATIC constexpr detail::repeat_niebloid repeat{};
+LSD_INLINE_VARIABLE constexpr detail::repeat_niebloid repeat{};
 
 } // namespace views
 } // namespace ranges

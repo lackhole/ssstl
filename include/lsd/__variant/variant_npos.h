@@ -7,11 +7,11 @@
 
 #include <cstddef>
 
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 
 namespace lsd {
 
-LSD_INLINE_OR_STATIC constexpr std::size_t variant_npos = -1;
+LSD_INLINE_VARIABLE constexpr std::size_t variant_npos = -1;
 
 } // namespace lsd
 

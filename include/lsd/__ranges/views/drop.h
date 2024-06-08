@@ -172,7 +172,7 @@ struct drop_niebloid {
 
 } // namespace detail
 
-LSD_INLINE_OR_STATIC constexpr detail::drop_niebloid drop{};
+LSD_INLINE_VARIABLE constexpr detail::drop_niebloid drop{};
 
 } // namespace views
 } // namespace ranges

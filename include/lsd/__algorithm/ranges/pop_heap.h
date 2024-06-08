@@ -9,7 +9,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__functional/identity.h"
 #include "lsd/__functional/invoke.h"
 #include "lsd/__functional/less.h"
@@ -58,7 +58,7 @@ struct pop_heap_niebloid {
 
 } // namespace detail
 
-LSD_INLINE_OR_STATIC constexpr detail::pop_heap_niebloid pop_heap{};
+LSD_INLINE_VARIABLE constexpr detail::pop_heap_niebloid pop_heap{};
 
 } // namespace ranges
 } // namespace lsd

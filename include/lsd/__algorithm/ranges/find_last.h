@@ -9,7 +9,7 @@
 #include <type_traits>
 
 #include "lsd/__algorithm/ranges/detail/check_input.h"
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__iterator/forward_iterator.h"
 #include "lsd/__iterator/indirect_binary_predicate.h"
 #include "lsd/__iterator/indirect_unary_predicate.h"
@@ -126,9 +126,9 @@ struct find_last_if_not_niebloid {
 
 } // namespace detail
 
-LSD_INLINE_OR_STATIC constexpr detail::find_last_niebloid find_last{};
-LSD_INLINE_OR_STATIC constexpr detail::find_last_if_niebloid find_last_if{};
-LSD_INLINE_OR_STATIC constexpr detail::find_last_if_not_niebloid find_last_if_not{};
+LSD_INLINE_VARIABLE constexpr detail::find_last_niebloid find_last{};
+LSD_INLINE_VARIABLE constexpr detail::find_last_if_niebloid find_last_if{};
+LSD_INLINE_VARIABLE constexpr detail::find_last_if_not_niebloid find_last_if_not{};
 
 } // namespace ranges
 } // namespace lsd

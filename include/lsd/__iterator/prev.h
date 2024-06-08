@@ -7,7 +7,7 @@
 
 #include <type_traits>
 
-#include "lsd/__core/inline_or_static.h"
+#include "lsd/__core/inline_variable.h"
 #include "lsd/__iterator/bidirectional_iterator.h"
 #include "lsd/__iterator/iter_difference_t.h"
 #include "lsd/__iterator/advance.h"
@@ -44,7 +44,7 @@ struct prev_niebloid {
 
 namespace niebloid {
 
-LSD_INLINE_OR_STATIC constexpr detail::prev_niebloid prev{};
+LSD_INLINE_VARIABLE constexpr detail::prev_niebloid prev{};
 
 } // namespace niebloid
 using namespace niebloid;

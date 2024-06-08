@@ -149,7 +149,7 @@ struct advance_niebloid {
 
 namespace niebloid {
 
-LSD_INLINE_OR_STATIC constexpr detail::advance_niebloid advance{};
+LSD_INLINE_VARIABLE constexpr detail::advance_niebloid advance{};
 
 } // namespace niebloid
 using namespace niebloid;
