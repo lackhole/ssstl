@@ -14,6 +14,15 @@
 #include "lsd/__type_traits/has_typename_type.h"
 #include "lsd/__type_traits/remove_cvref.h"
 
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundefined-internal"
+
+#elif defined(_MSC_VER)
+#pragma warning( push )
+#pragma warning( disable : 5046)
+#endif
+
 namespace lsd {
 namespace detail {
 
@@ -53,5 +62,11 @@ template<typename I, typename Proj>
 using projectable = has_typename_type<detail::projected_impl<I, Proj>>;
 
 } // namespace lsd
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#elif defined(_MSC_VER)
+#pragma warning( pop )
+#endif
 
 #endif // LSD_ITERATOR_PROJECTED_H_

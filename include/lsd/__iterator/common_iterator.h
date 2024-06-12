@@ -27,7 +27,7 @@
 #include "lsd/__iterator/iter_move.h"
 #include "lsd/__iterator/iter_swap.h"
 #include "lsd/__iterator/iterator_tag.h"
-#include "lsd/__iterator/iterator_traits/cxx20_iterator_traits.h"
+#include "lsd/__iterator/iterator_traits.h"
 #include "lsd/__iterator/sentinel_for.h"
 #include "lsd/__iterator/weakly_incrementable.h"
 #include "lsd/__memory/addressof.h"
@@ -355,11 +355,11 @@ struct common_iterator_category {
 #endif
 };
 
-template<typename I, bool v = has_typename_iterator_category<cxx20_iterator_traits<I>>::value /* false */>
+template<typename I, bool v = has_typename_iterator_category<iterator_traits<I>>::value /* false */>
 struct common_iterator_category_check_forward : std::false_type {};
 template<typename I>
 struct common_iterator_category_check_forward<I, true>
-    : derived_from<typename cxx20_iterator_traits<I>::iterator_category, forward_iterator_tag> {};
+    : derived_from<typename iterator_traits<I>::iterator_category, forward_iterator_tag> {};
 
 template<typename I>
 struct common_iterator_category<I, true> {
@@ -383,7 +383,7 @@ struct common_iterator_pointer<I, S, true> {
 } // namespace detail
 
 template<typename I, typename S>
-struct cxx20_iterator_traits<common_iterator<I, S>> : detail::common_iterator_category<I> {
+struct iterator_traits<common_iterator<I, S>> : detail::common_iterator_category<I> {
   using iterator_concept = std::conditional_t<forward_iterator<I>::value, forward_iterator_tag, input_iterator_tag>;
   using value_type = iter_value_t<I>;
   using difference_type = iter_difference_t<I>;
@@ -392,12 +392,12 @@ struct cxx20_iterator_traits<common_iterator<I, S>> : detail::common_iterator_ca
 };
 
 template<typename I, typename S>
-struct detail::is_primary_iterator_traits< cxx20_iterator_traits<common_iterator<I, S>> > : std::false_type {};
+struct detail::is_specialized_iterator_traits<iterator_traits<common_iterator<I, S>> > : std::true_type {};
 
 } // namespace lsd
 
 template<typename I, typename S>
 struct std::iterator_traits<::lsd::common_iterator<I, S>>
-    : ::lsd::cxx20_iterator_traits<::lsd::common_iterator<I, S>> {};
+    : ::lsd::iterator_traits<::lsd::common_iterator<I, S>> {};
 
 #endif // LSD_ITERATOR_COMMON_ITERATOR_H_

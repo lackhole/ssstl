@@ -14,7 +14,7 @@
 #include "lsd/__concepts/derived_from.h"
 #include "lsd/__concepts/equality_comparable.h"
 #include "lsd/__iterator/iterator_tag.h"
-#include "lsd/__iterator/iterator_traits/cxx20_iterator_traits.h"
+#include "lsd/__iterator/iterator_traits.h"
 #include "lsd/__iterator/iter_move.h"
 #include "lsd/__iterator/iter_swap.h"
 #include "lsd/__memory/addressof.h"
@@ -116,9 +116,9 @@ struct join_with_view_iterator_category<Base, InnerBase, PatternBase, forward_it
     : join_with_view_iterator_concept<Base, InnerBase, PatternBase>
 {
  private:
-  using OuterC = typename cxx20_iterator_traits<iterator_t<Base>>::iterator_category;
-  using InnerC = typename cxx20_iterator_traits<iterator_t<InnerBase>>::iterator_category;
-  using PatternC = typename cxx20_iterator_traits<iterator_t<PatternBase>>::iterator_category;
+  using OuterC = typename iterator_traits<iterator_t<Base>>::iterator_category;
+  using InnerC = typename iterator_traits<iterator_t<InnerBase>>::iterator_category;
+  using PatternC = typename iterator_traits<iterator_t<PatternBase>>::iterator_category;
 
  public:
   using iterator_category =

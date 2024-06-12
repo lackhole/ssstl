@@ -18,7 +18,7 @@
 #include "lsd/__iterator/iter_swap.h"
 #include "lsd/__iterator/iter_value_t.h"
 #include "lsd/__iterator/iterator_tag.h"
-#include "lsd/__iterator/iterator_traits/cxx20_iterator_traits.h"
+#include "lsd/__iterator/iterator_traits.h"
 #include "lsd/__iterator/random_access_iterator.h"
 #include "lsd/__iterator/sized_sentinel_for.h"
 #include "lsd/__type_traits/negation.h"
@@ -33,27 +33,27 @@ struct disable_sized_sentinel_for<std::reverse_iterator<I1>, std::reverse_iterat
 #if __cplusplus < 202002L
 
 template<typename Iter>
-struct cxx20_iterator_traits<std::reverse_iterator<Iter>> {
+struct iterator_traits<std::reverse_iterator<Iter>> {
   using iterator_concept = std::conditional_t<
       random_access_iterator<Iter>::value,
       random_access_iterator_tag,
       bidirectional_iterator_tag
   >;
   using iterator_category = std::conditional_t<
-      derived_from<typename cxx20_iterator_traits<Iter>::iterator_category, random_access_iterator_tag>::value,
+      derived_from<typename iterator_traits<Iter>::iterator_category, random_access_iterator_tag>::value,
       random_access_iterator_tag,
-      typename cxx20_iterator_traits<Iter>::iterator_category
+      typename iterator_traits<Iter>::iterator_category
   >;
   using value_type = iter_value_t<Iter>;
   using difference_type = iter_difference_t<Iter>;
-  using pointer = typename cxx20_iterator_traits<Iter>::pointer;
+  using pointer = typename iterator_traits<Iter>::pointer;
   using reference = iter_reference_t<Iter>;
 };
 
 namespace detail {
 
 template<typename Iter>
-struct is_primary_iterator_traits<cxx20_iterator_traits<std::reverse_iterator<Iter>>> : std::true_type {};
+struct is_primary_iterator_traits<iterator_traits<std::reverse_iterator<Iter>>> : std::true_type {};
 
 } // namespace detail
 

@@ -43,6 +43,7 @@
 # include "lsd/__type_traits/is_swappable.h"
 # include "lsd/__type_traits/is_unbounded_array.h"
 # include "lsd/__type_traits/maybe_const.h"
+# include "lsd/__type_traits/meta.h"
 # include "lsd/__type_traits/negation.h"
 # include "lsd/__type_traits/remove_cvref.h"
 # include "lsd/__type_traits/simple_common_reference.h"

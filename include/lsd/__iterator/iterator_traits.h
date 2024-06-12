@@ -2,8 +2,8 @@
 // Created by yonggyulee on 2023/12/25.
 //
 
-#ifndef LSD_ITERATOR_ITERATOR_TRAITS_CXX20_ITERATOR_TRAITS_H_
-#define LSD_ITERATOR_ITERATOR_TRAITS_CXX20_ITERATOR_TRAITS_H_
+#ifndef LSD_ITERATOR_ITERATOR_TRAITS_H_
+#define LSD_ITERATOR_ITERATOR_TRAITS_H_
 
 #include <cstddef>
 #include <type_traits>
@@ -15,8 +15,10 @@
 #include "lsd/__iterator/iterator_traits/legacy_forward_iterator.h"
 #include "lsd/__iterator/iterator_traits/legacy_bidirectional_iterator.h"
 #include "lsd/__iterator/iterator_traits/legacy_random_access_iterator.h"
+#include "lsd/__type_traits/has_operator_arrow.h"
 #include "lsd/__type_traits/has_typename_difference_type.h"
 #include "lsd/__type_traits/has_typename_value_type.h"
+#include "lsd/__type_traits/meta.h"
 #include "lsd/__type_traits/void_t.h"
 
 namespace lsd {
@@ -43,103 +45,72 @@ struct has_typename_iterator_concept : std::false_type {};
 template<typename T>
 struct has_typename_iterator_concept<T, void_t<typename T::iterator_concept>> : std::true_type {};
 
-template<typename Iter, bool = LegacyForwardIterator<Iter>::value /* false */>
-struct cxx20_iterator_category_check_forward {
-  using type = input_iterator_tag;
-};
-
-template<typename Iter>
-struct cxx20_iterator_category_check_forward<Iter, true> {
-  using type = forward_iterator_tag;
-};
-
-template<typename Iter, bool = LegacyBidirectionalIterator<Iter>::value /* false */>
-struct cxx20_iterator_category_check_bidirectional
-    : cxx20_iterator_category_check_forward<Iter> {};
-
-template<typename Iter>
-struct cxx20_iterator_category_check_bidirectional<Iter, true> {
-  using type = bidirectional_iterator_tag;
-};
-
-template<typename Iter, bool = LegacyRandomAccessIterator<Iter>::value /* false */>
-struct cxx20_iterator_category_check_random_access
-    : cxx20_iterator_category_check_bidirectional<Iter> {};
-
-template<typename Iter>
-struct cxx20_iterator_category_check_random_access<Iter, true> {
-  using type = random_access_iterator_tag;
-};
-
 template<typename Iter, bool = has_typename_iterator_category<Iter>::value /* false */>
-struct cxx20_iterator_category : cxx20_iterator_category_check_random_access<Iter> {};
+struct iterator_traits_typename_iterator_category {
+  using type = meta::conditional_chain_t<
+      LegacyRandomAccessIterator<Iter>, random_access_iterator_tag,
+      LegacyBidirectionalIterator<Iter>, bidirectional_iterator_tag,
+      LegacyForwardIterator<Iter>, forward_iterator_tag,
+      input_iterator_tag
+  >;
+};
 
 template<typename Iter>
-struct cxx20_iterator_category<Iter, true> {
+struct iterator_traits_typename_iterator_category<Iter, true> {
   using type = typename Iter::iterator_category;
 };
 
 template<typename Iter, bool = has_typename_reference<Iter>::value /* false */>
-struct cxx20_iterator_traits_reference {
+struct iterator_traits_typename_reference {
   using type = iter_reference_t<Iter>;
 };
 template<typename Iter>
-struct cxx20_iterator_traits_reference<Iter, true> {
+struct iterator_traits_typename_reference<Iter, true> {
   using type = typename Iter::reference;
 };
 
-template<typename Iter, typename = void>
-struct cxx20_iterator_traits_pointer_sfinae {
+template<typename Iter, bool = has_operator_arrow<Iter&>::value /* false */>
+struct iterator_traits_typename_pointer_2 {
   using type = void;
 };
 template<typename Iter>
-struct cxx20_iterator_traits_pointer_sfinae<Iter, void_t<decltype( std::declval<Iter&>().operator->() )>> {
+struct iterator_traits_typename_pointer_2<Iter, true> {
   using type = decltype( std::declval<Iter&>().operator->() );
 };
 template<typename Iter, bool = has_typename_pointer<Iter>::value /* false */>
-struct cxx20_iterator_traits_pointer : cxx20_iterator_traits_pointer_sfinae<Iter> {};
+struct iterator_traits_typename_pointer : iterator_traits_typename_pointer_2<Iter> {};
 template<typename Iter>
-struct cxx20_iterator_traits_pointer<Iter, true> {
+struct iterator_traits_typename_pointer<Iter, true> {
   using type = typename Iter::pointer;
 };
 
-template<
-    typename Iter,
-    bool = has_typename_difference_type<incrementable_traits<Iter>>::value /* false */
->
-struct cxx20_iterator_traits_sfinae_legacy_iterator_difference_type {
+template<typename T, bool = has_typename_difference_type<T>::value /* false */>
+struct difference_type_or_void {
   using type = void;
 };
-template<typename Iter>
-struct cxx20_iterator_traits_sfinae_legacy_iterator_difference_type<Iter, true> {
-  using type = typename incrementable_traits<Iter>::difference_type;
+template<typename T>
+struct difference_type_or_void<T, true> {
+  using type = typename T::difference_type;
 };
 
-template<
-    typename Iter,
-    bool = LegacyIterator<Iter>::value /* false */
->
-struct cxx20_iterator_traits_sfinae_legacy_iterator {};
+struct iterator_traits_empty_typedef {};
 
 template<typename Iter>
-struct cxx20_iterator_traits_sfinae_legacy_iterator<Iter, true> {
-  using difference_type = typename cxx20_iterator_traits_sfinae_legacy_iterator_difference_type<Iter>::difference_type;
+struct iterator_traits_legacy_iterator {
+  using difference_type = typename difference_type_or_void<incrementable_traits<Iter>>::type;
   using value_type = void;
   using pointer = void;
   using reference = void;
   using iterator_category = output_iterator_tag;
 };
 
-template<typename Iter, bool = LegacyInputIterator<Iter>::value /* false */ >
-struct cxx20_iterator_traits_sfinae_legacy_input_iterator : cxx20_iterator_traits_sfinae_legacy_iterator<Iter> {};
-
 template<typename Iter>
-struct cxx20_iterator_traits_sfinae_legacy_input_iterator<Iter, true> {
+struct iterator_traits_legacy_input_iterator {
   using difference_type = typename incrementable_traits<Iter>::difference_type;
   using value_type = typename indirectly_readable_traits<Iter>::value_type;
-  using pointer = typename cxx20_iterator_traits_pointer<Iter>::type;
-  using reference = typename cxx20_iterator_traits_reference<Iter>::type;
-  using iterator_category = typename cxx20_iterator_category<Iter>::type;;
+  using pointer = typename iterator_traits_typename_pointer<Iter>::type;
+  using reference = typename iterator_traits_typename_reference<Iter>::type;
+  using iterator_category = typename iterator_traits_typename_iterator_category<Iter>::type;;
 };
 
 template<
@@ -150,19 +121,16 @@ template<
   bool = has_typename_reference<Iter>::value,
   bool = has_typename_iterator_category<Iter>::value
 >
-struct cxx20_iterator_traits_sfinae : cxx20_iterator_traits_sfinae_legacy_input_iterator<Iter> {};
+struct iterator_traits_sfinae
+    : meta::conditional_chain_t<
+        LegacyInputIterator<Iter>, iterator_traits_legacy_input_iterator<Iter>,
+        LegacyIterator<Iter>, iterator_traits_legacy_iterator<Iter>,
+        iterator_traits_empty_typedef
+      > {};
 
+// Iter does not have pointer, but has all four remaining nested types
 template<typename Iter>
-struct cxx20_iterator_traits_sfinae<Iter, true, true, true, true, true> {
-  using difference_type = typename Iter::difference_type;
-  using value_type = typename Iter::value_type;
-  using pointer = typename Iter::pointer;
-  using reference = typename Iter::reference;
-  using iterator_category = typename Iter::iterator_category;
-};
-
-template<typename Iter>
-struct cxx20_iterator_traits_sfinae<Iter, true, true, false, true, true> {
+struct iterator_traits_sfinae<Iter, true, true, false, true, true> {
   using difference_type = typename Iter::difference_type;
   using value_type = typename Iter::value_type;
   using pointer = void;
@@ -170,10 +138,22 @@ struct cxx20_iterator_traits_sfinae<Iter, true, true, false, true, true> {
   using iterator_category = typename Iter::iterator_category;
 };
 
+// All five typedefs are defined
+template<typename Iter>
+struct iterator_traits_sfinae<Iter, true, true, true, true, true> {
+  using difference_type = typename Iter::difference_type;
+  using value_type = typename Iter::value_type;
+  using pointer = typename Iter::pointer;
+  using reference = typename Iter::reference;
+  using iterator_category = typename Iter::iterator_category;
+};
+
 template<typename T, bool = std::is_object<T>::value /* false */>
-struct cxx20_iterator_traits_object_pointer {};
+struct iterator_traits_object_pointer
+    : iterator_traits_sfinae<T*> {};
+
 template<typename T>
-struct cxx20_iterator_traits_object_pointer<T, true> {
+struct iterator_traits_object_pointer<T, true> {
   using difference_type = std::ptrdiff_t;
   using value_type = std::remove_cv_t<T>;
   using pointer = T*;
@@ -185,11 +165,11 @@ struct cxx20_iterator_traits_object_pointer<T, true> {
 } // namespace detail
 
 template<typename Iter>
-struct cxx20_iterator_traits : detail::cxx20_iterator_traits_sfinae<Iter> {};
+struct iterator_traits : detail::iterator_traits_sfinae<Iter> {};
 
 template<typename T>
-struct cxx20_iterator_traits<T*> : detail::cxx20_iterator_traits_object_pointer<T> {};
+struct iterator_traits<T*> : detail::iterator_traits_object_pointer<T> {};
 
 } // namespace lsd
 
-#endif // LSD_ITERATOR_ITERATOR_TRAITS_CXX20_ITERATOR_TRAITS_H_
+#endif // LSD_ITERATOR_ITERATOR_TRAITS_H_

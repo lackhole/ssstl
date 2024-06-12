@@ -30,7 +30,7 @@
 #include "lsd/__ranges/sentinel_t.h"
 #include "lsd/__ranges/view.h"
 #include "lsd/__ranges/view_interface.h"
-#include "lsd/__iterator/iterator_traits/cxx20_iterator_traits.h"
+#include "lsd/__iterator/iterator_traits.h"
 #include "lsd/__type_traits/bool_constant.h"
 #include "lsd/__type_traits/conjunction.h"
 #include "lsd/__type_traits/is_invocable.h"
@@ -75,7 +75,7 @@ class transform_view : public view_interface<transform_view<V, F>> {
     using iterator_category =
       std::conditional_t<
         std::is_reference<invoke_result_t<F&, range_reference_t<Base>>>::value,
-          detail::transform_view_iterator_category_2<typename cxx20_iterator_traits<iterator_t<Base>>::iterator_category>,
+          detail::transform_view_iterator_category_2<typename iterator_traits<iterator_t<Base>>::iterator_category>,
           input_iterator_tag
       >;
   };

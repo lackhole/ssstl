@@ -14,7 +14,7 @@
 #include "lsd/__concepts/equality_comparable.h"
 #include "lsd/__iterator/indirectly_swappable.h"
 #include "lsd/__iterator/iterator_tag.h"
-#include "lsd/__iterator/iterator_traits/cxx20_iterator_traits.h"
+#include "lsd/__iterator/iterator_traits.h"
 #include "lsd/__iterator/iter_move.h"
 #include "lsd/__iterator/iter_swap.h"
 #include "lsd/__memory/addressof.h"
@@ -71,8 +71,8 @@ struct join_view_iterator_category {
 template<typename Base>
 struct join_view_iterator_category<Base, forward_iterator_tag> {
  private:
-  using OuterC = typename cxx20_iterator_traits<iterator_t<Base>>::iterator_category;
-  using InnerC = typename cxx20_iterator_traits<iterator_t<range_reference_t<Base>>>::iterator_category;
+  using OuterC = typename iterator_traits<iterator_t<Base>>::iterator_category;
+  using InnerC = typename iterator_traits<iterator_t<range_reference_t<Base>>>::iterator_category;
 
  public:
   using iterator_category =

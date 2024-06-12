@@ -5,15 +5,15 @@
 #ifndef LSD_ITERATOR_ITER_VAL_T_H_
 #define LSD_ITERATOR_ITER_VAL_T_H_
 
-#include "lsd/__iterator/iterator_traits/cxx20_iterator_traits.h"
+#include "lsd/__iterator/iterator_traits.h"
 #include "lsd/__type_traits/has_typename_value_type.h"
 
 namespace lsd {
 namespace detail {
 
-template<typename I, bool = has_typename_value_type< cxx20_iterator_traits<I> >::value /* true */>
+template<typename I, bool = has_typename_value_type<iterator_traits<I> >::value /* true */>
 struct iter_val_impl {
-  using type = typename cxx20_iterator_traits<I>::value_type;
+  using type = typename iterator_traits<I>::value_type;
 };
 template<typename I>
 struct iter_val_impl<I, false> {};

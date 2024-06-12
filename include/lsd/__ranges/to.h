@@ -17,7 +17,7 @@
 #include "lsd/__concepts/same_as.h"
 #include "lsd/__iterator/iter_key_t.h"
 #include "lsd/__iterator/iter_val_t.h"
-#include "lsd/__iterator/iterator_traits/cxx20_iterator_traits.h"
+#include "lsd/__iterator/iterator_traits.h"
 #include "lsd/__iterator/iterator_tag.h"
 #include "lsd/__ranges/begin.h"
 #include "lsd/__ranges/end.h"
@@ -134,7 +134,7 @@ struct ranges_to_1_a_3_impl : std::false_type {};
 template<typename C, typename R, typename... Args>
 struct ranges_to_1_a_3_impl<true, C, R, Args...>
     : conjunction<
-          derived_from<typename cxx20_iterator_traits<iterator_t<R>>::iterator_category, input_iterator_tag>,
+          derived_from<typename iterator_traits<iterator_t<R>>::iterator_category, input_iterator_tag>,
           constructible_from<C, iterator_t<R>, sentinel_t<R>, Args...>
       > {};
 
@@ -143,7 +143,7 @@ struct ranges_to_1_a_3 : std::false_type {};
 template<typename C, typename R, typename... Args>
 struct ranges_to_1_a_3<true, C, R, Args...>
     : ranges_to_1_a_3_impl<
-          lsd::detail::has_typename_iterator_category< cxx20_iterator_traits<iterator_t<R>> >::value,
+          lsd::detail::has_typename_iterator_category<iterator_traits<iterator_t<R>> >::value,
           C,
           R,
           Args...> {};

@@ -11,7 +11,7 @@
 
 #include "lsd/__concepts/value_swappable.h"
 #include "lsd/__iterator/advance.h"
-#include "lsd/__iterator/iterator_traits/cxx20_iterator_traits.h"
+#include "lsd/__iterator/iterator_traits.h"
 #include "lsd/__iterator/iterator_traits/legacy_bidirectional_iterator.h"
 #include "lsd/__iterator/iterator_traits/legacy_forward_iterator.h"
 #include "lsd/__type_traits/disjunction.h"
@@ -31,7 +31,7 @@ constexpr void move_nocheck(It first, It last, It dest) {
 
 template<typename ForwardIt>
 constexpr ForwardIt shift_left(
-    ForwardIt first, ForwardIt last, typename cxx20_iterator_traits<ForwardIt>::difference_type n)
+    ForwardIt first, ForwardIt last, typename iterator_traits<ForwardIt>::difference_type n)
 {
   static_assert(LegacyForwardIterator<ForwardIt>::value, "Constraints not satisfied");
   static_assert(disjunction<
@@ -57,7 +57,7 @@ namespace detail {
 template<typename BidiIt>
 constexpr BidiIt shift_right_impl_bidi(
     BidiIt first, BidiIt last,
-    typename cxx20_iterator_traits<BidiIt>::difference_type n,
+    typename iterator_traits<BidiIt>::difference_type n,
     std::true_type /* RandomAccessIt */)
 {
   if (n >= last - first)
@@ -72,7 +72,7 @@ constexpr BidiIt shift_right_impl_bidi(
 template<typename BidiIt>
 constexpr BidiIt shift_right_impl_bidi(
     BidiIt first, BidiIt last,
-    typename cxx20_iterator_traits<BidiIt>::difference_type n,
+    typename iterator_traits<BidiIt>::difference_type n,
     std::false_type /* RandomAccessIt */)
 {
   auto shift_last = last;
@@ -90,7 +90,7 @@ constexpr BidiIt shift_right_impl_bidi(
 template<typename BidiIt>
 constexpr BidiIt shift_right_impl(
     BidiIt first, BidiIt last,
-    typename cxx20_iterator_traits<BidiIt>::difference_type n,
+    typename iterator_traits<BidiIt>::difference_type n,
     std::true_type /* BidirectionalIt */)
 {
   return shift_right_impl_bidi(first, last, n, LegacyRandomAccessIterator<BidiIt>{});
@@ -99,7 +99,7 @@ constexpr BidiIt shift_right_impl(
 template<typename ForwardIt>
 constexpr ForwardIt shift_right_impl(
     ForwardIt first, ForwardIt last,
-    typename cxx20_iterator_traits<ForwardIt>::difference_type n,
+    typename iterator_traits<ForwardIt>::difference_type n,
     std::false_type /* BidirectionalIt */)
 {
   auto result = first;
@@ -138,7 +138,7 @@ constexpr ForwardIt shift_right_impl(
 
 template<typename ForwardIt>
 constexpr ForwardIt shift_right(
-    ForwardIt first, ForwardIt last, typename cxx20_iterator_traits<ForwardIt>::difference_type n)
+    ForwardIt first, ForwardIt last, typename iterator_traits<ForwardIt>::difference_type n)
 {
   static_assert(LegacyForwardIterator<ForwardIt>::value, "Constraints not satisfied");
   static_assert(disjunction<

@@ -21,7 +21,7 @@
 #include "lsd/__iterator/iter_move.h"
 #include "lsd/__iterator/iter_swap.h"
 #include "lsd/__iterator/iterator_tag.h"
-#include "lsd/__iterator/iterator_traits/cxx20_iterator_traits.h"
+#include "lsd/__iterator/iterator_traits.h"
 #include "lsd/__memory/addressof.h"
 #include "lsd/__ranges/bidirectional_range.h"
 #include "lsd/__ranges/common_range.h"
@@ -83,7 +83,7 @@ struct filter_view_iterator_category {
 template<typename V>
 struct filter_view_iterator_category<V, true> {
  private:
-  using C = typename cxx20_iterator_traits<iterator_t<V>>::iterator_category;
+  using C = typename iterator_traits<iterator_t<V>>::iterator_category;
 
  public:
   using iterator_category =

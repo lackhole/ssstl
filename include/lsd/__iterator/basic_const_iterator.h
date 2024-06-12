@@ -25,7 +25,7 @@
 #include "lsd/__iterator/iter_reference_t.h"
 #include "lsd/__iterator/iter_value_t.h"
 #include "lsd/__iterator/iterator_tag.h"
-#include "lsd/__iterator/iterator_traits/cxx20_iterator_traits.h"
+#include "lsd/__iterator/iterator_traits.h"
 #include "lsd/__iterator/random_access_iterator.h"
 #include "lsd/__memory/addressof.h"
 #include "lsd/__memory/to_address.h"
@@ -43,7 +43,7 @@ namespace detail {
 
 template<typename Iter, bool = forward_iterator<Iter>::value /* true */>
 struct basic_const_iterator_category {
-  using iterator_category = typename cxx20_iterator_traits<Iter>::iterator_category;
+  using iterator_category = typename iterator_traits<Iter>::iterator_category;
 };
 
 template<typename Iter>

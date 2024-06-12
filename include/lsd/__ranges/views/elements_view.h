@@ -15,7 +15,7 @@
 #include "lsd/__concepts/derived_from.h"
 #include "lsd/__concepts/move_constructible.h"
 #include "lsd/__iterator/iterator_tag.h"
-#include "lsd/__iterator/iterator_traits/cxx20_iterator_traits.h"
+#include "lsd/__iterator/iterator_traits.h"
 #include "lsd/__ranges/begin.h"
 #include "lsd/__ranges/bidirectional_range.h"
 #include "lsd/__ranges/common_range.h"
@@ -72,7 +72,7 @@ struct elements_view_iterator_category {
 template<typename Base, std::size_t N>
 struct elements_view_iterator_category<Base, N, true> {
  private:
-  using C = typename cxx20_iterator_traits<iterator_t<Base>>::iterator_category;
+  using C = typename iterator_traits<iterator_t<Base>>::iterator_category;
 
  public:
   using iterator_category =

@@ -15,14 +15,14 @@ namespace detail {
 
 template<
     typename T,
-    bool = is_primary_iterator_traits< cxx20_iterator_traits< remove_cvref_t<T> > >::value,
+    bool = is_primary_iterator_traits<iterator_traits<remove_cvref_t<T> > >::value,
     bool = has_typename_difference_type<incrementable_traits<remove_cvref_t<T>>>::value
 >
 struct iter_difference_impl {};
 
 template<typename T, bool v>
 struct iter_difference_impl<T, false, v> {
-  using type = typename cxx20_iterator_traits<remove_cvref_t<T>>::difference_type;
+  using type = typename iterator_traits<remove_cvref_t<T>>::difference_type;
 };
 
 template<typename T>

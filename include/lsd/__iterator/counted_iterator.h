@@ -15,7 +15,7 @@
 #include "lsd/__concepts/convertible_to.h"
 #include "lsd/__concepts/dereferenceable.h"
 #include "lsd/__iterator/contiguous_iterator.h"
-#include "lsd/__iterator/iterator_traits/cxx20_iterator_traits.h"
+#include "lsd/__iterator/iterator_traits.h"
 #include "lsd/__iterator/bidirectional_iterator.h"
 #include "lsd/__iterator/default_sentinel_t.h"
 #include "lsd/__iterator/forward_iterator.h"
@@ -268,11 +268,14 @@ class counted_iterator
 
 namespace detail {
 
-template<typename I, bool = is_primary_iterator_traits<cxx20_iterator_traits<I>>::value /* true */>
-struct counted_iterator_iterator_traits : cxx20_iterator_traits_sfinae<counted_iterator<I>> {};
+template<typename I, bool = conjunction<
+    input_iterator<I>,
+    is_specialized_iterator_traits<iterator_traits<I>>
+>::value /* true */>
+struct counted_iterator_iterator_traits : iterator_traits_sfinae<counted_iterator<I>> {};
 
 template<typename I>
-struct counted_iterator_iterator_traits<I, false> : cxx20_iterator_traits<I> {
+struct counted_iterator_iterator_traits<I, false> : iterator_traits<I> {
   using pointer = std::conditional_t<
       contiguous_iterator<I>::value,
       std::add_pointer_t<iter_reference_t<I>>,
@@ -281,20 +284,25 @@ struct counted_iterator_iterator_traits<I, false> : cxx20_iterator_traits<I> {
 };
 
 template<typename I>
-struct is_primary_iterator_traits<std::iterator_traits<counted_iterator<I>>>
-    : is_primary_iterator_traits<cxx20_iterator_traits<I>> {};
+struct is_specialized_iterator_traits<std::iterator_traits<counted_iterator<I>>>
+    : conjunction<
+        input_iterator<I>,
+        is_specialized_iterator_traits<iterator_traits<I>>
+    > {};
 
 template<typename I>
-struct is_primary_iterator_traits<cxx20_iterator_traits<counted_iterator<I>>>
-    : is_primary_iterator_traits<cxx20_iterator_traits<I>> {};
+struct is_specialized_iterator_traits<iterator_traits<counted_iterator<I>>>
+    : conjunction<
+        input_iterator<I>,
+        is_specialized_iterator_traits<iterator_traits<I>>
+    > {};
 
 } // namespace detail
 
-
+// specialization
 template<typename I>
-struct cxx20_iterator_traits<counted_iterator<I>> : detail::counted_iterator_iterator_traits<I> {
-  static_assert(input_iterator<I>::value, "Constraints not satisfied");
-};
+struct iterator_traits<counted_iterator<I>>
+    : detail::counted_iterator_iterator_traits<I> {};
 
 } // namespace lsd
 
@@ -302,12 +310,10 @@ struct cxx20_iterator_traits<counted_iterator<I>> : detail::counted_iterator_ite
 
 namespace std {
 
-// TODO: Use base class of std::iterator_traits<T>
-
-template<::std::input_iterator I>
+template<std::input_iterator I>
 requires(lsd::detail::is_primary_iterator_traits<I>::value == false)
 struct iterator_traits<lsd::counted_iterator<I>> : iterator_traits<I> {
-  using pointer = typename lsd::cxx20_iterator_traits<lsd::counted_iterator<I>>::pointer;
+  using pointer = typename lsd::iterator_traits<lsd::counted_iterator<I>>::pointer;
 };
 
 } // namespace std

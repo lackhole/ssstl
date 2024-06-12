@@ -18,7 +18,7 @@
 #include "lsd/__iterator/iter_rvalue_reference_t.h"
 #include "lsd/__iterator/iter_value_t.h"
 #include "lsd/__iterator/iterator_tag.h"
-#include "lsd/__iterator/iterator_traits/cxx20_iterator_traits.h"
+#include "lsd/__iterator/iterator_traits.h"
 #include "lsd/__iterator/sized_sentinel_for.h"
 #include "lsd/__iterator/move_sentinel.h"
 #include "lsd/__iterator/sentinel_for.h"
@@ -41,15 +41,15 @@ struct move_iterator_category {};
 template<typename Iter>
 struct move_iterator_category<Iter, true> {
   using iterator_category = std::conditional_t<
-      derived_from<typename cxx20_iterator_traits<Iter>::iterator_category, random_access_iterator_tag>::value, random_access_iterator_tag,
-      typename cxx20_iterator_traits<Iter>::iterator_category
+      derived_from<typename iterator_traits<Iter>::iterator_category, random_access_iterator_tag>::value, random_access_iterator_tag,
+      typename iterator_traits<Iter>::iterator_category
   >;
 };
 
 } // namespace detail
 
 template<typename Iter>
-struct cxx20_iterator_traits<std::move_iterator<Iter>>
+struct iterator_traits<std::move_iterator<Iter>>
     : detail::move_iterator_category<Iter>
 {
   using iterator_concept =

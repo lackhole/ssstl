@@ -5,7 +5,7 @@
 #ifndef LSD_ITERATOR_ITER_VALUE_T_H_
 #define LSD_ITERATOR_ITER_VALUE_T_H_
 
-#include "lsd/__iterator/iterator_traits/cxx20_iterator_traits.h"
+#include "lsd/__iterator/iterator_traits.h"
 #include "lsd/__iterator/indirectly_readable_traits.h"
 #include "lsd/__type_traits/has_typename_value_type.h"
 #include "lsd/__type_traits/remove_cvref.h"
@@ -15,14 +15,14 @@ namespace detail {
 
 template<
     typename T,
-    bool = is_primary_iterator_traits< cxx20_iterator_traits< remove_cvref_t<T> > >::value,
+    bool = is_primary_iterator_traits<iterator_traits<remove_cvref_t<T> > >::value,
     bool = has_typename_value_type<indirectly_readable_traits<remove_cvref_t<T>>>::value
 >
 struct iter_value_impl {};
 
 template<typename T, bool v>
 struct iter_value_impl<T, false, v> {
-  using type = typename cxx20_iterator_traits<remove_cvref_t<T>>::value_type;
+  using type = typename iterator_traits<remove_cvref_t<T>>::value_type;
 };
 
 template<typename T>

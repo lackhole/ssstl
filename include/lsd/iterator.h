@@ -8,7 +8,7 @@
 #include "lsd/__iterator/detail/iter_concept.h"
 
 #include "lsd/__iterator/iterator_traits/forward_declare.h"
-#include "lsd/__iterator/iterator_traits/cxx20_iterator_traits.h"
+#include "lsd/__iterator/iterator_traits.h"
 #include "lsd/__iterator/iterator_traits/legacy_bidirectional_iterator.h"
 #include "lsd/__iterator/iterator_traits/legacy_forward_iterator.h"
 #include "lsd/__iterator/iterator_traits/legacy_input_iterator.h"

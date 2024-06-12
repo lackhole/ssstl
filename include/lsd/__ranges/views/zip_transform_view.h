@@ -16,7 +16,7 @@
 #include "lsd/__concepts/move_constructible.h"
 #include "lsd/__concepts/move_constructible.h"
 #include "lsd/__iterator/iterator_tag.h"
-#include "lsd/__iterator/iterator_traits/cxx20_iterator_traits.h"
+#include "lsd/__iterator/iterator_traits.h"
 #include "lsd/__iterator/sized_sentinel_for.h"
 #include "lsd/__ranges/bidirectional_range.h"
 #include "lsd/__ranges/forward_range.h"
@@ -56,7 +56,7 @@ struct zip_transform_view_iterator_category<Const, Base, F, type_sequence<Views.
  private:
   using MF = maybe_const<Const, F>;
   template<typename View>
-  using IC = typename cxx20_iterator_traits<iterator_t< maybe_const<Const, View> >>::iterator_category;
+  using IC = typename iterator_traits<iterator_t<maybe_const<Const, View> >>::iterator_category;
 
   template<typename BaseC>
   using POT_derived_from = conjunction<derived_from<Views, BaseC>...>;
