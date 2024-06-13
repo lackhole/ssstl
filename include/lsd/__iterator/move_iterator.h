@@ -24,6 +24,7 @@
 #include "lsd/__iterator/sentinel_for.h"
 #include "lsd/__iterator/random_access_iterator.h"
 #include "lsd/__type_traits/negation.h"
+#include "lsd/__type_traits/meta.h"
 
 namespace lsd {
 
@@ -52,15 +53,12 @@ template<typename Iter>
 struct iterator_traits<std::move_iterator<Iter>>
     : detail::move_iterator_category<Iter>
 {
-  using iterator_concept =
-      std::conditional_t<
-          random_access_iterator<Iter>::value, random_access_iterator_tag,
-      std::conditional_t<
-          bidirectional_iterator<Iter>::value, bidirectional_iterator_tag,
-      std::conditional_t<
-          forward_iterator<Iter>::value, forward_iterator_tag,
-          input_iterator_tag
-      >>>;
+  using iterator_concept = meta::conditional_chain_t<
+      random_access_iterator<Iter>, random_access_iterator_tag,
+      bidirectional_iterator<Iter>, bidirectional_iterator_tag,
+      forward_iterator<Iter>, forward_iterator_tag,
+      input_iterator_tag
+  >;
   using value_type = iter_value_t<Iter>;
   using difference_type = iter_difference_t<Iter>;
   using pointer = Iter;
@@ -70,7 +68,7 @@ struct iterator_traits<std::move_iterator<Iter>>
 namespace detail {
 
 template<typename Iter>
-struct is_primary_iterator_traits<std::move_iterator<Iter>> : std::true_type {};
+struct is_specialized_iterator_traits<std::move_iterator<Iter>> : std::false_type {};
 
 } // namespace detail
 

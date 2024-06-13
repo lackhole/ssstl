@@ -53,7 +53,7 @@ struct iterator_traits<std::reverse_iterator<Iter>> {
 namespace detail {
 
 template<typename Iter>
-struct is_primary_iterator_traits<iterator_traits<std::reverse_iterator<Iter>>> : std::true_type {};
+struct is_specialized_iterator_traits<iterator_traits<std::reverse_iterator<Iter>>> : std::false_type {};
 
 } // namespace detail
 

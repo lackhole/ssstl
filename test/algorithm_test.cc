@@ -15,23 +15,6 @@
 #include "lsd/ranges.h"
 #include "lsd/utility.h"
 
-struct foo {};
-
-template<>
-struct std::iterator_traits<foo> : std::iterator_traits<std::list<int>::iterator> {
-  using __primary_template = std::iterator_traits<foo>;
-};
-
-void bar() {
-  static_assert(std::__is_primary_template<std::iterator_traits<foo>>::value);
-  static_assert(std::same_as<std::_ITER_TRAITS<foo>, std::iterator_traits<foo>>);
-
-//  std::iterator_traits<foo>::__primary_template;
-
-  using I = std::list<int>::iterator;
-  static_assert(std::same_as<std::_ITER_TRAITS<I>, std::iterator_traits<I>>);
-}
-
 namespace lsd {
 
 int Test() {
