@@ -45,7 +45,7 @@ Focusing on implementing high C++ features for low C++(i.e. You can use `ss::opt
 | [typeinfo](status/typeinfo.md)                 | ![][cpp11]![][p000] ![][cpp14]![][p000] ![][cpp17]![][p000] ![][cpp20]![][p000]                     |       |
 | [typeindex](status/typeindex.md)               | ![][cpp11]![][p000] ![][cpp14]![][p000] ![][cpp17]![][p000] ![][cpp20]![][p000]                     |       |
 | [type_traits](status/type_traits.md)           | ![][cpp11]![][p100] ![][cpp14]![][p100] ![][cpp17]![][p100] ![][cpp20]![][p064]                     |       |
-| [bitset](status/bitset.md)                     | ![][cpp11]![][p000] ![][cpp14]![][p000] ![][cpp17]![][p000] ![][cpp20]![][p000]                     |       |
+| [bitset](status/bitset.md)                     | ![][cpp11]![][p075]                                                                                 |       |
 | [functional](status/functional.md)             | ![][cpp11]![][p066] ![][cpp14]![][p100] ![][cpp17]![][p020] ![][cpp20]![][p000] ![][cpp23]![][p100] |       |
 | [utility](status/utility.md)                   | ![][cpp11]![][p100] ![][cpp14]![][p100] ![][cpp17]![][p100] ![][cpp20]![][p096]                     |       |
 | [chrono](status/chrono.md)                     | ![][cpp11]![][p000] ![][cpp14]![][p000] ![][cpp17]![][p000] ![][cpp20]![][p000]                     |       |
