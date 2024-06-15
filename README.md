@@ -1,3 +1,9 @@
+# Note
+## This repository is no longer maintained. Use [`preview`](https://github.com/lackhole/stl-preview) instead.
+https://github.com/lackhole/stl-preview
+
+-----
+
 <div align="center">
   
 # SSSTL
